@@ -1,8 +1,9 @@
+## Time
 Estimate:
 Actual:
 
-Description:
+# Description:
 
-Todo (these are examples):
+## Todo:
 - [ ] Unit Test
-- [ ] Comment public API
+- [ ] EXAMPLE CHECKBOX
