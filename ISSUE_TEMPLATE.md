@@ -1,6 +1,6 @@
 ## Time
-Estimate:
-Actual:
+Estimate: 00:00
+Actual: 00:00
 
 # Description:
 
