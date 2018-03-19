@@ -1,0 +1,23 @@
+done:
+- logging configuration
+- docker postgres
+- jpa
+- enable running tests locally
+
+open:
+- reactjs setup (seperate project or included here?)
+- spring security setup
+- maven docker plugin for prod environment
+- start creating documentation
+- NEVER create a table called user in postgres...
+- session management
+- user registration (hash salt etc. Is there nothing preimplmented?, http://www.baeldung.com/spring-security-registration-password-encoding-bcrypt)
+- example of proper logging output
+- set up let's encrypt on hsr server
+- explain what csrf tokens do: https://www.codesandnotes.be/2015/02/05/spring-securitys-csrf-protection-for-rest-services-the-client-side-and-the-server-side/
+- better client side token-handling for non-browser tokens, like in the codesandnotes link
+
+Docker commands:
+
+sudo docker-compose -f docker/docker-compose.yaml build / up
+sudo docker exec -it docker_hunter_1 bash

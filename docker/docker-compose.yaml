@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+    hunter:
+        build:
+            context: ../
+            dockerfile: docker/Dockerfile
+        ports:
+            - '8080:8080'
+            - '8443:8443'
+            - '5005:5005'
+        depends_on:
+            - db
+        environment:
+          SPRING_PROFILES_ACTIVE: dev
+
+
+    db:
+      # this will have to be a dockerfile as well, which then runs db creation
+      # and stuff like that. Secrets should be read from a file
+      image: postgres
+      restart: always
+      environment:
+          POSTGRES_PASSWORD: example
