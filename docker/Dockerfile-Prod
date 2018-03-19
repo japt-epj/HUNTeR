@@ -1,0 +1,8 @@
+# slimmer container may be possible
+# will want to test with alpine
+FROM java:9
+# use maven docker plugin for generating this
+COPY target/gs-spring-boot-0.1.0.jar /app/app.jar
+EXPOSE 8080
+EXPOSE 8443
+CMD ["java", "-jar", "/app/app.jar"]
