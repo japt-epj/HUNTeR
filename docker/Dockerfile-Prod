@@ -2,7 +2,7 @@
 # will want to test with alpine
 FROM java:9
 # use maven docker plugin for generating this
-COPY ./target/gs-spring-boot-0.1.0.jar /app/app.jar
+COPY ./target/gs-spring-boot-0.1.0.jar /app/
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8443
@@ -15,4 +15,4 @@ RUN /usr/lib/jvm/java-8-openjdk-amd64/bin/keytool -genkey -noprompt \
      -keyalg RSA \
      -keysize 2048 \
      -keypass default
-CMD ["java", "-jar", "/app/app.jar"]
+CMD ["java", "-jar", "/app/gs-spring-boot-0.1.0.jar"]
