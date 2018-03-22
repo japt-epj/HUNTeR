@@ -9,21 +9,18 @@ pipeline {
         stage('Build') {
             steps {
                 sh "./mvnw clean package -DskipTests=true"
-
             }
         }
 
         stage('Test') {
             steps {
                 sh "./mvnw test verify"
-
             }
         }
 
         stage('Docker Build') {
             steps {
                 sh "sudo docker-compose -f docker/docker-compose-prod.yaml build"
-
             }
         }
     }
@@ -36,6 +33,7 @@ pipeline {
         success {
             sh "sudo docker-compose -f docker/docker-compose-prod.yaml down --rmi all -v"
             sh "sudo docker-compose -f docker/docker-compose-prod.yaml up -d"
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
     }
 }
