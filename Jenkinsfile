@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-            mvn clean install
+            ./mvnw clean install
         }
 
     }
