@@ -3,6 +3,16 @@
 FROM java:9
 # use maven docker plugin for generating this
 COPY ./target/gs-spring-boot-0.1.0.jar /app/app.jar
+WORKDIR /app
 EXPOSE 8080
 EXPOSE 8443
+RUN /usr/lib/jvm/java-8-openjdk-amd64/bin/keytool -genkey -noprompt \
+     -alias tomcat \
+     -dname "CN=localhost, OU=ID, O=japt, C=CH" \
+     -keystore /app/keystore.p12 \
+     -storepass default \
+     -storetype PKCS12 \
+     -keyalg RSA \
+     -keysize 2048 \
+     -keypass default
 CMD ["java", "-jar", "/app/app.jar"]
