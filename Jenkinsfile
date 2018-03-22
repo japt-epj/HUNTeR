@@ -1,16 +1,21 @@
 pipeline {
     agent any
+
+    environment {
+        JAVA_HOME = "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64"
+    }
+
     stages {
         stage('Build') {
             steps {
-                sh "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ./mvnw clean package -DskipTests=true"
+                sh "./mvnw clean package -DskipTests=true"
 
             }
         }
 
         stage('Test') {
             steps {
-                sh "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ./mvnw test verify"
+                sh "./mvnw test verify"
 
             }
         }
