@@ -15,6 +15,19 @@ pipeline {
             }
         }
 
+        stage('Docker Build') {
+            steps {
+                sh "sudo docker-compose -f docker/docker-compose-prod.yaml build"
+
+            }
+        }
+
+        stage('Compose up') {
+            steps {
+                sh "sudo docker-compose -f docker/docker-compose-prod.yaml up -d"
+
+            }
+        }
     }
 
     post {

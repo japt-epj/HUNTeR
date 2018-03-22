@@ -1,1 +1,26 @@
 # I will need to map the ports to 80 and 443 respectively here
+# Actually, I can just use the reverse proxy for that
+version: '3.3'
+
+services:
+    hunter:
+        build:
+            context: ../
+            dockerfile: docker/Dockerfile
+        ports:
+            - '8080:8080'
+            - '8443:8443'
+        depends_on:
+            - db
+        environment:
+          SPRING_PROFILES_ACTIVE: dev
+        restart: always
+
+
+    db:
+      # this will have to be a dockerfile as well, which then runs db creation
+      # and stuff like that. Secrets should be read from a file
+      image: postgres
+      restart: always
+      environment:
+          POSTGRES_PASSWORD: example
