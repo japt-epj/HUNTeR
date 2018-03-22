@@ -33,7 +33,8 @@ pipeline {
         success {
             sh "sudo docker-compose -f docker/docker-compose-prod.yaml down --rmi all -v"
             sh "sudo docker-compose -f docker/docker-compose-prod.yaml up -d"
-            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            // this is useless, we should publish the finished docker files...
+            //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
     }
 }
