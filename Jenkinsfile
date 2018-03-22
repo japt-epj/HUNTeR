@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh './mvnw clean install'
+                sh "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ./mvnw clean"
+
             }
         }
 
