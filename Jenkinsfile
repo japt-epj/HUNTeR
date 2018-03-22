@@ -21,18 +21,15 @@ pipeline {
 
             }
         }
-
-        stage('Compose up') {
-            steps {
-                sh "sudo docker-compose -f docker/docker-compose-prod.yaml up -d"
-
-            }
-        }
     }
 
     post {
         always {
             junit 'target/surefire-reports/**/*.xml'
+        }
+
+        success {
+            sh "sudo docker-compose -f docker/docker-compose-prod.yaml up -d"
         }
     }
 }

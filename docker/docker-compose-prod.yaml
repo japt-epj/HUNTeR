@@ -6,10 +6,10 @@ services:
     hunter:
         build:
             context: ../
-            dockerfile: docker/Dockerfile
+            dockerfile: docker/Dockerfile-Prod
         ports:
             - '8080:8080'
-            - '8443:8443'
+            - '443:8443'
         depends_on:
             - db
         environment:
