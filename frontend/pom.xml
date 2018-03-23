@@ -4,7 +4,7 @@
 
     <groupId>ch.japt.epj</groupId>
     <artifactId>frontend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${hunter.version}</version>
     <packaging>jar</packaging>
 
     <build>
