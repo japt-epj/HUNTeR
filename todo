@@ -5,7 +5,8 @@ done:
 - enable running tests locally
 - reactjs setup (seperate project or included here?)
 - maven docker plugin for prod environment
-- better client side token-handling for non-browser tokens, like in the codesandnotes link
+- better client side token-handling for non-browser tokens,
+  like in the codesandnotes link
 
 deferred:
 - set up let's encrypt on hsr server
@@ -15,10 +16,15 @@ open:
 - start creating documentation
 - NEVER create a table called user in postgres...
 - session management
-- user registration (hash salt etc. Is there nothing preimplmented?, http://www.baeldung.com/spring-security-registration-password-encoding-bcrypt)
+- user registration (hash salt etc. Is there nothing preimplmented?,
+  http://www.baeldung.com/spring-security-registration-password-encoding-bcrypt)
 - example of proper logging output
-- explain what csrf tokens do: https://www.codesandnotes.be/2015/02/05/spring-securitys-csrf-protection-for-rest-services-the-client-side-and-the-server-side/
+- explain what csrf tokens do:
+  https://www.codesandnotes.be/2015/02/05/spring-securitys-csrf-protection-for-rest-services-the-client-side-and-the-server-side/
 - set up webpack-dev-server for frontend development (I think that makes sense...)
+  -> alternatively, mabe just set up hot reload for react create app
+  -> https://daveceddia.com/hot-reloading-create-react-app/
+- think about / evaluate using flow for typechecking in frontend code
 
 Docker commands:
 
