@@ -3,19 +3,22 @@ done:
 - docker postgres
 - jpa
 - enable running tests locally
+- reactjs setup (seperate project or included here?)
+- maven docker plugin for prod environment
+- better client side token-handling for non-browser tokens, like in the codesandnotes link
+
+deferred:
+- set up let's encrypt on hsr server
 
 open:
-- reactjs setup (seperate project or included here?)
 - spring security setup
-- maven docker plugin for prod environment
 - start creating documentation
 - NEVER create a table called user in postgres...
 - session management
 - user registration (hash salt etc. Is there nothing preimplmented?, http://www.baeldung.com/spring-security-registration-password-encoding-bcrypt)
 - example of proper logging output
-- set up let's encrypt on hsr server
 - explain what csrf tokens do: https://www.codesandnotes.be/2015/02/05/spring-securitys-csrf-protection-for-rest-services-the-client-side-and-the-server-side/
-- better client side token-handling for non-browser tokens, like in the codesandnotes link
+- set up webpack-dev-server for frontend development (I think that makes sense...)
 
 Docker commands:
 
