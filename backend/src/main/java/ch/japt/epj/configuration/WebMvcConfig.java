@@ -1,9 +1,9 @@
 package ch.japt.epj.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.context.annotation.Profile;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
@@ -14,30 +14,27 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
 
-//        if (!registry.hasMappingForPattern("/webjars/**")) {
-//            registry
-//                    .addResourceHandler("/webjars/**")
-//                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
-//        }
-
         if (!registry.hasMappingForPattern("/app/**")) {
-            registry
-                    .addResourceHandler("/app/**")
+            registry.addResourceHandler("/app/**")
                     .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/");
         }
-
-//        if (!registry.hasMappingForPattern("/static/**")) {
-//            registry
-//                    .addResourceHandler("/static/**")
-//                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/static");
-//        }
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry
-                .addViewController("/")
-                // maybe just try a location here?
+        registry.addViewController("/")
                 .setViewName("forward:/app/index.html");
+    }
+
+    @Bean
+    @Profile("!prod")
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOrigins("*");
+            }
+        };
     }
 }
