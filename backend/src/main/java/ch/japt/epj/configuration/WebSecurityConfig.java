@@ -17,7 +17,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         String[] allowed = {
                 "/",
                 "/portfolio",
-                "/portfolio/*"
+                "/portfolio/*",
+                "/*"
         };
 
         http
