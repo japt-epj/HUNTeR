@@ -18,8 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/",
                 "/portfolio",
                 "/portfolio/*",
-                "/webjars/**/*",
-                "/*"
+                "/*",
+                "/static/**/*"
         };
 
         http
