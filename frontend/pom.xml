@@ -23,7 +23,6 @@
                         </goals>
                         <configuration>
                             <nodeVersion>v9.2.0</nodeVersion>
-                            <npmVersion>5.8.0</npmVersion>
                         </configuration>
                     </execution>
 
@@ -44,6 +43,16 @@
                         </goals>
                         <configuration>
                             <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>npm run copy</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run copy</arguments>
                         </configuration>
                     </execution>
 
