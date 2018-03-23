@@ -14,4 +14,5 @@ RUN /usr/lib/jvm/java-8-openjdk-amd64/bin/keytool -genkey -noprompt \
      -keyalg RSA \
      -keysize 2048 \
      -keypass default
-CMD [ "./mvnw", "-DskipTests=true", "clean", "install", "spring-boot:run" ]
+RUN [ "./mvnw", "-DskipTests=true", "clean", "install" ]
+CMD [ "./mvnw", "-f", "backend/pom.xml", "spring-boot:run" ]
