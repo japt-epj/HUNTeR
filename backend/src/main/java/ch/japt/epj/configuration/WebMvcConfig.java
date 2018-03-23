@@ -14,21 +14,30 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
 
-        //if (!registry.hasMappingForPattern("/webjars/**")) {
-            //registry
-                    //.addResourceHandler("/webjars/**")
-                    //.addResourceLocations("classpath:/META-INF/resources/webjars/");
-        //}
+//        if (!registry.hasMappingForPattern("/webjars/**")) {
+//            registry
+//                    .addResourceHandler("/webjars/**")
+//                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        }
 
-        if (!registry.hasMappingForPattern("/**")) {
+        if (!registry.hasMappingForPattern("/app/**")) {
             registry
-                    .addResourceHandler("/**")
+                    .addResourceHandler("/app/**")
                     .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/");
         }
+
+//        if (!registry.hasMappingForPattern("/static/**")) {
+//            registry
+//                    .addResourceHandler("/static/**")
+//                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/static");
+//        }
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/index.html");
+        registry
+                .addViewController("/")
+                // maybe just try a location here?
+                .setViewName("forward:/app/index.html");
     }
 }
