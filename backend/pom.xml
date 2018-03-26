@@ -5,7 +5,7 @@
 
     <groupId>ch.japt.epj</groupId>
     <artifactId>backend</artifactId>
-    <version>${hunter.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
