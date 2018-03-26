@@ -2,7 +2,7 @@
 # will want to test with alpine
 FROM openjdk:8-slim
 # use maven docker plugin for generating this
-COPY ./backend/target/backend-0.1.0-SNAPSHOT.jar /app/hunter.jar
+COPY ./backend/target/backend-0.0.1-SNAPSHOT.jar /app/hunter.jar
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8443
