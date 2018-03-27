@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-@Profile({"test", "prod"})
-@Configuration
+//@Profile({"test", "prod"})
+//@Configuration
 public class HttpRedirectConfig {
     @Bean
     public EmbeddedServletContainerFactory servletContainer() {
