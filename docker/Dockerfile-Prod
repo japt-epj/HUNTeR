@@ -5,14 +5,5 @@ FROM openjdk:8-slim
 COPY ./backend/target/*.jar /app/hunter.jar
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8443
-RUN /usr/lib/jvm/java-8-openjdk-amd64/bin/keytool -genkey -noprompt \
-     -alias tomcat \
-     -dname "CN=sinv-56053.edu.hsr.ch, OU=ID, O=japt, C=CH" \
-     -keystore /app/keystore.p12 \
-     -storepass default \
-     -storetype PKCS12 \
-     -keyalg RSA \
-     -keysize 2048 \
-     -keypass default
+#EXPOSE 8443
 CMD ["java", "-jar", "/app/hunter.jar"]
