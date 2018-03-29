@@ -4,6 +4,20 @@ import './App.css';
 import config from './config/config';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            random: null
+        };
+    }
+
+    componentDidMount() {
+        fetch(config.baseurl + "test").then(response => {
+            return response.json();
+        }).then(data => this.setState(data));
+
+    }
+
     render() {
         return (
             <div className="App">
@@ -16,6 +30,9 @@ class App extends Component {
                 </p>
                 <p>
                     Running against <code>{config.baseurl}</code>.
+                </p>
+                <p>
+                    API Test: {this.state.random}
                 </p>
             </div>
         );
