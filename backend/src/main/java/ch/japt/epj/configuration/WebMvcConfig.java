@@ -11,6 +11,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/public/" };
 
     @Override
+    @Profile({"standalone", "test"})
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
 
@@ -21,6 +22,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Override
+    @Profile({"standalone", "test"})
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/")
                 .setViewName("forward:/app/index.html");
