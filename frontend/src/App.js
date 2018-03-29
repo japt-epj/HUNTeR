@@ -5,7 +5,6 @@ import config from './config/config';
 
 class App extends Component {
     render() {
-        console.log(config);
         return (
             <div className="App">
                 <header className="App-header">
