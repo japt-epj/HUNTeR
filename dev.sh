@@ -15,4 +15,5 @@ fi
 
 # only start frontend if build and up worked
 cd frontend
+npm install
 npm run start
