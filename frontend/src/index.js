@@ -6,5 +6,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 console.log(process.env);
 
+if (process.env.NODE_ENV === 'development') {
+    // set docker as server
+}
+
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
