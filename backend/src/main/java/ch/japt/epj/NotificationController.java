@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Profile("dev")
 public class NotificationController {
 
     @RequestMapping("/")
-    @Profile("dev")
     public String index() {
         return "Running Local configuration. Run react separately!";
     }
