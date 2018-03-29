@@ -6,4 +6,8 @@ public class TestPayload {
     public TestPayload() {
         this.random = Math.random();
     }
+
+    public TestPayload(double random) {
+        this.random = random;
+    }
 }
