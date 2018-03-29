@@ -10,5 +10,6 @@ public class Test {
     @RequestMapping(path = "/api/test", method = RequestMethod.GET)
     public @ResponseBody TestPayload test() {
         return new TestPayload();
+//        return new TestPayload(1);
     }
 }
