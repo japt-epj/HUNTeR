@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,20 +17,39 @@ public class Task {
 
     private String name;
 
-    private List<String> questions;
+    private ArrayList<String> questions = new ArrayList<>();
+
+    private Location location;
+
+    private ArrayList<Response> responses = new ArrayList<>();
 
 
-    public Task(String name, List<String> questions) {
+    public Task(String name, List<String> questions, Location location) {
         this.name = name;
-        this.questions = questions;
+        this.location = location;
     }
 
-    public List<String> getQuestions() {
+
+    public void addResponse(Response response){
+        responses.add(response);
+    }
+
+    public void removeResponse(String response){
+        responses.remove(response);
+    }
+    public ArrayList<Response> getResponses() {
+        return responses;
+    }
+
+    public void addQuestion(String question){
+        questions.add(question);
+    }
+
+    public void removeQuestion(String question){
+        questions.remove(question);
+    }
+    public ArrayList<String> getQuestions() {
         return questions;
-    }
-
-    public void setQuestions(List<String> questions) {
-        this.questions = questions;
     }
 
     public String getName() {
@@ -38,5 +58,13 @@ public class Task {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

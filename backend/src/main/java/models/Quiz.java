@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Entity
 public class Quiz {
@@ -15,9 +16,15 @@ public class Quiz {
 
     private String name;
 
+    private ArrayList<Execution> executions = new ArrayList<>();
 
-    public Quiz(String name) {
+    private ArrayList<Task> tasks = new ArrayList<>();
+
+    private School school;
+
+    public Quiz(String name, School school) {
         this.name = name;
+        this.school = school;
     }
 
     public String getName() {
@@ -26,5 +33,29 @@ public class Quiz {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addExecution(Execution execution){
+        executions.add(execution);
+    }
+
+    public void removeExecution(Execution execution){
+        executions.remove(execution);
+    }
+
+    public void addTask(Task task){
+        tasks.add(task);
+    }
+
+    public void removeTask(Task task){
+        tasks.remove(task);
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 }

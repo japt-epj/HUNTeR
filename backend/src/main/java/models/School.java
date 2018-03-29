@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Entity
 public class School {
@@ -17,12 +18,13 @@ public class School {
 
     private String domain;
 
+    private ArrayList<Location> locations = new ArrayList<>();
+
 
     public School(String name, String domain) {
         this.name = name;
         this.domain = domain;
     }
-
 
     public String getDomain() {
         return domain;
@@ -45,4 +47,15 @@ public class School {
         return name + " " + domain;
     }
 
+    public ArrayList<Location> getLocations() {
+        return locations;
+    }
+
+    public void addLocation(Location location){
+        locations.add(location);
+    }
+
+    public void removeLocation(Location location){
+        locations.remove(location);
+    }
 }

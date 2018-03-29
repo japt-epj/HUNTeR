@@ -6,9 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Entity
-public class User {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +23,14 @@ public class User {
 
     private Email email;
 
-    protected User() {
+    private ArrayList<School> schools = new ArrayList<>();
+
+    private ArrayList<Quiz> quizes = new ArrayList<>();
+
+    protected Person() {
     }
 
-    public User(String firstName, String lastName, boolean isCreator, Email email) {
+    public Person(String firstName, String lastName, boolean isCreator, Email email) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,5 +78,21 @@ public class User {
 
     public void setCreator(boolean creator) {
         isCreator = creator;
+    }
+
+    public void addSchool(School school){
+        schools.add(school);
+    }
+
+    public void removeSchool(School school){
+        schools.remove(school);
+    }
+
+    public void addQuizes(Quiz quiz){
+        quizes.add(quiz);
+    }
+
+    public void removeQuizes(Quiz quiz){
+        quizes.remove(quiz);
     }
 }
