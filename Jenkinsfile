@@ -20,7 +20,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh "sudo docker-compose -f docker/docker-compose-prod.yaml build"
+                sh "sudo docker-compose -f docker/docker-compose-test.yaml build"
             }
         }
     }
@@ -31,8 +31,8 @@ pipeline {
         }
 
         success {
-            sh "sudo docker-compose -f docker/docker-compose-prod.yaml down --rmi all -v"
-            sh "sudo docker-compose -f docker/docker-compose-prod.yaml up -d"
+            sh "sudo docker-compose -f docker/docker-compose-test.yaml down --rmi all -v"
+            sh "sudo docker-compose -f docker/docker-compose-test.yaml up -d"
             // this is useless, we should publish the finished docker files...
             //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }

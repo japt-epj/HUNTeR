@@ -12,7 +12,8 @@ services:
         depends_on:
             - db
         environment:
-          SPRING_PROFILES_ACTIVE: test
+        # standalone mode doesn't necessarily need docker
+          SPRING_PROFILES_ACTIVE: standalone
         restart: always
 
 
