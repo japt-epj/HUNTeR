@@ -1,0 +1,36 @@
+.siteGrid{
+    height: 100vh;
+}
+
+.gridHeader{
+    height: 17%;
+}
+
+.gridContent{
+    height: 83%;
+}
+
+.ui.segment{
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.ui.fullscreen.modal.transition.visible.active {
+    margin-top: 0 !important;
+}
+
+.ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.visible.sidebar.menu, .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.animating.sidebar.menu{
+    background: rgba(32,192,40,0.7);
+}
+
+.goldenTrophy {
+    color: gold;
+}
+
+.silverTrophy {
+    color: silver;
+}
+
+.bronceTrophy {
+    color: #cc8e34;
+}
