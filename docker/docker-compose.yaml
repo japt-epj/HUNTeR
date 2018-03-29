@@ -13,13 +13,13 @@ services:
             - db
         environment:
           SPRING_PROFILES_ACTIVE: dev
-        restart: no
+        restart: "no"
 
 
     db:
       # this will have to be a dockerfile as well, which then runs db creation
       # and stuff like that. Secrets should be read from a file
       image: postgres
-      restart: no
+      restart: "no"
       environment:
           POSTGRES_PASSWORD: example
