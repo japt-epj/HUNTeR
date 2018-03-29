@@ -1,6 +1,7 @@
 # slimmer container may be possible
 # will want to test with alpine
 FROM openjdk:8-slim
+ENV SPRING_PROFILES_ACTIVE=test
 COPY ./backend/target/*.jar /app/hunter.jar
 WORKDIR /app
 EXPOSE 8080
