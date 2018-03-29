@@ -18,15 +18,18 @@ public class User {
 
     private String lastName;
 
+    private boolean isCreator;
+
     private Email email;
 
     protected User() {
     }
 
-    public User(String firstName, String lastName, Email email) {
+    public User(String firstName, String lastName, boolean isCreator, Email email) {
 
         this.firstName = firstName;
         this.lastName = lastName;
+        this.isCreator = isCreator;
         this.email = email;
     }
 
@@ -62,5 +65,13 @@ public class User {
 
     public void setEmail(Email email) {
         this.email = email;
+    }
+
+    public boolean isCreator() {
+        return isCreator;
+    }
+
+    public void setCreator(boolean creator) {
+        isCreator = creator;
     }
 }

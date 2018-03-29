@@ -5,9 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
-public class School {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,21 +16,20 @@ public class School {
 
     private String name;
 
-    private String domain;
+    private List<String> questions;
 
 
-    public School(String name, String domain) {
+    public Task(String name, List<String> questions) {
         this.name = name;
-        this.domain = domain;
+        this.questions = questions;
     }
 
-
-    public String getDomain() {
-        return domain;
+    public List<String> getQuestions() {
+        return questions;
     }
 
-    public void setDomain(String domain) {
-        this.domain = domain;
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
     }
 
     public String getName() {
@@ -39,10 +39,4 @@ public class School {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Override
-    public String toString() {
-        return name + " " + domain;
-    }
-
 }
