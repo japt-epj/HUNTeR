@@ -15,8 +15,6 @@ class ModalHandler extends Component {
                 <Modal.Header>{'QR-Code für die Aufgabe ' + element.title}</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        <Image src={'/qrCodes/qrcode-' + element.qrCodeID + '.png'}
-                               centered={true}/>
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>

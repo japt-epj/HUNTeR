@@ -9,8 +9,10 @@ import ScanExercise from './ScanExercise';
 import Settings from './Setting';
 import Score from './Score';
 import Exercise from './Exercise';
-import Data from '../../data/Data';
+
 import StructureHandler from '../../handlers/StructureHandler';
+import Data from '../../data/Data';
+import logo from '../../images/icons/e.jpg';
 
 
 class Structure extends Component {
@@ -32,7 +34,7 @@ class Structure extends Component {
                         <Menu fluid secondary size="tiny">
                             <Menu.Menu>
                                 <NavLink to={'/student'}>
-                                    <Image src="/pictures/e.jpg" size="tiny"/>
+                                    <Image src={logo} size="tiny"/>
                                 </NavLink>
                             </Menu.Menu>
                             <Menu.Menu>
