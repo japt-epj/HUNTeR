@@ -4,14 +4,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-solid": "^5.0.9",
+    "@fortawesome/react-fontawesome": "0.0.18",
     "cpx": "^1.5.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1",
+    "react-qr-reader": "^2.1.0",
     "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1",
     "semantic-ui-css": "^2.3.0",
-    "semantic-ui-react": "^0.78.3",
-    "react-qr-reader": "^2.1.0"
+    "semantic-ui-react": "^0.78.3"
   },
   "scripts": {
     "start": "react-scripts start",
