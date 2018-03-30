@@ -29,8 +29,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     @Profile({"standalone", "test"})
     public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/")
-//                .setViewName("forward:/app/index.html");
+        registry.addViewController("/")
+                .setViewName("forward:/index.html");
     }
 
     @Bean
