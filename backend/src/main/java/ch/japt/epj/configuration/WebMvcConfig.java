@@ -15,17 +15,22 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
 
-        if (!registry.hasMappingForPattern("/app/**")) {
-            registry.addResourceHandler("/app/**")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/");
+        if (!registry.hasMappingForPattern("/index.html")) {
+            registry.addResourceHandler("/index.html")
+                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/index.html");
+        }
+
+        if (!registry.hasMappingForPattern("/static/**")) {
+            registry.addResourceHandler("/static/**")
+                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/static/");
         }
     }
 
     @Override
     @Profile({"standalone", "test"})
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/")
-                .setViewName("forward:/app/index.html");
+//        registry.addViewController("/")
+//                .setViewName("forward:/app/index.html");
     }
 
     @Bean
