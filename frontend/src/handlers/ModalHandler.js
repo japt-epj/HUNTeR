@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Icon, Modal, Image} from 'semantic-ui-react';
+import {Button, Icon, Modal} from 'semantic-ui-react';
 
 
 class ModalHandler extends Component {
