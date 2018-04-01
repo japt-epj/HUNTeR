@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 
 import logo from './logo.svg';
@@ -36,8 +37,10 @@ class App extends Component {
                 <p>
                     API Test: {this.state.random}
                 </p>
-                <a href="/teacher">Teacher</a>
-                <a href="/student">Student</a>
+                {/*<a href="/teacher">Teacher</a>*/}
+                {/*<a href="/student">Student</a>*/}
+                <Link to={"/teacher"}>Teacher</Link>
+                <Link to={"/student"}>Student</Link>
             </div>
 
         );
