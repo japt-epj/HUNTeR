@@ -27,14 +27,14 @@ class Data {
 
     static getPathsTeacher() {
         return [
-            {path: 'teacher/exercise', title: 'Aufgabe erstellen', component: 'Exercise', icon: 'tasks'},
+            {path: 'exercise', title: 'Aufgabe erstellen', component: 'Exercise', icon: 'tasks'},
             {
-                path: 'teacher/exerciseOverview', title: 'Übersicht der Aufgaben',
+                path: 'exerciseOverview', title: 'Übersicht der Aufgaben',
                 component: 'ExerciseOverview', icon: 'stack exchange'
             },
-            {path: 'teacher/quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
+            {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
             {
-                path: 'teacher/quizOverview', title: 'Übersicht der Quizzes',
+                path: 'quizOverview', title: 'Übersicht der Quizzes',
                 component: 'QuizOverview', icon: 'stack exchange'
             }
         ];
@@ -42,9 +42,9 @@ class Data {
 
     static getPathsStudent() {
         return [
-            {path: 'student/settings', title: 'Persönliches', component: 'Settings', icon: 'setting'},
-            {path: 'student/scan', title: 'Aufgabe scannen', component: 'ScanExercise', icon: 'camera retro'},
-            {path: 'student/score', title: 'Aktueller Score', component: 'Score', icon: 'trophy'}
+            {path: 'settings', title: 'Persönliches', component: 'Settings', icon: 'setting'},
+            {path: 'scan', title: 'Aufgabe scannen', component: 'ScanExercise', icon: 'camera retro'},
+            {path: 'score', title: 'Aktueller Score', component: 'Score', icon: 'trophy'}
         ];
     }
 
@@ -136,9 +136,9 @@ class Data {
 
     static getLeaderboard() {
         return [
-            {key: 'goldenUser', name: 'Andi Hörler', trophyColor: 'golden'},
-            {key: 'silverUser', name: 'Jonas Kugler', trophyColor: 'silver'},
-            {key: 'broncenUser', name: 'Pascal Hürlimann', trophyColor: 'bronce'},
+            {key: 'goldenUser', name: 'Andi Hörler', score: '99%', trophyColor: 'golden'},
+            {key: 'silverUser', name: 'Jonas Kugler', score: '90%', trophyColor: 'silver'},
+            {key: 'broncenUser', name: 'Pascal Hürlimann', score: '80%', trophyColor: 'bronce'},
         ];
     }
 }

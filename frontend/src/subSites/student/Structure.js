@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, NavLink, HashRouter} from 'react-router-dom';
+import {Route, NavLink, BrowserRouter} from 'react-router-dom';
 import {Sidebar, Segment, Button, Menu, Icon, Image, Grid} from 'semantic-ui-react';
 
 import '../../style/index.css';
@@ -28,12 +28,12 @@ class Structure extends Component {
 
     render() {
         return (
-            <HashRouter>
+            <BrowserRouter basename="/student">
                 <Grid className={"siteGrid"} padded>
                     <Grid.Row columns="equal" className="gridHeader">
                         <Menu fluid secondary size="tiny">
                             <Menu.Menu>
-                                <NavLink to={'/student'}>
+                                <NavLink to={'/'}>
                                     <Image src={logo} size="tiny"/>
                                 </NavLink>
                             </Menu.Menu>
@@ -52,20 +52,20 @@ class Structure extends Component {
                                          width="thin" direction="right"
                                          visible={this.state.visible} icon="labeled"
                                          vertical inverted>
-                                    {StructureHandler.getStructurePaths('student', Data.getPathsStudent())}
+                                    {StructureHandler.getStructurePaths(Data.getPathsStudent())}
                                 </Sidebar>
                                 <Sidebar.Pusher>
-                                    <Route exact path="/student/" component={Home}/>
-                                    <Route path="/student/settings" component={Settings}/>
-                                    <Route path="/student/scan" component={ScanExercise}/>
-                                    <Route path="/student/score" component={Score}/>
-                                    <Route path="/student/exercise" component={Exercise}/>
+                                    <Route exact path="/" component={Home}/>
+                                    <Route path="/settings" component={Settings}/>
+                                    <Route path="/scan" component={ScanExercise}/>
+                                    <Route path="/score" component={Score}/>
+                                    <Route path="/exercise" component={Exercise}/>
                                 </Sidebar.Pusher>
                             </Sidebar.Pushable>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-            </HashRouter>
+            </BrowserRouter>
         );
     }
 }
