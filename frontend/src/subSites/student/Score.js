@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, Dropdown, Icon, Modal, Progress, Segment, Statistic, Tab} from 'semantic-ui-react';
+import {Button, Card, Dropdown, Icon, Modal, Progress, Segment, Statistic, Tab, Menu, Grid} from 'semantic-ui-react';
 import Data from '../../data/Data';
 
 class Score extends Component {
@@ -71,30 +71,34 @@ class Score extends Component {
     render() {
         return (
             <div>
-                <div className="ranking">
-                    <Card.Group>
-                        {Data.getLeaderboard().map(element =>
-                            <Card>
-                                <Card.Content>
-                                    <Card.Header>
-                                        {element.name}
-                                        <Icon name="trophy" className={element.trophyColor + 'Trophy'}/>
-                                    </Card.Header>
-                                </Card.Content>
-                            </Card>
-                        )}
-                    </Card.Group>
-                </div>
-                <div id="quizResults">
-                    <div id="quizSelector">
+                <Grid>
+                    <Grid.Row>
+                        <Card.Group>
+                            {Data.getLeaderboard().map(element =>
+                                <Card key={'scoreCard' + element.name}>
+                                    <Card.Content>
+                                        <Card.Header>
+                                            <Menu text>
+                                                <Menu.Item header>{element.name}</Menu.Item>
+                                                <Menu.Item><Icon name="trophy"
+                                                                 className={element.trophyColor + 'Trophy'}/></Menu.Item>
+                                            </Menu>
+                                        </Card.Header>
+                                        <Card.Description>
+                                            {element.score}
+                                        </Card.Description>
+                                    </Card.Content>
+                                </Card>
+                            )}
+                        </Card.Group>
+                    </Grid.Row>
+                    <Grid.Row>
                         <Dropdown
                             fluid selection closeOnBlur scrolling
                             options={Data.getQuizzes()}
                             onChange={(e, {value}) => this.changeQuizState(value)}
                             defaultValue={this.state.quiz}
                         />
-                    </div>
-                    <div id="quizSelectButton">
                         <Modal style={{marginTop: 0}} size="fullscreen"
                                trigger={<Button>Resultate einsehen</Button>}
                                closeIcon>
@@ -111,8 +115,8 @@ class Score extends Component {
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>
-                    </div>
-                </div>
+                    </Grid.Row>
+                </Grid>
             </div>
         );
     }
