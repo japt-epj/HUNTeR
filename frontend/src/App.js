@@ -36,7 +36,8 @@ class App extends Component {
                 <p>
                     API Test: {this.state.random}
                 </p>
-                <a href="/#/teacher">Teacher</a>     <a href="/#/student">Student</a>
+                <a href="/teacher">Teacher</a>
+                <a href="/student">Student</a>
             </div>
 
         );

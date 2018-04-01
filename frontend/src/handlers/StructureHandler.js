@@ -8,7 +8,7 @@ class StructureHandler extends Component {
         super(props);
     }
 
-    static getStructurePaths(rootSite, elements) {
+    static getStructurePaths(elements) {
         return elements.map((element) =>
             <NavLink key={'navLink' + element.path} to={'/' + element.path}>
                 <Menu.Item name={element.path}><Icon name={element.icon}/>
