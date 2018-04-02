@@ -43,19 +43,27 @@ class Exercise extends Component {
     }
 
     handleSubmit() {
-        axios.post('https://jsonplaceholder.typicode.com/posts',
-            this.state
-        ).then(res => console.log(res))
-            .catch(e => console.log(e));
+        let isACheckboxSet = false;
+        Object.keys(this.state.answerOptions).forEach(element => {
+            isACheckboxSet = isACheckboxSet || this.state.answerOptions[element].correct;
+        });
+        if (isACheckboxSet) {
+            axios.post('https://jsonplaceholder.typicode.com/posts',
+                this.state
+            ).then(res => console.log(res))
+                .catch(e => console.log(e));
+        } else{
+            alert('Keine Antwort wurde als richtig markiert!');
+        }
     }
 
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Form.Input fluid label="Titel" name="title" value={this.title} onChange={this.handleChange}
-                            placeholder="Bitte geben Sie einen Titel ein"/>
+                            placeholder="Bitte geben Sie einen Titel ein" required/>
                 <Form.TextArea label="Aufgabenfrage" name="question" value={this.question} onChange={this.handleChange}
-                               placeholder="Bitte geben Sie eine Frage ein..."/>
+                               placeholder="Bitte geben Sie eine Frage ein..." required/>
                 <Table definition>
                     <Table.Header>
                         <Table.Row>
@@ -72,7 +80,7 @@ class Exercise extends Component {
                                         element: (<Form.Input fluid name={'optionAnswer' + ANSWER}
                                                               value={this.state.answerOptions[ANSWER].text}
                                                               onChange={this.handleChange}
-                                                              placeholder="Bitte Antwort eingeben"/>),
+                                                              placeholder="Bitte Antwort eingeben" required/>),
                                         collapsed: false
                                     })}
                                     {TableHandler.getTableCell({
@@ -90,7 +98,7 @@ class Exercise extends Component {
                 </Table>
                 <Form.TextArea label="Erklärungstext" name="explanation" value={this.question}
                                onChange={this.handleChange}
-                               placeholder="Bitte geben Sie eine Erklärungstext ein..."/>
+                               placeholder="Bitte geben Sie eine Erklärungstext ein..." required/>
                 <Button> Submit </Button>
             </Form>
         );
