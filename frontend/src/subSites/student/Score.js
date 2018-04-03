@@ -77,7 +77,7 @@ export default class Score extends React.Component {
                 <Grid>
                     <Grid.Row>
                         <Card.Group>
-                            {Data.getLeaderboard().map(element =>
+                            {Data.getLeaderBoard().map(element =>
                                 <Card key={'scoreCard' + element.name}>
                                     <Card.Content>
                                         <Card.Header>
