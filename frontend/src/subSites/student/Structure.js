@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Route, NavLink, BrowserRouter} from 'react-router-dom';
-import {Sidebar, Segment, Button, Menu, Icon, Image, Grid} from 'semantic-ui-react';
+import React from 'react';
+import {BrowserRouter, NavLink, Route} from 'react-router-dom';
 
+import {Button, Grid, Icon, Image, Menu, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
 import Home from './Home';
@@ -10,12 +10,12 @@ import Settings from './Setting';
 import Score from './Score';
 import Exercise from './Exercise';
 
-import StructureHandler from '../../handlers/StructureHandler';
 import Data from '../../data/Data';
-import logo from '../../images/icons/e.jpg';
+import Logo from '../../images/icons/e.jpg';
+import StructureHandler from '../../handlers/StructureHandler';
 
 
-class Structure extends Component {
+export default class Structure extends React.Component {
     constructor(props) {
         super(props);
         this.state = {visible: false};
@@ -34,7 +34,7 @@ class Structure extends Component {
                         <Menu fluid secondary size="tiny">
                             <Menu.Menu>
                                 <NavLink to={'/'}>
-                                    <Image src={logo} size="tiny"/>
+                                    <Image src={Logo} size="tiny"/>
                                 </NavLink>
                             </Menu.Menu>
                             <Menu.Menu>
@@ -52,7 +52,7 @@ class Structure extends Component {
                                          width="thin" direction="right"
                                          visible={this.state.visible} icon="labeled"
                                          vertical inverted>
-                                    {StructureHandler.getStructurePaths(Data.getPathsStudent())}
+                                    {StructureHandler(Data.getPathsStudent())}
                                 </Sidebar>
                                 <Sidebar.Pusher>
                                     <Route exact path="/" component={Home}/>
@@ -69,5 +69,3 @@ class Structure extends Component {
         );
     }
 }
-
-export default Structure;

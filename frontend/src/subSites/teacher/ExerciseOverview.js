@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import {Form, Button, Table, Modal} from 'semantic-ui-react';
+import React from 'react';
+
+import {Button, Form, Modal, Table} from 'semantic-ui-react';
 
 import Data from '../../data/Data';
 import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
 
 
-class ExerciseOverview extends Component {
+export default class ExerciseOverview extends React.Component {
     constructor(props) {
         super(props);
         this.handleSelectmentChange = this.handleSelectmentChange.bind(this);
@@ -36,7 +37,7 @@ class ExerciseOverview extends Component {
                                     })}
                                     {TableHandler.getTableCell({element: element.title, collapsed: false})}
                                     {TableHandler.getTableCell({
-                                        element: ModalHandler.getQRCodeModal(element),
+                                        element: ModalHandler.getQRCode(element),
                                         collapsed: false
                                     })}
                                     {TableHandler.getTableCell({element: element.score, collapsed: false})}
@@ -73,5 +74,3 @@ class ExerciseOverview extends Component {
         );
     }
 }
-
-export default ExerciseOverview

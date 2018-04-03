@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
 import axios from 'axios';
 
 
-class FormHandler extends Component {
+export default class FormHandler {
     static handleChange(event) {
         const target = event.target;
         const name = target.name;
@@ -36,7 +35,4 @@ class FormHandler extends Component {
             alert('Keine Antwort wurde als richtig markiert!');
         }
     }
-    ;
 }
-
-export default FormHandler

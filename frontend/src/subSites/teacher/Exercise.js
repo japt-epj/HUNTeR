@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
-import {Form, Button, Table} from 'semantic-ui-react';
+import React from 'react';
 
-import TableHandler from '../../handlers/TableHandler';
+import {Form, Table} from 'semantic-ui-react';
+
 import FormHandler from '../../handlers/FormHandler';
+import TableHandler from '../../handlers/TableHandler';
 
 
-class Exercise extends Component {
+export default class Exercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -72,5 +73,3 @@ class Exercise extends Component {
         );
     }
 }
-
-export default Exercise

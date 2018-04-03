@@ -1,36 +1,12 @@
-class Data {
-    static getExercise(exerciseID) {
-        let exerciseMap = new Map();
-        exerciseMap.set('0123456789', {
-            question: 'Was ist ein privater IPv4-Range?',
-            answer1: '10.0.0.0/8',
-            answer2: '172.16.0.0/12',
-            answer3: '192.168.0.0/16',
-            answer4: '127.0.0.0/8'
-        });
-        exerciseMap.set('1234567890', {
-            question: 'Wer isch fett?',
-            answer1: 'Am Pascal sis Mami.',
-            answer2: 'Am Toby sis Mami',
-            answer3: 'Am Jonas sis Mami',
-            answer4: 'Am Pascal sis Mami'
-        });
-        exerciseMap.set('2345678901', {
-            question: 'Was heisst 80 uf französisch?',
-            answer1: 'quatre-vingts',
-            answer2: 'huitante',
-            answer3: 'octante',
-            answer4: 'nonante'
-        });
-        return exerciseMap.get(exerciseID);
-    }
-
+export default class Data {
     static getPathsTeacher() {
         return [
             {path: 'exercise', title: 'Aufgabe erstellen', component: 'Exercise', icon: 'tasks'},
             {
-                path: 'exerciseOverview', title: 'Übersicht der Aufgaben',
-                component: 'ExerciseOverview', icon: 'stack exchange'
+                path: 'exerciseOverview',
+                title: 'Übersicht der Aufgaben',
+                component: 'ExerciseOverview',
+                icon: 'stack exchange'
             },
             {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
             {
@@ -134,7 +110,7 @@ class Data {
         return quizMapping.get(quizString);
     }
 
-    static getLeaderboard() {
+    static getLeaderBoard() {
         return [
             {key: 'goldenUser', name: 'Andi Hörler', score: '99%', trophyColor: 'golden'},
             {key: 'silverUser', name: 'Jonas Kugler', score: '90%', trophyColor: 'silver'},
@@ -142,5 +118,3 @@ class Data {
         ];
     }
 }
-
-export default Data;

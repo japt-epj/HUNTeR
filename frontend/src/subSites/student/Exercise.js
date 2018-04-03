@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
+
 import {Form, Button, Grid} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 
 
-class Exercise extends Component {
+export default class Exercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.props.location.state;
@@ -35,9 +36,6 @@ class Exercise extends Component {
             );
         } else {
             return (<p>Bitte zuerst eine Aufgabe scannen.</p>)
-
         }
     }
 }
-
-export default Exercise
