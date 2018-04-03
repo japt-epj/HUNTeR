@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Form, Table, Button} from 'semantic-ui-react';
+import {Button, Form, Table} from 'semantic-ui-react';
 
 import Data from '../../data/Data';
 import ModalHandler from "../../handlers/ModalHandler";
 import TableHandler from "../../handlers/TableHandler";
 
 
-class QuizOverview extends Component {
+export default class QuizOverview extends React.Component {
     constructor(props) {
         super(props);
         this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -54,5 +54,3 @@ class QuizOverview extends Component {
         );
     }
 }
-
-export default QuizOverview

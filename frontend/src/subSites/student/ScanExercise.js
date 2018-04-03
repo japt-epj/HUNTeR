@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+
 import {Button} from 'semantic-ui-react';
 
+import axios from 'axios';
 import QrReader from 'react-qr-reader';
 
 
-class ScanExercise extends Component {
+export default class ScanExercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -68,5 +69,3 @@ class ScanExercise extends Component {
         )
     }
 }
-
-export default ScanExercise;

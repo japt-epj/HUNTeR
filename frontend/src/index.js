@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import {Route, BrowserRouter, Switch} from 'react-router-dom';
 
-
+import registerServiceWorker from './registerServiceWorker';
+import App from './App';
 import Teacher from './subSites/teacher/Structure';
 import Student from './subSites/student/Structure';
+
+import './index.css';
+
 
 ReactDOM.render(
     <BrowserRouter>

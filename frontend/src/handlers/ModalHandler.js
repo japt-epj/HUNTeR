@@ -1,30 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
+
 import {Button, Icon, Modal} from 'semantic-ui-react';
 
 
-class ModalHandler extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    static getQRCodeModal(element) {
+export default class ModalHandler {
+    static getQRCode(element) {
         return (
-            <Modal size="fullscreen"
-                   trigger={<Button basic color="orange" icon="qrcode" size="small"/>}
-                   closeIcon>
-                <Modal.Header>{'QR-Code für die Aufgabe ' + element.title}</Modal.Header>
-                <Modal.Content>
-                    <Modal.Description>
-                    </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                    <a href={'/qrCodes/qrcode-' + element.qrCodeID + '.png'} download>
-                        <Button color="orange" inverted>
-                            <Icon name="cloud download"/> QR-Code herunterladen
-                        </Button>
-                    </a>
-                </Modal.Actions>
-            </Modal>
+            <a href={'/qrCodes/qrcode-' + element.qrCodeID + '.png'} download>
+                <Button basic color="orange" icon="qrcode" size="small"/>
+            </a>
         );
     }
 
@@ -51,5 +35,3 @@ class ModalHandler extends Component {
         );
     }
 }
-
-export default ModalHandler

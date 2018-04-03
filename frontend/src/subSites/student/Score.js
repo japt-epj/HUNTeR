@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
-import {Button, Card, Dropdown, Icon, Modal, Progress, Segment, Statistic, Tab, Menu, Grid} from 'semantic-ui-react';
+import React from 'react';
+
+import {Button, Card, Dropdown, Grid, Icon, Menu, Modal, Progress, Segment, Statistic, Tab} from 'semantic-ui-react';
+
 import Data from '../../data/Data';
 
-class Score extends Component {
+
+export default class Score extends React.Component {
     constructor(props) {
         super(props);
         this.state = {quiz: 'quiz1'};
@@ -121,5 +124,3 @@ class Score extends Component {
         );
     }
 }
-
-export default Score;
