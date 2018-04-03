@@ -1,30 +1,42 @@
 import React, {Component} from 'react';
-import {Form, Button} from 'semantic-ui-react';
-import Data from '../../data/Data';
+import {Form, Button, Grid} from 'semantic-ui-react';
+
+import FormHandler from '../../handlers/FormHandler';
+
 
 class Exercise extends Component {
     constructor(props) {
         super(props);
-    }
+        this.state = this.props.location.state;
+        this.setState({url: '/API/exercise/send'});
+    };
 
     render() {
-        let exercise = Data.getExercise("0123456789");
-        return (
-            <Form>
-                <div className="question">
-                    {exercise.question}
-                </div>
-                <div className="answers">
-                    <Form.Field label={'Antwort1:' + exercise.answer1} control="input" type="checkbox"/>
-                    <Form.Field label={'Antwort2:' + exercise.answer2} control="input" type="checkbox"/>
-                    <Form.Field label={'Antwort3:' + exercise.answer3} control="input" type="checkbox"/>
-                    <Form.Field label={'Antwort4:' + exercise.answer4} control="input" type="checkbox"/>
-                </div>
-                <div className="sumbitButton">
-                    <Button>Submit</Button>
-                </div>
-            </Form>
-        );
+        if (this.state !== null) {
+            return (
+                <Form onSubmit={FormHandler.handleSubmit.bind(this)}>
+                    <Grid.Row>
+                        {this.state.exercise.question}
+                    </Grid.Row>
+                    <Grid.Row>
+                        {this.state.exercise.answerOptions.map((element, index) => {
+                            return (<Form.Field control="input" type="checkbox"
+                                                label={'Antwort ' + (index + 1) + ' : ' + this.state.exercise.answerOptions[index].text}
+                                                name={'optionCheckbox' + index}
+                                                onChange={FormHandler.handleChange.bind(this)}
+                                                checked={this.state.exercise.answerOptions[index].studentAnswer}/>
+                            )
+                        })}
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Button>Submit</Button>
+                    </Grid.Row>
+                </Form>
+            );
+        } else {
+            return (<p>Bitte zuerst eine Aufgabe scannen.</p>)
+
+        }
     }
 }
 

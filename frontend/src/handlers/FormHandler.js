@@ -1,0 +1,42 @@
+import React, {Component} from 'react';
+import axios from 'axios';
+
+
+class FormHandler extends Component {
+    static handleChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const regex = /(option(Answer|Checkbox))([0-3])/;
+        const match = regex.exec(name);
+        if (match === null) {
+            this.setState({[name]: target.value});
+        } else if (match[1] === 'optionAnswer') {
+            let answerOptionsCopy = this.state.exercise.answerOptions;
+            answerOptionsCopy[match[3]].text = target.value;
+            this.setState({answerOptions: answerOptionsCopy});
+        } else if (match[1] === 'optionCheckbox') {
+            let answerOptionsCopy = this.state.exercise.answerOptions;
+            answerOptionsCopy[match[3]].correct = target.checked;
+            this.setState({answerOptions: answerOptionsCopy});
+        }
+    }
+
+    static handleSubmit() {
+        let isACheckboxSet = false;
+        console.log(this.state.exercise);
+        Object.keys(this.state.exercise.answerOptions).forEach(element => {
+                isACheckboxSet = isACheckboxSet || this.state.exercise.answerOptions[element].correct;
+            }
+        );
+        if (isACheckboxSet) {
+            axios.post(this.state.url, JSON.stringify(this.state.exercise))
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        } else {
+            alert('Keine Antwort wurde als richtig markiert!');
+        }
+    }
+    ;
+}
+
+export default FormHandler
