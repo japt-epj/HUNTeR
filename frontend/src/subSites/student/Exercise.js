@@ -10,12 +10,14 @@ export default class Exercise extends React.Component {
         super(props);
         this.state = this.props.location.state;
         this.setState({url: '/API/exercise/send'});
+        FormHandler.handleSubmit = FormHandler.handleSubmit.bind(this);
+        FormHandler.handleChange = FormHandler.handleChange.bind(this);
     };
 
     render() {
         if (this.state !== null) {
             return (
-                <Form onSubmit={FormHandler.handleSubmit.bind(this)}>
+                <Form onSubmit={FormHandler.handleSubmit}>
                     <Grid.Row>
                         {this.state.exercise.question}
                     </Grid.Row>
@@ -24,8 +26,8 @@ export default class Exercise extends React.Component {
                             return (<Form.Field control="input" type="checkbox"
                                                 label={'Antwort ' + (index + 1) + ' : ' + this.state.exercise.answerOptions[index].text}
                                                 name={'optionCheckbox' + index}
-                                                onChange={FormHandler.handleChange.bind(this)}
-                                                checked={this.state.exercise.answerOptions[index].studentAnswer}/>
+                                                onChange={FormHandler.handleChange}
+                                                checked={this.state.exercise.answerOptions[index].answer}/>
                             )
                         })}
                     </Grid.Row>

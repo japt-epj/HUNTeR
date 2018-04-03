@@ -40,10 +40,10 @@ export default class ScanExercise extends React.Component {
                     title: 'IPv4',
                     question: 'Was ist ein privater IPv4 Range für Firmen',
                     answerOptions: [
-                        {text: '10.0.0.0/8', correct: false},
-                        {text: '127.0.0.1', correct: false},
-                        {text: '172.16.0.0/12', correct: false},
-                        {text: '192.168.0.0/16', correct: false}
+                        {text: '10.0.0.0/8', answer: false},
+                        {text: '127.0.0.1', answer: false},
+                        {text: '172.16.0.0/12', answer: false},
+                        {text: '192.168.0.0/16', answer: false}
                     ],
                     explanation: 'Siehe RFC 1918',
                 }
