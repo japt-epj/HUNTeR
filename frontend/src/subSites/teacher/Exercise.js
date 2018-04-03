@@ -15,24 +15,26 @@ export default class Exercise extends React.Component {
                 title: '',
                 question: '',
                 answerOptions: [
-                    {text: '', correct: false},
-                    {text: '', correct: false},
-                    {text: '', correct: false},
-                    {text: '', correct: false}
+                    {text: '', answer: false},
+                    {text: '', answer: false},
+                    {text: '', answer: false},
+                    {text: '', answer: false}
                 ],
                 explanation: '',
             }
         };
+        FormHandler.handleSubmit = FormHandler.handleSubmit.bind(this);
+        FormHandler.handleChange = FormHandler.handleChange.bind(this);
     }
 
     render() {
         return (
-            <Form onSubmit={FormHandler.handleSubmit.bind(this)}>
+            <Form onSubmit={FormHandler.handleSubmit}>
                 <Form.Input fluid label="Titel" name="title" value={this.title}
-                            onChange={FormHandler.handleChange.bind(this)}
+                            onChange={FormHandler.handleChange}
                             placeholder="Bitte geben Sie einen Titel ein" required/>
                 <Form.TextArea label="Aufgabenfrage" name="question" value={this.question}
-                               onChange={FormHandler.handleChange.bind(this)}
+                               onChange={FormHandler.handleChange}
                                placeholder="Bitte geben Sie eine Frage ein..." required/>
                 <Table definition>
                     <Table.Header>
@@ -48,7 +50,7 @@ export default class Exercise extends React.Component {
                                     {TableHandler.getTableCell({
                                         element: (<Form.Input fluid name={'optionAnswer' + index}
                                                               value={this.state.exercise.answerOptions[index].text}
-                                                              onChange={FormHandler.handleChange.bind(this)}
+                                                              onChange={FormHandler.handleChange}
                                                               placeholder="Bitte Antwort eingeben" required/>),
                                         collapsed: false
                                     })}
@@ -56,8 +58,8 @@ export default class Exercise extends React.Component {
                                         element: (
                                             <Form.Field control="input" type="checkbox"
                                                         name={'optionCheckbox' + index}
-                                                        onChange={FormHandler.handleChange.bind(this)}
-                                                        checked={this.state.exercise.answerOptions[index].correct}/>),
+                                                        onChange={FormHandler.handleChange}
+                                                        checked={this.state.exercise.answerOptions[index].answer}/>),
                                         collapsed: true
                                     })}
                                 </Table.Row>
@@ -66,7 +68,7 @@ export default class Exercise extends React.Component {
                     </Table.Body>
                 </Table>
                 <Form.TextArea label="Erklärungstext" name="explanation" value={this.question}
-                               onChange={FormHandler.handleChange.bind(this)}
+                               onChange={FormHandler.handleChange}
                                placeholder="Bitte geben Sie eine Erklärungstext ein..." required/>
                 <Form.Button content='Submit'/>
             </Form>
