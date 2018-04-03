@@ -5,8 +5,8 @@ import {Sidebar, Segment, Button, Menu, Icon, Image, Grid} from 'semantic-ui-rea
 import '../../style/index.css';
 
 import Home from './Home';
-import Exercise from './exercise';
-import ExerciseOverview from './exerciseOverview';
+import Exercise from './Exercise';
+import ExerciseOverview from './ExerciseOverview';
 import Quiz from './Quiz';
 import QuizOverview from './QuizOverview';
 
