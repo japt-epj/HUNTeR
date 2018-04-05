@@ -19,7 +19,7 @@ public class Task {
     @OneToOne
     private Location location;
 
-    @OneToMany
+    @OneToMany(mappedBy="task")
     private List<Response> responses = new ArrayList<>();
 
 

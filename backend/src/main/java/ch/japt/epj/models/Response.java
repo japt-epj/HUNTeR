@@ -1,10 +1,7 @@
 package ch.japt.epj.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,6 +14,9 @@ public class Response {
     private List<String> questions;
 
     private List<String> answers;
+
+    @ManyToOne
+    private Task task;
 
 
     public Response(List<String> questions, List<String> Answers) {
@@ -38,5 +38,13 @@ public class Response {
 
     public void setQuestions(List<String> questions) {
         this.questions = questions;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task department) {
+        this.task = task;
     }
 }
