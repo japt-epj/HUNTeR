@@ -30,12 +30,12 @@ public class ExerciseController implements ExerciseApi {
         exercise.setTitle("This is an Exercise!");
         exercise.setQuestion("The blue or the red pill?");
 
-//        List<String> answers = new LinkedList<>();
-//        answers.add("Yes");
-//        answers.add("No");
-//        answers.add("Maybe");
-//        answers.add("Watman");
-//        exercise.setAnswers(answers);
+        List<String> answers = new LinkedList<>();
+        answers.add("Yes");
+        answers.add("No");
+        answers.add("Maybe");
+        answers.add("Watman");
+        exercise.setAnswers(answers);
 
         list.add(exercise);
         return new ResponseEntity<>(list, HttpStatus.OK);
