@@ -19,7 +19,8 @@ public class Person {
 
     private boolean isCreator;
 
-    private Email email;
+    private String email;
+
     @ManyToMany(mappedBy="persons", fetch=FetchType.EAGER)
     private Collection<School> schools = new ArrayList<>();
     @OneToMany
@@ -51,11 +52,11 @@ public class Person {
     }
 
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
