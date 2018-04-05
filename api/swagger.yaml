@@ -50,24 +50,22 @@ paths:
           description: "Invalid input"
       security:
       - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+        - "write:exercises"
+        - "read:exercises"
     put:
       tags:
-      - "pet"
-      summary: "Update an existing pet"
+      - "exercise"
+      summary: "Update an existing exercise"
       description: ""
-      operationId: "updatePet"
+      operationId: "updateExercise"
       consumes:
       - "application/json"
-      - "application/xml"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
         name: "body"
-        description: "Pet object that needs to be added to the store"
+        description: "Exercise object that needs to be added to the store"
         required: true
         schema:
           $ref: "#/definitions/Exercise"
@@ -75,50 +73,47 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Pet not found"
+          description: "Exercise not found"
         405:
           description: "Validation exception"
       security:
       - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-  /pet/findByStatus:
+        - "write:exercises"
+        - "read:exercises"
     get:
       tags:
-      - "pet"
-      summary: "Finds Pets by status"
-      description: "Multiple status values can be provided with comma separated strings"
-      operationId: "findPetsByStatus"
+      - "exercise"
+      summary: "Get all exercises"
       produces:
-      - "application/xml"
       - "application/json"
-      parameters:
-      - name: "status"
-        in: "query"
-        description: "Status values that need to be considered for filter"
-        required: true
-        type: "array"
-        items:
-          type: "string"
-          enum:
-          - "available"
-          - "pending"
-          - "sold"
-          default: "available"
-        collectionFormat: "multi"
       responses:
         200:
-          description: "successful operation"
+          description: "All exercises"
           schema:
             type: "array"
             items:
               $ref: "#/definitions/Exercise"
-        400:
-          description: "Invalid status value"
-      security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+  /exercise/{id}:
+    get:
+      tags:
+      - "exercise"
+      summary: "Get exercise"
+      description: "Get exercise by id"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: "integer"
+          description: "exercise id"
+      responses:
+        200:
+          description: "Exercises found"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Exercise"
   /pet/findByTags:
     get:
       tags:
@@ -149,8 +144,8 @@ paths:
           description: "Invalid tag value"
       security:
       - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+        - "write:exercises"
+        - "read:exercises"
       deprecated: true
   /pet/{petId}:
     get:
@@ -213,8 +208,8 @@ paths:
           description: "Invalid input"
       security:
       - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+        - "write:exercises"
+        - "read:exercises"
     delete:
       tags:
       - "pet"
@@ -242,8 +237,8 @@ paths:
           description: "Pet not found"
       security:
       - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+        - "write:exercises"
+        - "read:exercises"
   /pet/{petId}/uploadImage:
     post:
       tags:
@@ -279,8 +274,8 @@ paths:
             $ref: "#/definitions/ApiResponse"
       security:
       - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+        - "write:exercises"
+        - "read:exercises"
   /store/inventory:
     get:
       tags:
@@ -567,8 +562,8 @@ securityDefinitions:
     authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
     flow: "implicit"
     scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
+      write:exercises: "modify exercises in your account"
+      read:exercises: "read your exercises"
   api_key:
     type: "apiKey"
     name: "api_key"
