@@ -1,10 +1,7 @@
 package models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +14,12 @@ public class Task {
 
     private String name;
 
+    @OneToMany
     private ArrayList<String> questions = new ArrayList<>();
 
     private Location location;
 
+    @OneToMany
     private ArrayList<Response> responses = new ArrayList<>();
 
 
