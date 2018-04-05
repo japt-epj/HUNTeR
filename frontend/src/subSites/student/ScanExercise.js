@@ -24,32 +24,24 @@ export default class ScanExercise extends React.Component {
 
     handleScan(data) {
         if (data) {
-            /*axios.get('/API/exercise', {
-                    params: {
-                        ID: data,
-                        check: true
-                    }
-                }
-            ).then(response => {*/
-            this.setState({
-                result: data,
-                displayText: 'Starte',
-                iconName: 'right arrow',
-                linkLocation: '/exercise',
-                exerciseContent: {
-                    title: 'IPv4',
-                    question: 'Was ist ein privater IPv4 Range für Firmen',
-                    answerOptions: [
-                        {text: '10.0.0.0/8', answer: false},
-                        {text: '127.0.0.1', answer: false},
-                        {text: '172.16.0.0/12', answer: false},
-                        {text: '192.168.0.0/16', answer: false}
-                    ],
-                    explanation: 'Siehe RFC 1918',
-                }
-            });
-            /*})
-                .catch(err => console.log(err));*/
+            axios.get('http://' + window.location.hostname + ':8080/api/exercise/' + data)
+                .then(response => {
+                    let responseObject = response;
+                    this.setState({
+                        result: data,
+                        displayText: 'Starte',
+                        iconName: 'right arrow',
+                        linkLocation: '/exercise',
+                        exerciseContent: {
+                            title: responseObject.title,
+                            question: responseObject.question,
+                            answerOptions: responseObject.answers,
+                            explanation: '',
+                        }
+                    });
+                    /*})
+                        .catch(err => console.log(err));*/
+                });
         }
     }
 

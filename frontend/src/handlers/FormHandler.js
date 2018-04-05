@@ -11,11 +11,11 @@ export default class FormHandler {
             this.setState({[name]: target.value});
         } else if (match[1] === 'optionAnswer') {
             let answerOptionsCopy = this.state.exercise.answerOptions;
-            answerOptionsCopy[match[3]].text = target.value;
+            answerOptionsCopy[match[3]].answer = target.value;
             this.setState({answerOptions: answerOptionsCopy});
         } else if (match[1] === 'optionCheckbox') {
             let answerOptionsCopy = this.state.exercise.answerOptions;
-            answerOptionsCopy[match[3]].answer = target.checked;
+            answerOptionsCopy[match[3]].isCorrect = target.checked;
             this.setState({answerOptions: answerOptionsCopy});
         }
     }
@@ -24,7 +24,7 @@ export default class FormHandler {
         let isACheckboxSet = false;
         console.log(this.state.exercise);
         Object.keys(this.state.exercise.answerOptions).forEach(element => {
-                isACheckboxSet = isACheckboxSet || this.state.exercise.answerOptions[element].answer;
+                isACheckboxSet = isACheckboxSet || this.state.exercise.answerOptions[element].isCorrect;
             }
         );
         if (isACheckboxSet) {

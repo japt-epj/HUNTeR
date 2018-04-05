@@ -73,54 +73,54 @@ export default class Score extends React.Component {
 
     render() {
         return (
-            <div>
-                <Grid>
-                    <Grid.Row>
-                        <Card.Group>
-                            {Data.getLeaderBoard().map(element =>
-                                <Card key={'scoreCard' + element.name}>
-                                    <Card.Content>
-                                        <Card.Header>
-                                            <Menu text>
-                                                <Menu.Item header>{element.name}</Menu.Item>
-                                                <Menu.Item><Icon name="trophy"
-                                                                 className={element.trophyColor + 'Trophy'}/></Menu.Item>
-                                            </Menu>
-                                        </Card.Header>
-                                        <Card.Description>
-                                            {element.score}
-                                        </Card.Description>
-                                    </Card.Content>
-                                </Card>
-                            )}
-                        </Card.Group>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Dropdown
-                            fluid selection closeOnBlur scrolling
-                            options={Data.getQuizzes()}
-                            onChange={(e, {value}) => this.changeQuizState(value)}
-                            defaultValue={this.state.quiz}
-                        />
-                        <Modal style={{marginTop: 0}} size="fullscreen"
-                               trigger={<Button>Resultate einsehen</Button>}
-                               closeIcon>
-                            <Modal.Header>{'Andi Hörler - ' + Data.getQuiz(this.state.quiz).text}</Modal.Header>
-                            <Modal.Content>
-                                <Modal.Description>
-                                    <Statistic.Group items={Score.buildScoreOverview(Data.getQuiz(this.state.quiz))}
-                                                     size="mini"
-                                                     horizontal/>
-                                    <Progress value={Data.getProgress(this.state.quiz).value}
-                                              total={Data.getProgress(this.state.quiz).total}
-                                              progress="ratio"/>
-                                    {this.getTabs()}
-                                </Modal.Description>
-                            </Modal.Content>
-                        </Modal>
-                    </Grid.Row>
-                </Grid>
-            </div>
+            <Grid>
+                <Grid.Row centered>
+                    <Card.Group centered>
+                        {Data.getLeaderBoard().map(element =>
+                            <Card key={'scoreCard' + element.name}>
+                                <Card.Content>
+                                    <Card.Header>
+                                        <Menu text>
+                                            <Menu.Item header>{element.name}</Menu.Item>
+                                            <Menu.Item><Icon name="trophy"
+                                                             className={element.trophyColor + 'Trophy'}/></Menu.Item>
+                                        </Menu>
+                                    </Card.Header>
+                                    <Card.Description>
+                                        {element.score}
+                                    </Card.Description>
+                                </Card.Content>
+                            </Card>
+                        )}
+                    </Card.Group>
+                </Grid.Row>
+                <Grid.Row>
+                    <Dropdown
+                        fluid selection closeOnBlur scrolling upward={/Mobi/.test(navigator.userAgent)}
+                        options={Data.getQuizzes()}
+                        onChange={(e, {value}) => this.changeQuizState(value)}
+                        defaultValue={this.state.quiz}
+                    />
+                </Grid.Row>
+                <Grid.Row>
+                    <Modal style={{marginTop: 0}} size="fullscreen"
+                           trigger={<Button>Resultate einsehen</Button>}
+                           closeIcon>
+                        <Modal.Header>{'Andi Hörler - ' + Data.getQuiz(this.state.quiz).text}</Modal.Header>
+                        <Modal.Content>
+                            <Modal.Description>
+                                <Statistic.Group items={Score.buildScoreOverview(Data.getQuiz(this.state.quiz))}
+                                                 size="mini"
+                                                 horizontal/>
+                                <Progress value={Data.getProgress(this.state.quiz).value}
+                                          total={Data.getProgress(this.state.quiz).total}
+                                          progress="ratio"/>
+                                {this.getTabs()}
+                            </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+                </Grid.Row>
+            </Grid>
         );
     }
 }
