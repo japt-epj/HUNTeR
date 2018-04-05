@@ -19,38 +19,36 @@ export default class QuizOverview extends React.Component {
 
     render() {
         return (
-            <div className="content">
-                <Form>
-                    <Table definition>
-                        <Table.Header>
-                            <Table.Row>
-                                {TableHandler.getTableHeader(['', 'Titel', 'Quote'])}
+            <Form>
+                <Table definition>
+                    <Table.Header>
+                        <Table.Row>
+                            {TableHandler.getTableHeader(['', 'Titel', 'Quote'])}
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {Data.getQuizzes().map(element =>
+                            <Table.Row key={'row' + element.key}>
+                                {TableHandler.getTableCell({
+                                    element: (<Form.Radio value={element.key}
+                                                          checked={this.state.checkBox === element.key}
+                                                          onChange={this.handleSelectChange}/>),
+                                    collapsed: true
+                                })}
+                                {TableHandler.getTableCell({element: element.title, collapsed: false})}
+                                {TableHandler.getTableCell({element: element.score, collapsed: false})}
                             </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {Data.getQuizzes().map(element =>
-                                <Table.Row key={'row' + element.key}>
-                                    {TableHandler.getTableCell({
-                                        element: (<Form.Radio value={element.key}
-                                                              checked={this.state.checkBox === element.key}
-                                                              onChange={this.handleSelectChange}/>),
-                                        collapsed: true
-                                    })}
-                                    {TableHandler.getTableCell({element: element.title, collapsed: false})}
-                                    {TableHandler.getTableCell({element: element.score, collapsed: false})}
-                                </Table.Row>
-                            )}
-                        </Table.Body>
-                    </Table>
-                    {ModalHandler.getDeleteModal({
-                        buttonContent: 'Quiz löschen',
-                        title: /*Data.getQuiz(this.state.checkBox).text +*/' löschen',
-                        description: 'Hallo'
-                    })}
-                    <NavLink to={'/teacher/quiz?id=' + this.state.checkBox}><Button basic positive>Quiz
-                        öffnen</Button></NavLink>
-                </Form>
-            </div>
+                        )}
+                    </Table.Body>
+                </Table>
+                {ModalHandler.getDeleteModal({
+                    buttonContent: 'Quiz löschen',
+                    title: /*Data.getQuiz(this.state.checkBox).text +*/' löschen',
+                    description: 'Hallo'
+                })}
+                <NavLink to={'/teacher/quiz?id=' + this.state.checkBox}><Button basic positive>Quiz
+                    öffnen</Button></NavLink>
+            </Form>
         );
     }
 }

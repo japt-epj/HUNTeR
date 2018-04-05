@@ -15,10 +15,10 @@ export default class Exercise extends React.Component {
                 title: '',
                 question: '',
                 answerOptions: [
-                    {text: '', answer: false},
-                    {text: '', answer: false},
-                    {text: '', answer: false},
-                    {text: '', answer: false}
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false}
                 ],
                 explanation: '',
             }
@@ -49,7 +49,7 @@ export default class Exercise extends React.Component {
                                     {TableHandler.getTableCell({element: (index + 1), collapsed: true})}
                                     {TableHandler.getTableCell({
                                         element: (<Form.Input fluid name={'optionAnswer' + index}
-                                                              value={this.state.exercise.answerOptions[index].text}
+                                                              value={this.state.exercise.answerOptions[index].answer}
                                                               onChange={FormHandler.handleChange}
                                                               placeholder="Bitte Antwort eingeben" required/>),
                                         collapsed: false
@@ -59,7 +59,7 @@ export default class Exercise extends React.Component {
                                             <Form.Field control="input" type="checkbox"
                                                         name={'optionCheckbox' + index}
                                                         onChange={FormHandler.handleChange}
-                                                        checked={this.state.exercise.answerOptions[index].answer}/>),
+                                                        checked={this.state.exercise.answerOptions[index].isCorrect}/>),
                                         collapsed: true
                                     })}
                                 </Table.Row>
