@@ -14,7 +14,7 @@ public class Task {
 
     private String name;
 
-    
+
     private ArrayList<String> questions = new ArrayList<>();
 
     private Location location;
