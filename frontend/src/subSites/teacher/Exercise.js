@@ -14,7 +14,7 @@ export default class Exercise extends React.Component {
             exercise: {
                 title: '',
                 question: '',
-                answerOptions: [
+                answers: [
                     {answer: '', isCorrect: false},
                     {answer: '', isCorrect: false},
                     {answer: '', isCorrect: false},
@@ -43,13 +43,13 @@ export default class Exercise extends React.Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {new Array(this.state.exercise.answerOptions.length).fill().map((item, index) => {
+                        {new Array(this.state.exercise.answers.length).fill().map((item, index) => {
                             return (
                                 <Table.Row key={'TableRow' + index}>
                                     {TableHandler.getTableCell({element: (index + 1), collapsed: true})}
                                     {TableHandler.getTableCell({
                                         element: (<Form.Input fluid name={'optionAnswer' + index}
-                                                              value={this.state.exercise.answerOptions[index].answer}
+                                                              value={this.state.exercise.answers[index].answer}
                                                               onChange={FormHandler.handleChange}
                                                               placeholder="Bitte Antwort eingeben" required/>),
                                         collapsed: false
@@ -59,7 +59,7 @@ export default class Exercise extends React.Component {
                                             <Form.Field control="input" type="checkbox"
                                                         name={'optionCheckbox' + index}
                                                         onChange={FormHandler.handleChange}
-                                                        checked={this.state.exercise.answerOptions[index].isCorrect}/>),
+                                                        checked={this.state.exercise.answers[index].isCorrect}/>),
                                         collapsed: true
                                     })}
                                 </Table.Row>
