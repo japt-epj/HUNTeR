@@ -28,5 +28,7 @@ open:
 
 Docker commands:
 
-sudo docker-compose -f docker/docker-compose.yaml build / up
+sudo docker-compose -f docker/docker-compose.yaml build / up / down
 sudo docker exec -it docker_hunter_1 bash
+./dev.sh
+docker ps
