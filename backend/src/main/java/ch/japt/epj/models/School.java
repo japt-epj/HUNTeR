@@ -21,7 +21,7 @@ public class School {
 
 
     @ManyToMany
-    @JoinTable(name = "schools", joinColumns = { @JoinColumn(name = "personId") }, inverseJoinColumns = { @JoinColumn(name = "schoolId") })
+    @JoinTable(name = "PersonSchool", joinColumns = { @JoinColumn(name = "SchoolId") }, inverseJoinColumns = { @JoinColumn(name = "PersonId") })
     private Collection<Person> persons = new ArrayList<>();
 
 

@@ -19,9 +19,7 @@ public class Quiz {
     @OneToMany
     private Collection<Task> tasks = new ArrayList<>();
 
-    private School school;
-
-    public String getName() {
+        public String getName() {
         return name;
     }
 
@@ -43,14 +41,6 @@ public class Quiz {
 
     public void removeTask(Task task){
         tasks.remove(task);
-    }
-
-    public School getSchool() {
-        return school;
-    }
-
-    public void setSchool(School school) {
-        this.school = school;
     }
 
     public long getQuizId() {
