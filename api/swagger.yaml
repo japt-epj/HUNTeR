@@ -47,7 +47,7 @@ paths:
         405:
           description: "Invalid input"
       security:
-      - petstore_auth:
+      - auth:
         - "write:exercises"
         - "read:exercises"
     put:
@@ -75,7 +75,7 @@ paths:
         405:
           description: "Validation exception"
       security:
-      - petstore_auth:
+      - auth:
         - "write:exercises"
         - "read:exercises"
     get:
@@ -135,7 +135,7 @@ paths:
         405:
           description: "Invalid input"
       security:
-      - petstore_auth:
+      - auth:
         - "write:exercises"
         - "read:exercises"
   /user:
@@ -325,7 +325,7 @@ paths:
         404:
           description: "User not found"
 securityDefinitions:
-  petstore_auth:
+  auth:
     type: "oauth2"
     authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
     flow: "implicit"
@@ -361,16 +361,6 @@ definitions:
         description: "User Status"
     xml:
       name: "User"
-  Tag:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-    xml:
-      name: "Tag"
   Exercise:
     type: "object"
     required:
@@ -391,16 +381,6 @@ definitions:
         type: "array"
         items:
           type: "string"
-  ApiResponse:
-    type: "object"
-    properties:
-      code:
-        type: "integer"
-        format: "int32"
-      type:
-        type: "string"
-      message:
-        type: "string"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
