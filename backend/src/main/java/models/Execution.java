@@ -8,7 +8,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
-@Entity
+//@Entity
 public class Execution {
 
     @Id
