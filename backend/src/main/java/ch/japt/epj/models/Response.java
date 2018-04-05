@@ -2,6 +2,7 @@ package ch.japt.epj.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Response {
     private Task task;
 
 
-    public Response(List<String> questions, List<String> Answers) {
+    public Response(ArrayList<String> questions, ArrayList<String> Answers) {
         this.questions = questions;
         this.answers = Answers;
     }
