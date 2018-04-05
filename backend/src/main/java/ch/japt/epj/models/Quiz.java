@@ -1,31 +1,25 @@
 package ch.japt.epj.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
-//@Entity
+@Entity
 public class Quiz {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long quizId;
 
     private String name;
 
-    private ArrayList<Execution> executions = new ArrayList<>();
-
-    private ArrayList<Task> tasks = new ArrayList<>();
+    @OneToMany
+    private Collection<Execution> executions = new ArrayList<>();
+    @OneToMany
+    private Collection<Task> tasks = new ArrayList<>();
 
     private School school;
-
-    public Quiz(String name, School school) {
-        this.name = name;
-        this.school = school;
-    }
 
     public String getName() {
         return name;
@@ -57,5 +51,9 @@ public class Quiz {
 
     public void setSchool(School school) {
         this.school = school;
+    }
+
+    public long getQuizId() {
+        return quizId;
     }
 }

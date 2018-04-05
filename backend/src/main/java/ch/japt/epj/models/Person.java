@@ -2,18 +2,16 @@ package ch.japt.epj.models;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
-//@Entity
+@Entity
 public class Person {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long personId;
 
     private String firstName;
 
@@ -22,24 +20,13 @@ public class Person {
     private boolean isCreator;
 
     private Email email;
+    @ManyToMany(mappedBy="persons", fetch=FetchType.EAGER)
+    private Collection<School> schools = new ArrayList<>();
+    @OneToMany
+    private Collection<Quiz> quizes = new ArrayList<>();
 
-    private ArrayList<School> schools = new ArrayList<>();
-
-    private ArrayList<Quiz> quizes = new ArrayList<>();
-
-    protected Person() {
-    }
-
-    public Person(String firstName, String lastName, boolean isCreator, Email email) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isCreator = isCreator;
-        this.email = email;
-    }
-
-    public long getId() {
-        return id;
+    public long getPersonId() {
+        return personId;
     }
 
     public String getFirstName() {

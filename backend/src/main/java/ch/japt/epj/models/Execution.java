@@ -1,31 +1,25 @@
 package ch.japt.epj.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
-//@Entity
+@Entity
 public class Execution {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long executionId;
 
     private Date date;
 
     private Time time;
 
-    private ArrayList<Person> participants = new ArrayList<>();
+    @OneToMany
+    private Collection<Person> participants = new ArrayList<>();
 
-
-    public Execution(Date date, Time time) {
-        this.date = date;
-        this.time = time;
-    }
 
     public void addParticipant(Person person){
         participants.add(person);
@@ -35,7 +29,7 @@ public class Execution {
         participants.remove(person);
     }
 
-    public ArrayList<Person> getParticipants(){
+    public Collection<Person> getParticipants(){
         return participants;
     }
 
@@ -53,5 +47,9 @@ public class Execution {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public long getExecutionId() {
+        return executionId;
     }
 }
