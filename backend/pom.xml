@@ -94,6 +94,10 @@
                             <generateModelTests>true</generateModelTests>
                             <generateModelDocumentation>true</generateModelDocumentation>
                             <generateSupportingFiles>false</generateSupportingFiles>
+                            <!--only create the api interfaces-->
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
+                            </configOptions>
                             <!--namespaces to use for generated files-->
                             <apiPackage>ch.japt.epj.api</apiPackage>
                             <modelPackage>ch.japt.epj.model.dto</modelPackage>
