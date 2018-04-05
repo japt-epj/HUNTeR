@@ -11,8 +11,8 @@ import java.util.ArrayList;
 //@Entity
 public class Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String firstName;

@@ -11,8 +11,8 @@ import java.util.Date;
 //@Entity
 public class Execution {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private Date date;
