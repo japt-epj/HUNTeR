@@ -18,25 +18,23 @@ export default class Exercise extends React.Component {
     render() {
         if (this.state !== null) {
             return (
-                <Grid >
-                    <Form onSubmit={FormHandler.handleSubmit}>
-                        <Grid.Row>
-                            {this.state.exercise.question}
-                        </Grid.Row>
-                        <Grid.Row>
-                            {this.state.exercise.answers.map((element, index) => {
-                                return (<Form.Field control="input" type="checkbox"
-                                                    label={'Antwort ' + (index + 1) + ' : ' + element.answer}
-                                                    name={'optionCheckbox' + index} onChange={FormHandler.handleChange}
-                                                    checked={this.state.exercise.answers[index].isCorrect}/>
-                                )
-                            })}
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Button>Submit</Button>
-                        </Grid.Row>
-                    </Form>
-                </Grid>
+                <Form onSubmit={FormHandler.handleSubmit}>
+                    <Grid.Row>
+                        {this.state.exercise.question}
+                    </Grid.Row>
+                    <Grid.Row>
+                        {this.state.exercise.answers.map((element, index) => {
+                            return (<Form.Field control="input" type="checkbox"
+                                                label={'Antwort ' + (index + 1) + ' : ' + element.answer}
+                                                name={'optionCheckbox' + index} onChange={FormHandler.handleChange}
+                                                checked={this.state.exercise.answers[index].isCorrect}/>
+                            )
+                        })}
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Button>Submit</Button>
+                    </Grid.Row>
+                </Form>
             );
         } else {
             return (<p>Bitte zuerst eine Aufgabe scannen.</p>)
