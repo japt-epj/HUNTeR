@@ -13,8 +13,10 @@ public class Response {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ElementCollection
     private List<String> questions;
 
+    @ElementCollection
     private Collection<String> answers;
 
     @ManyToOne
