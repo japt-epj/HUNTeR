@@ -3,7 +3,6 @@ import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
 
-import axios from 'axios';
 import QrReader from 'react-qr-reader';
 
 
@@ -16,7 +15,7 @@ export default class ScanExercise extends React.Component {
             displayText: 'Scanne',
             iconName: 'camera retro',
             linkLocation: '/scan',
-            exerciseContent: ''
+            exercise: ''
         };
         this.handleScan = this.handleScan.bind(this);
         this.handleError = this.handleError.bind(this);
@@ -24,32 +23,34 @@ export default class ScanExercise extends React.Component {
 
     handleScan(data) {
         if (data) {
-            /*axios.get('/API/exercise', {
-                    params: {
-                        ID: data,
-                        check: true
+            fetch(window.location.protocol + '//' + window.location.hostname + ':8080/api/exercise/1', {
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json",
+                        'Content-Type': 'application/json'
                     }
                 }
-            ).then(response => {*/
-            this.setState({
-                result: data,
-                displayText: 'Starte',
-                iconName: 'right arrow',
-                linkLocation: '/exercise',
-                exerciseContent: {
-                    title: 'IPv4',
-                    question: 'Was ist ein privater IPv4 Range für Firmen',
-                    answerOptions: [
-                        {text: '10.0.0.0/8', answer: false},
-                        {text: '127.0.0.1', answer: false},
-                        {text: '172.16.0.0/12', answer: false},
-                        {text: '192.168.0.0/16', answer: false}
-                    ],
-                    explanation: 'Siehe RFC 1918',
+            ).then(response => {
+                    return response.json();
                 }
+            ).then(responseData => {
+                responseData.answers.forEach(function (element, index, arrayObject) {
+                    arrayObject[index] = {answer: element, isCorrect: false};
+                });
+                this.setState({
+                    result: data,
+                    displayText: 'Starte',
+                    iconName: 'right arrow',
+                    linkLocation: '/exercise',
+                    exercise: {
+                        title: responseData.title,
+                        question: responseData.question,
+                        answers: responseData.answers,
+                    }
+                });
+            }).catch(err => {
+                console.log("fetch error" + err);
             });
-            /*})
-                .catch(err => console.log(err));*/
         }
     }
 
@@ -61,7 +62,7 @@ export default class ScanExercise extends React.Component {
         return (
             <div>
                 <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan}/>
-                <NavLink to={{pathname: this.state.linkLocation, state: {exercise: this.state.exerciseContent}}}>
+                <NavLink to={{pathname: this.state.linkLocation, state: {exercise: this.state.exercise}}}>
                     <Button content={this.state.displayText + ' Aufgabe ' + this.state.result}
                             icon={this.state.iconName} labelPosition="right"/>
                 </NavLink>

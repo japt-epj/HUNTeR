@@ -26,14 +26,14 @@ public class ExerciseController implements ExerciseApi {
     public ResponseEntity<ExerciseDto> exerciseIdGet(Integer id) {
         ExerciseDto exercise = new ExerciseDto();
         exercise.setId(1337l);
-        exercise.setTitle("This is an Exercise!");
-        exercise.setQuestion("The blue or the red pill?");
+        exercise.setTitle("Bauernfrage");
+        exercise.setQuestion("Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...");
 
         List<String> answers = new LinkedList<>();
-        answers.add("Yes");
-        answers.add("No");
-        answers.add("Maybe");
-        answers.add("Watman");
+        answers.add("...einen draufmachen");
+        answers.add("...die Nacht durchzechen");
+        answers.add("...die Sau rauslassen");
+        answers.add("...auf die Kacke hauen");
         exercise.setAnswers(answers);
 
         return new ResponseEntity<>(exercise, HttpStatus.OK);
