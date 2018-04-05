@@ -86,6 +86,7 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/api/swagger.yaml</inputSpec>
                             <language>spring</language>
+                            <!--generate only model and apis, and not the whole server-->
                             <generateApis>true</generateApis>
                             <generateApiTests>true</generateApiTests>
                             <generateApiDocumentation>true</generateApiDocumentation>
@@ -93,6 +94,11 @@
                             <generateModelTests>true</generateModelTests>
                             <generateModelDocumentation>true</generateModelDocumentation>
                             <generateSupportingFiles>false</generateSupportingFiles>
+                            <!--namespaces to use for generated files-->
+                            <apiPackage>ch.japt.epj.api</apiPackage>
+                            <modelPackage>ch.japt.epj.model.dto</modelPackage>
+                            <!--rename models as dtos, because they're not really from the database-->
+                            <modelNameSuffix>Dto</modelNameSuffix>
                         </configuration>
                     </execution>
                 </executions>
