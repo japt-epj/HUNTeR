@@ -3,6 +3,7 @@ package ch.japt.epj.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ public class Response {
 
     private List<String> questions;
 
-    private List<String> answers;
+    private Collection<String> answers;
 
     @ManyToOne
     private Task task;
@@ -25,11 +26,11 @@ public class Response {
         this.answers = Answers;
     }
 
-    public List<String> getAnswers() {
+    public Collection<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<String> answers) {
+    public void setAnswers(Collection<String> answers) {
         this.answers = answers;
     }
 
