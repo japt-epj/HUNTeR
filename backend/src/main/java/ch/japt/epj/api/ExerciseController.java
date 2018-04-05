@@ -23,8 +23,7 @@ public class ExerciseController implements ExerciseApi {
     }
 
     @Override
-    public ResponseEntity<List<ExerciseDto>> exerciseIdGet(Integer id) {
-        List<ExerciseDto> list = new LinkedList<ExerciseDto>();
+    public ResponseEntity<ExerciseDto> exerciseIdGet(Integer id) {
         ExerciseDto exercise = new ExerciseDto();
         exercise.setId(1337l);
         exercise.setTitle("This is an Exercise!");
@@ -37,8 +36,7 @@ public class ExerciseController implements ExerciseApi {
         answers.add("Watman");
         exercise.setAnswers(answers);
 
-        list.add(exercise);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(exercise, HttpStatus.OK);
     }
 
     @Override
