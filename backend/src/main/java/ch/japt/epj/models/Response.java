@@ -11,22 +11,18 @@ public class Response {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long responseId;
 
     @ElementCollection
-    private List<String> questions;
+    private Collection<String> questions = new ArrayList<>();
 
     @ElementCollection
-    private Collection<String> answers;
+    private Collection<String> answers = new ArrayList<>();
 
     @ManyToOne
     private Task task;
 
 
-    public Response(ArrayList<String> questions, ArrayList<String> Answers) {
-        this.questions = questions;
-        this.answers = Answers;
-    }
 
     public Collection<String> getAnswers() {
         return answers;
@@ -36,11 +32,11 @@ public class Response {
         this.answers = answers;
     }
 
-    public List<String> getQuestions() {
+    public Collection<String> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<String> questions) {
+    public void setQuestions(Collection<String> questions) {
         this.questions = questions;
     }
 
@@ -50,5 +46,9 @@ public class Response {
 
     public void setTask(Task department) {
         this.task = task;
+    }
+
+    public long getResponseId() {
+        return responseId;
     }
 }

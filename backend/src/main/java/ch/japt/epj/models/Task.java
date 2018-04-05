@@ -3,6 +3,7 @@ package ch.japt.epj.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -10,23 +11,19 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long taskId;
 
     private String name;
 
+    @ElementCollection
+    private Collection<String> questions = new ArrayList<>();
 
-    private ArrayList<String> questions = new ArrayList<>();
     @OneToOne
     private Location location;
 
     @OneToMany(mappedBy="task")
     private List<Response> responses = new ArrayList<>();
 
-
-    public Task(String name, Location location) {
-        this.name = name;
-        this.location = location;
-    }
 
 
     public void addResponse(Response response){
@@ -36,7 +33,7 @@ public class Task {
     public void removeResponse(String response){
         responses.remove(response);
     }
-    public List<Response> getResponses() {
+    public Collection<Response> getResponses() {
         return responses;
     }
 
@@ -47,7 +44,7 @@ public class Task {
     public void removeQuestion(String question){
         questions.remove(question);
     }
-    public ArrayList<String> getQuestions() {
+    public Collection<String> getQuestions() {
         return questions;
     }
 
@@ -65,5 +62,9 @@ public class Task {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public long getTaskId() {
+        return taskId;
     }
 }

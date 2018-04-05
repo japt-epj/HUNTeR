@@ -10,14 +10,9 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long locationId;
 
     private int coordinates;
-
-
-    public Location(int coordinates) {
-        this.coordinates = coordinates;
-    }
 
 
     public int getCoordinates() {
@@ -26,5 +21,9 @@ public class Location {
 
     public void setCoordinates(int coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public long getLocationId() {
+        return locationId;
     }
 }
