@@ -16,7 +16,7 @@ public class Task {
 
 
     private ArrayList<String> questions = new ArrayList<>();
-
+    @OneToOne
     private Location location;
 
     @OneToMany
