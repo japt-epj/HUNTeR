@@ -14,7 +14,7 @@ public class Task {
 
     private String name;
 
-    @OneToMany
+    
     private ArrayList<String> questions = new ArrayList<>();
 
     private Location location;
@@ -23,7 +23,7 @@ public class Task {
     private ArrayList<Response> responses = new ArrayList<>();
 
 
-    public Task(String name, List<String> questions, Location location) {
+    public Task(String name, Location location) {
         this.name = name;
         this.location = location;
     }
