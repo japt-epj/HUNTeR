@@ -20,7 +20,7 @@ public class Task {
     private Location location;
 
     @OneToMany
-    private ArrayList<Response> responses = new ArrayList<>();
+    private List<Response> responses = new ArrayList<>();
 
 
     public Task(String name, Location location) {
@@ -36,7 +36,7 @@ public class Task {
     public void removeResponse(String response){
         responses.remove(response);
     }
-    public ArrayList<Response> getResponses() {
+    public List<Response> getResponses() {
         return responses;
     }
 
