@@ -21,5 +21,7 @@ services:
       # and stuff like that. Secrets should be read from a file
       image: postgres
       restart: "no"
+      ports:
+        - '5432:5432'
       environment:
           POSTGRES_PASSWORD: example
