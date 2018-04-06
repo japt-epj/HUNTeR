@@ -15,10 +15,10 @@ export default class Exercise extends React.Component {
                 title: '',
                 question: '',
                 answers: [
-                    {answer: '', checked: false},
-                    {answer: '', checked: false},
-                    {answer: '', checked: false},
-                    {answer: '', checked: false}
+                    {text: '', checked: false},
+                    {text: '', checked: false},
+                    {text: '', checked: false},
+                    {text: '', checked: false}
                 ],
                 explanation: '',
             }
