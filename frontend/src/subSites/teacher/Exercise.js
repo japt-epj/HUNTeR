@@ -10,15 +10,15 @@ export default class Exercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: '/API/exercise/create',
             exercise: {
+                id: '',
                 title: '',
                 question: '',
-                answerOptions: [
-                    {text: '', answer: false},
-                    {text: '', answer: false},
-                    {text: '', answer: false},
-                    {text: '', answer: false}
+                answers: [
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false}
                 ],
                 explanation: '',
             }
@@ -30,10 +30,10 @@ export default class Exercise extends React.Component {
     render() {
         return (
             <Form onSubmit={FormHandler.handleSubmit}>
-                <Form.Input fluid label="Titel" name="title" value={this.title}
+                <Form.Input fluid label="Titel" name="title" value={this.state.exercise.title}
                             onChange={FormHandler.handleChange}
                             placeholder="Bitte geben Sie einen Titel ein" required/>
-                <Form.TextArea label="Aufgabenfrage" name="question" value={this.question}
+                <Form.TextArea label="Aufgabenfrage" name="question" value={this.state.exercise.question}
                                onChange={FormHandler.handleChange}
                                placeholder="Bitte geben Sie eine Frage ein..." required/>
                 <Table definition>
@@ -43,13 +43,13 @@ export default class Exercise extends React.Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {new Array(this.state.exercise.answerOptions.length).fill().map((item, index) => {
+                        {new Array(this.state.exercise.answers.length).fill().map((item, index) => {
                             return (
                                 <Table.Row key={'TableRow' + index}>
                                     {TableHandler.getTableCell({element: (index + 1), collapsed: true})}
                                     {TableHandler.getTableCell({
                                         element: (<Form.Input fluid name={'optionAnswer' + index}
-                                                              value={this.state.exercise.answerOptions[index].text}
+                                                              value={this.state.exercise.answers[index].answer}
                                                               onChange={FormHandler.handleChange}
                                                               placeholder="Bitte Antwort eingeben" required/>),
                                         collapsed: false
@@ -59,7 +59,7 @@ export default class Exercise extends React.Component {
                                             <Form.Field control="input" type="checkbox"
                                                         name={'optionCheckbox' + index}
                                                         onChange={FormHandler.handleChange}
-                                                        checked={this.state.exercise.answerOptions[index].answer}/>),
+                                                        checked={this.state.exercise.answers[index].isCorrect}/>),
                                         collapsed: true
                                     })}
                                 </Table.Row>
@@ -67,9 +67,9 @@ export default class Exercise extends React.Component {
                         })}
                     </Table.Body>
                 </Table>
-                <Form.TextArea label="Erklärungstext" name="explanation" value={this.question}
+                <Form.TextArea label="Erklärungstext" name="explanation" value={this.state.exercise.explanation}
                                onChange={FormHandler.handleChange}
-                               placeholder="Bitte geben Sie eine Erklärungstext ein..." required/>
+                               placeholder="Bitte geben Sie eine Erklärungstext ein..."/>
                 <Form.Button content='Submit'/>
             </Form>
         );

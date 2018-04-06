@@ -4,7 +4,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
-import Home from './Home';
+import Home from '../../handlers/HomeHandler';
 import ScanExercise from './ScanExercise';
 import Settings from './Setting';
 import Score from './Score';
@@ -36,7 +36,7 @@ export default class Structure extends React.Component {
                             <Sidebar.Pushable as={Segment}>
                                 {StructureHandler.getSideBar(Data.getPathsStudent())}
                                 <Sidebar.Pusher onClick={StructureHandler.hideSidebar}>
-                                    <Route exact path="/" component={Home}/>
+                                    <Route exact path="/" render={props => Home(Data.getPathsStudent())}/>
                                     <Route path="/settings" component={Settings}/>
                                     <Route path="/scan" component={ScanExercise}/>
                                     <Route path="/score" component={Score}/>
