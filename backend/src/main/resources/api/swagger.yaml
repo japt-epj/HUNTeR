@@ -42,7 +42,7 @@ paths:
         description: "Exercise object that will be added to the store"
         required: true
         schema:
-          $ref: "#/definitions/Exercise"
+          $ref: "#/definitions/NewExercise"
       responses:
         405:
           description: "Invalid input"
@@ -359,6 +359,33 @@ definitions:
         description: "User Status"
     xml:
       name: "User"
+  NewAnswer:
+    type: "object"
+    required:
+    - "text"
+    - "checked"
+    properties:
+      text:
+        type: "string"
+      checked:
+        type: "boolean"
+  NewExercise:
+    type: "object"
+    required:
+    - "title"
+    - "question"
+    - "answers"
+    properties:
+      title:
+        type: "string"
+        example: "IPv4"
+      question:
+        type: "string"
+        example: "Was sind private IPv4 Ranges, welche für private Netzwerke genutzt werden können"
+      answers:
+        type: "array"
+        items:
+          $ref: "#/definitions/NewAnswer"
   Exercise:
     type: "object"
     required:
