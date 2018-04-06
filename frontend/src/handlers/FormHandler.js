@@ -8,7 +8,7 @@ export default class FormHandler {
             this.setState({[name]: target.value});
         } else if (match[1] === 'optionAnswer') {
             let answerOptionsCopy = this.state.exercise.answers;
-            answerOptionsCopy[match[3]].answers = target.value;
+            answerOptionsCopy[match[3]].answer = target.value;
             this.setState({answers: answerOptionsCopy});
         } else if (match[1] === 'optionCheckbox') {
             let answerOptionsCopy = this.state.exercise.answers;
