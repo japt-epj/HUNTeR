@@ -1,4 +1,4 @@
-package ch.japt.epj.models;
+package ch.japt.epj.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

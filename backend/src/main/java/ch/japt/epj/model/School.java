@@ -1,30 +1,30 @@
-package models;
+package ch.japt.epj.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class School {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long schoolId;
 
     private String name;
 
     private String domain;
 
-    private ArrayList<Location> locations = new ArrayList<>();
+    @OneToMany
+    private Collection<Location> locations = new ArrayList<>();
 
 
-    public School(String name, String domain) {
-        this.name = name;
-        this.domain = domain;
-    }
+    @ManyToMany
+    @JoinTable(name = "PersonSchool", joinColumns = { @JoinColumn(name = "SchoolId") }, inverseJoinColumns = { @JoinColumn(name = "PersonId") })
+    private Collection<Person> persons = new ArrayList<>();
+
+
 
     public String getDomain() {
         return domain;
@@ -47,7 +47,7 @@ public class School {
         return name + " " + domain;
     }
 
-    public ArrayList<Location> getLocations() {
+    public Collection<Location> getLocations() {
         return locations;
     }
 
@@ -57,5 +57,9 @@ public class School {
 
     public void removeLocation(Location location){
         locations.remove(location);
+    }
+
+    public long getSchoolId() {
+        return schoolId;
     }
 }
