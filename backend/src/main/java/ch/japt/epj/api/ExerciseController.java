@@ -1,6 +1,7 @@
 package ch.japt.epj.api;
 
 import ch.japt.epj.model.dto.ExerciseDto;
+import ch.japt.epj.repository.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/api")
 public class ExerciseController implements ExerciseApi {
+    @Autowired
+    private ExerciseRepository repository;
 
     @Override
     public ResponseEntity<Void> addExercise(ExerciseDto body) {
@@ -21,7 +24,15 @@ public class ExerciseController implements ExerciseApi {
 
     @Override
     public ResponseEntity<List<ExerciseDto>> exerciseGet() {
-        return null;
+        LinkedList<ExerciseDto> exercises = new LinkedList<>();
+        repository.findAll().forEach(task -> {
+            ExerciseDto dto = new ExerciseDto();
+            dto.setTitle(task.getName());
+            dto.setQuestion(task.getQuestion());
+            exercises.add(dto);
+        });
+
+        return new ResponseEntity<>(exercises, HttpStatus.OK);
     }
 
     @Override
