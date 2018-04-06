@@ -25,11 +25,21 @@ export default class FormHandler {
     }
 
     static postData(data, exerciseID) {
+        let header_xcsrf_token;
+        fetch(config.baseurl + 'exercise/', {
+            method: 'GET'
+        }).then((data, response) => {
+            header_xcsrf_token = response.headers['x-csrf-token'];
+        }).then(res => {
+            console.log(res);
+        });
+
         fetch(config.baseurl + 'exercise/' + exerciseID, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': header_xcsrf_token
             }
         }).then(res => res.json()
         ).catch(err => console.error('Error:', err)
