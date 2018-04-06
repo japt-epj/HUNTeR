@@ -11,25 +11,30 @@ public class Answer
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long AnswerId;
-
     private String answer;
-
     private boolean checked;
 
-
-    public void set_answer(String answer) {
-        this.answer = answer;
+    public long getAnswerId() {
+        return AnswerId;
     }
 
-    public String get_answer() {
+    public void setAnswerId(long answerId) {
+        AnswerId = answerId;
+    }
+
+    public String getAnswer() {
         return answer;
     }
 
-    public boolean is_checked() {
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public boolean isChecked() {
         return checked;
     }
 
-    public void set_checked(boolean checked) {
+    public void setChecked(boolean checked) {
         this.checked = checked;
     }
 }
