@@ -10,8 +10,8 @@ export default class Exercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: '/API/exercise/create',
             exercise: {
+                id: '',
                 title: '',
                 question: '',
                 answers: [
@@ -30,10 +30,10 @@ export default class Exercise extends React.Component {
     render() {
         return (
             <Form onSubmit={FormHandler.handleSubmit}>
-                <Form.Input fluid label="Titel" name="title" value={this.title}
+                <Form.Input fluid label="Titel" name="title" value={this.state.exercise.title}
                             onChange={FormHandler.handleChange}
                             placeholder="Bitte geben Sie einen Titel ein" required/>
-                <Form.TextArea label="Aufgabenfrage" name="question" value={this.question}
+                <Form.TextArea label="Aufgabenfrage" name="question" value={this.state.exercise.question}
                                onChange={FormHandler.handleChange}
                                placeholder="Bitte geben Sie eine Frage ein..." required/>
                 <Table definition>
@@ -67,9 +67,9 @@ export default class Exercise extends React.Component {
                         })}
                     </Table.Body>
                 </Table>
-                <Form.TextArea label="Erklärungstext" name="explanation" value={this.question}
+                <Form.TextArea label="Erklärungstext" name="explanation" value={this.state.exercise.explanation}
                                onChange={FormHandler.handleChange}
-                               placeholder="Bitte geben Sie eine Erklärungstext ein..." required/>
+                               placeholder="Bitte geben Sie eine Erklärungstext ein..."/>
                 <Form.Button content='Submit'/>
             </Form>
         );

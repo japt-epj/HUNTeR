@@ -38,37 +38,25 @@ export default class ScanExercise extends React.Component {
                 responseData.answers.forEach(function (element, index, arrayObject) {
                     arrayObject[index] = {answer: element, isCorrect: false};
                 });
-                fetch(window.location.protocol + '//' + window.location.hostname + portAPI + '/api/exercise/' + data, {
-                        method: 'GET',
-                        headers: {
-                            "Accept": "application/json",
-                            'Content-Type': 'application/json'
-                        }
+                this.setState({
+                    result: data,
+                    displayText: 'Starte',
+                    iconName: 'right arrow',
+                    linkLocation: '/exercise',
+                    exercise: {
+                        exerciseID: responseData.id,
+                        title: responseData.title,
+                        question: responseData.question,
+                        answers: responseData.answers,
                     }
-                ).then(response => {
-                        return response.json();
-                    }
-                ).then(responseData => {
-                    responseData.answers.forEach(function (element, index, arrayObject) {
-                        arrayObject[index] = {answer: element, isCorrect: false};
-                    });
-                    this.setState({
-                        result: data,
-                        displayText: 'Starte',
-                        iconName: 'right arrow',
-                        linkLocation: '/exercise',
-                        exercise: {
-                            title: responseData.title,
-                            question: responseData.question,
-                            answers: responseData.answers,
-                        }
-                    });
-                }).catch(err => {
-                    console.log("fetch error" + err);
-                });
-            })
+                })
+                ;
+            }).catch(err => {
+                console.log("fetch error" + err);
+            });
         }
-    };
+    }
+
 
     handleError(err) {
         console.error(err);
