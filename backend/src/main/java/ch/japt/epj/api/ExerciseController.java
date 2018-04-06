@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collection;
@@ -22,6 +23,7 @@ public class ExerciseController implements ExerciseApi {
 
     private ExerciseDto map(Task task) {
         ExerciseDto dto = new ExerciseDto();
+        dto.setId(task.getTaskId());
         dto.setTitle(task.getName());
         dto.setQuestion(task.getQuestion());
         task.getAnswers().forEach(answer -> dto.addAnswersItem(answer.getAnswer()));
@@ -41,20 +43,9 @@ public class ExerciseController implements ExerciseApi {
     }
 
     @Override
-    public ResponseEntity<ExerciseDto> exerciseIdGet(Integer id) {
-        ExerciseDto exercise = new ExerciseDto();
-        exercise.setId(1337l);
-        exercise.setTitle("Bauernfrage");
-        exercise.setQuestion("Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...");
-
-        List<String> answers = new LinkedList<>();
-        answers.add("...einen draufmachen");
-        answers.add("...die Nacht durchzechen");
-        answers.add("...die Sau rauslassen");
-        answers.add("...auf die Kacke hauen");
-        exercise.setAnswers(answers);
-
-        return new ResponseEntity<>(exercise, HttpStatus.OK);
+    public ResponseEntity<ExerciseDto> exerciseIdGet(@PathVariable("id") Integer id) {
+        Task task = repository.findOne(id.longValue());
+        return new ResponseEntity<>(map(task), HttpStatus.OK);
     }
 
     @Override
