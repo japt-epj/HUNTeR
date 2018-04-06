@@ -15,10 +15,9 @@ class App extends Component {
     }
 
     componentDidMount() {
-        fetch(config.baseurl + "test").then(response => {
+        fetch(config.baseurl + 'test').then(response => {
             return response.json();
         }).then(data => this.setState(data));
-
     }
 
     render() {
