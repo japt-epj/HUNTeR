@@ -5,35 +5,52 @@ export default class FormHandler {
         const regex = /(option(Answer|Checkbox))([0-3])/;
         const match = regex.exec(name);
         if (match === null) {
-            this.setState({[name]: target.value});
+            let exerciseCopy = this.state.exercise;
+            exerciseCopy[name] = target.value;
+            this.setState({exercise: exerciseCopy});
         } else if (match[1] === 'optionAnswer') {
-            let answerOptionsCopy = this.state.exercise.answers;
-            answerOptionsCopy[match[3]].answer = target.value;
-            this.setState({answers: answerOptionsCopy});
+            let exerciseCopy = this.state.exercise;
+            exerciseCopy.answers[match[3]].answer = target.value;
+            this.setState({exercise: exerciseCopy});
         } else if (match[1] === 'optionCheckbox') {
-            let answerOptionsCopy = this.state.exercise.answers;
-            answerOptionsCopy[match[3]].isCorrect = target.checked;
-            this.setState({answers: answerOptionsCopy});
+            let exerciseCopy = this.state.exercise;
+            exerciseCopy.answers[match[3]].isCorrect = target.checked;
+            this.setState({exercise: exerciseCopy});
+        } else {
+            console.error('Event could not be handled: ' + event);
         }
+    }
+
+    static postData(data, userType, exerciseID) {
+        let portAPI = window.location.port === '3000' ? ':8080' : '';
+        fetch('http://' + window.location.hostname + portAPI + '/api/exercise/' + userType + exerciseID, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()
+        ).catch(err => console.error('Error:', err)
+        ).then(res => {
+            console.log('Success:', res)
+
+        });
     }
 
     static handleSubmit() {
         let isACheckboxSet = false;
-        console.log(this.state.exercise);
         Object.keys(this.state.exercise.answers).forEach(element => {
                 isACheckboxSet = isACheckboxSet || this.state.exercise.answers[element].isCorrect;
             }
         );
         if (isACheckboxSet) {
-            fetch('http://' + window.location.hostname + ':8080/api/exercise/' + window.location.pathname, {
-                method: 'POST',
-                body: JSON.stringify(this.state.exercise),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.json()
-            ).catch(err => console.error('Error:', err)
-            ).then(res => console.log('Success:', res));
+            let userType = window.location.pathname.split('/')[1] + '/';
+            if (userType === 'teacher') {
+                FormHandler.postData(this.state.exercise, userType, this.state.exercise.exerciseID)
+            } else {
+                let exercise = {exerciseID: this.state.exercise.exerciseID, answers: this.state.exercise.answers};
+                FormHandler.postData(exercise, userType, this.state.exercise.exerciseID)
+            }
         } else {
             alert('Keine Antwort wurde als richtig markiert!');
         }
