@@ -27,7 +27,7 @@ export default class Exercise extends React.Component {
                             return (<Form.Field control="input" type="checkbox"
                                                 label={'Antwort ' + (index + 1) + ' : ' + element.answer}
                                                 name={'optionCheckbox' + index} onChange={FormHandler.handleChange}
-                                                checked={this.state.exercise.answers[index].isCorrect}/>
+                                                checked={this.state.exercise.answers[index].checked}/>
                             )
                         })}
                     </Grid.Row>

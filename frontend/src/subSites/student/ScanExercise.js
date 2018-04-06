@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 
 import QrReader from 'react-qr-reader';
+import config from "../../config/config";
 
 
 export default class ScanExercise extends React.Component {
@@ -23,20 +24,22 @@ export default class ScanExercise extends React.Component {
 
     handleScan(data) {
         if (data) {
-            let portAPI = window.location.port === '3000' ? ':8080' : '';
-            fetch(window.location.protocol + '//' + window.location.hostname + portAPI + '/api/exercise/' + data, {
+            fetch(config.baseurl + 'exercise/' + data, {
                     method: 'GET',
-                    headers: {
-                        "Accept": "application/json",
-                        'Content-Type': 'application/json'
-                    }
+                    headers:
+                        {
+                            "Accept":
+                                "application/json",
+                            'Content-Type':
+                                'application/json'
+                        }
                 }
             ).then(response => {
                     return response.json();
                 }
             ).then(responseData => {
                 responseData.answers.forEach(function (element, index, arrayObject) {
-                    arrayObject[index] = {answer: element, isCorrect: false};
+                    arrayObject[index] = {answer: element, checked: false};
                 });
                 this.setState({
                     result: data,
@@ -44,8 +47,8 @@ export default class ScanExercise extends React.Component {
                     iconName: 'right arrow',
                     linkLocation: '/exercise',
                     exercise: {
-                        exerciseID: responseData.id,
-                        title: responseData.title,
+                        exerciseID: responseData.taskId,
+                        title: responseData.name,
                         question: responseData.question,
                         answers: responseData.answers,
                     }
