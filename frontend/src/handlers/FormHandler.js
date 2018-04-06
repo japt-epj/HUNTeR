@@ -1,3 +1,6 @@
+import config from '../config/config';
+
+
 export default class FormHandler {
     static handleChange(event) {
         const target = event.target;
@@ -14,16 +17,15 @@ export default class FormHandler {
             this.setState({exercise: exerciseCopy});
         } else if (match[1] === 'optionCheckbox') {
             let exerciseCopy = this.state.exercise;
-            exerciseCopy.answers[match[3]].isCorrect = target.checked;
+            exerciseCopy.answers[match[3]].checked = target.checked;
             this.setState({exercise: exerciseCopy});
         } else {
             console.error('Event could not be handled: ' + event);
         }
     }
 
-    static postData(data, userType, exerciseID) {
-        let portAPI = window.location.port === '3000' ? ':8080' : '';
-        fetch('http://' + window.location.hostname + portAPI + '/api/exercise/' + userType + exerciseID, {
+    static postData(data, exerciseID) {
+        fetch(config.baseurl + 'exercise/' + exerciseID, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -33,23 +35,25 @@ export default class FormHandler {
         ).catch(err => console.error('Error:', err)
         ).then(res => {
             console.log('Success:', res)
-
         });
     }
 
     static handleSubmit() {
         let isACheckboxSet = false;
         Object.keys(this.state.exercise.answers).forEach(element => {
-                isACheckboxSet = isACheckboxSet || this.state.exercise.answers[element].isCorrect;
+                isACheckboxSet = isACheckboxSet || this.state.exercise.answers[element].checked;
             }
         );
         if (isACheckboxSet) {
             let userType = window.location.pathname.split('/')[1] + '/';
-            if (userType === 'teacher') {
-                FormHandler.postData(this.state.exercise, userType, this.state.exercise.exerciseID)
+            if (userType === 'teacher/') {
+                FormHandler.postData(this.state.exercise, this.state.exercise.exerciseID);
             } else {
-                let exercise = {exerciseID: this.state.exercise.exerciseID, answers: this.state.exercise.answers};
-                FormHandler.postData(exercise, userType, this.state.exercise.exerciseID)
+                let exercise = {
+                    exerciseID: this.state.exercise.exerciseID,
+                    answers: this.state.exercise.answers.map(element => element.checked)
+                };
+                FormHandler.postData(exercise, this.state.exercise.exerciseID)
             }
         } else {
             alert('Keine Antwort wurde als richtig markiert!');

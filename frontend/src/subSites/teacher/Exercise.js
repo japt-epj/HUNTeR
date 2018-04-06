@@ -11,14 +11,14 @@ export default class Exercise extends React.Component {
         super(props);
         this.state = {
             exercise: {
-                id: '',
+                exerciseID: '',
                 title: '',
                 question: '',
                 answers: [
-                    {answer: '', isCorrect: false},
-                    {answer: '', isCorrect: false},
-                    {answer: '', isCorrect: false},
-                    {answer: '', isCorrect: false}
+                    {answer: '', checked: false},
+                    {answer: '', checked: false},
+                    {answer: '', checked: false},
+                    {answer: '', checked: false}
                 ],
                 explanation: '',
             }
@@ -59,7 +59,7 @@ export default class Exercise extends React.Component {
                                             <Form.Field control="input" type="checkbox"
                                                         name={'optionCheckbox' + index}
                                                         onChange={FormHandler.handleChange}
-                                                        checked={this.state.exercise.answers[index].isCorrect}/>),
+                                                        checked={this.state.exercise.answers[index].checked}/>),
                                         collapsed: true
                                     })}
                                 </Table.Row>
