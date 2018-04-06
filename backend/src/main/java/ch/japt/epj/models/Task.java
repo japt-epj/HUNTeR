@@ -2,9 +2,7 @@ package ch.japt.epj.models;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Task {
@@ -15,37 +13,24 @@ public class Task {
 
     private String name;
 
-    @ElementCollection
-    private Collection<String> questions = new ArrayList<>();
-
     @OneToOne
     private Location location;
 
-    @OneToMany(mappedBy="task")
-    private List<Response> responses = new ArrayList<>();
+    @OneToMany
+    private Collection<Answer> answers = new ArrayList<>();
 
+    private String question;
 
-
-    public void addResponse(Response response){
-        responses.add(response);
+    public void addAnswer(Answer answer){
+        answers.add(answer);
     }
 
-    public void removeResponse(String response){
-        responses.remove(response);
-    }
-    public Collection<Response> getResponses() {
-        return responses;
+    public void removeAnswer(Answer answer){
+        answers.remove(answer);
     }
 
-    public void addQuestion(String question){
-        questions.add(question);
-    }
-
-    public void removeQuestion(String question){
-        questions.remove(question);
-    }
-    public Collection<String> getQuestions() {
-        return questions;
+    public Collection<Answer> getAnswers() {
+        return answers;
     }
 
     public String getName() {
