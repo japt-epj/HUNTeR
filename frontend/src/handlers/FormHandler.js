@@ -13,7 +13,7 @@ export default class FormHandler {
             this.setState({exercise: exerciseCopy});
         } else if (match[1] === 'optionAnswer') {
             let exerciseCopy = this.state.exercise;
-            exerciseCopy.answers[match[3]].answer = target.value;
+            exerciseCopy.answers[match[3]].text = target.value;
             this.setState({exercise: exerciseCopy});
         } else if (match[1] === 'optionCheckbox') {
             let exerciseCopy = this.state.exercise;
