@@ -1,4 +1,4 @@
-package ch.japt.epj.models;
+package ch.japt.epj.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,26 +10,26 @@ public class Answer
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long AnwerId;
+    private long AnswerId;
 
-    private String _answer;
+    private String answer;
 
-    private boolean _checked;
+    private boolean checked;
 
 
-    public void set_answer(String _answer) {
-        this._answer = _answer;
+    public void set_answer(String answer) {
+        this.answer = answer;
     }
 
     public String get_answer() {
-        return _answer;
+        return answer;
     }
 
     public boolean is_checked() {
-        return _checked;
+        return checked;
     }
 
-    public void set_checked(boolean _checked) {
-        this._checked = _checked;
+    public void set_checked(boolean checked) {
+        this.checked = checked;
     }
 }

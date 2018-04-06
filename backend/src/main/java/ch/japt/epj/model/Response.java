@@ -1,10 +1,9 @@
-package ch.japt.epj.models;
+package ch.japt.epj.model;
 
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 public class Response {

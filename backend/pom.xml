@@ -101,7 +101,7 @@
                             <!--namespaces to use for generated files-->
                             <apiPackage>ch.japt.epj.api</apiPackage>
                             <modelPackage>ch.japt.epj.model.dto</modelPackage>
-                            <!--rename ch.japt.epj.models as dtos, because they're not really from the database-->
+                            <!--rename ch.japt.epj.modelas dtos, because they're not really from the database-->
                             <modelNameSuffix>Dto</modelNameSuffix>
                         </configuration>
                     </execution>

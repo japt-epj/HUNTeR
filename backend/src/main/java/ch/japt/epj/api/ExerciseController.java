@@ -1,6 +1,7 @@
 package ch.japt.epj.api;
 
 import ch.japt.epj.model.dto.ExerciseDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/api")
 public class ExerciseController implements ExerciseApi {
+
     @Override
     public ResponseEntity<Void> addExercise(ExerciseDto body) {
         return null;

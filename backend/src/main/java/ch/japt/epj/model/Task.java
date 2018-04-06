@@ -1,4 +1,4 @@
-package ch.japt.epj.models;
+package ch.japt.epj.model;
 
 
 import javax.persistence.*;
@@ -51,5 +51,13 @@ public class Task {
 
     public long getTaskId() {
         return taskId;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 }
