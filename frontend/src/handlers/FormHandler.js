@@ -32,7 +32,7 @@ export default class FormHandler {
     static handleLoginSubmit(){
         this.postData(this.state, 'login');
     }
-
+    
     static handleNewStudentSubmit(){
         this.postData(this.state, 'student');
     }
