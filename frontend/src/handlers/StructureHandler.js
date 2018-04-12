@@ -9,6 +9,7 @@ import Logo from '../images/icons/e.jpg';
 export default class StructureHandler {
     static iconNames = new Map([["bars", "close"], ["close", "bars"]]);
     static pathRegex = /.*\/(.*)$/;
+
     static toggleVisibility() {
         this.setState({visible: !this.state.visible});
         this.setState({iconName: StructureHandler.iconNames.get(this.state.iconName)});

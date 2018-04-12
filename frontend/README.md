@@ -7,7 +7,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
-- [Folder Structure](#folder-structure)
+- [Folder StudentStructure](#folder-structure)
 - [Available Scripts](#available-scripts)
   - [npm start](#npm-start)
   - [npm test](#npm-test)
@@ -124,7 +124,7 @@ We commit to keeping the breaking changes minimal so you can upgrade `react-scri
 
 We are always open to [your feedback](https://github.com/facebookincubator/create-react-app/issues).
 
-## Folder Structure
+## Folder StudentStructure
 
 After creation, your project should look like this:
 

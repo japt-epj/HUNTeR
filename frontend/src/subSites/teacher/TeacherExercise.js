@@ -8,7 +8,7 @@ import TableHandler from '../../handlers/TableHandler';
 import APIHandler from '../../handlers/APIHandler';
 
 
-export default class Exercise extends React.Component {
+export default class TeacherExercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

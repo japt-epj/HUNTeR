@@ -7,7 +7,7 @@ import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';
 
 
-export default class ScanExercise extends React.Component {
+export default class StudentScanExercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

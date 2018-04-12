@@ -1,17 +1,17 @@
 export default class Data {
     static getPathsTeacher() {
         return [
-            {path: 'exercise', title: 'Aufgabe erstellen', component: 'Exercise', icon: 'tasks'},
+            {path: 'exercise', title: 'Aufgabe erstellen', component: 'StudentExercise', icon: 'tasks'},
             {
                 path: 'exerciseOverview',
                 title: 'Übersicht der Aufgaben',
-                component: 'ExercisesOverview',
+                component: 'TeacherExercisesOverview',
                 icon: 'stack exchange'
             },
             {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
             {
                 path: 'quizOverview', title: 'Übersicht der Quizzes',
-                component: 'QuizOverview', icon: 'stack exchange'
+                component: 'TeacherQuizOverview', icon: 'stack exchange'
             }
         ];
     }
@@ -19,8 +19,8 @@ export default class Data {
     static getPathsStudent() {
         return [
             {path: 'settings', title: 'Persönliches', component: 'Settings', icon: 'setting'},
-            {path: 'scan', title: 'Aufgabe scannen', component: 'ScanExercise', icon: 'camera retro'},
-            {path: 'score', title: 'Aktueller Score', component: 'Score', icon: 'trophy'}
+            {path: 'scan', title: 'Aufgabe scannen', component: 'StudentScanExercise', icon: 'camera retro'},
+            {path: 'score', title: 'Aktueller StudentScore', component: 'StudentScore', icon: 'trophy'}
         ];
     }
 
