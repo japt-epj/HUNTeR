@@ -5,42 +5,42 @@ import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
 import Home from '../../handlers/HomeHandler';
-import ScanExercise from './ScanExercise';
-import Settings from './Setting';
-import Score from './Score';
-import Exercise from './Exercise';
+import StudentScanExercise from './StudentScanExercise';
+import Settings from './StudentSetting';
+import StudentScore from './StudentScore';
+import StudentExercise from './StudentExercise';
 
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 
 
-export default class Structure extends React.Component {
+export default class StudentStructure extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
             iconName: 'bars'
         };
-        StructureHandler.hideSidebar = StructureHandler.hideSidebar.bind(this);
-        StructureHandler.getHeader = StructureHandler.getHeader.bind(this);
-        StructureHandler.getSideBar = StructureHandler.getSideBar.bind(this);
+        this.hideSidebar = StructureHandler.hideSidebar.bind(this);
+        this.getHeader = StructureHandler.getHeader.bind(this);
+        this.getSideBar = StructureHandler.getSideBar.bind(this);
     }
 
     render() {
         return (
             <BrowserRouter basename="/student">
                 <Grid className={"siteGrid"} padded>
-                    {StructureHandler.getHeader()}
+                    {this.getHeader()}
                     <Grid.Row className={'gridContent'}>
                         <Grid.Column>
                             <Sidebar.Pushable as={Segment}>
-                                {StructureHandler.getSideBar(Data.getPathsStudent())}
-                                <Sidebar.Pusher onClick={StructureHandler.hideSidebar}>
+                                {this.getSideBar(Data.getPathsStudent())}
+                                <Sidebar.Pusher onClick={this.hideSidebar}>
                                     <Route exact path="/" render={props => Home(Data.getPathsStudent())}/>
                                     <Route path="/settings" component={Settings}/>
-                                    <Route path="/scan" component={ScanExercise}/>
-                                    <Route path="/score" component={Score}/>
-                                    <Route path="/exercise" component={Exercise}/>
+                                    <Route path="/scan" component={StudentScanExercise}/>
+                                    <Route path="/score" component={StudentScore}/>
+                                    <Route path="/exercise" component={StudentExercise}/>
                                 </Sidebar.Pusher>
                             </Sidebar.Pushable>
                         </Grid.Column>

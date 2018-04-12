@@ -8,9 +8,9 @@ export default function getHome(paths) {
     return (
         <div>
             <Menu fluid vertical>
-                {paths.map((element) =>
-                    <Menu.Item key={'menuItem' + element.path}><NavLink key={'NavLink' + element.path}
-                                                                        to={'/' + element.path}>{element.title}</NavLink></Menu.Item>
+                {paths.map((element) => <NavLink key={'NavLink' + element.path}
+                                                 to={'/' + element.path}>
+                    <Menu.Item key={'menuItem' + element.path}>{element.title}</Menu.Item></NavLink>
                 )}
             </Menu>
             <div className="content">
