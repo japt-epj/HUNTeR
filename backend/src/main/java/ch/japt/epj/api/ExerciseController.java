@@ -1,7 +1,7 @@
 package ch.japt.epj.api;
 
-import ch.japt.epj.model.Answer;
-import ch.japt.epj.model.Task;
+import ch.japt.epj.model.data.Answer;
+import ch.japt.epj.model.data.Task;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.repository.AnswerRepository;
@@ -31,13 +31,6 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
         ModelMapper mapper = new ModelMapper();
         ExerciseDto dto = mapper.map(task, ExerciseDto.class);
         return dto;
-
-//        ExerciseDto dto = new ExerciseDto();
-//        dto.setId(task.getTaskId());
-//        dto.setTitle(task.getName());
-//        dto.setQuestion(task.getQuestion());
-//        task.getAnswers().forEach(answer -> dto.addAnswersItem(answer.getAnswer()));
-//        return dto;
     }
 
     @Override
