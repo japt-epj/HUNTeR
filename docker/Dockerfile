@@ -3,7 +3,6 @@ FROM openjdk:8-slim
 EXPOSE 8080
 EXPOSE 8443
 EXPOSE 5005
-COPY . /app
+COPY ./backend/target/*.jar /app/backend.jar
 WORKDIR /app
-RUN ["/bin/bash", "-c", "mv backend/target/*.jar backend/target/backend.jar"]
-CMD ["java", "-jar", "backend/target/backend.jar", "-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" ]
+CMD ["java", "-jar", "backend.jar", "-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" ]
