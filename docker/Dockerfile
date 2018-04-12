@@ -6,4 +6,4 @@ EXPOSE 5005
 COPY . /app
 WORKDIR /app
 RUN ["/bin/bash", "-c", "mv backend/target/*.jar backend/target/backend.jar"]
-CMD ["java", "-jar", "backend/target/backend.jar"]
+CMD ["java", "-jar", "backend/target/backend.jar", "-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" ]
