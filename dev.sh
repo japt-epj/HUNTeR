@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SPRING_PROFILES_ACTIVE=dev; ./mvnw "-DskipTests=true" clean install
+SPRING_PROFILES_ACTIVE=dev; ./mvnw "-DskipTests=true" "-Ddeactivate-dev-tools=false" clean install
 
 # TODO: check for build success here.
 
