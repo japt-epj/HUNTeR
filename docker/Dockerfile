@@ -5,5 +5,5 @@ EXPOSE 8443
 EXPOSE 5005
 COPY . /app
 WORKDIR /app
-RUN [ "./mvnw", "-DskipTests=true", "clean", "install" ]
-CMD [ "./mvnw", "-f", "backend/pom.xml", "spring-boot:run" ]
+RUN ["/bin/bash", "-c", "mv backend/target/*.jar backend/target/backend.jar"]
+CMD ["java", "-jar", "backend/target/backend.jar", "-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" ]
