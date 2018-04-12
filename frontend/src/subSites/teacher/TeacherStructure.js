@@ -7,6 +7,7 @@ import '../../style/index.css';
 import Home from '../../handlers/HomeHandler';
 import TeacherExercise from './TeacherExercise';
 import ExerciseOverview from './TeacherExercisesOverview';
+import TeacherNewStudent from './TeacherNewStudent';
 import Quiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
 
@@ -30,8 +31,8 @@ export default class TeacherStructure extends React.Component {
         return (
             <BrowserRouter basename="/teacher">
                 <Grid className={"siteGrid"} padded>
-                    {this.getHeader()}
-                    <Grid.Row className={'gridContent'}>
+                    {this.getHeader(true)}
+                    <Grid.Row className="gridContent">
                         <Grid.Column>
                             <Sidebar.Pushable as={Segment}>
                                 {this.getSideBar(Data.getPathsTeacher())}
@@ -41,6 +42,7 @@ export default class TeacherStructure extends React.Component {
                                     <Route path="/exerciseOverview" component={ExerciseOverview}/>
                                     <Route path="/quiz" component={Quiz}/>
                                     <Route path="/quizOverview" component={TeacherQuizOverview}/>
+                                    <Route path="/newUser" component={TeacherNewStudent}/>
                                 </Sidebar.Pusher>
                             </Sidebar.Pushable>
                         </Grid.Column>
