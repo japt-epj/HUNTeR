@@ -54,7 +54,7 @@ INSERT INTO task (name, question) VALUES
   ('Question 10', 'Was machte Reinhold Messner mit dem Mount Everest?');
 
 -- something something table
-INSERT INTO task_answers (answers_answer_id, task_task_id) VALUES
+INSERT INTO task_answer_templates (answer_templates_answer_id, task_task_id) VALUES
   (1,1),
   (2,1),
   (3,1),
