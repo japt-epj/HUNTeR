@@ -5,7 +5,7 @@ export default class Data {
             {
                 path: 'exerciseOverview',
                 title: 'Übersicht der Aufgaben',
-                component: 'ExerciseOverview',
+                component: 'ExercisesOverview',
                 icon: 'stack exchange'
             },
             {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
