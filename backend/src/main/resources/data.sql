@@ -95,4 +95,3 @@ INSERT INTO task_answer_templates (answer_templates_answer_id, task_task_id) VAL
   (38,10),
   (39,10),
   (40,10);
->>>>>>> 30f6be2101332ef550716abb58fe7ab237ba140f
