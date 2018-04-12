@@ -24,7 +24,7 @@ export default class StructureHandler {
         return (
             <Grid.Row columns="equal" verticalAlign="middle" className="gridHeader">
                 <Grid.Column textAlign="left">
-                    <NavLink to={'/'}>
+                    <NavLink to="/">
                         <Image src={Logo} alt="HUNTeR Logo - Link to home site" className="logoImage"
                                onClick={this.hideSidebar.bind(this)}/>
                     </NavLink>
