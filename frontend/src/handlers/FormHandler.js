@@ -1,69 +1,29 @@
-import config from '../config/config';
+import APIHandler from './APIHandler';
 
 
 export default class FormHandler {
     static handleChange(event) {
         const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        const regex = /(option(Answer|Checkbox))([0-3])/;
-        const match = regex.exec(name);
-        if (match === null) {
-            let exerciseCopy = this.state.exercise;
-            exerciseCopy[name] = target.value;
-            this.setState({exercise: exerciseCopy});
-        } else if (match[1] === 'optionAnswer') {
-            let exerciseCopy = this.state.exercise;
-            exerciseCopy.answers[match[3]].text = target.value;
-            this.setState({exercise: exerciseCopy});
-        } else if (match[1] === 'optionCheckbox') {
-            let exerciseCopy = this.state.exercise;
-            exerciseCopy.answers[match[3]].checked = target.checked;
-            this.setState({exercise: exerciseCopy});
-        } else {
-            console.error('Event could not be handled: ' + event);
-        }
-    }
-
-    static postData(data, exerciseID) {
-        let header_xcsrf_token;
-        fetch(config.baseurl + 'exercise/', {
-            method: 'GET'
-        }).then((data, response) => {
-            header_xcsrf_token = response.headers['x-csrf-token'];
-        }).then(res => {
-            console.log(res);
-        });
-
-        fetch(config.baseurl + 'exercise/' + exerciseID, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': header_xcsrf_token
-            }
-        }).then(res => res.json()
-        ).catch(err => console.error('Error:', err)
-        ).then(res => {
-            console.log('Success:', res)
+        this.setState({
+            [name]: value
         });
     }
 
     static handleSubmit() {
+        let checkedAnswers = [this.state.checked0, this.state.checked1, this.state.checked2, this.state.checked3];
         let isACheckboxSet = false;
-        Object.keys(this.state.exercise.answers).forEach(element => {
-                isACheckboxSet = isACheckboxSet || this.state.exercise.answers[element].checked;
+        Object.keys(checkedAnswers).forEach(element => {
+                isACheckboxSet = isACheckboxSet || checkedAnswers[element];
             }
         );
         if (isACheckboxSet) {
-            let userType = window.location.pathname.split('/')[1] + '/';
-            if (userType === 'teacher/') {
-                FormHandler.postData(this.state.exercise, this.state.exercise.exerciseID);
+            let userType = window.location.pathname.split('/')[1];
+            if (userType === 'teacher') {
+                APIHandler.postExerciseData(APIHandler.prepareTeacherData(this.state)).bind(this);
             } else {
-                let exercise = {
-                    exerciseID: this.state.exercise.exerciseID,
-                    answers: this.state.exercise.answers.map(element => element.checked)
-                };
-                FormHandler.postData(exercise, this.state.exercise.exerciseID)
+                APIHandler.postExerciseData(APIHandler.prepareStudentData(this.state)).bind(this);
             }
         } else {
             alert('Keine Antwort wurde als richtig markiert!');

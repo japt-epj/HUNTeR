@@ -1,14 +1,14 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Grid, Icon, Image, Menu, Sidebar} from 'semantic-ui-react';
+import {Button, Grid, Header, Icon, Image, Menu, Sidebar} from 'semantic-ui-react';
 
 import Logo from '../images/icons/e.jpg';
 
 
 export default class StructureHandler {
     static iconNames = new Map([["bars", "close"], ["close", "bars"]]);
-
+    static pathRegex = /.*\/(.*)$/;
     static toggleVisibility() {
         this.setState({visible: !this.state.visible});
         this.setState({iconName: StructureHandler.iconNames.get(this.state.iconName)});
@@ -29,10 +29,10 @@ export default class StructureHandler {
                     </NavLink>
                 </Grid.Column>
                 <Grid.Column textAlign="center" className="headerElement">
-                    <h1>Header</h1>
+                    <Header size="medium" color="green" content={'Pathname'}/>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <Button onClick={StructureHandler.toggleVisibility.bind(this)} icon={this.state.iconName}/>
+                    <Button onClick={StructureHandler.toggleVisibility.bind(this)} icon={this.state.iconName} color="green"/>
                 </Grid.Column>
             </Grid.Row>
         )

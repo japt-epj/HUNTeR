@@ -1,10 +1,10 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {Redirect} from 'react-router';
 
-import {Button} from 'semantic-ui-react';
+import {Message} from 'semantic-ui-react';
 
+import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';
-import config from "../../config/config";
 
 
 export default class ScanExercise extends React.Component {
@@ -13,10 +13,10 @@ export default class ScanExercise extends React.Component {
         this.state = {
             delay: 300,
             result: '',
-            displayText: 'Scanne',
-            iconName: 'camera retro',
-            linkLocation: '/scan',
-            exercise: ''
+            displayText: 'Scanne QR-Code ein.',
+            exercise: '',
+            scanError: false,
+            fireRedirect: false
         };
         this.handleScan = this.handleScan.bind(this);
         this.handleError = this.handleError.bind(this);
@@ -24,42 +24,30 @@ export default class ScanExercise extends React.Component {
 
     handleScan(data) {
         if (data) {
-            fetch(config.baseurl + 'exercise/' + data, {
-                    method: 'GET',
-                    headers:
-                        {
-                            "Accept":
-                                "application/json",
-                            'Content-Type':
-                                'application/json'
+            let exercisePromise = APIHandler.getExercise(data);
+            let promiseData = exercisePromise.then(resData => {
+                if (resData.id !== undefined) {
+                    resData.answers.forEach(
+                        function (element, index, arrayObject) {
+                            arrayObject[index] = {text: element, checked: false};
                         }
+                    );
+                    this.setState({
+                        exercise: {
+                            exerciseID: resData.id,
+                            title: resData.title,
+                            question: resData.question,
+                            answers: resData.answers,
+                        }
+                    });
+                    this.setState({fireRedirect: true});
+                } else {
+                    this.setState({scanError: true});
+                    this.setState({displayText: 'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'});
                 }
-            ).then(response => {
-                    return response.json();
-                }
-            ).then(responseData => {
-                responseData.answers.forEach(function (element, index, arrayObject) {
-                    arrayObject[index] = {answer: element, checked: false};
-                });
-                this.setState({
-                    result: data,
-                    displayText: 'Starte',
-                    iconName: 'right arrow',
-                    linkLocation: '/exercise',
-                    exercise: {
-                        exerciseID: responseData.taskId,
-                        title: responseData.name,
-                        question: responseData.question,
-                        answers: responseData.answers,
-                    }
-                })
-                ;
-            }).catch(err => {
-                console.log("fetch error" + err);
             });
         }
     }
-
 
     handleError(err) {
         console.error(err);
@@ -69,10 +57,13 @@ export default class ScanExercise extends React.Component {
         return (
             <div>
                 <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan}/>
-                <NavLink to={{pathname: this.state.linkLocation, state: {exercise: this.state.exercise}}}>
-                    <Button content={this.state.displayText + ' Aufgabe ' + this.state.result}
-                            icon={this.state.iconName} labelPosition="right"/>
-                </NavLink>
+                <Message
+                    icon='camera retro' size="mini"
+                    header={this.state.displayText}
+                    error={this.state.scanError}/>
+                {this.state.fireRedirect && (
+                    <Redirect to={{pathname: 'exercise', state: {exercise: this.state.exercise}}}/>
+                )}
             </div>
         )
     }
