@@ -13,8 +13,8 @@ export default class APIHandler {
         ).catch(err => console.warn(err));
     }
 
-    static postExerciseData(data) {
-        fetch(config.baseurl + 'exercise/' + data.exerciseID, {
+    static postData(data, path) {
+        fetch(config.baseurl + path + '/', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
