@@ -10,24 +10,19 @@ public class Answer
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long AnswerId;
+    private long answerId;
+
     private String answer;
+
     private boolean checked;
 
-    public long getAnswerId() {
-        return AnswerId;
-    }
 
-    public void setAnswerId(long answerId) {
-        AnswerId = answerId;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public String getAnswer() {
         return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 
     public boolean isChecked() {
