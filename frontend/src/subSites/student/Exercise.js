@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button, Form, Grid, Message} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
+import APIHandler from '../../handlers/APIHandler';
 
 
 export default class Exercise extends React.Component {
@@ -23,6 +24,7 @@ export default class Exercise extends React.Component {
         };
         this.handleSubmit = FormHandler.handleSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
+        this.postExerciseData = APIHandler.postExerciseData.bind(this);
     };
 
     render() {

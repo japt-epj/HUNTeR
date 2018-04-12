@@ -18,12 +18,12 @@ export default class FormHandler {
                 isACheckboxSet = isACheckboxSet || checkedAnswers[element];
             }
         );
-        if (isACheckboxSet) {
+        if(isACheckboxSet){
             let userType = window.location.pathname.split('/')[1];
             if (userType === 'teacher') {
-                APIHandler.postExerciseData(APIHandler.prepareTeacherData(this.state)).bind(this);
+                this.postExerciseData(APIHandler.prepareTeacherData(this.state));
             } else {
-                APIHandler.postExerciseData(APIHandler.prepareStudentData(this.state)).bind(this);
+                this.postExerciseData(APIHandler.prepareStudentData(this.state));
             }
         } else {
             alert('Keine Antwort wurde als richtig markiert!');
