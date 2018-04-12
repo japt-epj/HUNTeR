@@ -6,6 +6,7 @@ import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,16 @@ public class ExerciseController implements ExerciseApi {
     private AnswerRepository answerRepository;
 
     private ExerciseDto map(Task task) {
-        ExerciseDto dto = new ExerciseDto();
-        dto.setId(task.getTaskId());
-        dto.setTitle(task.getName());
-        dto.setQuestion(task.getQuestion());
-        task.getAnswers().forEach(answer -> dto.addAnswersItem(answer.getAnswer()));
+        ModelMapper mapper = new ModelMapper();
+        ExerciseDto dto = mapper.map(task, ExerciseDto.class);
         return dto;
+
+//        ExerciseDto dto = new ExerciseDto();
+//        dto.setId(task.getTaskId());
+//        dto.setTitle(task.getName());
+//        dto.setQuestion(task.getQuestion());
+//        task.getAnswers().forEach(answer -> dto.addAnswersItem(answer.getAnswer()));
+//        return dto;
     }
 
     @Override
