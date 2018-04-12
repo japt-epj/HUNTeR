@@ -79,6 +79,15 @@ export default class Data {
         return {value: this.getQuiz(quizString).solvedExercises, total: this.getQuiz(quizString).exercises};
     }
 
+    static getStudents(quizString){
+        return [
+            {
+                key: 'student1',
+                email: 'schlaubi.schlumpf@gmail.com'
+            }
+        ]
+    }
+
     static getResults(quizString) {
         let quizMapping = new Map();
         quizMapping.set('quiz1',
