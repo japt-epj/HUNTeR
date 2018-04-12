@@ -16,10 +16,11 @@ public class Quiz {
 
     @OneToMany
     private Collection<Execution> executions = new ArrayList<>();
+
     @OneToMany
     private Collection<Task> tasks = new ArrayList<>();
 
-        public String getName() {
+    public String getName() {
         return name;
     }
 

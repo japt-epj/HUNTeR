@@ -374,7 +374,7 @@ definitions:
     required:
     - "title"
     - "question"
-    - "answers"
+    - "answertemplates"
     properties:
       title:
         type: "string"
@@ -391,7 +391,7 @@ definitions:
     required:
     - "title"
     - "question"
-    - "answers"
+    - "answertemplates"
     properties:
       id:
         type: "integer"
