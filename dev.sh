@@ -1,5 +1,9 @@
 #!/bin/bash
 
+./mvnw "-DskipTests=true" clean install
+
+# TODO: check for build success here.
+
 CAN_I_RUN_SUDO=$(sudo -n uptime 2>&1|grep -E "required|load"|wc -l)
 if [ ${CAN_I_RUN_SUDO} -gt 0 ]
 then
@@ -13,7 +17,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# only start frontend if build and up worked
+# TODO: only start frontend if build and up worked
 cd frontend
 npm install
 npm run start
