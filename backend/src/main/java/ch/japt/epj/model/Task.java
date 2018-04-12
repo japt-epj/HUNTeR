@@ -17,20 +17,26 @@ public class Task {
     private Location location;
 
     @OneToMany
-    private Collection<Answer> answers = new ArrayList<>();
+    private Collection<Answer> answerTemplates = new ArrayList<>();
+
+    @OneToMany
+    private Collection<Response> responses = new ArrayList<>();
 
     private String question;
 
-    public void addAnswer(Answer answer){
-        answers.add(answer);
+
+
+
+    public void addAnswerTemplate(Answer answerTemplate){
+        answerTemplates.add(answerTemplate);
     }
 
-    public void removeAnswer(Answer answer){
-        answers.remove(answer);
+    public void removeAnswerTemplate(Answer answerTemplate){
+        answerTemplates.remove(answerTemplate);
     }
 
-    public Collection<Answer> getAnswers() {
-        return answers;
+    public Collection<Answer> getAnswerTemplates() {
+        return answerTemplates;
     }
 
     public String getName() {

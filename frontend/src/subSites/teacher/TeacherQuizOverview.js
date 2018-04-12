@@ -8,11 +8,11 @@ import ModalHandler from "../../handlers/ModalHandler";
 import TableHandler from "../../handlers/TableHandler";
 
 
-export default class QuizOverview extends React.Component {
+export default class TeacherQuizOverview extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
         this.state = {checkBox: ''};
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
     handleSelectChange = (e, {value}) => this.setState({checkBox: value});
