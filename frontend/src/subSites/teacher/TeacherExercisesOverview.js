@@ -7,7 +7,7 @@ import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
 
 
-export default class ExercisesOverview extends React.Component {
+export default class TeacherExercisesOverview extends React.Component {
     constructor(props) {
         super(props);
         this.handleSelectmentChange = this.handleSelectmentChange.bind(this);

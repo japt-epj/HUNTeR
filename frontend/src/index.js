@@ -4,8 +4,8 @@ import {Route, BrowserRouter, Switch} from 'react-router-dom';
 
 import registerServiceWorker from './registerServiceWorker';
 import App from './App';
-import Teacher from './subSites/teacher/Structure';
-import Student from './subSites/student/Structure';
+import Teacher from './subSites/teacher/TeacherStructure';
+import Student from './subSites/student/StudentStructure';
 
 import './index.css';
 
