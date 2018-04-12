@@ -30,8 +30,8 @@ export default class StudentStructure extends React.Component {
         return (
             <BrowserRouter basename="/student">
                 <Grid className={"siteGrid"} padded>
-                    {this.getHeader()}
-                    <Grid.Row className={'gridContent'}>
+                    {this.getHeader(true)}
+                    <Grid.Row className="gridContent">
                         <Grid.Column>
                             <Sidebar.Pushable as={Segment}>
                                 {this.getSideBar(Data.getPathsStudent())}
