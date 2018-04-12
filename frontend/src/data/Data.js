@@ -12,7 +12,9 @@ export default class Data {
             {
                 path: 'quizOverview', title: 'Übersicht der Quizzes',
                 component: 'TeacherQuizOverview', icon: 'stack exchange'
-            }
+            },
+            {path: 'newUser', title: 'Schüler erstellen', component: 'TeacherNewStudent', icon: 'add user'},
+
         ];
     }
 
