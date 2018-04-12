@@ -1,6 +1,6 @@
 import config from "../config/config";
 
-export default class FormHandler {
+export default class APIHandler {
     static getExercise(exerciseID) {
         return fetch(config.baseurl + 'exercise/' + exerciseID, {
                 method: 'GET',
@@ -13,21 +13,6 @@ export default class FormHandler {
         ).catch(err => console.warn(err));
     }
 
-    static getData(path, exerciseID) {
-        return (
-            fetch(config.baseurl + path + exerciseID, {
-                    method: 'GET',
-                    headers: {
-                        "Accept": "application/json",
-                        'Content-Type': 'application/json'
-                    }
-                }
-            ).then(response => {
-                return response.json();
-            })
-        )
-    }
-
     static postExerciseData(data) {
         fetch(config.baseurl + 'exercise/' + data.exerciseID, {
             method: 'POST',
@@ -38,7 +23,7 @@ export default class FormHandler {
         }).then(res => res.json()
         ).catch(err => console.error('Error:', err)
         ).then(res => {
-            console.log('Success:', res);
+            console.log('Success:' + res);
             this.setState({fireRedirect: true});
         });
     }
