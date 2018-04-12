@@ -14,9 +14,9 @@ export default class TeacherNewStudent extends React.Component {
             lastName: '',
             email: '',
         };
-        this.handleSubmit = FormHandler.handleSubmit.bind(this);
+        this.handleSubmit = FormHandler.handleNewStudentSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
-        this.postExerciseData = APIHandler.postExerciseData.bind(this);
+        this.postData = APIHandler.postData.bind(this);
     }
 
     render() {
