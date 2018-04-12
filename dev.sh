@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# check if target/bla.jar exists in frontend
 SPRING_PROFILES_ACTIVE=dev; \
     ./mvnw -f backend/pom.xml \
         "-DskipTests=true" \
@@ -8,7 +7,9 @@ SPRING_PROFILES_ACTIVE=dev; \
         clean \
         install
 
-# TODO: check for build success here.
+if [ $? -ne 0 ]; then
+    exit 1
+fi
 
 CAN_I_RUN_SUDO=$(sudo -n uptime 2>&1|grep -E "required|load"|wc -l)
 if [ ${CAN_I_RUN_SUDO} -gt 0 ]
