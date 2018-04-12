@@ -24,16 +24,30 @@ export default class StructureHandler {
         return (
             <Grid.Row columns="equal" verticalAlign="middle" className="gridHeader">
                 <Grid.Column textAlign="left">
-                    <NavLink to={'/'}>
+                    <NavLink to="/">
                         <Image src={Logo} alt="HUNTeR Logo - Link to home site" className="logoImage"
-                               onClick={StructureHandler.hideSidebar.bind(this)}/>
+                               onClick={this.hideSidebar.bind(this)}/>
                     </NavLink>
                 </Grid.Column>
                 <Grid.Column textAlign="center" className="headerElement">
                     <Header size="medium" color="green" content={'Pathname'}/>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <Button onClick={StructureHandler.toggleVisibility.bind(this)} icon={this.state.iconName} color="green"/>
+                    <Button onClick={StructureHandler.toggleVisibility.bind(this)} icon={this.state.iconName}
+                            color="green"/>
+                </Grid.Column>
+            </Grid.Row>
+        )
+    }
+
+    static getLoginHeader() {
+        return (
+            <Grid.Row columns="equal" verticalAlign="middle" className="gridHeader">
+                <Grid.Column textAlign="left">
+                    <Image src={Logo} alt="HUNTeR Logo - Link to home site" className="logoImage"/>
+                </Grid.Column>
+                <Grid.Column textAlign="right" className="headerElement">
+                    <Header size="medium" color="green" content="Login Seite"/>
                 </Grid.Column>
             </Grid.Row>
         )

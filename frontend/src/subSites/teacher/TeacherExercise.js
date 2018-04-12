@@ -26,9 +26,9 @@ export default class TeacherExercise extends React.Component {
             checked3: false,
             answersAllowed: 4
         };
-        this.handleSubmit = FormHandler.handleSubmit.bind(this);
+        this.handleSubmit = FormHandler.handleFormSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
-        this.postExerciseData = APIHandler.postExerciseData.bind(this);
+        this.postData = APIHandler.postData.bind(this);
     }
 
     render() {
