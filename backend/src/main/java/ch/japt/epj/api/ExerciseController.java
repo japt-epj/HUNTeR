@@ -6,7 +6,9 @@ import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +32,15 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
 
     private ExerciseDto map(Task task) {
         ModelMapper mapper = new ModelMapper();
+        TypeMap<Task, ExerciseDto> map = mapper.createTypeMap(Task.class, ExerciseDto.class);
+        map.addMapping(Task::getName, ExerciseDto::setTitle);
+        Converter<Collection<Answer>, List<String>> toString = answers -> {
+            LinkedList<String> strings = new LinkedList<>();
+            answers.getSource().forEach(a -> strings.add(a.getAnswer()));
+            return strings;
+        };
         ExerciseDto dto = mapper.map(task, ExerciseDto.class);
+
         return dto;
     }
 
