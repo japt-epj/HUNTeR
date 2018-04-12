@@ -4,13 +4,6 @@ import {Button, Icon, Modal} from 'semantic-ui-react';
 
 
 export default class ModalHandler {
-    static getQRCode(element) {
-        return (
-            <a href={'/qrCodes/qrcode-' + element.qrCodeID + '.png'} download>
-                <Button basic color="orange" icon="qrcode" size="small"/>
-            </a>
-        );
-    }
 
     static getDeleteModal(element) {
         return (
