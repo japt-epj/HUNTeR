@@ -34,13 +34,8 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
         ModelMapper mapper = new ModelMapper();
         TypeMap<Task, ExerciseDto> map = mapper.createTypeMap(Task.class, ExerciseDto.class);
         map.addMapping(Task::getName, ExerciseDto::setTitle);
-        Converter<Collection<Answer>, List<String>> toString = answers -> {
-            LinkedList<String> strings = new LinkedList<>();
-            answers.getSource().forEach(a -> strings.add(a.getAnswer()));
-            return strings;
-        };
+        map.addMapping(Task::getAnswerTemplates, ExerciseDto::setAnswers);
         ExerciseDto dto = mapper.map(task, ExerciseDto.class);
-
         return dto;
     }
 
