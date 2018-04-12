@@ -12,29 +12,27 @@ public class Response {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long responseId;
 
-    @ElementCollection
-    private Collection<String> questions = new ArrayList<>();
 
-    @ElementCollection
-    private Collection<String> answers = new ArrayList<>();
+    @OneToOne
+    private Person person;
 
-    public Collection<String> getAnswers() {
-        return answers;
+    @OneToMany
+    private Collection<Answer> answersFromPerson = new ArrayList<>();
+
+    public Person getPerson() {
+        return person;
     }
 
-    public void setAnswers(Collection<String> answers) {
-        this.answers = answers;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public Collection<String> getQuestions() {
-        return questions;
+    public Collection<Answer> getAnswersFromPerson() {
+        return answersFromPerson;
     }
 
-    public void setQuestions(Collection<String> questions) {
-        this.questions = questions;
+    public void setAnswersFromPerson(Collection<Answer> answersFromPerson) {
+        this.answersFromPerson = answersFromPerson;
     }
 
-    public long getResponseId() {
-        return responseId;
-    }
 }

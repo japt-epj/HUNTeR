@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api")
-public class ExerciseController implements ExerciseApi {
+public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
     @Autowired
     private ExerciseRepository repository;
 
@@ -31,7 +31,8 @@ public class ExerciseController implements ExerciseApi {
         dto.setId(task.getTaskId());
         dto.setTitle(task.getName());
         dto.setQuestion(task.getQuestion());
-        task.getAnswers().forEach(answer -> dto.addAnswersItem(answer.getAnswer()));
+        task.getAnswerTemplates().forEach(answer -> dto.addAnswersItem(answer.getAnswer()));
+
         return dto;
     }
 
@@ -45,7 +46,7 @@ public class ExerciseController implements ExerciseApi {
             Answer answer = new Answer();
             answer.setAnswer(newAnswer.getText());
             answer.setChecked(newAnswer.isChecked());
-            task.addAnswer(answer);
+            task.addAnswerTemplate(answer);
             answerRepository.save(answer);
         });
 
