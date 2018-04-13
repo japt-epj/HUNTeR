@@ -4,7 +4,6 @@ import {Button, Dimmer, Form, Grid, Loader, Modal, Table} from 'semantic-ui-reac
 
 import Data from '../../data/Data';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
-import TableHandler from '../../handlers/TableHandler';
 
 export default class extends React.Component {
     constructor(props) {

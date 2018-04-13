@@ -13,18 +13,6 @@ export default class APIHandler {
         ).catch(err => console.warn(err));
     }
 
-    static getExerciseQRCode(exerciseID) {
-        return fetch(config.baseurl + 'qrCode/' + exerciseID, {
-                method: 'GET',
-                headers: {
-                    "Accept": "image/png",
-                    'Content-Type': 'image/png'
-                }
-            }
-        ).then(res => res.json()
-        ).catch(err => console.warn(err));
-    }
-
     static getExercises() {
         return fetch(config.baseurl + 'exercise/', {
                 method: 'GET',

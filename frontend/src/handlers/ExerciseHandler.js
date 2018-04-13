@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button, Form, Table} from 'semantic-ui-react';
 
 import APIHandler from "./APIHandler";
+import config from "../config/config";
 
 export default class ExerciseHandler {
     static getTableRows() {
@@ -26,8 +27,9 @@ export default class ExerciseHandler {
                                         </NavLink>
                                     </Table.Cell>
                                     <Table.Cell verticalAlign="middle" collapsing>
-                                        <Button color="orange" basic icon="qrcode"
-                                                onClick={APIHandler.getExerciseQRCode(element.id)}/>
+                                        <a href={config.baseurl + 'qrCode/'} download={element.id}>
+                                            <Button color="orange" basic icon="qrcode"/>
+                                        </a>
                                     </Table.Cell>
                                 </Table.Row>
                             )),
