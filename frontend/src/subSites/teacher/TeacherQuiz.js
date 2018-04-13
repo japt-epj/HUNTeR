@@ -29,21 +29,15 @@ export default function getQuiz() {
                                         <Table.Body>
                                             {Data.getStudents().map((element, index) =>
                                                 <Table.Row key={'TableRow' + index}>
-                                                    <Grid stretched={true}>
-                                                        <div>
                                                             {TableHandler.getTableCell({
                                                                 element: (<Form.Field control="input"
                                                                                       type="checkbox"/>),
                                                                 collapsed: true
                                                             })}
-                                                        </div>
-                                                        <div align="right">
                                                             {TableHandler.getTableCell({
                                                                 element: (<Segment>{element.email}</Segment>),
                                                                 collapsed: false
                                                             })}
-                                                        </div>
-                                                    </Grid>
                                                 </Table.Row>
                                             )}
                                         </Table.Body>
@@ -69,20 +63,19 @@ export default function getQuiz() {
                                         <Table.Body>
                                             {Data.getExercises().map((element, index) =>
                                                 <Table.Row key={'TableRow' + index}>
+<<<<<<< HEAD
                                                     <Gridgit >
                                                         <Grid.Column >
+=======
+>>>>>>> remove grid and divs
                                                         {TableHandler.getTableCell({
                                                             element: (<Form.Field control="input"
                                                                                   type="checkbox"/>), collapsed: true
                                                         })}
-                                                        </Grid.Column>
-                                                        <Grid.Column>
                                                         {TableHandler.getTableCell({
                                                             element: (<Segment>{element.title}</Segment>),
                                                             collapsed: false
                                                         })}
-                                                        </Grid.Column>
-                                                        <Grid.Column floated="right" stretched>
                                                         {TableHandler.getTableCell({
                                                             element: (
                                                                 <NavLink to={'/exercise?id=' + element.key}>
@@ -90,8 +83,11 @@ export default function getQuiz() {
                                                                             color="green"/></NavLink>),
                                                             collapsed: true
                                                         })}
+<<<<<<< HEAD
                                                         </Grid.Column>
                                                     </Gridgit>
+=======
+>>>>>>> remove grid and divs
                                                 </Table.Row>
                                             )}
                                         </Table.Body>
