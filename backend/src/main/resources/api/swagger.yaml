@@ -17,6 +17,11 @@ tags:
   externalDocs:
     description: "This should link to our wiki I guess..."
     url: "http://swagger.io"
+- name: "execution"
+  description: "Everything concerning executions"
+  externalDocs:
+    description: "Link to Wiki"
+    url: "https://github.com/japt-epj/HUNTeR"
 - name: "user"
   description: "Operations about user"
   externalDocs:
@@ -445,6 +450,9 @@ securityDefinitions:
     scopes:
       write:exercises: "modify exercises in your account"
       read:exercises: "read your exercises"
+      write:executions: "modify executions in quiz"
+      read:executions: "read your executions from a quiz"
+
   api_key:
     type: "apiKey"
     name: "api_key"
