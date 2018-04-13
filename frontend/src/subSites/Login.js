@@ -8,7 +8,7 @@ import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
 
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,3 +43,5 @@ export default class Login extends React.Component {
         )
     }
 }
+
+export default Login;
