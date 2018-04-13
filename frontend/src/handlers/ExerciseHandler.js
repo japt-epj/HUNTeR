@@ -15,7 +15,7 @@ export default class ExerciseHandler {
                             resData.map(element =>
                                 <Table.Row key={'TableRow' + element.id}>
                                     {this.state.checkboxNeeded && (
-                                        <Table.Cell verticalAlign="middle">
+                                        <Table.Cell collapsing>
                                             <Form.Checkbox/>
                                         </Table.Cell>
                                     )}

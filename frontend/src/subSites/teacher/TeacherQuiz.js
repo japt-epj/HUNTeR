@@ -36,11 +36,13 @@ export default class extends React.Component {
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
-                                <Table>
+                                <Table definition>
                                     <Table.Header>
                                         <Table.Row>
-                                            <Table.HeaderCell colSpan="4">Aufgaben welche im Quiz vorhanden sein
-                                                sollten:</Table.HeaderCell>
+                                            <Table.HeaderCell/>
+                                            <Table.HeaderCell colSpan="3">
+                                                Aufgaben welche im Quiz vorhanden sein sollten:
+                                            </Table.HeaderCell>
                                         </Table.Row>
                                     </Table.Header>
                                     <Table.Body>
