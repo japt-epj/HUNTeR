@@ -1,9 +1,10 @@
 import React from 'react';
 
-import {Dimmer, Form, Grid, Loader, Table} from 'semantic-ui-react';
+import {Button, Dimmer, Form, Grid, Loader, Modal, Table} from 'semantic-ui-react';
 
-import ExerciseHandler from "../../handlers/ExerciseHandler";
-
+import Data from '../../data/Data';
+import ExerciseHandler from '../../handlers/ExerciseHandler';
+import TableHandler from '../../handlers/TableHandler';
 
 export default class extends React.Component {
     constructor(props) {
@@ -24,42 +25,77 @@ export default class extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.state.loading && this.state.loadingScreen}
-                <Form>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column>
-                                <Form.Input fluid label="Titel"
-                                            placeholder="Bitte geben Sie einen Titel für das Quiz ein"/>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column>
-                                <Table definition>
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell/>
-                                            <Table.HeaderCell colSpan="3">
-                                                Aufgaben welche im Quiz vorhanden sein sollten:
-                                            </Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        {!this.state.loading && this.state.table}
-                                        {this.getTableRows()}
-                                    </Table.Body>
-                                </Table>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column>
-                                <Form.Button>Submit</Form.Button>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </Form>
-            </div>
+
+            <Form>
+
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Form.Input fluid label="Titel" placeholder="Bitte geben Sie einen Titel ein"/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Modal size="fullscreen"
+                                   trigger={<Button>Benutzer hinzufügen</Button>}
+                                   closeIcon>
+                                {this.state.loading && this.state.loadingScreen}
+                                <Modal.Content>
+                                    <Modal.Description>
+                                        <Table>
+                                            <Table.Header>
+                                                <Table.Row>
+                                                    <Table.HeaderCell colSpan="4">Aufgaben im Quiz:</Table.HeaderCell>
+                                                </Table.Row>
+                                            </Table.Header>
+                                            <Table.Body>
+                                                {Data.getStudents().map((element, index) =>
+                                                    <Table.Row key={'TableRow' + index}>
+                                                        <Table.Cell collapsing><Form.Field control="input"
+                                                                                           type="checkbox"/>
+                                                        </Table.Cell>
+                                                        <Table.Cell>{element.email}</Table.Cell>
+                                                    </Table.Row>
+                                                )}
+                                            </Table.Body>
+                                        </Table>
+                                    </Modal.Description>
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button color="green" icon="add" label="Hinzufügen"/>
+                                </Modal.Actions>
+                            </Modal>
+                            <Modal size="fullscreen"
+                                   trigger={<Button>Aufgaben hinzufügen</Button>}
+                                   closeIcon>
+                                {this.state.loading && this.state.loadingScreen}
+                                <Modal.Header>{'Aufgaben hinzufügen'}</Modal.Header>
+                                <Modal.Content>
+                                    <Modal.Description>
+                                        <Table>
+                                            <Table.Header>
+                                                <Table.Row>
+                                                    <Table.HeaderCell colSpan="4">Aufgaben im Quiz:</Table.HeaderCell>
+                                                </Table.Row>
+                                            </Table.Header>
+                                            {!this.state.loading && this.state.table}
+                                            {this.getTableRows()}
+                                        </Table>
+                                    </Modal.Description>
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button color="green" icon="add" label="Aktualisieren"/>
+                                </Modal.Actions>
+                            </Modal>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Form.Button>Submit</Form.Button>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Form>
         );
     }
 }
