@@ -27,6 +27,7 @@ public class QrModel {
 
     private static Optional<byte[]> makeQr(Long id) {
         try {
+            // TODO: extract this configuration, maybe parameterize url call or something
             QrCode code = QrCode.encodeText(String.valueOf(id), QrCode.Ecc.MEDIUM);
             BufferedImage image = code.toImage(20, 2);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
