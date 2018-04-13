@@ -21,7 +21,7 @@ export default function getQuiz() {
                 <Grid.Row>
                     <Grid.Column>
                         <Modal size="fullscreen"
-                            trigger={<Button>Benutzer hinzufügen</Button>}
+                               trigger={<Button>Benutzer hinzufügen</Button>}
                                closeIcon>
                             <Modal.Content>
                                 <Modal.Description>
@@ -34,15 +34,21 @@ export default function getQuiz() {
                                         <Table.Body>
                                             {Data.getStudents().map((element, index) =>
                                                 <Table.Row key={'TableRow' + index}>
-                                                    <grid>
-                                                    {TableHandler.getTableCell({
-                                                        element: (<Form.Field control="input"
-                                                                              type="checkbox"/>), collapsed: true
-                                                    })}
-                                                    {TableHandler.getTableCell({
-                                                        element: (<Segment>{element.email}</Segment>), collapsed: false
-                                                    })}
-                                                    </grid>
+                                                    <Grid stretched={true}>
+                                                        <div>
+                                                            {TableHandler.getTableCell({
+                                                                element: (<Form.Field control="input"
+                                                                                      type="checkbox"/>),
+                                                                collapsed: true
+                                                            })}
+                                                        </div>
+                                                        <div align="right">
+                                                            {TableHandler.getTableCell({
+                                                                element: (<Segment>{element.email}</Segment>),
+                                                                collapsed: false
+                                                            })}
+                                                        </div>
+                                                    </Grid>
                                                 </Table.Row>
                                             )}
                                         </Table.Body>
@@ -68,19 +74,29 @@ export default function getQuiz() {
                                         <Table.Body>
                                             {Data.getExercises().map((element, index) =>
                                                 <Table.Row key={'TableRow' + index}>
-                                                    {TableHandler.getTableCell({
-                                                        element: (<Form.Field control="input"
-                                                                              type="checkbox"/>), collapsed: true
-                                                    })}
-                                                    {TableHandler.getTableCell({
-                                                        element: (<Segment>{element.title}</Segment>), collapsed: false
-                                                    })}
-                                                    {TableHandler.getTableCell({
-                                                        element: (
-                                                            <NavLink to={'/exercise?id=' + element.key}>
-                                                                <Button basic icon="edit" color="green"/></NavLink>),
-                                                        collapsed: true
-                                                    })}
+                                                    <Gridgit >
+                                                        <Grid.Column >
+                                                        {TableHandler.getTableCell({
+                                                            element: (<Form.Field control="input"
+                                                                                  type="checkbox"/>), collapsed: true
+                                                        })}
+                                                        </Grid.Column>
+                                                        <Grid.Column>
+                                                        {TableHandler.getTableCell({
+                                                            element: (<Segment>{element.title}</Segment>),
+                                                            collapsed: false
+                                                        })}
+                                                        </Grid.Column>
+                                                        <Grid.Column floated="right" stretched>
+                                                        {TableHandler.getTableCell({
+                                                            element: (
+                                                                <NavLink to={'/exercise?id=' + element.key}>
+                                                                    <Button basic icon="edit"
+                                                                            color="green"/></NavLink>),
+                                                            collapsed: true
+                                                        })}
+                                                        </Grid.Column>
+                                                    </Gridgit>
                                                 </Table.Row>
                                             )}
                                         </Table.Body>
