@@ -18,13 +18,16 @@ import java.util.List;
 
 @Component
 public class TaskModel {
-    @Autowired
-    private ExerciseRepository exercises;
-    @Autowired
-    private AnswerRepository answers;
-    private ModelMapper mapper = new ModelMapper();
+    private final ExerciseRepository exercises;
+    private final AnswerRepository answers;
+    private final ModelMapper mapper = new ModelMapper();
 
-    public TaskModel() {
+    public TaskModel(
+            @Autowired ExerciseRepository exercises,
+            @Autowired AnswerRepository answers
+    ) {
+        this.exercises = exercises;
+        this.answers = answers;
         TypeMap<Task, ExerciseDto> taskToDto = mapper.createTypeMap(Task.class, ExerciseDto.class);
         taskToDto.addMapping(Task::getName, ExerciseDto::setTitle);
         taskToDto.addMapping(Task::getAnswerTemplates, ExerciseDto::setAnswers);
