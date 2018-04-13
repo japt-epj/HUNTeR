@@ -4,8 +4,6 @@ info:
   version: "o.0.1"
   title: "Hunter Swagger specification"
   termsOfService: "http://swagger.io/terms/"
-  contact:
-    email: "ahoerler@hsr.ch"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -136,6 +134,27 @@ paths:
       - auth:
         - "write:exercises"
         - "read:exercises"
+  /qrCode/{id}:
+    get:
+      tags:
+      - "qrCode"
+      summary: "Get QRCode"
+      description: "Get QRCode by ID. This can only be done by an logged in user."
+      operationId: "getQRCode"
+      produces:
+      - "image/png"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        type: "integer"
+        description: "Get QR Code image"
+      responses:
+        200:
+          description: "QRCode in PNG format"
+          schema:
+            type: string
+            format: binary
   /user:
     post:
       tags:
