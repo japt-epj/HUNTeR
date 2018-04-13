@@ -1,5 +1,6 @@
 package ch.japt.epj.api;
 
+import ch.japt.epj.model.TaskModel;
 import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Task;
 import ch.japt.epj.model.dto.ExerciseDto;
@@ -22,49 +23,22 @@ import java.util.List;
 @RequestMapping("/api")
 public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
     @Autowired
-    private ExerciseRepository repository;
-
-    @Autowired
-    private AnswerRepository answerRepository;
-
-    private ExerciseDto map(Task task) {
-        ModelMapper mapper = new ModelMapper();
-        TypeMap<Task, ExerciseDto> taskMap = mapper.createTypeMap(Task.class, ExerciseDto.class);
-        taskMap.addMapping(Task::getName, ExerciseDto::setTitle);
-        taskMap.addMapping(Task::getAnswerTemplates, ExerciseDto::setAnswers);
-        ExerciseDto dto = mapper.map(task, ExerciseDto.class);
-        return dto;
-    }
+    private TaskModel taskModel;
 
     @Override
     public ResponseEntity<Void> addExercise(@RequestBody NewExerciseDto body) {
-        Task task = new Task();
-        task.setName(body.getTitle());
-        task.setQuestion(body.getQuestion());
-
-        body.getAnswers().forEach(newAnswer -> {
-            Answer answer = new Answer();
-            answer.setAnswer(newAnswer.getText());
-            answer.setChecked(newAnswer.isChecked());
-            task.addAnswerTemplate(answer);
-            answerRepository.save(answer);
-        });
-
-        repository.save(task);
+        taskModel.addExercise(body);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<List<ExerciseDto>> exerciseGet() {
-        LinkedList<ExerciseDto> exercises = new LinkedList<>();
-        repository.findAll().forEach(task -> exercises.add(map(task)));
-        return new ResponseEntity<>(exercises, HttpStatus.OK);
+        return new ResponseEntity<>(taskModel.allExercises(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ExerciseDto> exerciseIdGet(@PathVariable("id") Integer id) {
-        Task task = repository.findOne(id.longValue());
-        return new ResponseEntity<>(map(task), HttpStatus.OK);
+        return new ResponseEntity<>(taskModel.getExercise(id.longValue()), HttpStatus.OK);
     }
 
     @Override
