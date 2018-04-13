@@ -3,12 +3,12 @@ import {NavLink} from 'react-router-dom';
 
 import {Form, Grid} from 'semantic-ui-react';
 
-import StructureHandler from '../handlers/StructureHandler';
-import FormHandler from '../handlers/FormHandler';
-import APIHandler from '../handlers/APIHandler';
+import StructureHandler from './handlers/StructureHandler';
+import FormHandler from './handlers/FormHandler';
+import APIHandler from './handlers/APIHandler';
 
 
-class Login extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,5 +43,3 @@ class Login extends React.Component {
         )
     }
 }
-
-export default Login;
