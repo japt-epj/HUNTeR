@@ -41,6 +41,7 @@ INSERT INTO answer (answer, checked) VALUES
   ('Besteigen', true);
 
 
+
 INSERT INTO task (name, question) VALUES
   ('Question 1', 'Seit jeher haben die meisten...'),
   ('Question 2', 'Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...'),
@@ -52,6 +53,13 @@ INSERT INTO task (name, question) VALUES
   ('Question 8', 'Wer sich durch einen unwegsamen Laubwald kämpft, der streift bestimmt auch mit der...?'),
   ('Question 9', 'Sind sie gute Kollegen, arbeiten auch die härtesten Machos..?'),
   ('Question 10', 'Was machte Reinhold Messner mit dem Mount Everest?');
+
+ INSERT INTO person (email, first_name, is_creator, last_name) VALUES
+   ('tobias.saladin@hsr.ch', 'Tobias', true, 'Saladin'),
+   ('pascal.huerlimann@hsr.ch', 'Pascal', true, 'Hürlimann'),
+   ('andi.hoerler@hsr.ch', 'Andi', true, 'Hörler'),
+   ('jonas.kugler@hsr.ch', 'Jonas', true, 'Kugler');
+
 
 -- something something table
 INSERT INTO task_answer_templates (answer_templates_answer_id, task_task_id) VALUES
