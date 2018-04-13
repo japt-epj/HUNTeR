@@ -1,8 +1,32 @@
 import config from "../config/config";
 
 export default class APIHandler {
-    static getExercise(exerciseID) {
+    static getExerciseData(exerciseID) {
         return fetch(config.baseurl + 'exercise/' + exerciseID, {
+                method: 'GET',
+                headers: {
+                    "Accept": "application/json",
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(res => res.json()
+        ).catch(err => console.warn(err));
+    }
+
+    static getExerciseQRCode(exerciseID) {
+        return fetch(config.baseurl + 'QRCode/' + exerciseID, {
+                method: 'GET',
+                headers: {
+                    "Accept": "image/jpeg",
+                    'Content-Type': 'image/jpeg'
+                }
+            }
+        ).then(res => res.json()
+        ).catch(err => console.warn(err));
+    }
+
+    static getExercises() {
+        return fetch(config.baseurl + 'exercise/', {
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -42,7 +66,7 @@ export default class APIHandler {
     }
 
     static prepareStudentData(data) {
-        return{
+        return {
             exerciseID: data.exerciseID,
             answers: [data.checked0, data.checked1, data.checked2, data.checked3]
         }
