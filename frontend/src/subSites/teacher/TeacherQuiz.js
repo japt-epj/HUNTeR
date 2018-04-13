@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {Dimmer, Form, Grid, Loader, Table} from 'semantic-ui-react';
+import {Button, Dimmer, Form, Grid, Loader, Modal, Table} from 'semantic-ui-react';
 
-
-import ExerciseHandler from "../../handlers/ExerciseHandler";
-
+import Data from '../../data/Data';
+import ExerciseHandler from '../../handlers/ExerciseHandler';
+import TableHandler from '../../handlers/TableHandler';
 
 export default class extends React.Component {
     constructor(props) {
@@ -25,7 +25,9 @@ export default class extends React.Component {
 
     render() {
         return (
+
             <Form>
+
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
@@ -37,6 +39,7 @@ export default class extends React.Component {
                             <Modal size="fullscreen"
                                    trigger={<Button>Benutzer hinzufügen</Button>}
                                    closeIcon>
+                                {this.state.loading && this.state.loadingScreen}
                                 <Modal.Content>
                                     <Modal.Description>
                                         <Table>
@@ -48,15 +51,10 @@ export default class extends React.Component {
                                             <Table.Body>
                                                 {Data.getStudents().map((element, index) =>
                                                     <Table.Row key={'TableRow' + index}>
-                                                        {TableHandler.getTableCell({
-                                                            element: (<Form.Field control="input"
-                                                                                  type="checkbox"/>),
-                                                            collapsed: true
-                                                        })}
-                                                        {TableHandler.getTableCell({
-                                                            element: (<Segment>{element.email}</Segment>),
-                                                            collapsed: false
-                                                        })}
+                                                        <Table.Cell collapsing><Form.Field control="input"
+                                                                                           type="checkbox"/>
+                                                        </Table.Cell>
+                                                        <Table.Cell>{element.email}</Table.Cell>
                                                     </Table.Row>
                                                 )}
                                             </Table.Body>
@@ -70,6 +68,7 @@ export default class extends React.Component {
                             <Modal size="fullscreen"
                                    trigger={<Button>Aufgaben hinzufügen</Button>}
                                    closeIcon>
+                                {this.state.loading && this.state.loadingScreen}
                                 <Modal.Header>{'Aufgaben hinzufügen'}</Modal.Header>
                                 <Modal.Content>
                                     <Modal.Description>
@@ -79,32 +78,13 @@ export default class extends React.Component {
                                                     <Table.HeaderCell colSpan="4">Aufgaben im Quiz:</Table.HeaderCell>
                                                 </Table.Row>
                                             </Table.Header>
-                                            <Table.Body>
-                                                {Data.getExercises().map((element, index) =>
-                                                    <Table.Row key={'TableRow' + index}>
-                                                        {TableHandler.getTableCell({
-                                                            element: (<Form.Field control="input"
-                                                                                  type="checkbox"/>), collapsed: true
-                                                        })}
-                                                        {TableHandler.getTableCell({
-                                                            element: (<Segment>{element.title}</Segment>),
-                                                            collapsed: false
-                                                        })}
-                                                        {TableHandler.getTableCell({
-                                                            element: (
-                                                                <NavLink to={'/exercise?id=' + element.key}>
-                                                                    <Button basic icon="edit"
-                                                                            color="green"/></NavLink>),
-                                                            collapsed: true
-                                                        })}
-                                                    </Table.Row>
-                                                )}
-                                            </Table.Body>
+                                            {!this.state.loading && this.state.table}
+                                            {this.getTableRows()}
                                         </Table>
                                     </Modal.Description>
                                 </Modal.Content>
                                 <Modal.Actions>
-                                    <Button color="green" icon="add" label="Hinzufügen"/>
+                                    <Button color="green" icon="add" label="Aktualisieren"/>
                                 </Modal.Actions>
                             </Modal>
                         </Grid.Column>
