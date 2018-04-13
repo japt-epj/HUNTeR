@@ -1,5 +1,5 @@
 import React from 'react';
-//import {Redirect} from 'react-router';
+import {Redirect} from 'react-router';
 
 import {Message} from 'semantic-ui-react';
 
@@ -60,9 +60,9 @@ export default class StudentScanExercise extends React.Component {
                     icon='camera retro' size="mini"
                     header={this.state.displayText}
                     error={this.state.scanError}/>
-                {this.state.fireRedirect /* && (
+                {this.state.fireRedirect && (
                     <Redirect to={{pathname: 'exercise', state: {exercise: this.state.exercise}}}/>
-                )*/}
+                )}
             </div>
         )
     }

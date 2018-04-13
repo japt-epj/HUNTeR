@@ -1,8 +1,10 @@
+import React from 'react';
+import {Redirect} from 'react-router-dom';
+
+import {Form} from 'semantic-ui-react';
+
 import FormHandler from "../../handlers/FormHandler";
 import APIHandler from "../../handlers/APIHandler";
-import Form from "semantic-ui-react/dist/es/collections/Form/Form";
-import Redirect from "react-router-dom/es/Redirect";
-import * as React from "react/cjs/react.development";
 
 
 export default class TeacherNewStudent extends React.Component {
@@ -22,9 +24,9 @@ export default class TeacherNewStudent extends React.Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-              <Form.Input fluid label="E-Mail" name="email" value={this.state.email}
-                          onChange={this.handleChange}
-                          placeholder="Bitte geben Sie die E-Mail des Schülers ein" required/>
+                <Form.Input fluid label="E-Mail" name="email" value={this.state.email}
+                            onChange={this.handleChange}
+                            placeholder="Bitte geben Sie die E-Mail des Schülers ein" required/>
                 <Form.Input fluid label="Vorname" name="firstName" value={this.state.firstName}
                             onChange={this.handleChange}
                             placeholder="Bitte geben Sie den Vornamen des Schülers ein" required/>

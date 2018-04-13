@@ -1,5 +1,5 @@
 import React from 'react';
-//import {Redirect} from 'react-router';
+import {Redirect} from 'react-router';
 
 import {Form, Table} from 'semantic-ui-react';
 
@@ -70,9 +70,9 @@ export default class TeacherExercise extends React.Component {
                 </Table>
                 <Form.Button content='Submit'/>
                 {
-                    this.state.fireRedirect /* && (
-                       <Redirect to={{pathname: '/', state: {exercise: this.state}}}/>
-                    )*/
+                    this.state.fireRedirect && (
+                        <Redirect to={{pathname: '/', state: {exercise: this.state}}}/>
+                    )
                 }
             </Form>
         );
