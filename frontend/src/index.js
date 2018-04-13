@@ -6,7 +6,7 @@ import 'semantic-ui-css/semantic.min.css';
 import './style/index.css';
 
 import registerServiceWorker from './registerServiceWorker';
-import App from './App';
+import Login from './subSites/Login';
 import Teacher from './subSites/teacher/TeacherStructure';
 import Student from './subSites/student/StudentStructure';
 
@@ -14,7 +14,7 @@ import Student from './subSites/student/StudentStructure';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={App}/>
+            <Route exact path="/" component={Login}/>
             <Route path="/teacher" component={Teacher}/>
             <Route path="/student" component={Student}/>
         </Switch>
