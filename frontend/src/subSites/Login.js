@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 import {Form, Grid} from 'semantic-ui-react';
 
