@@ -21,7 +21,7 @@ export default function getQuiz() {
                 <Grid.Row>
                     <Grid.Column>
                         <Modal size="fullscreen"
-                               trigger={<Button>Benutzer hinzufügen</Button>}
+                            trigger={<Button>Benutzer hinzufügen</Button>}
                                closeIcon>
                             <Modal.Content>
                                 <Modal.Description>
@@ -74,7 +74,7 @@ export default function getQuiz() {
                                         <Table.Body>
                                             {Data.getExercises().map((element, index) =>
                                                 <Table.Row key={'TableRow' + index}>
-                                                    <Gridgit >
+                                                    <Grid >
                                                         <Grid.Column >
                                                         {TableHandler.getTableCell({
                                                             element: (<Form.Field control="input"
@@ -96,7 +96,7 @@ export default function getQuiz() {
                                                             collapsed: true
                                                         })}
                                                         </Grid.Column>
-                                                    </Gridgit>
+                                                    </Grid>
                                                 </Table.Row>
                                             )}
                                         </Table.Body>
