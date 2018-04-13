@@ -27,7 +27,7 @@ export default class ExerciseHandler {
                                     </Table.Cell>
                                     <Table.Cell verticalAlign="middle" collapsing>
                                         <Button color="orange" basic icon="qrcode"
-                                                onClick={APIHandler.getExerciseData(element.id)}/>
+                                                onClick={APIHandler.getExerciseQRCode(element.id)}/>
                                     </Table.Cell>
                                 </Table.Row>
                             )),

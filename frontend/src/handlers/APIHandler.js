@@ -14,11 +14,11 @@ export default class APIHandler {
     }
 
     static getExerciseQRCode(exerciseID) {
-        return fetch(config.baseurl + 'QRCode/' + exerciseID, {
+        return fetch(config.baseurl + 'qrCode/' + exerciseID, {
                 method: 'GET',
                 headers: {
-                    "Accept": "image/jpeg",
-                    'Content-Type': 'image/jpeg'
+                    "Accept": "image/png",
+                    'Content-Type': 'image/png'
                 }
             }
         ).then(res => res.json()
