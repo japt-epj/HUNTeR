@@ -23,23 +23,25 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <Grid className={"siteGrid"} padded>
-                {this.getLoginHeader()}
-                <Grid.Row className="gridContent" centered>
-                    <div>
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Input label="E-Mail-Adresse" type="email" name="email"
-                                        value={this.state.email}
-                                        onChange={this.handleChange} required/>
-                            <Form.Input label="Passwort" type="password" name="password" value={this.state.password}
-                                        onChange={this.handleChange} required/>
-                            <Form.Button content='Submit'/>
-                        </Form>
-                        <NavLink to={'/student'}>Student</NavLink>
-                        <NavLink to={'/teacher'}>Teacher</NavLink>
-                    </div>
-                </Grid.Row>
-            </Grid>
+            <div className="App">
+                <Grid className={"siteGrid"} padded>
+                    {this.getLoginHeader()}
+                    <Grid.Row className="gridContent" centered>
+                        <div>
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Input label="E-Mail-Adresse" type="email" name="email"
+                                            value={this.state.email}
+                                            onChange={this.handleChange} required/>
+                                <Form.Input label="Passwort" type="password" name="password" value={this.state.password}
+                                            onChange={this.handleChange} required/>
+                                <Form.Button content='Submit'/>
+                            </Form>
+                            <NavLink to={'/student'}>Student</NavLink>
+                            <NavLink to={'/teacher'}>Teacher</NavLink>
+                        </div>
+                    </Grid.Row>
+                </Grid>
+            </div>
         )
     }
 }
