@@ -24,8 +24,7 @@ export default class StudentScanExercise extends React.Component {
 
     handleScan(data) {
         if (data) {
-            let exercisePromise = APIHandler.getExercise(data);
-            exercisePromise.then(resData => {
+            APIHandler.getExerciseData(data, 'exercise').then(resData => {
                 if (resData.id !== undefined) {
                     resData.answers.forEach(
                         function (element, index, arrayObject) {

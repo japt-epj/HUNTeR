@@ -50,22 +50,19 @@ export default class TeacherExercise extends React.Component {
                         {new Array(this.state.answersAllowed).fill().map((item, index) => {
                             return (
                                 <Table.Row key={'TableRow' + index}>
-                                    {TableHandler.getTableCell({element: (index + 1), collapsed: true})}
-                                    {TableHandler.getTableCell({
-                                        element: (<Form.Input fluid name={'answer' + index}
-                                                              value={this.state['answer' + index]}
-                                                              onChange={this.handleChange}
-                                                              placeholder="Bitte Antwort eingeben" required/>),
-                                        collapsed: false
-                                    })}
-                                    {TableHandler.getTableCell({
-                                        element: (
-                                            <Form.Field control="input" type="checkbox"
-                                                        name={'checked' + index}
-                                                        onChange={this.handleChange}
-                                                        checked={this.state['checked' + index]}/>),
-                                        collapsed: true
-                                    })}
+                                    <Table.Cell collapsing>{(index + 1)}</Table.Cell>
+                                    <Table.Cell>
+                                        <Form.Input fluid name={'answer' + index}
+                                                    value={this.state['answer' + index]}
+                                                    onChange={this.handleChange}
+                                                    placeholder="Bitte Antwort eingeben" required/>
+                                    </Table.Cell>
+                                    <Table.Cell collapsing>
+                                        <Form.Field control="input" type="checkbox"
+                                                    name={'checked' + index}
+                                                    onChange={this.handleChange}
+                                                    checked={this.state['checked' + index]}/>
+                                    </Table.Cell>
                                 </Table.Row>
                             );
                         })}

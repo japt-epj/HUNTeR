@@ -29,14 +29,17 @@ export default class TeacherQuizOverview extends React.Component {
                     <Table.Body>
                         {Data.getQuizzes().map(element =>
                             <Table.Row key={'row' + element.key}>
-                                {TableHandler.getTableCell({
-                                    element: (<Form.Radio value={element.key}
-                                                          checked={this.state.checkBox === element.key}
-                                                          onChange={this.handleSelectChange}/>),
-                                    collapsed: true
-                                })}
-                                {TableHandler.getTableCell({element: element.title, collapsed: false})}
-                                {TableHandler.getTableCell({element: element.score, collapsed: false})}
+                                <Table.Cell collapsing>
+                                    <Form.Radio value={element.key}
+                                                checked={this.state.checkBox === element.key}
+                                                onChange={this.handleSelectChange}/>
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {element.title}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {'0%'}
+                                </Table.Cell>
                             </Table.Row>
                         )}
                     </Table.Body>

@@ -44,37 +44,6 @@ export default class Data {
         ]
     }
 
-    static getExercises() {
-        return [
-            {
-                key: 'exercise1',
-                value: 'exercise1',
-                text: 'Aufgabe 1',
-                title: 'IP Adressen',
-                score: '70%',
-                qrCodeID: '9999'
-            },
-            {
-                key: 'exercise2',
-                value: 'exercise2',
-                text: 'Aufgabe 2',
-                title: 'Token Ring',
-                score: '20%',
-                qrCodeID: '1818'
-            },
-            {
-                key: 'exercise3',
-                value: 'exercise3',
-                text: 'Aufgabe 3',
-                title: 'Glasfaser',
-                score: '40%',
-                qrCodeID: '2018'
-            },
-            {key: 'exercise4', value: 'exercise4', text: 'Aufgabe 4', title: 'IPv6', score: '50%', qrCodeID: '8888'},
-            {key: 'exercise5', value: 'exercise5', text: 'Aufgabe 5', title: 'IPv4', score: '60%', qrCodeID: '1994'}
-        ];
-    }
-
     static getProgress(quizString) {
         return {value: this.getQuiz(quizString).solvedExercises, total: this.getQuiz(quizString).exercises};
     }
