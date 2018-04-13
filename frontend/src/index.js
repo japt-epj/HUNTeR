@@ -12,7 +12,7 @@ import Student from './subSites/student/StudentStructure';
 
 
 ReactDOM.render(
-    <BrowserRouter basename="/">
+    <BrowserRouter>
         <Switch>
             <Route exact path="/" component={Login}/>
             <Route path="/teacher" component={Teacher}/>
