@@ -155,6 +155,8 @@ paths:
           schema:
             type: string
             format: binary
+        404:
+          description: "QRCode not found"
   /user:
     post:
       tags:
