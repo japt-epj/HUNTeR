@@ -1,45 +1,46 @@
-import React from "react";
+import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css';
 
-import {Form, Grid} from 'semantic-ui-react';
+import logo from './logo.svg';
+import config from './config/config';
 
-import StructureHandler from './handlers/StructureHandler';
-import FormHandler from './handlers/FormHandler';
-import APIHandler from './handlers/APIHandler';
-
-
-export default class App extends React.Component {
+class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            password: ''
+            random: null
         };
-        this.getLoginHeader = StructureHandler.getLoginHeader.bind(this);
-        this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
-        this.handleChange = FormHandler.handleChange.bind(this);
-        this.postData = APIHandler.postData.bind(this);
+    }
+
+    componentDidMount() {
+        fetch(config.baseurl + 'test').then(response => {
+            return response.json();
+        }).then(data => this.setState(data));
     }
 
     render() {
         return (
-            <Grid className={"siteGrid"} padded>
-                {this.getLoginHeader()}
-                <Grid.Row className="gridContent" centered>
-                    <div>
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Input label="E-Mail-Adresse" type="email" name="email"
-                                        value={this.state.email}
-                                        onChange={this.handleChange} required/>
-                            <Form.Input label="Passwort" type="password" name="password" value={this.state.password}
-                                        onChange={this.handleChange} required/>
-                            <Form.Button content='Submit'/>
-                        </Form>
-                        <NavLink to={'/student'}>Student</NavLink>
-                        <NavLink to={'/teacher'}>Teacher</NavLink>
-                    </div>
-                </Grid.Row>
-            </Grid>
-        )
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo"/>
+                    <h1 className="App-title">Welcome to React</h1>
+                </header>
+                <p className="App-intro">
+                    To get started, edit <code>src/App.js</code> and save to reload.
+                </p>
+                <p>
+                    Running against <code>{config.baseurl}</code>.
+                </p>
+                <p>
+                    API Test: {this.state.random}
+                </p>
+                <NavLink to={"/teacher"}>Teacher</NavLink>
+                <NavLink to={"/student"}>Student</NavLink>
+            </div>
+
+        );
     }
 }
+
+export default App;
