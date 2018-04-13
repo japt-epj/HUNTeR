@@ -1,4 +1,7 @@
 package ch.japt.epj.repository;
 
-public class UserRepository {
+import ch.japt.epj.model.data.Person;
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository<Person, Long> {
 }
