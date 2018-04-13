@@ -16,8 +16,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/api")
 public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
-    @Autowired
-    private TaskModel taskModel;
+    private final TaskModel taskModel;
+
+    public ExerciseController(@Autowired TaskModel taskModel){
+        this.taskModel = taskModel;
+    }
 
     @Override
     public ResponseEntity<Void> addExercise(@RequestBody NewExerciseDto body) {
