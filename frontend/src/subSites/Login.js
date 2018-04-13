@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {NavLink} from 'react-router-dom';
 
 import {Form, Grid} from 'semantic-ui-react';
@@ -8,7 +8,7 @@ import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
 
 
-class Login extends React.Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
