@@ -13,7 +13,7 @@ export default class TeacherExercise extends React.Component {
         super(props);
         this.state = {
             fireRedirect: false,
-            exerciseID: '',
+            id: '',
             title: '',
             question: '',
             answer0: '',
@@ -68,7 +68,7 @@ export default class TeacherExercise extends React.Component {
                         })}
                     </Table.Body>
                 </Table>
-                <Form.Button content='Submit'/>
+                <Form.Button content="Submit"/>
                 {
                     this.state.fireRedirect && (
                         <Redirect to={{pathname: '/', state: {exercise: this.state}}}/>

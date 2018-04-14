@@ -17,10 +17,10 @@ export default class ModalHandler {
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative>
-                        <Icon name='cancel'/> Nicht löschen
+                        <Icon name="cancel"/> Nicht löschen
                     </Button>
-                    <Button color='green'>
-                        <Icon name='checkmark'/> Löschen
+                    <Button color="green">
+                        <Icon name="checkmark"/> Löschen
                     </Button>
                 </Modal.Actions>
             </Modal>

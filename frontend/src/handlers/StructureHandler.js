@@ -67,7 +67,7 @@ export default class StructureHandler {
     static getStructurePaths(elements) {
         return elements.map((element) =>
             <NavLink key={'navLink' + element.path} to={'/' + element.path}>
-                <Menu.Item name={element.path}><Icon name={element.icon}/>
+                <Menu.Item name={element.path}><Icon name={element.icon} size="mini"/>
                     {element.title}
                 </Menu.Item>
             </NavLink>

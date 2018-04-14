@@ -13,7 +13,7 @@ export default class StudentScore extends React.Component {
     }
 
     static getColor(element, index) {
-        if (element.correctAnswers[index] === true) {
+        if (element.correctAnswers[index]) {
             return 'green';
         } else {
             return 'red';
@@ -21,7 +21,7 @@ export default class StudentScore extends React.Component {
     }
 
     static getUserAnswer(element, index) {
-        if (element.userAnswers[index] === true) {
+        if (element.userAnswers[index]) {
             return <Icon name="checkmark box" size="large"/>;
         } else {
             return <Icon name=""/>;
@@ -45,7 +45,7 @@ export default class StudentScore extends React.Component {
                 points -= 1;
             }
         });
-        return ((points < 0) ? 0 : points) + "/4";
+        return ((points < 0) ? 0 : points) + '/4';
     }
 
     changeQuizState(value) {

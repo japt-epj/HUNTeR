@@ -4,36 +4,39 @@ import {Button, Dimmer, Form, Grid, Loader, Modal, Table} from 'semantic-ui-reac
 
 import Data from '../../data/Data';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
+import APIHandler from '../../handlers/APIHandler';
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            exercises: [],
             table: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
-                    <Loader size='large'>Loading</Loader>
+                    <Loader size="large">Loading</Loader>
                 </Dimmer>
             )],
             loading: true,
             checkboxNeeded: true
         };
         this.getTableRows = ExerciseHandler.getTableRows.bind(this);
+        this.getQRCode = APIHandler.getQRCode;
+    }
+
+    componentDidMount() {
+        this.getTableRows();
     }
 
     render() {
         return (
-
             <Form>
-
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
                             <Form.Input fluid label="Titel" placeholder="Bitte geben Sie einen Titel ein"/>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
+                    <Grid.Row columns="equal">
                         <Grid.Column>
                             <Modal size="fullscreen"
                                    trigger={<Button>Benutzer hinzufügen</Button>}
@@ -61,9 +64,11 @@ export default class extends React.Component {
                                     </Modal.Description>
                                 </Modal.Content>
                                 <Modal.Actions>
-                                    <Button color="green" icon="add" label="Hinzufügen"/>
+                                    <Button color="green" icon="refresh" label="Anpassen"/>
                                 </Modal.Actions>
                             </Modal>
+                        </Grid.Column>
+                        <Grid.Column>
                             <Modal size="fullscreen"
                                    trigger={<Button>Aufgaben hinzufügen</Button>}
                                    closeIcon>
@@ -78,12 +83,11 @@ export default class extends React.Component {
                                                 </Table.Row>
                                             </Table.Header>
                                             {!this.state.loading && this.state.table}
-                                            {this.getTableRows()}
                                         </Table>
                                     </Modal.Description>
                                 </Modal.Content>
                                 <Modal.Actions>
-                                    <Button color="green" icon="add" label="Aktualisieren"/>
+                                    <Button color="green" icon="refresh" label="Anpassen"/>
                                 </Modal.Actions>
                             </Modal>
                         </Grid.Column>

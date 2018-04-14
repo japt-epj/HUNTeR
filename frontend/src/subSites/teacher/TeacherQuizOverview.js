@@ -4,8 +4,8 @@ import {NavLink} from 'react-router-dom';
 import {Button, Form, Table} from 'semantic-ui-react';
 
 import Data from '../../data/Data';
-import ModalHandler from "../../handlers/ModalHandler";
-import TableHandler from "../../handlers/TableHandler";
+import ModalHandler from '../../handlers/ModalHandler';
+import TableHandler from '../../handlers/TableHandler';
 
 
 export default class TeacherQuizOverview extends React.Component {

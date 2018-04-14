@@ -8,7 +8,7 @@ export default function getSetting() {
             <Form>
                 <Form.Input label="Name" type="text" defaultValue={'Andi'} required/>
                 <Form.Input label="Name" type="text" defaultValue={'Hörler'} required/>
-                <Form.Input label="E-Mail" type="email" defaultValue='andi.hoerler@hsr.ch' required/>
+                <Form.Input label="E-Mail" type="email" defaultValue="andi.hoerler@hsr.ch" required/>
                 <Form.Input label="Lehranstalt" type="text" defaultValue={'HSR'} required/>
                 <Form.Input label="Neues Passwort" type="password"/>
                 <Form.Input label="Neues Passwort erneut eingeben" type="password"/>

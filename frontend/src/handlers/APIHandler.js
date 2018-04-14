@@ -1,33 +1,43 @@
-import config from "../config/config";
+import axios from 'axios';
+import fileDownload from 'js-file-download';
+
+import config from '../config/config';
 
 export default class APIHandler {
     static getExerciseData(exerciseID) {
-        return fetch(config.baseurl + 'exercise/' + exerciseID, {
-                method: 'GET',
+        return axios.get(config.baseurl + 'exercise/' + exerciseID, {
                 headers: {
                     "Accept": "application/json",
                     'Content-Type': 'application/json'
                 }
             }
-        ).then(res => res.json()
+        ).catch(err => console.warn(err));
+    }
+
+    static getQRCode(exerciseID) {
+        return axios.get(config.baseurl + 'qrCode/' + exerciseID, {
+                headers: {
+                    "Accept": "image/png",
+                    'Content-Type': 'image/png'
+                },
+                responseType: 'arraybuffer'
+            }
+        ).then(res => fileDownload(res.data, 'qrCode' + exerciseID + '.png')
         ).catch(err => console.warn(err));
     }
 
     static getExercises() {
-        return fetch(config.baseurl + 'exercise/', {
-                method: 'GET',
+        return axios.get(config.baseurl + 'exercise/', {
                 headers: {
                     "Accept": "application/json",
                     'Content-Type': 'application/json'
                 }
             }
-        ).then(res => res.json()
         ).catch(err => console.warn(err));
     }
 
     static postData(data, path) {
-        fetch(config.baseurl + path + '/', {
-            method: 'POST',
+        axios.post(config.baseurl + path + '/', {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',

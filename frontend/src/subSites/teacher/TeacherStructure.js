@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
@@ -30,7 +30,7 @@ export default class TeacherStructure extends React.Component {
     render() {
         return (
             <BrowserRouter basename="/teacher">
-                <Grid className={"siteGrid"} padded>
+                <Grid className="siteGrid" padded>
                     {this.getHeader(true)}
                     <Grid.Row className="gridContent">
                         <Grid.Column>
