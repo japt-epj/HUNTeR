@@ -11,7 +11,7 @@ export default class StudentExercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            exerciseID: this.props.location.state.exerciseID,
+            id: this.props.location.state.id,
             question: this.props.location.state.exercise.question,
             checked0: false,
             answer0: this.props.location.state.exercise.answers[0].text,
@@ -51,7 +51,7 @@ export default class StudentExercise extends React.Component {
         } else {
             return (
                 <NavLink to="/scan">
-                    <Message icon='camera retro' size="mini"
+                    <Message icon="camera retro" size="mini"
                              header="Bitte zuerst eine Aufgabe mit der Scan Funktion scannen." error/>
                 </NavLink>
             );

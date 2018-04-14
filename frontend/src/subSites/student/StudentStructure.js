@@ -29,7 +29,7 @@ export default class StudentStructure extends React.Component {
     render() {
         return (
             <BrowserRouter basename="/student">
-                <Grid className={"siteGrid"} padded>
+                <Grid className="siteGrid" padded>
                     {this.getHeader(true)}
                     <Grid.Row className="gridContent">
                         <Grid.Column>

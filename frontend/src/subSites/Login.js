@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Form, Grid} from 'semantic-ui-react';
@@ -23,7 +23,7 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <Grid className={"siteGrid"} padded>
+            <Grid className="siteGrid" padded>
                 {this.getLoginHeader()}
                 <Grid.Row className="gridContent" centered>
                     <div>
@@ -33,7 +33,7 @@ export default class Login extends React.Component {
                                         onChange={this.handleChange} required/>
                             <Form.Input label="Passwort" type="password" name="password" value={this.state.password}
                                         onChange={this.handleChange} required/>
-                            <Form.Button content='Submit'/>
+                            <Form.Button content="Submit"/>
                         </Form>
                         <NavLink to={'/student'}>Student</NavLink>
                         <NavLink to={'/teacher'}>Teacher</NavLink>

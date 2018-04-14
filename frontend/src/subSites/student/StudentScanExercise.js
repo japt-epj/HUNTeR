@@ -25,18 +25,18 @@ export default class StudentScanExercise extends React.Component {
     handleScan(data) {
         if (data) {
             APIHandler.getExerciseData(data, 'exercise').then(resData => {
-                if (resData.id !== undefined) {
-                    resData.answers.forEach(
+                if (resData.status === 200) {
+                    resData.data.answers.forEach(
                         function (element, index, arrayObject) {
                             arrayObject[index] = {text: element, checked: false};
                         }
                     );
                     this.setState({
                         exercise: {
-                            exerciseID: resData.id,
-                            title: resData.title,
-                            question: resData.question,
-                            answers: resData.answers,
+                            id: resData.data.id,
+                            title: resData.data.title,
+                            question: resData.data.question,
+                            answers: resData.data.answers,
                         }
                     });
                     this.setState({fireRedirect: true});
@@ -57,7 +57,7 @@ export default class StudentScanExercise extends React.Component {
             <div>
                 <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan}/>
                 <Message
-                    icon='camera retro' size="mini"
+                    icon="camera retro" size="mini"
                     header={this.state.displayText}
                     error={this.state.scanError}/>
                 {this.state.fireRedirect && (

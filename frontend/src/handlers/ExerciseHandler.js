@@ -3,33 +3,29 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Form, Table} from 'semantic-ui-react';
 
-import APIHandler from "./APIHandler";
-import config from "../config/config";
+import APIHandler from './APIHandler';
 
 export default class ExerciseHandler {
     static getTableRows() {
         APIHandler.getExercises().then(resData => {
-                if (resData.size !== 0) {
+                if (resData.status === 200) {
                     this.setState({
-                        exercises: resData,
                         table: (
-                            resData.map(element =>
+                            resData.data.map(element =>
                                 <Table.Row key={'TableRow' + element.id}>
                                     {this.state.checkboxNeeded && (
-                                        <Table.Cell collapsing>
-                                            <Form.Checkbox/>
-                                        </Table.Cell>
+                                        <Table.Cell collapsing content={<Form.Checkbox/>}/>
                                     )}
-                                    <Table.Cell>{element.title}</Table.Cell>
-                                    <Table.Cell verticalAlign="middle" collapsing>
+                                    <Table.Cell content={element.title}/>
+                                    <Table.Cell content={element.id} collapsing/>
+                                    <Table.Cell collapsing>
                                         <NavLink to={'/exercise?id=' + element.id}>
                                             <Button basic icon="edit" color="green"/>
                                         </NavLink>
                                     </Table.Cell>
-                                    <Table.Cell verticalAlign="middle" collapsing>
-                                        <a href={config.baseurl + 'qrCode/'} download={element.id}>
-                                            <Button color="orange" basic icon="qrcode"/>
-                                        </a>
+                                    <Table.Cell collapsing>
+                                        <Button color="orange" basic icon="qrcode"
+                                                onClick={() => this.getQRCode(element.id)}/>
                                     </Table.Cell>
                                 </Table.Row>
                             )),
