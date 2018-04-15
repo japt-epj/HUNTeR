@@ -18,8 +18,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
         registry.setOrder(Ordered.LOWEST_PRECEDENCE);
 
-        if (!registry.hasMappingForPattern("/^(?!api).*")) {
-            registry.addResourceHandler("/^(?!api).*")
+        if (!registry.hasMappingForPattern("/**")) {
+            registry.addResourceHandler("/**")
                     .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/");
         }
 
