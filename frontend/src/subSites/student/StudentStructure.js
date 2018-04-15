@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
@@ -12,6 +12,7 @@ import StudentExercise from './StudentExercise';
 
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
+import NotFound from "../NotFound";
 
 
 export default class StudentStructure extends React.Component {
@@ -36,11 +37,14 @@ export default class StudentStructure extends React.Component {
                             <Sidebar.Pushable as={Segment}>
                                 {this.getSideBar(Data.getPathsStudent())}
                                 <Sidebar.Pusher onClick={this.hideSidebar}>
-                                    <Route exact path="/" render={props => Home(Data.getPathsStudent())}/>
-                                    <Route path="/settings" component={Settings}/>
-                                    <Route path="/scan" component={StudentScanExercise}/>
-                                    <Route path="/score" component={StudentScore}/>
-                                    <Route path="/exercise" component={StudentExercise}/>
+                                    <Switch>
+                                        <Route exact path="/" render={props => Home(Data.getPathsStudent())}/>
+                                        <Route path="/settings" component={Settings}/>
+                                        <Route path="/scan" component={StudentScanExercise}/>
+                                        <Route path="/score" component={StudentScore}/>
+                                        <Route path="/exercise" component={StudentExercise}/>
+                                        <Route component={NotFound}/>
+                                    </Switch>
                                 </Sidebar.Pusher>
                             </Sidebar.Pushable>
                         </Grid.Column>
