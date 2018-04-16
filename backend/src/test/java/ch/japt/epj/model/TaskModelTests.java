@@ -28,14 +28,14 @@ public class TaskModelTests {
 
     @Test
     public void emptyWhenNotFound() {
-        assertThat(model.getExercise(10_000_000l)).isEmpty();
+        assertThat(model.getExercise(10_000_000L)).isEmpty();
     }
 
     @Test
     public void shouldAddNewTask() {
         int size = model.allExercises().size();
         model.addExercise(makeTestDto());
-        assertThat(model.getExercise(size + 1l)).isNotEmpty();
+        assertThat(model.getExercise(size + 1L)).isNotEmpty();
         assertThat(model.allExercises().size()).isEqualTo(size + 1);
     }
 
