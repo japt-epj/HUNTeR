@@ -1,5 +1,6 @@
 package ch.japt.epj.model;
 
+import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class TaskModelTests {
 
     @Test
     public void emptyWhenNotFound() {
-        assertThat(model.getExercise(11l)).isEmpty();
+        assertThat(model.getExercise(10_000_000l)).isEmpty();
     }
 
     @Test
@@ -36,6 +37,18 @@ public class TaskModelTests {
         model.addExercise(makeTestDto());
         assertThat(model.getExercise(size + 1l)).isNotEmpty();
         assertThat(model.allExercises().size()).isEqualTo(size + 1);
+    }
+
+    @Test
+    public void newTaskReturned() {
+        NewExerciseDto testDto = makeTestDto();
+        model.addExercise(testDto);
+        ExerciseDto returnDto = model.allExercises().get(model.allExercises().size() - 1);
+        assertThat(returnDto)
+                .hasFieldOrPropertyWithValue("title", "Unit Test Question")
+                .hasFieldOrPropertyWithValue("question", "Is this a unit test?");
+
+        assertThat(returnDto.getAnswers()).isEqualTo(Arrays.asList(new String[]{"Yes", "No"}));
     }
 
     private NewExerciseDto makeTestDto() {
