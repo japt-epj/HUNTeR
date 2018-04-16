@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TaskModel {
@@ -45,9 +46,10 @@ public class TaskModel {
         return mapper.map(all, type);
     }
 
-    public ExerciseDto getExercise(Long id) {
-        Task task = exercises.findOne(id);
-        return mapper.map(task, ExerciseDto.class);
+    public Optional<ExerciseDto> getExercise(Long id) {
+        return exercises.findByTaskId(id)
+                .map(t -> Optional.of(mapper.map(t, ExerciseDto.class)))
+                .orElse(Optional.empty());
     }
 
     public void addExercise(NewExerciseDto exerciseDto) {

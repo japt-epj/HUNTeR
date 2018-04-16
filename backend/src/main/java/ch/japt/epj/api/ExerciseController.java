@@ -35,7 +35,9 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
 
     @Override
     public ResponseEntity<ExerciseDto> exerciseIdGet(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(taskModel.getExercise(id.longValue()), HttpStatus.OK);
+        return taskModel.getExercise(id.longValue())
+                .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Override
