@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
     }
 
     @Override
-    public ResponseEntity<Void> addExercise(@RequestBody NewExerciseDto body) {
+    public ResponseEntity<Void> addExercise(@Validated @RequestBody NewExerciseDto body) {
         taskModel.addExercise(body);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
