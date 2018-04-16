@@ -51,6 +51,12 @@ public class TaskModelTests {
         assertThat(returnDto.getAnswers()).isEqualTo(Arrays.asList(new String[]{"Yes", "No"}));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void failWithInvalidPayload() {
+        NewExerciseDto fail = new NewExerciseDto().title("This should fail");
+        model.addExercise(fail);
+    }
+
     private NewExerciseDto makeTestDto() {
         NewAnswerDto yes = new NewAnswerDto().text("Yes").checked(true);
         NewAnswerDto no = new NewAnswerDto().text("No").checked(false);
