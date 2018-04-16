@@ -3,6 +3,7 @@ package ch.japt.epj.model;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +52,11 @@ public class TaskModelTests {
         assertThat(returnDto.getAnswers()).isEqualTo(Arrays.asList(new String[]{"Yes", "No"}));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void failWithInvalidPayload() {
         NewExerciseDto fail = new NewExerciseDto().title("This should fail");
-        model.addExercise(fail);
+        Assertions.assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> model.addExercise(fail));
     }
 
     private NewExerciseDto makeTestDto() {
