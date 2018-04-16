@@ -9,13 +9,12 @@ import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class TaskModel {
@@ -41,9 +40,9 @@ public class TaskModel {
     }
 
     public List<ExerciseDto> allExercises() {
-        Type type = new TypeToken<List<ExerciseDto>>() {}.getType();
-        Iterable<Task> all = exercises.findAll();
-        return mapper.map(all, type);
+        return exercises.getAll()
+                .map(t -> mapper.map(t, ExerciseDto.class))
+                .collect(Collectors.toList());
     }
 
     public Optional<ExerciseDto> getExercise(Long id) {
