@@ -21,6 +21,6 @@ public class QrController implements QrCodeApi {
     public ResponseEntity<byte[]> getQRCode(@PathVariable("id") Integer id) {
         return model.generateCode(id)
                 .map(b -> new ResponseEntity<>(b, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(new byte[0], HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
