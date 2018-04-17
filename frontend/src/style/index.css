@@ -49,7 +49,7 @@ html {
 }
 
 .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.visible.sidebar.menu, .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.animating.sidebar.menu {
-    background: rgba(32, 192, 40, 0.6);
+    background: rgba(32, 192, 40, 0.7);
 }
 
 .goldenTrophy {
@@ -62,4 +62,8 @@ html {
 
 .bronceTrophy {
     color: #cc8e34;
+}
+
+.errorBackground{
+    background: #36c22f;
 }
