@@ -30,15 +30,17 @@ public class TaskModel {
     ) {
         this.exercises = exercises;
         this.answers = answers;
-        TypeMap<Task, ExerciseDto> taskToDto = mapper.createTypeMap(Task.class, ExerciseDto.class);
-        taskToDto.addMapping(Task::getName, ExerciseDto::setTitle);
-        taskToDto.addMapping(Task::getAnswerTemplates, ExerciseDto::setAnswers);
 
-        TypeMap<NewAnswerDto, Answer> dtoToAnswer = mapper.createTypeMap(NewAnswerDto.class, Answer.class);
-        dtoToAnswer.addMapping(NewAnswerDto::getText, Answer::setAnswer);
+        // TODO: These should probably be pulled out because we need them in more than one place.
+        mapper.createTypeMap(Task.class, ExerciseDto.class)
+                .addMapping(Task::getName, ExerciseDto::setTitle)
+                .addMapping(Task::getAnswerTemplates, ExerciseDto::setAnswers);
 
-        TypeMap<NewExerciseDto, Task> dtoToTask = mapper.createTypeMap(NewExerciseDto.class, Task.class);
-        dtoToTask.addMapping(NewExerciseDto::getTitle, Task::setName);
+        mapper.createTypeMap(NewAnswerDto.class, Answer.class)
+                .addMapping(NewAnswerDto::getText, Answer::setAnswer);
+
+        mapper.createTypeMap(NewExerciseDto.class, Task.class)
+                .addMapping(NewExerciseDto::getTitle, Task::setName);
     }
 
     @Transactional(readOnly = true)
