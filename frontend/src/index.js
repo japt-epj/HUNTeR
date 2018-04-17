@@ -18,7 +18,6 @@ ReactDOM.render(
             <Route exact path="/" component={Login}/>
             <Route path="/teacher" component={Teacher}/>
             <Route path="/student" component={Student}/>
-            <Route exact path="*" component={NotFound}/>
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));
