@@ -9,12 +9,12 @@ import ErrorMobile from '../images/404Mobile.png';
 
 export default function () {
     return (
-        <Grid centered padded>
-            <NavLink to="/">
+        <NavLink to="/">
+            <Grid centered className="errorBackground">
                 <Grid.Row>
                     <Image src={window.innerWidth <= 768 ? ErrorMobile : ErrorDesktop}/>
                 </Grid.Row>
-            </NavLink>
-        </Grid>
+            </Grid>
+        </NavLink>
     )
 }
