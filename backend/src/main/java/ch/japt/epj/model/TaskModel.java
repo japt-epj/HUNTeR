@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class TaskModel {
@@ -40,9 +41,11 @@ public class TaskModel {
     }
 
     public List<ExerciseDto> allExercises() {
-        return exercises.getAll()
-                .map(t -> mapper.map(t, ExerciseDto.class))
-                .collect(Collectors.toList());
+        try (Stream<Task> tasks = exercises.getAll()) {
+            return tasks
+                    .map(t -> mapper.map(t, ExerciseDto.class))
+                    .collect(Collectors.toList());
+        }
     }
 
     public Optional<ExerciseDto> getExercise(Long id) {
