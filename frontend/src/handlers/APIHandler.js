@@ -37,13 +37,12 @@ export default class APIHandler {
     }
 
     static postData(data, path) {
-        axios.post(config.baseurl + path + '/', {
+        axios({
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             data: data,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then(res => res.json()
-        ).catch(err => console.error('Error:', err)
+            url: config.baseurl + path + '/'
+        }).catch(err => console.error('Error:', err)
         ).then(res => {
             console.log('Success:' + res);
             this.setState({fireRedirect: true});
