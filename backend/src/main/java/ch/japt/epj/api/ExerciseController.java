@@ -31,6 +31,11 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
     }
 
     @Override
+    public ResponseEntity<List<ExerciseDto>> exerciseGet(Integer page, Integer limit) {
+        return null;
+    }
+
+    @Override
     public ResponseEntity<List<ExerciseDto>> exerciseGet() {
         return new ResponseEntity<>(exerciseModel.allExercises(), HttpStatus.OK);
     }
