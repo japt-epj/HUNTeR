@@ -46,9 +46,9 @@ export default class extends React.Component {
     }
 
     handlePageChange(event, element) {
-        if (element.name <= this.state.maxPageNumber && element.name >= this.state.minPageNumber) {
+        if (element.index <= this.state.maxPageNumber && element.index >= this.state.minPageNumber) {
             this.setState({
-                menuNumber: element.name,
+                menuNumber: element.index,
                 loading: true
             });
             this.getExerciseTableRows();
@@ -106,25 +106,25 @@ export default class extends React.Component {
                                                         <Menu floated="right" pagination>
                                                             {(this.state.menuNumber - 1 >= this.state.minPageNumber && this.state.menuNumber - 1 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' icon="chevron left" content=""
-                                                                       name={(this.state.menuNumber - 1).toString()}
+                                                                       index={(this.state.menuNumber - 1)}
                                                                        onClick={this.handlePageChange}/>}
                                                             {this.state.menuNumber !== this.state.minPageNumber &&
                                                             <Menu.Item as='a' content={this.state.menuNumber}
-                                                                       name={this.state.menuNumber.toString()}
+                                                                       index={this.state.menuNumber}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 1 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a'
                                                                        content={this.state.menuNumber + 1}
-                                                                       name={(this.state.menuNumber + 1).toString()}
+                                                                       index={(this.state.menuNumber + 1)}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 2 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a'
                                                                        content={this.state.menuNumber + 2}
-                                                                       name={(this.state.menuNumber + 2).toString()}
+                                                                       index={(this.state.menuNumber + 2)}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' icon="chevron right" content=""
-                                                                       name={(this.state.menuNumber + 1).toString()}
+                                                                       index={(this.state.menuNumber + 1)}
                                                                        onClick={this.handlePageChange}/>}
                                                         </Menu>
                                                     </Table.HeaderCell>
@@ -133,9 +133,9 @@ export default class extends React.Component {
                                         </Table>
                                     </Modal.Description>
                                 </Modal.Content>
-                                <Modal.Actions>
-                                    <Button color="green" icon="refresh" label="Anpassen"/>
-                                </Modal.Actions>
+                                {/*<Modal.Actions>*/}
+                                    {/*<Button color="green" icon="refresh" label="Anpassen"/>*/}
+                                {/*</Modal.Actions>*/}
                             </Modal>
                         </Grid.Column>
                         <Grid.Column>
@@ -157,23 +157,23 @@ export default class extends React.Component {
                                                         <Menu floated="right" pagination>
                                                             {(this.state.menuNumber - 1 >= this.state.minPageNumber && this.state.menuNumber - 1 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' icon="chevron left" content=""
-                                                                       name={this.state.menuNumber - 1}
+                                                                       index={this.state.menuNumber - 1}
                                                                        onClick={this.handlePageChange}/>}
                                                             {this.state.menuNumber !== this.state.minPageNumber &&
                                                             <Menu.Item as='a' content={this.state.menuNumber}
-                                                                       name={this.state.menuNumber.toString()}
+                                                                       index={this.state.menuNumber}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 1 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' content={this.state.menuNumber + 1}
-                                                                       name={(this.state.menuNumber + 1).toString()}
+                                                                       index={(this.state.menuNumber + 1)}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 2 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' content={this.state.menuNumber + 2}
-                                                                       name={(this.state.menuNumber + 2).toString()}
+                                                                       index={(this.state.menuNumber + 2)}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' icon="chevron right" content=""
-                                                                       name={(this.state.menuNumber + 1).toString()}
+                                                                       index={(this.state.menuNumber + 1)}
                                                                        onClick={this.handlePageChange}/>}
                                                         </Menu>
                                                     </Table.HeaderCell>
