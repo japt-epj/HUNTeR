@@ -5,11 +5,11 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class Task {
+public class Exercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long taskId;
+    private long exerciseId;
 
     private String name;
 
@@ -55,8 +55,8 @@ public class Task {
         this.location = location;
     }
 
-    public long getTaskId() {
-        return taskId;
+    public long getExerciseId() {
+        return exerciseId;
     }
 
     public String getQuestion() {

@@ -18,7 +18,7 @@ public class Quiz {
     private Collection<Execution> executions = new ArrayList<>();
 
     @OneToMany
-    private Collection<Task> tasks = new ArrayList<>();
+    private Collection<Exercise> exercises = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -36,12 +36,12 @@ public class Quiz {
         executions.remove(execution);
     }
 
-    public void addTask(Task task){
-        tasks.add(task);
+    public void addTask(Exercise exercise){
+        exercises.add(exercise);
     }
 
-    public void removeTask(Task task){
-        tasks.remove(task);
+    public void removeTask(Exercise exercise){
+        exercises.remove(exercise);
     }
 
     public long getQuizId() {
