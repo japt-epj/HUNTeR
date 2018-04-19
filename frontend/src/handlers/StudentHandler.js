@@ -7,9 +7,9 @@ export default class StudentHandler{
     static handleSelectment(event, checkbox) {
         let newState = [...this.state.selectedStudents];
         if (checkbox.checked) {
-            newState.push(checkbox.name);
+            newState.push(checkbox.index);
         } else {
-            newState.splice(newState.lastIndexOf(checkbox.name), 1);
+            newState.splice(newState.lastIndexOf(checkbox.index), 1);
         }
         this.setState({selectedStudents: newState});
     }
