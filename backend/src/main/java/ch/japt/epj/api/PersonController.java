@@ -1,6 +1,7 @@
 package ch.japt.epj.api;
 import ch.japt.epj.model.PersonModel;
 import ch.japt.epj.model.dto.PersonDto;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@Api(tags = "Person API")
 @RequestMapping("/api")
 public class PersonController implements ch.japt.epj.api.PersonApi{
     private final PersonModel   personModel;
