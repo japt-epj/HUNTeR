@@ -1,5 +1,4 @@
 package ch.japt.epj.api;
-
 import ch.japt.epj.model.TaskModel;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
