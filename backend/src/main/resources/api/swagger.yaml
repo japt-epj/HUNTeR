@@ -20,8 +20,8 @@ tags:
   externalDocs:
     description: "Link to Wiki"
     url: "https://github.com/japt-epj/HUNTeR"
-- name: "user"
-  description: "Operations about user"
+- name: "person"
+  description: "Operations about person"
   externalDocs:
     description: "Find out more about our store"
     url: "http://swagger.io"
@@ -144,7 +144,7 @@ paths:
       tags:
       - "qrCode"
       summary: "Get QRCode"
-      description: "Get QRCode by ID. This can only be done by an logged in user."
+      description: "Get QRCode by ID. This can only be done by an logged in person."
       operationId: "getQRCode"
       produces:
       - "image/png"
@@ -162,84 +162,55 @@ paths:
             format: binary
         404:
           description: "QRCode not found"
-  /user:
+  /person:
     post:
       tags:
-      - "user"
-      summary: "Create user"
-      description: "This can only be done by the logged in user."
-      operationId: "createUser"
+      - "person"
+      summary: "Create person"
+      description: "This can only be done by the logged in person."
+      operationId: "createperson"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
         name: "body"
-        description: "Created user object"
+        description: "Created person object"
         required: true
         schema:
-          $ref: "#/definitions/User"
+          $ref: "#/definitions/Person"
       responses:
         default:
           description: "successful operation"
-  /user/createWithArray:
-    post:
-      tags:
-      - "user"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithArrayInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/createWithList:
-    post:
-      tags:
-      - "user"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithListInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/login:
+
+
+    get:
+        tags:
+        - "person"
+        summary: "Get all persons"
+        produces:
+        - "application/json"
+        responses:
+          200:
+            description: "All persons"
+            schema:
+              type: "array"
+              items:
+                $ref: "#/definitions/Person"
+  /person/login:
     get:
       tags:
-      - "user"
-      summary: "Logs user into the system"
+      - "person"
+      summary: "Logs person into the system"
       description: ""
-      operationId: "loginUser"
+      operationId: "loginperson"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "username"
+      - name: "personname"
         in: "query"
-        description: "The user name for login"
+        description: "The person name for login"
         required: true
         type: "string"
       - name: "password"
@@ -256,20 +227,20 @@ paths:
             X-Rate-Limit:
               type: "integer"
               format: "int32"
-              description: "calls per hour allowed by the user"
+              description: "calls per hour allowed by the person"
             X-Expires-After:
               type: "string"
               format: "date-time"
               description: "date in UTC when token expires"
         400:
-          description: "Invalid username/password supplied"
-  /user/logout:
+          description: "Invalid personname/password supplied"
+  /person/logout:
     get:
       tags:
-      - "user"
-      summary: "Logs out current logged in user session"
+      - "person"
+      summary: "Logs out current logged in person session"
       description: ""
-      operationId: "logoutUser"
+      operationId: "logoutperson"
       produces:
       - "application/xml"
       - "application/json"
@@ -277,77 +248,77 @@ paths:
       responses:
         default:
           description: "successful operation"
-  /user/{username}:
+  /person/{personname}:
     get:
       tags:
-      - "user"
-      summary: "Get user by user name"
+      - "person"
+      summary: "Get person by person name"
       description: ""
-      operationId: "getUserByName"
+      operationId: "getpersonByName"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "username"
+      - name: "personname"
         in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
+        description: "The name that needs to be fetched. Use person1 for testing. "
         required: true
         type: "string"
       responses:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/User"
+            $ref: "#/definitions/Person"
         400:
-          description: "Invalid username supplied"
+          description: "Invalid personname supplied"
         404:
-          description: "User not found"
+          description: "person not found"
     put:
       tags:
-      - "user"
-      summary: "Updated user"
-      description: "This can only be done by the logged in user."
-      operationId: "updateUser"
+      - "person"
+      summary: "Updated person"
+      description: "This can only be done by the logged in person."
+      operationId: "updateperson"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "username"
+      - name: "personname"
         in: "path"
         description: "name that need to be updated"
         required: true
         type: "string"
       - in: "body"
         name: "body"
-        description: "Updated user object"
+        description: "Updated person object"
         required: true
         schema:
-          $ref: "#/definitions/User"
+          $ref: "#/definitions/Person"
       responses:
         400:
-          description: "Invalid user supplied"
+          description: "Invalid person supplied"
         404:
-          description: "User not found"
+          description: "person not found"
     delete:
       tags:
-      - "user"
-      summary: "Delete user"
-      description: "This can only be done by the logged in user."
-      operationId: "deleteUser"
+      - "person"
+      summary: "Delete person"
+      description: "This can only be done by the logged in person."
+      operationId: "deleteperson"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "username"
+      - name: "personname"
         in: "path"
         description: "The name that needs to be deleted"
         required: true
         type: "string"
       responses:
         400:
-          description: "Invalid username supplied"
+          description: "Invalid personname supplied"
         404:
-          description: "User not found"
+          description: "person not found"
 
 
 
@@ -479,14 +450,14 @@ securityDefinitions:
     name: "api_key"
     in: "header"
 definitions:
-  User:
+
+
+  Person:
     type: "object"
     properties:
       id:
         type: "integer"
         format: "int64"
-      username:
-        type: "string"
       firstName:
         type: "string"
       lastName:
@@ -495,14 +466,9 @@ definitions:
         type: "string"
       password:
         type: "string"
-      phone:
-        type: "string"
-      userStatus:
-        type: "integer"
-        format: "int32"
-        description: "User Status"
     xml:
-      name: "User"
+      name: "person"
+
   NewAnswer:
     type: "object"
     required:
@@ -551,6 +517,7 @@ definitions:
         items:
           type: "string"
 
+
   NewExecution:
       type: "object"
       required:
@@ -567,7 +534,7 @@ definitions:
         participants:
           type: "array"
           items:
-            $ref: "#/definitions/User"
+            $ref: "#/definitions/Person"
   Execution:
     type: "object"
     required:

@@ -2,7 +2,7 @@ package ch.japt.epj.model;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
 import ch.japt.epj.repository.ExecutionRepository;
-import ch.japt.epj.repository.UserRepository;
+import ch.japt.epj.repository.PersonRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import java.util.List;
 @Component
 public class ExecutionModel {
     private final ExecutionRepository executions;
-    private final UserRepository users;
+    private final PersonRepository users;
     private final ModelMapper mapper = new ModelMapper();
 
     public ExecutionModel(
             @Autowired ExecutionRepository executions,
-            @Autowired UserRepository users
+            @Autowired PersonRepository users
 
     ) {
         this.executions = executions;
