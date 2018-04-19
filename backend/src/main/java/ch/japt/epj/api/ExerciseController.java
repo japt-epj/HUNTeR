@@ -17,7 +17,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api")
-@Api(value = "exercise", description = "the exercise API")
 public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
     private final TaskModel taskModel;
 
