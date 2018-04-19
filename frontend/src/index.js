@@ -6,7 +6,6 @@ import 'semantic-ui-css/semantic.min.css';
 import './style/index.css';
 
 import registerServiceWorker from './registerServiceWorker';
-import NotFound from './subSites/NotFound'
 import Login from './subSites/Login';
 import Teacher from './subSites/teacher/TeacherStructure';
 import Student from './subSites/student/StudentStructure';

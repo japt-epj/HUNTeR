@@ -22,5 +22,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "copy": "cpx \"build/**/\" \"target/classes/META-INF/resources/webjars/frontend/\""
+  },
+  "devDependencies": {
+    "react-date-picker": "^6.10.1",
+    "react-day-picker": "^7.1.6"
   }
 }
