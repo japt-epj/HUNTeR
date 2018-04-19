@@ -14,8 +14,8 @@ export default class StudentHandler {
                                 {this.state.checkboxNeeded && (
                                     <Table.Cell collapsing content={<Form.Checkbox/>}/>
                                 )}
-                                <Table.Cell content={element.title}/>
-                                <Table.Cell content={element.id} collapsing/>
+                                <Table.Cell content={element.firstname}/>
+                                <Table.Cell content={element.lastname}/>
                             </Table.Row>
                         )),
                     loading: false
