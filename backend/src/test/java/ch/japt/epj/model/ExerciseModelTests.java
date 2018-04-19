@@ -18,9 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Component.class))
-public class TaskModelTests {
+public class ExerciseModelTests {
     @Autowired
-    private TaskModel model;
+    private ExerciseModel model;
 
     @Test
     public void shouldContainTasks() {
@@ -55,7 +55,8 @@ public class TaskModelTests {
     @Test
     public void failWithInvalidPayload() {
         NewExerciseDto fail = new NewExerciseDto().title("This should fail");
-        Assertions.assertThatExceptionOfType(NullPointerException.class)
+        Assertions
+                .assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> model.addExercise(fail));
     }
 

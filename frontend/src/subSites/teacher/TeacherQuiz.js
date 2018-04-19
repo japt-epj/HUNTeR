@@ -3,7 +3,6 @@ import React from 'react';
 import {Button, Dimmer, Form, Grid, Loader, Menu, Modal, Table} from 'semantic-ui-react';
 import "react-day-picker/lib/style.css";
 import DayPickerInput from "react-day-picker/DayPickerInput";
-
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";

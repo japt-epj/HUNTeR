@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 
 import {Button, Dimmer, Form, Loader, Table} from 'semantic-ui-react';
 
@@ -47,9 +48,11 @@ export default class TeacherExercisesOverview extends React.Component {
                         </Table.Body>
                         <Table.Footer fullWidth>
                             <Table.Row>
-                                <Table.HeaderCell colSpan="3">
-                                    <Button icocolor="green" icon="add square" positive labelPosition="right"
-                                            label="Aufgabe hinzufügen"/>
+                                <Table.HeaderCell colSpan="4">
+                                    <NavLink to="/exercise">
+                                        <Button icocolor="green" icon="add square" positive labelPosition="right"
+                                                label="Aufgabe hinzufügen"/>
+                                    </NavLink>
                                 </Table.HeaderCell>
                             </Table.Row>
                         </Table.Footer>
