@@ -38,7 +38,7 @@ export default class APIHandler {
 
     static postData(data, path) {
         axios.post(config.baseurl + path + '/', {
-            body: JSON.stringify(data),
+            data: data,
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -52,7 +52,6 @@ export default class APIHandler {
 
     static prepareTeacherData(data) {
         return {
-            exerciseID: data.exercise,
             title: data.title,
             question: data.question,
             answers: [
