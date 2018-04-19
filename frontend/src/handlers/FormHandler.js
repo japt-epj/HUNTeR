@@ -17,7 +17,7 @@ export default class FormHandler {
                 isACheckboxSet = isACheckboxSet || checkedAnswers[element];
             }
         );
-        if(isACheckboxSet){
+        if (isACheckboxSet) {
             let userType = window.location.pathname.split('/')[1];
             if (userType === 'teacher') {
                 this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
@@ -29,11 +29,11 @@ export default class FormHandler {
         }
     }
 
-    static handleLoginSubmit(){
+    static handleLoginSubmit() {
         this.postData(this.state, 'login');
     }
 
-    static handleNewStudentSubmit(){
+    static handleNewStudentSubmit() {
         this.postData(this.state, 'student');
     }
 }
