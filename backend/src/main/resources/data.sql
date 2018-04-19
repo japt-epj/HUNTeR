@@ -42,7 +42,7 @@ INSERT INTO answer (answer, checked) VALUES
 
 
 
-INSERT INTO task (name, question) VALUES
+INSERT INTO exercise (name, question) VALUES
   ('Question 1', 'Seit jeher haben die meisten...'),
   ('Question 2', 'Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...'),
   ('Question 3', 'Mit dem Picknick im Grünen wird es meist nur dann etwas, wenn...'),
@@ -62,7 +62,7 @@ INSERT INTO task (name, question) VALUES
 
 
 -- something something table
-INSERT INTO task_answer_templates (answer_templates_answer_id, task_task_id) VALUES
+INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exercise_id) VALUES
   (1,1),
   (2,1),
   (3,1),

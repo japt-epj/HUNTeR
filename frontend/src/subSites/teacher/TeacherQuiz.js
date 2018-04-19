@@ -3,7 +3,6 @@ import React from 'react';
 import {Button, Dimmer, Form, Grid, Loader, Menu, Modal, Table} from 'semantic-ui-react';
 import "react-day-picker/lib/style.css";
 import DayPickerInput from "react-day-picker/DayPickerInput";
-
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";
@@ -14,6 +13,8 @@ export default class extends React.Component {
         this.state = {
             exerciseTable: [],
             studentTable: [],
+            selectedExercises: [],
+            selectedStudents: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
@@ -192,8 +193,7 @@ export default class extends React.Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                <
-                /Form>
+                </Form>
                 );
                 }
                 }
