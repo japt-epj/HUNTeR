@@ -82,6 +82,17 @@ paths:
         - "write:exercises"
         - "read:exercises"
     get:
+      parameters: 
+        - in: query
+          name: page
+          type: integer
+          required: false
+          description: Page index from where to start pagination
+        - in: query
+          name: limit
+          type: integer
+          required: false
+          description: Number of pages to fetch
       tags:
       - "exercise"
       summary: "Get all exercises"
