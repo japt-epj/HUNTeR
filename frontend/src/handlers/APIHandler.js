@@ -51,13 +51,11 @@ export default class APIHandler {
     }
 
     static postData(data, path) {
-        axios.post(config.baseurl + path + '/', {
-            body: JSON.stringify(data),
+        axios.post(config.baseurl + path + '/', data, {
             headers: {
                 'Content-Type': 'application/json',
             }
-        }).then(res => res.json()
-        ).catch(err => console.error('Error:', err)
+        }).catch(err => console.error('Error:', err)
         ).then(res => {
             console.log('Success:' + res);
             this.setState({fireRedirect: true});
@@ -66,7 +64,6 @@ export default class APIHandler {
 
     static prepareTeacherData(data) {
         return {
-            exerciseID: data.exercise,
             title: data.title,
             question: data.question,
             answers: [

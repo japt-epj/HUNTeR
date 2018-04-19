@@ -8,7 +8,6 @@ import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,15 +29,16 @@ public class ExerciseModel {
     ) {
         this.exercises = exercises;
         this.answers = answers;
-        TypeMap<Exercise, ExerciseDto> taskToDto = mapper.createTypeMap(Exercise.class, ExerciseDto.class);
-        taskToDto.addMapping(Exercise::getName, ExerciseDto::setTitle);
-        taskToDto.addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers);
 
-        TypeMap<NewAnswerDto, Answer> dtoToAnswer = mapper.createTypeMap(NewAnswerDto.class, Answer.class);
-        dtoToAnswer.addMapping(NewAnswerDto::getText, Answer::setAnswer);
+        // TODO: These should probably be pulled out because we need them in more than one place.
+        mapper.createTypeMap(Exercise.class, ExerciseDto.class)
+                .addMapping(Exercise::getName, ExerciseDto::setTitle)
+                .addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers);
+        mapper.createTypeMap(NewAnswerDto.class, Answer.class)
+                .addMapping(NewAnswerDto::getText, Answer::setAnswer);
 
-        TypeMap<NewExerciseDto, Exercise> dtoToTask = mapper.createTypeMap(NewExerciseDto.class, Exercise.class);
-        dtoToTask.addMapping(NewExerciseDto::getTitle, Exercise::setName);
+        mapper.createTypeMap(NewExerciseDto.class, Exercise.class)
+                .addMapping(NewExerciseDto::getTitle, Exercise::setName);
     }
 
     @Transactional(readOnly = true)

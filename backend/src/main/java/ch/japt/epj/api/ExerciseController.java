@@ -2,6 +2,7 @@ package ch.japt.epj.api;
 import ch.japt.epj.model.ExerciseModel;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
