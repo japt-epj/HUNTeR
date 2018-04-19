@@ -6,11 +6,11 @@ import {Button, Form, Table} from 'semantic-ui-react';
 import APIHandler from './APIHandler';
 
 export default class ExerciseHandler {
-    static getTableRows() {
-        APIHandler.getExercises().then(resData => {
+    static getExerciseTableRows() {
+        APIHandler.getExercises(this.state.menuNumber * this.state.maxPage, this.state.menuNumber * this.state.maxPage + 9).then(resData => {
                 if (resData.status === 200) {
                     this.setState({
-                        table: (
+                        exerciseTable: (
                             resData.data.map(element =>
                                 <Table.Row key={'TableRow' + element.id}>
                                     {this.state.checkboxNeeded && (

@@ -26,8 +26,12 @@ export default class APIHandler {
         ).catch(err => console.warn(err));
     }
 
-    static getExercises() {
-        return axios.get(config.baseurl + 'exercise/', {
+    static getExercises(begin, end) {
+        let requestURL = config.baseurl + 'exercise/';
+        if (begin !== undefined && end !== undefined) {
+            requestURL += '?start=' + begin + 'end=' + end;
+        }
+        return axios.get(requestURL, {
                 headers: {
                     "Accept": "application/json",
                     'Content-Type': 'application/json'

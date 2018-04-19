@@ -21,7 +21,7 @@ export default class TeacherExercisesOverview extends React.Component {
             loading: true,
             selectedQRCode: ''
         };
-        this.getTableRows = ExerciseHandler.getTableRows.bind(this);
+        this.getTableRows = ExerciseHandler.getExerciseTableRows.bind(this);
         this.getQRCode = APIHandler.getQRCode;
     }
 
