@@ -1,7 +1,8 @@
 package ch.japt.epj.api;
-import ch.japt.epj.model.TaskModel;
+import ch.japt.epj.model.ExerciseModel;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,26 +17,26 @@ import java.util.List;
 @Controller
 @RequestMapping("/api")
 public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
-    private final TaskModel taskModel;
+    private final ExerciseModel exerciseModel;
 
-    public ExerciseController(@Autowired TaskModel taskModel){
-        this.taskModel = taskModel;
+    public ExerciseController(@Autowired ExerciseModel exerciseModel){
+        this.exerciseModel = exerciseModel;
     }
 
     @Override
     public ResponseEntity<Void> addExercise(@Validated @RequestBody NewExerciseDto body) {
-        taskModel.addExercise(body);
+        exerciseModel.addExercise(body);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<List<ExerciseDto>> exerciseGet() {
-        return new ResponseEntity<>(taskModel.allExercises(), HttpStatus.OK);
+        return new ResponseEntity<>(exerciseModel.allExercises(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ExerciseDto> exerciseIdGet(@PathVariable("id") Integer id) {
-        return taskModel.getExercise(id.longValue())
+        return exerciseModel.getExercise(id.longValue())
                 .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

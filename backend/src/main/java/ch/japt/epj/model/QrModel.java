@@ -20,8 +20,8 @@ public class QrModel {
     }
 
     public Optional<byte[]> generateCode(Integer id) {
-        return exercises.findByTaskId(id.longValue())
-                .map(t -> makeQr(t.getTaskId()))
+        return exercises.findByExerciseId(id.longValue())
+                .map(t -> makeQr(t.getExerciseId()))
                 .orElse(Optional.empty());
     }
 
