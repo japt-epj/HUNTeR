@@ -36,6 +36,16 @@ export default class APIHandler {
         ).catch(err => console.warn(err));
     }
 
+    static getStudents() {
+        return axios.get(config.baseurl + 'student/', {
+                headers: {
+                    "Accept": "application/json",
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).catch(err => console.warn(err));
+    }
+
     static postData(data, path) {
         axios.post(config.baseurl + path + '/', {
             body: JSON.stringify(data),
