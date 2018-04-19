@@ -37,11 +37,10 @@ export default class APIHandler {
     }
 
     static postData(data, path) {
-        axios({
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            data: data,
-            url: config.baseurl + path + '/'
+        axios.post(config.baseurl + path + '/', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
         }).catch(err => console.error('Error:', err)
         ).then(res => {
             console.log('Success:' + res);
