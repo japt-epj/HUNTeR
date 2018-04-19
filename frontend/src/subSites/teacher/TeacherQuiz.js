@@ -5,12 +5,14 @@ import {Button, Dimmer, Form, Grid, Loader, Modal, Table} from 'semantic-ui-reac
 import Data from '../../data/Data';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
+import StudentHandler from "../../handlers/StudentHandler";
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             table: [],
+            studentTable: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
@@ -21,9 +23,11 @@ export default class extends React.Component {
         };
         this.getTableRows = ExerciseHandler.getTableRows.bind(this);
         this.getQRCode = APIHandler.getQRCode;
+        this.getStudentRows = StudentHandler.getStudentRows.bind(this);
     }
 
     componentDidMount() {
+        this.getStudentRows();
         this.getTableRows();
     }
 
@@ -47,19 +51,20 @@ export default class extends React.Component {
                                         <Table>
                                             <Table.Header>
                                                 <Table.Row>
-                                                    <Table.HeaderCell colSpan="4">Aufgaben im Quiz:</Table.HeaderCell>
+                                                    <Table.HeaderCell colSpan="4">Benutzer hinzufügen:</Table.HeaderCell>
                                                 </Table.Row>
                                             </Table.Header>
-                                            <Table.Body>
-                                                {Data.getStudents().map((element, index) =>
-                                                    <Table.Row key={'TableRow' + index}>
-                                                        <Table.Cell collapsing><Form.Field control="input"
-                                                                                           type="checkbox"/>
-                                                        </Table.Cell>
-                                                        <Table.Cell>{element.email}</Table.Cell>
-                                                    </Table.Row>
-                                                )}
-                                            </Table.Body>
+                                            {/*<Table.Body>*/}
+                                                {/*{Data.getStudents().map((element, index) =>*/}
+                                                    {/*<Table.Row key={'TableRow' + index}>*/}
+                                                        {/*<Table.Cell collapsing><Form.Field control="input"*/}
+                                                                                           {/*type="checkbox"/>*/}
+                                                        {/*</Table.Cell>*/}
+                                                        {/*<Table.Cell>{element.email}</Table.Cell>*/}
+                                                    {/*</Table.Row>*/}
+                                                {/*)}*/}
+                                            {/*</Table.Body>*/}
+                                            {!this.state.loading && this.state.studentTable}
                                         </Table>
                                     </Modal.Description>
                                 </Modal.Content>
