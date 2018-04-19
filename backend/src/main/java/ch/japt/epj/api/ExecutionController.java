@@ -2,6 +2,7 @@ package ch.japt.epj.api;
 import ch.japt.epj.model.ExecutionModel;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@Api(tags = "Execution API")
 @RequestMapping("/api")
 public class ExecutionController implements ch.japt.epj.api.ExecutionApi {
     private final ExecutionModel executionModel;
