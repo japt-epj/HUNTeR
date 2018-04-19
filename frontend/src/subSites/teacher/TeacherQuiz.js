@@ -13,7 +13,9 @@ export default class extends React.Component {
         super(props);
         this.state = {
             exerciseTable: [],
+            selectedExercises: [],
             studentTable: [],
+            selectedStudents: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
@@ -29,6 +31,7 @@ export default class extends React.Component {
         this.getExerciseTableRows = ExerciseHandler.getExerciseTableRows.bind(this);
         this.getQRCode = APIHandler.getQRCode;
         this.getStudentRows = StudentHandler.getStudentRows.bind(this);
+        this.handleSelectment = StudentHandler.handleSelectment.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.dateChanger = this.dateChanger.bind(this);
@@ -108,17 +111,17 @@ export default class extends React.Component {
                                                                        onClick={this.handlePageChange}/>}
                                                             {this.state.menuNumber !== this.state.minPageNumber &&
                                                             <Menu.Item as='a' content={this.state.menuNumber}
-                                                                       name={this.state.menuNumber}
+                                                                       name={this.state.menuNumber.toString()}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 1 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a'
-                                                                       content={(this.state.menuNumber + 1).toString()}
-                                                                       name={this.state.menuNumber + 1}
+                                                                       content={this.state.menuNumber + 1}
+                                                                       name={(this.state.menuNumber + 1).toString()}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 2 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a'
-                                                                       content={(this.state.menuNumber + 2).toString()}
-                                                                       name={this.state.menuNumber + 2}
+                                                                       content={this.state.menuNumber + 2}
+                                                                       name={(this.state.menuNumber + 2).toString()}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' icon="chevron right" content=""
@@ -159,19 +162,19 @@ export default class extends React.Component {
                                                                        onClick={this.handlePageChange}/>}
                                                             {this.state.menuNumber !== this.state.minPageNumber &&
                                                             <Menu.Item as='a' content={this.state.menuNumber}
-                                                                       name={this.state.menuNumber}
+                                                                       name={this.state.menuNumber.toString()}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 1 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' content={this.state.menuNumber + 1}
-                                                                       name={this.state.menuNumber + 1}
+                                                                       name={(this.state.menuNumber + 1).toString()}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 2 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' content={this.state.menuNumber + 2}
-                                                                       name={this.state.menuNumber + 2}
+                                                                       name={(this.state.menuNumber + 2).toString()}
                                                                        onClick={this.handlePageChange}/>}
                                                             {(this.state.menuNumber + 1 >= this.state.minPageNumber && this.state.menuNumber + 2 <= this.state.maxPageNumber) &&
                                                             <Menu.Item as='a' icon="chevron right" content=""
-                                                                       name={this.state.menuNumber + 1}
+                                                                       name={(this.state.menuNumber + 1).toString()}
                                                                        onClick={this.handlePageChange}/>}
                                                         </Menu>
                                                     </Table.HeaderCell>
@@ -192,8 +195,7 @@ export default class extends React.Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                <
-                /Form>
-                );
-                }
-                }
+            </Form>
+        );
+    }
+}

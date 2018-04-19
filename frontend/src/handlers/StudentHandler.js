@@ -1,9 +1,19 @@
 import React from 'react';
-import {Form, Table} from 'semantic-ui-react';
+import {Checkbox, Table} from 'semantic-ui-react';
 import APIHandler from "./APIHandler";
 
 
-export default class StudentHandler {
+export default class StudentHandler{
+    static handleSelectment(event, checkbox) {
+        let newState = [...this.state.selectedStudents];
+        if (checkbox.checked) {
+            newState.push(checkbox.name);
+        } else {
+            newState.splice(newState.lastIndexOf(checkbox.name), 1);
+        }
+        this.setState({selectedStudents: newState});
+    }
+
     static getStudentRows() {
         APIHandler.getStudents().then(resData => {
             if (resData.status === 200) {
@@ -12,7 +22,11 @@ export default class StudentHandler {
                         resData.data.map(element =>
                             <Table.Row key={'TableRow' + element.id}>
                                 {this.state.checkboxNeeded && (
-                                    <Table.Cell collapsing content={<Form.Checkbox/>}/>
+                                    <Table.Cell collapsing>
+                                        <Checkbox name={element.id.toString()}
+                                                  checked={this.state.selectedStudents.indexOf(element.id) !== -1}
+                                                  onChange={this.handleSelectment}/>
+                                    </Table.Cell>
                                 )}
                                 <Table.Cell content={element.firstName}/>
                                 <Table.Cell content={element.lastName}/>
