@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/api")
 public class PersonController implements ch.japt.epj.api.PersonApi{
-    private final PersonModel personModel;
+    private final PersonModel   personModel;
 
     public PersonController(@Autowired PersonModel personModel) { this.personModel = personModel; }
 

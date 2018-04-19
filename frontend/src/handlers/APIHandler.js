@@ -37,7 +37,7 @@ export default class APIHandler {
     }
 
     static getStudents() {
-        return axios.get(config.baseurl + 'student/', {
+        return axios.get(config.baseurl + 'person/', {
                 headers: {
                     "Accept": "application/json",
                     'Content-Type': 'application/json'
