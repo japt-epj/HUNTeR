@@ -55,7 +55,8 @@ public class ExerciseModelTests {
     @Test
     public void failWithInvalidPayload() {
         NewExerciseDto fail = new NewExerciseDto().title("This should fail");
-        Assertions.assertThatExceptionOfType(NullPointerException.class)
+        Assertions
+                .assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> model.addExercise(fail));
     }
 
