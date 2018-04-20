@@ -22,7 +22,6 @@ public interface PaginatedExercise {
             produces = { "application/json" },
             method = RequestMethod.GET)
     ResponseEntity<Page<ExerciseDto>> exerciseGet(
-            @ApiParam(value = "Page index from where to start pagination") @Valid @RequestParam(value = "first", required = false) Integer first,
+            @ApiParam(value = "Page index from where to start pagination") @Valid @RequestParam(value = "page", required = false) Integer page,
             @ApiParam(value = "Number of pages to fetch") @Valid @RequestParam(value = "limit", required = false) Integer limit);
-
 }

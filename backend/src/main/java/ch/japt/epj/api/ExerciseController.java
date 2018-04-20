@@ -48,6 +48,6 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
 
     @Override
     public ResponseEntity<Page<ExerciseDto>> exerciseGet(Integer page, Integer limit) {
-        return null;
+        return new ResponseEntity<>(exerciseModel.pageExercise(page, limit), HttpStatus.OK);
     }
 }
