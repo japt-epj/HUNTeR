@@ -17,11 +17,16 @@ export default {
     },
 
     getExerciseTable(checkboxNeeded) {
+        let headerElements = ['Titel', 'ID', 'Bearbeiten', 'QR-Code'];
+        if(checkboxNeeded){
+            headerElements.unshift('');
+        }
+
         return (
             <Table>
                 <Table.Header>
                     <Table.Row>
-                        {TableHandler.getTableHeader(['Titel', 'ID', 'Bearbeiten', 'QR-Code'])}
+                        {TableHandler.getTableHeader(headerElements)}
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
