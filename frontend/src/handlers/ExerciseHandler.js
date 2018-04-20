@@ -20,7 +20,9 @@ export default {
         return (
             <Table>
                 <Table.Header>
-                    {TableHandler.getTableHeader(['Titel', 'ID', 'Bearbeiten', 'QR-Code'])}
+                    <Table.Row>
+                        {TableHandler.getTableHeader(['Titel', 'ID', 'Bearbeiten', 'QR-Code'])}
+                    </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {!this.state.loadingExercises && this.state.exercises.map(element =>
@@ -47,7 +49,7 @@ export default {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan="5">
-                            {this.getTablePageButtons(this.state.menuNumber, this.state.minPageNumber, this.state.maxPageNumber)}
+                            {this.getTablePageButtons(this.state.pageNumber, this.state.minPage, this.state.maxPageExercise)}
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>

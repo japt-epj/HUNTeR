@@ -32,7 +32,7 @@ export default {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan="5">
-                            {this.getTablePageButtons(this.state.menuNumber, this.state.minPageNumber, this.state.maxPageNumber)}
+                            {this.getTablePageButtons(this.state.pageNumber, this.state.minPage, this.state.maxPageStudent)}
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>
