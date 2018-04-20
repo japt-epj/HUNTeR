@@ -37,7 +37,7 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi {
     }
 
     @Override
-    public ResponseEntity<Void> updateExecution(ExecutionDto body) {
+    public ResponseEntity<Void> updateExecution(NewExecutionDto body) {
         return null;
     }
 
