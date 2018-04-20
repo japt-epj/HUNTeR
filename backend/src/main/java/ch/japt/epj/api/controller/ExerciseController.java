@@ -42,12 +42,12 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
     }
 
     @Override
-    public ResponseEntity<Void> updateExercise(ExerciseDto body) {
+    public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> updateExerciseWithForm(Long id) {
+    public ResponseEntity<Void> updateExerciseWithForm(@Valid @PathVariable("id") Long id) {
         return null;
     }
 
