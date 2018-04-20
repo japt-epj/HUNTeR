@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface QuizRepository extends CrudRepository<Quiz, Long> {
-    Optional<Quiz> findQuizById(Long quizId);
+    Optional<Quiz> findQuizByQuizId(Long quizId);
 
     @Query("select q from Quiz q")
     Stream<Quiz> getAll();
