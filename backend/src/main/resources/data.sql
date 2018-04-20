@@ -103,3 +103,15 @@ INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exer
   (38,10),
   (39,10),
   (40,10);
+
+;
+
+INSERT INTO role (name) VALUES
+  ('ROLE_TEACHER'),
+  ('ROLE_STUDENT');
+
+INSERT INTO person_role (person_id, role_id) VALUES
+  (1,1),
+  (2,1),
+  (3,2),
+  (4,2);
