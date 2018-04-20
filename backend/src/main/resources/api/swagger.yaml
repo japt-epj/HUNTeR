@@ -81,19 +81,6 @@ paths:
       - auth:
         - "write:exercises"
         - "read:exercises"
-    get:
-      tags:
-      - "exercise"
-      summary: "Get all exercises"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "All exercises"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Exercise"
   /exercise/{id}:
     get:
       tags:
