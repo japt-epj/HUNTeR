@@ -9,6 +9,9 @@ import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +44,7 @@ public class ExerciseModel {
                 .addMapping(NewExerciseDto::getTitle, Exercise::setName);
     }
 
+    @Deprecated
     @Transactional(readOnly = true)
     public List<ExerciseDto> allExercises() {
         try (Stream<Exercise> exercisesStream = exercises.getAll()) {
@@ -48,6 +52,14 @@ public class ExerciseModel {
                     .map(t -> mapper.map(t, ExerciseDto.class))
                     .collect(Collectors.toList());
         }
+    }
+
+    public Page<ExerciseDto> pageExercise(Integer page, Integer limit) {
+        if (page == null) page = Integer.valueOf(0);
+        if (limit == null) limit = Long.valueOf(exercises.count()).intValue();
+
+        return exercises.findAll(new PageRequest(page, limit))
+                .map(exercise -> mapper.map(exercise, ExerciseDto.class));
     }
 
     public Optional<ExerciseDto> getExercise(Long id) {

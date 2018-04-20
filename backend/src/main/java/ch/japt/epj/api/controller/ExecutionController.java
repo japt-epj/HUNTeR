@@ -1,4 +1,4 @@
-package ch.japt.epj.api;
+package ch.japt.epj.api.controller;
 import ch.japt.epj.model.ExecutionModel;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
@@ -37,7 +37,7 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi {
     }
 
     @Override
-    public ResponseEntity<Void> updateExecution(ExecutionDto body) {
+    public ResponseEntity<Void> updateExecution(NewExecutionDto body) {
         return null;
     }
 

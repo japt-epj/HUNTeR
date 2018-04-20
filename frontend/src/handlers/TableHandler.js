@@ -10,28 +10,15 @@ export default {
         );
     },
 
-    getTablePageButtons(startNumber, minNumber, maxNumber) {
+    getTablePageButtons(pageNumber, minPage, maxPage) { //1,1,2
         return (
             <Menu floated="right" pagination>
-                {(startNumber - 1 >= minNumber && startNumber - 1 <= maxNumber) &&
-                <Menu.Item as='a' icon="chevron left" content=""
-                           index={startNumber - 1}
+                {(minPage < maxPage && pageNumber > minPage) &&
+                <Menu.Item icon="chevron left" content="" index={pageNumber - 1}
                            onClick={this.handlePageChange}/>}
-                {startNumber !== minNumber &&
-                <Menu.Item as='a' content={startNumber}
-                           index={startNumber}
-                           onClick={this.handlePageChange}/>}
-                {(startNumber + 1 >= minNumber && startNumber <= maxNumber) &&
-                <Menu.Item as='a' content={startNumber + 1}
-                           index={(startNumber + 1)}
-                           onClick={this.handlePageChange}/>}
-                {(startNumber + 2 >= minNumber && startNumber + 2 <= maxNumber) &&
-                <Menu.Item as='a' content={startNumber + 2}
-                           index={(startNumber + 2)}
-                           onClick={this.handlePageChange}/>}
-                {(startNumber + 1 >= minNumber && startNumber + 2 <= maxNumber) &&
-                <Menu.Item as='a' icon="chevron right" content=""
-                           index={(startNumber + 1)}
+                <Menu.Item content={pageNumber}/>
+                {(minPage < maxPage && pageNumber < maxPage) &&
+                <Menu.Item icon="chevron right" content="" index={(pageNumber + 1)}
                            onClick={this.handlePageChange}/>}
             </Menu>
         );

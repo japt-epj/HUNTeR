@@ -35,7 +35,7 @@ export default{
             exercises: this.state.selectedExercises,
             students: this.state.selectedStudents,
             endDate: this.state.endDate
-        }, 'quiz')
+        }, 'execution')
     },
 
     handleLoginSubmit() {
