@@ -26,10 +26,10 @@ export default {
         ).catch(err => console.warn(err));
     },
 
-    getExercises(begin, end) {
+    getExercises(page, limit) {
         let requestURL = config.baseurl + 'exercise/';
         if (begin !== undefined && end !== undefined) {
-            requestURL += '?start=' + begin + 'end=' + end;
+            requestURL += '?page=' + begin + 'limit=' + end;
         }
         return axios.get(requestURL, {
                 headers: {
