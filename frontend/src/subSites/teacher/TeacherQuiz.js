@@ -99,8 +99,8 @@ export default class extends React.Component {
                     <Grid.Row columns="equal">
                         <Grid.Column>
                             <Modal size="fullscreen"
-                                   trigger={<Button onClick={this.resetPageNumber}
-                                                    content="Aufgabe hinzufügen" icon="plus"/>}
+                                   trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
+                                                    label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
                                    closeIcon>
                                 {this.state.loadingExercises && this.state.loadingScreen}
                                 <Modal.Header content="Aufgaben hinzufügen"/>
@@ -113,8 +113,8 @@ export default class extends React.Component {
                         </Grid.Column>
                         <Grid.Column>
                             <Modal size="fullscreen"
-                                   trigger={<Button onClick={this.resetPageNumber}
-                                                    content="Benutzer hinzufügen" icon="plus"/>}
+                                   trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
+                                                    label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
                                    closeIcon>
                                 {this.state.loadingStudents && this.state.loadingScreen}
                                 <Modal.Header content="Benutzer hinzufügen"/>
