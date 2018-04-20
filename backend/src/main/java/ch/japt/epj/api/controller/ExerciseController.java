@@ -4,6 +4,7 @@ import ch.japt.epj.model.ExerciseModel;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Controller
 @Api(tags = "Exercise API")
@@ -48,7 +52,9 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
     }
 
     @Override
-    public ResponseEntity<Page<ExerciseDto>> exerciseGet(Integer page, Integer limit) {
+    public ResponseEntity<Page<ExerciseDto>> exerciseGet(
+            @Valid @RequestParam(value = "page", defaultValue = "0") int page,
+            @Valid @RequestParam(value = "limit", defaultValue = "5") int limit) {
         return new ResponseEntity<>(exerciseModel.pageExercise(page, limit), HttpStatus.OK);
     }
 }
