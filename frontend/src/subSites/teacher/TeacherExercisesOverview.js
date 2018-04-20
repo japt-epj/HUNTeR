@@ -6,6 +6,7 @@ import {Button, Dimmer, Loader} from 'semantic-ui-react';
 import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
+import FormHandler from "../../handlers/FormHandler";
 
 
 export default class TeacherExercisesOverview extends React.Component {
@@ -20,23 +21,39 @@ export default class TeacherExercisesOverview extends React.Component {
                 </Dimmer>
             )],
             loadingExercises: true,
-            pageNumber: 0,
-            minPage: 0,
-            maxPage: 10
+            pageNumber: 1,
+            minPage: 1,
+            maxPageExercise: '',
+            limit: 5,
         };
-        this.handleSelectmentChange = this.handleSelectmentChange.bind(this);
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.getQRCode;
+        this.handlePageChange = this.handlePageChange.bind(this);
     }
 
-    handleSelectmentChange = (event, {value}) => this.setState({qrCodeCheckBox: value});
-
-    componentDidMount() {
-        APIHandler.getExercises().then(resData => {
+    handlePageChange(event, element) {
+        this.setState({
+            pageNumber: element.index,
+            loadingStudents: true,
+        });
+        APIHandler.getExercises(element.index, this.state.limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
-                    exercises: resData.data,
+                    exercises: resData.data.content,
+                    maxPageStudent: resData.data.totalPages,
+                    loadingStudents: false
+                })
+            }
+        });
+    }
+
+    componentDidMount() {
+        APIHandler.getExercises(this.state.pageNumber, this.state.limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    exercises: resData.data.content,
+                    maxPageExercise: resData.data.totalPages,
                     loadingExercises: false
                 })
             }
