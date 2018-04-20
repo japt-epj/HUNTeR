@@ -8,6 +8,7 @@
     "cpx": "^1.5.0",
     "js-file-download": "^0.4.1",
     "react": "^16.3.1",
+    "react-day-picker": "^7.1.6",
     "react-dom": "^16.3.1",
     "react-qr-reader": "^2.1.0",
     "react-router": "^4.2.0",
@@ -22,9 +23,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "copy": "cpx \"build/**/\" \"target/classes/META-INF/resources/webjars/frontend/\""
-  },
-  "devDependencies": {
-    "react-date-picker": "^6.10.1",
-    "react-day-picker": "^7.1.6"
   }
 }
