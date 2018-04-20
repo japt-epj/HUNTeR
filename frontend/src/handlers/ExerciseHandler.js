@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button, Checkbox, Table} from 'semantic-ui-react';
+import TableHandler from "./TableHandler";
 
 
 export default {
@@ -18,6 +19,9 @@ export default {
     getExerciseTable(checkboxNeeded) {
         return (
             <Table>
+                <Table.Header>
+                    {TableHandler.getTableHeader(['Titel', 'ID', 'Bearbeiten', 'QR-Code'])}
+                </Table.Header>
                 <Table.Body>
                     {!this.state.loadingExercises && this.state.exercises.map(element =>
                         <Table.Row key={'TableRow' + element.id}>
