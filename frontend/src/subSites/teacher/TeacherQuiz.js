@@ -43,6 +43,7 @@ export default class extends React.Component {
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.getQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.resetPageNumber = this.resetPageNumber.bind(this);
         this.handleDayChange = this.handleDayChange.bind(this);
 
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
@@ -63,7 +64,8 @@ export default class extends React.Component {
         APIHandler.getStudents().then(resData => {
             if (resData.status === 200) {
                 this.setState({
-                    students: resData.data,
+                    students: resData.data.content,
+                    maxPageStudent: resData.data.totalPages,
                     loadingStudents: false
                 })
             }
@@ -73,17 +75,21 @@ export default class extends React.Component {
     handlePageChange(event, element) {
         this.setState({
             pageNumber: element.index,
-            loadingExercises: true,
+            loadingStudents: true,
         });
         APIHandler.getExercises(element.index, this.state.limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,
-                    maxPage: resData.data.totalPages,
-                    loadingExercises: false
+                    maxPageStudent: resData.data.totalPages,
+                    loadingStudents: false
                 })
             }
         });
+    }
+
+    resetPageNumber(){
+        this.setState({pageNumber: 1});
     }
 
     handleDayChange(day) {
