@@ -19,10 +19,16 @@ public class Person {
 
     private String email;
 
+    private String password;
+
     @ManyToMany(mappedBy="persons", fetch=FetchType.EAGER)
     private Collection<School> schools = new ArrayList<>();
     @OneToMany
     private Collection<Quiz> quizes = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "PersonRole", joinColumns = { @JoinColumn(name = "personId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })
+    private Collection<Role> roles = new ArrayList<>();
 
     public long getPersonId() {
         return personId;
@@ -81,4 +87,8 @@ public class Person {
     public void removeQuizes(Quiz quiz){
         quizes.remove(quiz);
     }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 }
