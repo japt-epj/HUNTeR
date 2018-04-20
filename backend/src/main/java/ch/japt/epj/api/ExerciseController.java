@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@Api(tags = "Exercise API")
 @RequestMapping("/api")
 public class ExerciseController implements ch.japt.epj.api.ExerciseApi {
     private final ExerciseModel exerciseModel;
