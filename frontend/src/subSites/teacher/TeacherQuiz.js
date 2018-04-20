@@ -28,9 +28,11 @@ export default class extends React.Component {
             )],
             loadingExercises: true,
             loadingStudents: true,
-            menuNumber: 0,
-            minPageNumber: 0,
-            maxPageNumber: 10,
+            limit: 5,
+            pageNumber: 1,
+            minPage: 1,
+            maxPageExercise: '',
+            maxPageStudent: '',
             endDate: new Date(),
             fireRedirect: false
         };
@@ -50,10 +52,11 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        APIHandler.getExercises().then(resData => {
+        APIHandler.getExercises(this.state.pageNumber, this.state.limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
-                    exercises: resData.data,
+                    exercises: resData.data.content,
+                    maxPageExercise: resData.data.totalPages,
                     loadingExercises: false
                 })
             }
@@ -61,31 +64,36 @@ export default class extends React.Component {
         APIHandler.getStudents().then(resData => {
             if (resData.status === 200) {
                 this.setState({
-                    students: resData.data,
+                    students: resData.data.content,
+                    maxPageStudent: resData.data.totalPages,
                     loadingStudents: false
                 })
             }
         });
     }
 
+    handlePageChange(event, element) {
+        this.setState({
+            pageNumber: element.index,
+            loadingStudents: true,
+        });
+        APIHandler.getExercises(element.index, this.state.limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    exercises: resData.data.content,
+                    maxPageStudent: resData.data.totalPages,
+                    loadingStudents: false
+                })
+            }
+        });
+    }
+
+    resetPageNumber(){
+        this.setState({pageNumber: 1});
+    }
+
     handleDayChange(day) {
         this.setState({endDate: day});
-    }
-
-    handlePageChange(event, element) {
-        if (element.index <= this.state.maxPageNumber && element.index >= this.state.minPageNumber) {
-            this.setState({
-                menuNumber: element.index,
-                loading: true
-            });
-            APIHandler.getExercises()
-
-            this.getExerciseTable();
-        }
-    }
-
-    resetPageNumber(event) {
-        this.setState({menuNumber: 0});
     }
 
     render() {
@@ -97,15 +105,6 @@ export default class extends React.Component {
                             <Form.Input fluid label="Titel" name="title" value={this.state.title}
                                         onChange={this.handleChange}
                                         placeholder="Bitte geben Sie einen Titel ein" required/>
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns="equal">
-                        <Grid.Column>
-                            <Form.Input label="Quiz endet am" inline>
-                                <DayPickerInput format="DD.MM.YYYY" formatDate={formatDate} value={this.state.endDate}
-                                                onDayChange={this.handleDayChange}
-                                                dayPickerProps={{showWeekNumbers: true, todayButton: 'Heute'}}/>
-                            </Form.Input>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row columns="equal">
@@ -126,7 +125,7 @@ export default class extends React.Component {
                         <Grid.Column>
                             <Modal size="fullscreen"
                                    trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
-                                                    label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
+                                                    label="Benutzer hinzufügen" onClick={this.resetPageNumber}/>}
                                    closeIcon>
                                 {this.state.loadingStudents && this.state.loadingScreen}
                                 <Modal.Header content="Benutzer hinzufügen"/>
