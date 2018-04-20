@@ -29,7 +29,7 @@ export default {
     getExercises(page, limit) {
         let requestURL = config.baseurl + 'exercise/';
         if (page !== undefined && limit !== undefined) {
-            requestURL += '?page=' + page + 'limit=' + limit;
+            requestURL += '?page=' + (page-1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
                 headers: {

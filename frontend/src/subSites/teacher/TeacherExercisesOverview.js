@@ -20,9 +20,9 @@ export default class TeacherExercisesOverview extends React.Component {
                 </Dimmer>
             )],
             loadingExercises: true,
-            menuNumber: 0,
-            minPageNumber: 0,
-            maxPageNumber: 10
+            pageNumber: 0,
+            minPage: 0,
+            maxPage: 10
         };
         this.handleSelectmentChange = this.handleSelectmentChange.bind(this);
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
