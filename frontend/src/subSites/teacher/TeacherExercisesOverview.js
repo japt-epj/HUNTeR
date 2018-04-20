@@ -11,25 +11,24 @@ import APIHandler from '../../handlers/APIHandler';
 export default class TeacherExercisesOverview extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSelectmentChange = this.handleSelectmentChange.bind(this);
         this.state = {
-            table: [],
+            exerciseTable: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
                 </Dimmer>
             )],
-            loading: true,
-            selectedQRCode: ''
+            loading: true
         };
-        this.getTableRows = ExerciseHandler.getExerciseTableRows.bind(this);
+        this.handleSelectmentChange = this.handleSelectmentChange.bind(this);
+        this.getExerciseRows = ExerciseHandler.getExerciseRows.bind(this);
         this.getQRCode = APIHandler.getQRCode;
     }
 
-    handleSelectmentChange = (e, {value}) => this.setState({qrCodeCheckBox: value});
+    handleSelectmentChange = (event, {value}) => this.setState({qrCodeCheckBox: value});
 
     componentDidMount() {
-        this.getTableRows();
+        this.getExerciseRows(false);
     }
 
     render() {
@@ -40,11 +39,11 @@ export default class TeacherExercisesOverview extends React.Component {
                     <Table>
                         <Table.Header>
                             <Table.Row>
-                                {TableHandler.getTableHeader(['Titel', 'ID', 'QR-Code', 'Quote'])}
+                                {TableHandler.getTableHeader(['Titel', 'ID', 'Bearbeiten', 'QR-Code'])}
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {!this.state.loading && this.state.table}
+                            {!this.state.loading && this.state.exerciseTable}
                         </Table.Body>
                         <Table.Footer fullWidth>
                             <Table.Row>
