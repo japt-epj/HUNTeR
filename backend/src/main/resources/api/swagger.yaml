@@ -169,21 +169,6 @@ paths:
       responses:
         default:
           description: "successful operation"
-
-
-    get:
-        tags:
-        - "person"
-        summary: "Get all persons"
-        produces:
-        - "application/json"
-        responses:
-          200:
-            description: "All persons"
-            schema:
-              type: "array"
-              items:
-                $ref: "#/definitions/Person"
   /person/login:
     get:
       tags:
