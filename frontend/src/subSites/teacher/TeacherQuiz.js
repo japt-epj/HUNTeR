@@ -28,9 +28,11 @@ export default class extends React.Component {
             )],
             loadingExercises: true,
             loadingStudents: true,
-            menuNumber: 0,
-            minPageNumber: 0,
-            maxPageNumber: 10,
+            limit: 5,
+            pageNumber: 1,
+            minPage: 1,
+            maxPageExercise: '',
+            maxPageStudent: '',
             endDate: new Date(),
             fireRedirect: false
         };
@@ -41,7 +43,6 @@ export default class extends React.Component {
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.getQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
-        this.resetPageNumber = this.resetPageNumber.bind(this);
         this.handleDayChange = this.handleDayChange.bind(this);
 
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
@@ -50,10 +51,11 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        APIHandler.getExercises().then(resData => {
+        APIHandler.getExercises(this.state.pageNumber, this.state.limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
-                    exercises: resData.data,
+                    exercises: resData.data.content,
+                    maxPageExercise: resData.data.totalPages,
                     loadingExercises: false
                 })
             }
@@ -68,24 +70,24 @@ export default class extends React.Component {
         });
     }
 
+    handlePageChange(event, element) {
+        this.setState({
+            pageNumber: element.index,
+            loadingExercises: true,
+        });
+        APIHandler.getExercises(element.index, this.state.limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    exercises: resData.data.content,
+                    maxPage: resData.data.totalPages,
+                    loadingExercises: false
+                })
+            }
+        });
+    }
+
     handleDayChange(day) {
         this.setState({endDate: day});
-    }
-
-    handlePageChange(event, element) {
-        if (element.index <= this.state.maxPageNumber && element.index >= this.state.minPageNumber) {
-            this.setState({
-                menuNumber: element.index,
-                loading: true
-            });
-            APIHandler.getExercises()
-
-            this.getExerciseTable();
-        }
-    }
-
-    resetPageNumber(event) {
-        this.setState({menuNumber: 0});
     }
 
     render() {
@@ -126,7 +128,7 @@ export default class extends React.Component {
                         <Grid.Column>
                             <Modal size="fullscreen"
                                    trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
-                                                    label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
+                                                    label="Benutzer hinzufügen" onClick={this.resetPageNumber}/>}
                                    closeIcon>
                                 {this.state.loadingStudents && this.state.loadingScreen}
                                 <Modal.Header content="Benutzer hinzufügen"/>
