@@ -3,7 +3,6 @@ import APIHandler from './APIHandler';
 
 export default{
     handleChange(event) {
-        console.log(event.target);
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         this.setState({

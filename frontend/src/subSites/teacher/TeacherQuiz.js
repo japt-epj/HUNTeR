@@ -138,7 +138,7 @@ export default class extends React.Component {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <Form.Button>Submit</Form.Button>
+                            <Form.Button type="submit" content="Submit"/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
