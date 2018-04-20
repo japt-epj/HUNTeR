@@ -6,7 +6,6 @@ import {Checkbox, Table} from 'semantic-ui-react';
 export default {
     handleSelectment(event, checkbox) {
         let newState = this.state.selectedStudents;
-        console.log(checkbox);
         if (checkbox.checked) {
             newState.push(checkbox.id);
         } else {
