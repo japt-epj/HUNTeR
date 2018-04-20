@@ -78,6 +78,8 @@ export default class extends React.Component {
                 menuNumber: element.index,
                 loading: true
             });
+            APIHandler.getExercises()
+
             this.getExerciseTable();
         }
     }
