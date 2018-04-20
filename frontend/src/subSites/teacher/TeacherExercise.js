@@ -26,7 +26,7 @@ export default class TeacherExercise extends React.Component {
             checked3: false,
             answersAllowed: 4
         };
-        this.handleSubmit = FormHandler.handleFormSubmit.bind(this);
+        this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
     }
@@ -69,11 +69,7 @@ export default class TeacherExercise extends React.Component {
                     </Table.Body>
                 </Table>
                 <Form.Button content="Submit"/>
-                {
-                    this.state.fireRedirect && (
-                        <Redirect to={{pathname: '/', state: {exercise: this.state}}}/>
-                    )
-                }
+                {this.state.fireRedirect && (<Redirect to="/"/>)}
             </Form>
         );
     }
