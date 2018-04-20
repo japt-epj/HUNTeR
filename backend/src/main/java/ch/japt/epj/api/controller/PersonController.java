@@ -1,4 +1,4 @@
-package ch.japt.epj.api;
+package ch.japt.epj.api.controller;
 import ch.japt.epj.model.PersonModel;
 import ch.japt.epj.model.dto.PersonDto;
 import io.swagger.annotations.Api;

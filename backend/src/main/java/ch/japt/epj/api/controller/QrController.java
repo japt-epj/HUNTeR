@@ -1,5 +1,6 @@
-package ch.japt.epj.api;
+package ch.japt.epj.api.controller;
 
+import ch.japt.epj.api.QrCodeApi;
 import ch.japt.epj.model.QrModel;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
