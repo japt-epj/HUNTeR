@@ -9,6 +9,9 @@ import java.util.stream.Stream;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
     Optional<Person> findByPersonId(Long personId);
+
+    Optional<Person> findByEmail(String email);
+
     @Query("select p from Person p")
     Stream<Person> getAll();
 }
