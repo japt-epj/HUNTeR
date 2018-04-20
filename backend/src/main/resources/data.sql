@@ -106,7 +106,7 @@ INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exer
 
 ;
 
-INSERT INTO role (name) VALUES
+INSERT INTO role (roleName) VALUES
   ('ROLE_TEACHER'),
   ('ROLE_STUDENT');
 
