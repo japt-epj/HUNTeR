@@ -16,7 +16,7 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(length=60)
-    private RoleName roleName;
+    private RoleName name;
 
     @ManyToMany(mappedBy = "roles")
     private Collection<Person> persons = new ArrayList<>();
@@ -25,11 +25,11 @@ public class Role {
         return roleId;
     }
 
-    public RoleName getRoleName() {
-        return roleName;
+    public RoleName getName() {
+        return name;
     }
 
-    public void setRoleName(RoleName roleName) {
-        this.roleName = roleName;
+    public void setName(RoleName name) {
+        this.name = name;
     }
 }
