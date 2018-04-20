@@ -6,6 +6,8 @@ import ch.japt.epj.repository.PersonRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -24,6 +26,7 @@ public class PersonModel {
         TypeMap<Person, PersonDto> personToDto = mapper.createTypeMap(Person.class, PersonDto.class);
     }
 
+    @Deprecated
     @Transactional(readOnly = true)
     public List<PersonDto> allPersons() {
         try (Stream<Person> personsStream = persons.getAll()) {
@@ -31,6 +34,14 @@ public class PersonModel {
                     .map(p -> mapper.map(p, PersonDto.class ))
                     .collect(Collectors.toList());
         }
+    }
+
+    public Page<PersonDto> pagePeople(Integer page, Integer limit) {
+        if (page == null) page = Integer.valueOf(0);
+        if (limit == null) limit = Long.valueOf(persons.count()).intValue();
+
+        return persons.findAll(new PageRequest(page, limit))
+                .map(person -> mapper.map(person, PersonDto.class));
     }
 }
 
