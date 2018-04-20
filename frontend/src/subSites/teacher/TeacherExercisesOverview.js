@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Dimmer, Form, Loader, Table} from 'semantic-ui-react';
+import {Button, Dimmer, Loader} from 'semantic-ui-react';
 
 import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
@@ -11,53 +11,47 @@ import APIHandler from '../../handlers/APIHandler';
 export default class TeacherExercisesOverview extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSelectmentChange = this.handleSelectmentChange.bind(this);
         this.state = {
-            table: [],
+            exercises: [],
+            exerciseTable: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
                 </Dimmer>
             )],
-            loading: true,
-            selectedQRCode: ''
+            loadingExercises: true,
+            menuNumber: 0,
+            minPageNumber: 0,
+            maxPageNumber: 10
         };
-        this.getTableRows = ExerciseHandler.getExerciseTableRows.bind(this);
+        this.handleSelectmentChange = this.handleSelectmentChange.bind(this);
+        this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
+        this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.getQRCode;
     }
 
-    handleSelectmentChange = (e, {value}) => this.setState({qrCodeCheckBox: value});
+    handleSelectmentChange = (event, {value}) => this.setState({qrCodeCheckBox: value});
 
     componentDidMount() {
-        this.getTableRows();
+        APIHandler.getExercises().then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    exercises: resData.data,
+                    loadingExercises: false
+                })
+            }
+        });
     }
 
     render() {
         return (
             <div>
-                {this.state.loading && this.state.loadingScreen}
-                <Form>
-                    <Table>
-                        <Table.Header>
-                            <Table.Row>
-                                {TableHandler.getTableHeader(['Titel', 'ID', 'QR-Code', 'Quote'])}
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {!this.state.loading && this.state.table}
-                        </Table.Body>
-                        <Table.Footer fullWidth>
-                            <Table.Row>
-                                <Table.HeaderCell colSpan="4">
-                                    <NavLink to="/exercise">
-                                        <Button icocolor="green" icon="add square" positive labelPosition="right"
-                                                label="Aufgabe hinzufügen"/>
-                                    </NavLink>
-                                </Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Footer>
-                    </Table>
-                </Form>
+                {this.state.loadingExercises && this.state.loadingScreen}
+                {!this.state.loadingExercises && this.getExerciseTable(false)}
+                <NavLink to="/exercise">
+                    <Button icocolor="green" icon="add square" positive labelPosition="right"
+                            label="Aufgabe hinzufügen"/>
+                </NavLink>
             </div>
         );
     }

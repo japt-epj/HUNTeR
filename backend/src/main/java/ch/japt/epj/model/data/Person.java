@@ -24,7 +24,7 @@ public class Person {
     @ManyToMany(mappedBy="persons", fetch=FetchType.EAGER)
     private Collection<School> schools = new ArrayList<>();
     @OneToMany
-    private Collection<Quiz> quizes = new ArrayList<>();
+    private Collection<Quiz> quizzes = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "PersonRole", joinColumns = { @JoinColumn(name = "personId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })
@@ -80,12 +80,12 @@ public class Person {
         schools.remove(school);
     }
 
-    public void addQuizes(Quiz quiz){
-        quizes.add(quiz);
+    public void addQuiz(Quiz quiz){
+        quizzes.add(quiz);
     }
 
-    public void removeQuizes(Quiz quiz){
-        quizes.remove(quiz);
+    public void removeQuiz(Quiz quiz){
+        quizzes.remove(quiz);
     }
 
     public String getPassword() { return password; }
