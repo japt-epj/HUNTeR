@@ -109,15 +109,6 @@ export default class extends React.Component {
                     </Grid.Row>
                     <Grid.Row columns="equal">
                         <Grid.Column>
-                            <Form.Input label="Quiz endet am" inline>
-                                <DayPickerInput format="DD.MM.YYYY" formatDate={formatDate} value={this.state.endDate}
-                                                onDayChange={this.handleDayChange}
-                                                dayPickerProps={{showWeekNumbers: true, todayButton: 'Heute'}}/>
-                            </Form.Input>
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns="equal">
-                        <Grid.Column>
                             <Modal size="fullscreen"
                                    trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
                                                     label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
