@@ -23,7 +23,7 @@ public class PersonModel {
             @Autowired PersonRepository persons
     ){
         this.persons = persons;
-        TypeMap<Person, PersonDto> personToDto = mapper.createTypeMap(Person.class, PersonDto.class);
+        mapper.createTypeMap(Person.class, PersonDto.class);
     }
 
     @Deprecated
