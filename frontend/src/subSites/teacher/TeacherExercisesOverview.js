@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Dimmer, Form, Loader, Table} from 'semantic-ui-react';
+import {Button, Dimmer, Loader} from 'semantic-ui-react';
 
 import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
