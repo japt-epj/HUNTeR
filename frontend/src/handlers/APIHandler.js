@@ -57,7 +57,6 @@ export default class APIHandler {
             }
         }).catch(err => console.error('Error:', err)
         ).then(res => {
-            console.log('Success:' + res);
             this.setState({fireRedirect: true});
         });
     }
