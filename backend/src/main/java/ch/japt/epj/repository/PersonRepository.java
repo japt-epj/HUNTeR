@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
-    Optional<Person> findByPersonId(Long taskId);
+    Optional<Person> findByPersonId(Long personId);
     @Query("select p from Person p")
     Stream<Person> getAll();
 }
