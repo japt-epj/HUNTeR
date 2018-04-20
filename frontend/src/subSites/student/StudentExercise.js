@@ -22,7 +22,7 @@ export default class StudentExercise extends React.Component {
             checked3: false,
             answer3: this.props.location.state.exercise.answers[3].text,
         };
-        this.handleSubmit = FormHandler.handleFormSubmit.bind(this);
+        this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
     };

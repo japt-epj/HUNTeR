@@ -1,23 +1,23 @@
 import APIHandler from './APIHandler';
 
 
-export default class FormHandler {
-    static handleChange(event) {
+export default{
+    handleChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         this.setState({
             [target.name]: value
         });
-    }
+    },
 
-    static handleFormSubmit() {
+    handleExerciseSubmit() {
         let checkedAnswers = [this.state.checked0, this.state.checked1, this.state.checked2, this.state.checked3];
         let isACheckboxSet = false;
         Object.keys(checkedAnswers).forEach(element => {
                 isACheckboxSet = isACheckboxSet || checkedAnswers[element];
             }
         );
-        if(isACheckboxSet){
+        if (isACheckboxSet) {
             let userType = window.location.pathname.split('/')[1];
             if (userType === 'teacher') {
                 this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
@@ -27,13 +27,22 @@ export default class FormHandler {
         } else {
             alert('Keine Antwort wurde als richtig markiert!');
         }
-    }
+    },
 
-    static handleLoginSubmit(){
+    handleQuizSumbit(){
+        this.postData({
+            title: this.state.title,
+            exercises: this.state.selectedExercises,
+            students: this.state.selectedStudents,
+            endDate: this.state.endDate
+        }, 'quiz')
+    },
+
+    handleLoginSubmit() {
         this.postData(this.state, 'login');
-    }
+    },
 
-    static handleNewStudentSubmit(){
+    handleNewStudentSubmit() {
         this.postData(this.state, 'student');
     }
 }
