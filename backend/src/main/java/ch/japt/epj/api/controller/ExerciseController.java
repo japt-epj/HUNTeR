@@ -1,4 +1,5 @@
-package ch.japt.epj.api;
+package ch.japt.epj.api.controller;
+import ch.japt.epj.api.PaginatedExercise;
 import ch.japt.epj.model.ExerciseModel;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
