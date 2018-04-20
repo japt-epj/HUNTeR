@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router';
 import {NavLink} from 'react-router-dom';
 
 import {Button, Form, Grid, Message} from 'semantic-ui-react';
@@ -21,6 +22,7 @@ export default class StudentExercise extends React.Component {
             answer2: this.props.location.state.exercise.answers[2].text,
             checked3: false,
             answer3: this.props.location.state.exercise.answers[3].text,
+            fireRedirect: false
         };
         this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
@@ -46,6 +48,7 @@ export default class StudentExercise extends React.Component {
                     <Grid.Row>
                         <Button>Submit</Button>
                     </Grid.Row>
+                    {this.state.fireRedirect && (<Redirect to="/"/>)}
                 </Form>
             );
         } else {
