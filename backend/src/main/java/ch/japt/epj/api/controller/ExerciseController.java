@@ -56,9 +56,20 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
     public ResponseEntity<Page<ExerciseDto>> exerciseGet(
             @Valid @RequestParam(value = "page", defaultValue = "0") int page,
             @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
-            @Valid @RequestParam(value = "sort", defaultValue = "title,asc") String sort) {
-        String[] split = sort.split(",");
-        Sort orders = new Sort(Sort.Direction.ASC, split[0]);
-        return new ResponseEntity<>(exerciseModel.pageExercise(page, limit, orders), HttpStatus.OK);
+            @Valid @RequestParam(value = "sort", defaultValue = "name") String sortOptions) {
+        String[] split = sortOptions.split(",");
+        Sort.Direction direction = Sort.DEFAULT_DIRECTION;
+
+        if (split.length > 1) {
+            direction = Sort.Direction.fromStringOrNull(split[1]);
+        }
+
+        if (direction == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return new ResponseEntity<>(
+                exerciseModel.pageExercise(page, limit, new Sort(direction, split[0])),
+                HttpStatus.OK);
     }
 }
