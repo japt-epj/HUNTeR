@@ -54,7 +54,8 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
     @Override
     public ResponseEntity<Page<ExerciseDto>> exerciseGet(
             @Valid @RequestParam(value = "page", defaultValue = "0") int page,
-            @Valid @RequestParam(value = "limit", defaultValue = "5") int limit) {
+            @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
+            @Valid @RequestParam(value = "sort", defaultValue = "title,asc") String sort) {
         return new ResponseEntity<>(exerciseModel.pageExercise(page, limit), HttpStatus.OK);
     }
 }

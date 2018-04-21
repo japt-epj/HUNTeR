@@ -33,9 +33,12 @@ public interface PaginatedExercise {
             method = RequestMethod.GET)
     ResponseEntity<Page<ExerciseDto>> exerciseGet(
             @ApiParam(value = "Page index from where to start pagination")
-            @Valid @RequestParam(value = "page", required = true, defaultValue = "0")
+            @Valid @RequestParam(value = "page", defaultValue = "0")
                     int page,
             @ApiParam(value = "Number of pages to fetch")
-            @Valid @RequestParam(value = "limit", required = true, defaultValue = "5")
-                    int limit);
+            @Valid @RequestParam(value = "limit", defaultValue = "5")
+                    int limit,
+//            @ApiParam(value = "Sorting options")
+//            @Valid @RequestParam(value = "sort", defaultValue = "name,asc")
+                    String sort);
 }
