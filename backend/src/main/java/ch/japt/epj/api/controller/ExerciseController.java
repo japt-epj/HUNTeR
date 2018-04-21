@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,8 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
             @Valid @RequestParam(value = "page", defaultValue = "0") int page,
             @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
             @Valid @RequestParam(value = "sort", defaultValue = "title,asc") String sort) {
-        return new ResponseEntity<>(exerciseModel.pageExercise(page, limit), HttpStatus.OK);
+        String[] split = sort.split(",");
+        Sort orders = new Sort(Sort.Direction.ASC, split[0]);
+        return new ResponseEntity<>(exerciseModel.pageExercise(page, limit, orders), HttpStatus.OK);
     }
 }

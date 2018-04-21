@@ -55,8 +55,7 @@ public class ExerciseModel {
         }
     }
 
-    public Page<ExerciseDto> pageExercise(Integer page, Integer limit) {
-        Sort sort = new Sort(Sort.Direction.ASC, "question");
+    public Page<ExerciseDto> pageExercise(Integer page, Integer limit, Sort sort) {
         return exercises.findAll(new PageRequest(page, limit, sort))
                 .map(exercise -> mapper.map(exercise, ExerciseDto.class));
     }
