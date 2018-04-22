@@ -11,9 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface PaginatedPerson {
-    @ApiOperation(value = "Get all persons", nickname = "personGet", notes = "", response = PersonDto.class, responseContainer = "List", tags={ "person", })
+    @ApiOperation(value = "Get all persons",
+            nickname = "personGet",
+            notes = "",
+            response = PersonDto.class,
+            responseContainer = "List",
+            tags={ "person", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "All persons", response = PersonDto.class, responseContainer = "List") })
+            @ApiResponse(code = 200,
+                    message = "All persons",
+                    response = PersonDto.class,
+                    responseContainer = "List") })
     @RequestMapping(value = "/person",
             produces = { "application/json" },
             method = RequestMethod.GET)
