@@ -61,7 +61,8 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
         Sort.Direction direction = Sort.DEFAULT_DIRECTION;
 
         if (split.length > 1) {
-            direction = Sort.Direction.fromStringOrNull(split[1]);
+//            direction = Sort.Direction.fromStringOrNull(split[1]);
+            direction = Sort.Direction.fromString(split[1]);
         }
 
         if (direction == null) {
