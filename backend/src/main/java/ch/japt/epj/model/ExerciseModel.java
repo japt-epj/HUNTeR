@@ -55,7 +55,7 @@ public class ExerciseModel {
         }
     }
 
-    public Page<ExerciseDto> pageExercise(Integer page, Integer limit, Sort sort) {
+    public Page<ExerciseDto> pageExercise(int page, int limit, Sort sort) {
         return exercises.findAll(new PageRequest(page, limit, sort))
                 .map(exercise -> mapper.map(exercise, ExerciseDto.class));
     }

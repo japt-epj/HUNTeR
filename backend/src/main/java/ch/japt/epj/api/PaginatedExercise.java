@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface PaginatedExercise {
-    // TODO: find out how to create custom application properties, and extract the default values
     @ApiOperation(
             value = "Get all exercises",
             nickname = "exerciseGet",
@@ -32,13 +31,7 @@ public interface PaginatedExercise {
             produces = { "application/json" },
             method = RequestMethod.GET)
     ResponseEntity<Page<ExerciseDto>> exerciseGet(
-            @ApiParam(value = "Page index from where to start pagination")
-            @Valid @RequestParam(value = "page", defaultValue = "0")
-                    int page,
-            @ApiParam(value = "Number of pages to fetch")
-            @Valid @RequestParam(value = "limit", defaultValue = "5")
-                    int limit,
-//            @ApiParam(value = "Sorting options")
-//            @Valid @RequestParam(value = "sort", defaultValue = "name,asc")
-                    String sort);
+            @ApiParam(value = "Page index from where to start pagination") int page,
+            @ApiParam(value = "Number of pages to fetch") int limit,
+            @ApiParam(value = "Property and direction by which to sort result set") String sort);
 }

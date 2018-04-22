@@ -8,6 +8,7 @@ import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -36,11 +37,8 @@ public class PersonModel {
         }
     }
 
-    public Page<PersonDto> pagePeople(Integer page, Integer limit) {
-        if (page == null) page = Integer.valueOf(0);
-        if (limit == null) limit = Long.valueOf(persons.count()).intValue();
-
-        return persons.findAll(new PageRequest(page, limit))
+    public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
+        return persons.findAll(new PageRequest(page, limit, sort))
                 .map(person -> mapper.map(person, PersonDto.class));
     }
 }

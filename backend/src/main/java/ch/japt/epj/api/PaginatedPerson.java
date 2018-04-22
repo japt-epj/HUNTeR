@@ -9,9 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.validation.Valid;
 
 public interface PaginatedPerson {
     @ApiOperation(value = "Get all persons", nickname = "personGet", notes = "", response = PersonDto.class, responseContainer = "List", tags={ "person", })
@@ -21,6 +18,7 @@ public interface PaginatedPerson {
             produces = { "application/json" },
             method = RequestMethod.GET)
     ResponseEntity<Page<PersonDto>> personGet(
-            @ApiParam(value = "Page index from where to start pagination") @Valid @RequestParam(value = "page", required = false) Integer page,
-            @ApiParam(value = "Number of pages to fetch") @Valid @RequestParam(value = "limit", required = false) Integer limit);
+            @ApiParam(value = "Page index from where to start pagination") int page,
+            @ApiParam(value = "Number of pages to fetch") int limit,
+            @ApiParam(value = "Property and direction by which to sort result set") String sort);
 }
