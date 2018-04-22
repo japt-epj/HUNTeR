@@ -14,6 +14,10 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody ExceptionInformation handleInvalidArgument(HttpServletRequest request, IllegalArgumentException e) {
-        return new ExceptionInformation(e.getMessage(), request.getRequestURL().toString());
+        return new ExceptionInformation(
+                e.getMessage(),
+                request.getRequestURL().toString(),
+                request.getQueryString(),
+                request.getMethod());
     }
 }
