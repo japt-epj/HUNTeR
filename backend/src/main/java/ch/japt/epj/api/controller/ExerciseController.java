@@ -1,13 +1,12 @@
 package ch.japt.epj.api.controller;
 import ch.japt.epj.api.PaginatedExercise;
+import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.ExerciseModel;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -57,15 +56,8 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
             @Valid @RequestParam(value = "page", defaultValue = "0") int page,
             @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
             @Valid @RequestParam(value = "sort", defaultValue = "name") String sortOptions) {
-        String[] split = sortOptions.split(",");
-        Sort.Direction direction = Sort.DEFAULT_DIRECTION;
-
-        if (split.length > 1) {
-            direction = Sort.Direction.fromString(split[1]);
-        }
-
         return new ResponseEntity<>(
-                exerciseModel.pageExercise(page, limit, new Sort(direction, split[0])),
+                exerciseModel.pageExercise(page, limit, SortParameterHandler.makeSort(sortOptions)),
                 HttpStatus.OK);
     }
 }
