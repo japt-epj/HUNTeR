@@ -2,6 +2,8 @@ package ch.japt.epj.library;
 
 import org.springframework.data.domain.Sort;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class SortParameterHandler {
     private SortParameterHandler() {}
 
@@ -16,7 +18,10 @@ public class SortParameterHandler {
      * {@code "?sort=name"}
      * {@code "?sort=question,asc"}
      *
-     * @param parameter
+     * @see ch.japt.epj.advice.ControllerExceptionHandler#handleInvalidArgument(HttpServletRequest, IllegalArgumentException)
+     * for information on the error handler if parameter parsing throws an exception.
+     *
+     * @param parameter Sort options
      * @return Parsed Sort object for use when fetching data
      */
     public static Sort makeSort(String parameter) {
