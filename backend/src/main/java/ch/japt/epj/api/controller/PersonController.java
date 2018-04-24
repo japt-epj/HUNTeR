@@ -1,5 +1,6 @@
 package ch.japt.epj.api.controller;
 import ch.japt.epj.api.PaginatedPerson;
+import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.PersonModel;
 import ch.japt.epj.model.dto.PersonDto;
 import io.swagger.annotations.Api;
@@ -9,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Controller
 @Api(tags = "Person API")
@@ -50,7 +54,12 @@ public class PersonController implements ch.japt.epj.api.PersonApi, PaginatedPer
     }
 
     @Override
-    public ResponseEntity<Page<PersonDto>> personGet(Integer page, Integer limit) {
-        return new ResponseEntity<>(personModel.pagePeople(page, limit), HttpStatus.OK);
+    public ResponseEntity<Page<PersonDto>> personGet(
+            @Valid @RequestParam(value = "page", defaultValue = "0") int page,
+            @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
+            @Valid @RequestParam(value = "sort", defaultValue = "lastName") String sortOptions) {
+        return new ResponseEntity<>(
+                personModel.pagePeople(page, limit, SortParameterHandler.makeSort(sortOptions)),
+                HttpStatus.OK);
     }
 }

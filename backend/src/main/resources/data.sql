@@ -43,16 +43,16 @@ INSERT INTO answer (answer, checked) VALUES
 
 
 INSERT INTO exercise (name, question) VALUES
-  ('Question 1', 'Seit jeher haben die meisten...'),
-  ('Question 2', 'Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...'),
-  ('Question 3', 'Mit dem Picknick im Grünen wird es meist nur dann etwas, wenn...'),
-  ('Question 4', 'Auch ein Navi führt manchmal in die...?'),
-  ('Question 5', 'Hält der Bengel im Kinderzimmer einfach keine Ordnung, darf er sich auch nicht wundern, wenn er ständig irgendein...?'),
-  ('Question 6', 'Was steht zu erwarten, wenn eine Fernsehserie erfolgreich gestartet ist?'),
-  ('Question 7', '50 Euro! „Wer“ kommt häufig bei der Körperpflege zum Einsatz'),
-  ('Question 8', 'Wer sich durch einen unwegsamen Laubwald kämpft, der streift bestimmt auch mit der...?'),
-  ('Question 9', 'Sind sie gute Kollegen, arbeiten auch die härtesten Machos..?'),
-  ('Question 10', 'Was machte Reinhold Messner mit dem Mount Everest?');
+  ('Tiere', 'Seit jeher haben die meisten...'),
+  ('Natur und Umwelt', 'Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...'),
+  ('Natur und Umwelt', 'Mit dem Picknick im Grünen wird es meist nur dann etwas, wenn...'),
+  ('Strassenverkehr.', 'Auch ein Navi führt manchmal in die...?'),
+  ('Kind und Kegel', 'Hält der Bengel im Kinderzimmer einfach keine Ordnung, darf er sich auch nicht wundern, wenn er ständig irgendein...?'),
+  ('Zitate', 'Was steht zu erwarten, wenn eine Fernsehserie erfolgreich gestartet ist?'),
+  ('Hygiene', '50 Euro! „Wer“ kommt häufig bei der Körperpflege zum Einsatz'),
+  ('Anatomie', 'Wer sich durch einen unwegsamen Laubwald kämpft, der streift bestimmt auch mit der...?'),
+  ('Arbeitswelt', 'Sind sie gute Kollegen, arbeiten auch die härtesten Machos..?'),
+  ('Sexualkunde', 'Was machte Reinhold Messner mit dem Mount Everest?');
 
  INSERT INTO person (email, first_name, last_name, is_creator, password) VALUES
    ('tobias.saladin@hsr.ch', 'Tobias', 'Saladin', true, '$2y$10$LvqIvFRp.5XXRZW4/u.JAuN8B7QI/wT2FR9QXDAdiiLTSxbaA8Ku.'),
