@@ -52,14 +52,13 @@ export default class TeacherExecution extends React.Component {
 
     handlePageChange(event, element) {
         this.setState({
-            pageNumber: element.index,
-            loading: true,
+            pageNumber: element.index
         });
         this.getStudents(element.index, this.state.limit);
     }
 
-    getStudents(index, limit) {
-        APIHandler.getStudents().then(resData => {
+    getStudents(page, limit) {
+        APIHandler.getStudents(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     students: resData.data.content,

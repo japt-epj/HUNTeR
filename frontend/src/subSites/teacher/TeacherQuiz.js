@@ -49,14 +49,13 @@ export default class TeacherQuiz extends React.Component {
 
     handlePageChange(event, element) {
         this.setState({
-            pageNumber: element.index,
-            loadingStudents: true,
+            pageNumber: element.index
         });
         this.getExercises(element.index, this.state.limit);
     }
 
-    getExercises(index, limit) {
-        APIHandler.getExercises(index, limit).then(resData => {
+    getExercises(page, limit) {
+        APIHandler.getExercises(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,

@@ -40,8 +40,12 @@ export default {
         ).catch(err => console.warn(err));
     },
 
-    getStudents() {
-        return axios.get(config.baseurl + 'person/', {
+    getStudents(page, limit) {
+        let requestURL = config.baseurl + 'person/';
+        if (page !== undefined && limit !== undefined) {
+            requestURL += '?page=' + (page-1) + '&limit=' + limit;
+        }
+        return axios.get(requestURL, {
                 headers: {
                     "Accept": "application/json",
                     'Content-Type': 'application/json'
