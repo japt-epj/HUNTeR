@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,11 +55,8 @@ public class ExerciseModel {
         }
     }
 
-    public Page<ExerciseDto> pageExercise(Integer page, Integer limit) {
-        if (page == null) page = Integer.valueOf(0);
-        if (limit == null) limit = Long.valueOf(exercises.count()).intValue();
-
-        return exercises.findAll(new PageRequest(page, limit))
+    public Page<ExerciseDto> pageExercise(int page, int limit, Sort sort) {
+        return exercises.findAll(new PageRequest(page, limit, sort))
                 .map(exercise -> mapper.map(exercise, ExerciseDto.class));
     }
 

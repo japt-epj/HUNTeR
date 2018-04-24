@@ -15,13 +15,23 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface PaginatedExercise {
-    @ApiOperation(value = "Get all exercises", nickname = "exerciseGet", notes = "", response = ExerciseDto.class, responseContainer = "List", tags={ "exercise", })
+    @ApiOperation(
+            value = "Get all exercises",
+            nickname = "exerciseGet",
+            notes = "",
+            response = ExerciseDto.class,
+            responseContainer = "List", tags={ "exercise", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "All exercises", response = ExerciseDto.class, responseContainer = "List") })
+            @ApiResponse(
+                    code = 200,
+                    message = "All exercises",
+                    response = ExerciseDto.class,
+                    responseContainer = "List") })
     @RequestMapping(value = "/exercise",
             produces = { "application/json" },
             method = RequestMethod.GET)
     ResponseEntity<Page<ExerciseDto>> exerciseGet(
-            @ApiParam(value = "Page index from where to start pagination") @Valid @RequestParam(value = "page", required = false) Integer page,
-            @ApiParam(value = "Number of pages to fetch") @Valid @RequestParam(value = "limit", required = false) Integer limit);
+            @ApiParam(value = "Page index from where to start pagination") int page,
+            @ApiParam(value = "Number of pages to fetch") int limit,
+            @ApiParam(value = "Property and direction by which to sort result set") String sort);
 }
