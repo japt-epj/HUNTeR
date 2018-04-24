@@ -1,5 +1,6 @@
 package ch.japt.epj.api.controller;
 import ch.japt.epj.api.PaginatedExercise;
+import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.ExerciseModel;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
@@ -13,6 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Controller
 @Api(tags = "Exercise API")
@@ -38,17 +42,22 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
     }
 
     @Override
-    public ResponseEntity<Void> updateExercise(ExerciseDto body) {
+    public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> updateExerciseWithForm(Long id) {
+    public ResponseEntity<Void> updateExerciseWithForm(@Valid @PathVariable("id") Long id) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Page<ExerciseDto>> exerciseGet(Integer page, Integer limit) {
-        return new ResponseEntity<>(exerciseModel.pageExercise(page, limit), HttpStatus.OK);
+    public ResponseEntity<Page<ExerciseDto>> exerciseGet(
+            @Valid @RequestParam(value = "page", defaultValue = "0") int page,
+            @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
+            @Valid @RequestParam(value = "sort", defaultValue = "name") String sortOptions) {
+        return new ResponseEntity<>(
+                exerciseModel.pageExercise(page, limit, SortParameterHandler.makeSort(sortOptions)),
+                HttpStatus.OK);
     }
 }
