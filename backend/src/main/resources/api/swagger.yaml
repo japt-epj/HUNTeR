@@ -158,7 +158,7 @@ paths:
       - "person"
       summary: "Create person"
       description: "This can only be done by the logged in person."
-      operationId: "createperson"
+      operationId: "createPerson"
       produces:
       - "application/xml"
       - "application/json"
@@ -178,14 +178,14 @@ paths:
       - "person"
       summary: "Logs person into the system"
       description: ""
-      operationId: "loginperson"
+      operationId: "authenticatePerson"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "personname"
+      - name: "email"
         in: "query"
-        description: "The person name for login"
+        description: "The email for login"
         required: true
         type: "string"
       - name: "password"
@@ -208,7 +208,7 @@ paths:
               format: "date-time"
               description: "date in UTC when token expires"
         400:
-          description: "Invalid personname/password supplied"
+          description: "Invalid email/password supplied"
 
   /person/logout:
     get:
@@ -216,7 +216,7 @@ paths:
       - "person"
       summary: "Logs out current logged in person session"
       description: ""
-      operationId: "logoutperson"
+      operationId: "logoutPerson"
       produces:
       - "application/xml"
       - "application/json"
@@ -229,14 +229,14 @@ paths:
     get:
       tags:
       - "person"
-      summary: "Get person by person name"
+      summary: "Get person by person email"
       description: ""
-      operationId: "getpersonByName"
+      operationId: "getPersonByEmail"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "personname"
+      - name: "email"
         in: "path"
         description: "The name that needs to be fetched. Use person1 for testing. "
         required: true
@@ -247,7 +247,7 @@ paths:
           schema:
             $ref: "#/definitions/Person"
         400:
-          description: "Invalid personname supplied"
+          description: "Invalid email supplied"
         404:
           description: "person not found"
     put:
@@ -255,14 +255,14 @@ paths:
       - "person"
       summary: "Updated person"
       description: "This can only be done by the logged in person."
-      operationId: "updateperson"
+      operationId: "updatePerson"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "personname"
+      - name: "email"
         in: "path"
-        description: "name that need to be updated"
+        description: "The email of the person that needs to be updated"
         required: true
         type: "string"
       - in: "body"
@@ -281,21 +281,21 @@ paths:
       - "person"
       summary: "Delete person"
       description: "This can only be done by the logged in person."
-      operationId: "deleteperson"
+      operationId: "deletePerson"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "personname"
+      - name: "email"
         in: "path"
-        description: "The name that needs to be deleted"
+        description: "The email of the person that needs to be deleted"
         required: true
         type: "string"
       responses:
         400:
-          description: "Invalid personname supplied"
+          description: "Invalid email supplied"
         404:
-          description: "person not found"
+          description: "email not found"
 
   /quiz:
     post:
