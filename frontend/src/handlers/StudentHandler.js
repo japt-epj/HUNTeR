@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Checkbox, Table} from 'semantic-ui-react';
+import {Checkbox, Pagination, Table} from 'semantic-ui-react';
 import TableHandler from "./TableHandler";
 
 
@@ -43,7 +43,9 @@ export default {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan="4">
-                            {this.getTablePageButtons(this.state.pageNumber, this.state.minPage, this.state.maxPage)}
+
+                            <Pagination totalPages={this.state.maxPage} activePage={this.state.pageNumber}
+                                        onPageChange={this.handlePageChange}/>
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>
