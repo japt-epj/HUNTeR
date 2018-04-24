@@ -30,6 +30,13 @@ public class Person {
     @JoinTable(name = "PersonRole", joinColumns = { @JoinColumn(name = "personId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })
     private Collection<Role> roles = new ArrayList<>();
 
+    public Person (String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
     public long getPersonId() {
         return personId;
     }
