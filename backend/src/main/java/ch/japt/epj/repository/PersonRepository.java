@@ -13,6 +13,8 @@ public interface PersonRepository extends PagingAndSortingRepository<Person, Lon
 
     Optional<Person> findByEmail(String email);
 
+    Boolean existsByEmail(String email);
+
     @Query("select p from Person p")
     Stream<Person> getAll();
 }
