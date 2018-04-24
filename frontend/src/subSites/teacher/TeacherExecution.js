@@ -8,7 +8,6 @@ import {formatDate} from 'react-day-picker/moment';
 
 import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";
-import TableHandler from "../../handlers/TableHandler";
 import FormHandler from "../../handlers/FormHandler";
 
 
@@ -34,7 +33,6 @@ export default class TeacherExecution extends React.Component {
         };
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
-        this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);

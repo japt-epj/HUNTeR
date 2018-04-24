@@ -5,7 +5,6 @@ import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
-import TableHandler from "../../handlers/TableHandler";
 import FormHandler from "../../handlers/FormHandler";
 
 
@@ -31,7 +30,6 @@ export default class TeacherQuiz extends React.Component {
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.handleSelection = ExerciseHandler.handleSelection.bind(this);
-        this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
