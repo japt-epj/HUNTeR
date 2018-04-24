@@ -49,9 +49,9 @@ export default class TeacherQuiz extends React.Component {
 
     handlePageChange(event, element) {
         this.setState({
-            pageNumber: element.index
+            pageNumber: element.activePage
         });
-        this.getExercises(element.index, this.state.limit);
+        this.getExercises(element.activePage, this.state.limit);
     }
 
     getExercises(page, limit) {
@@ -90,9 +90,7 @@ export default class TeacherQuiz extends React.Component {
                                 {this.state.loading && this.state.loadingScreen}
                                 <Modal.Header content="Aufgaben hinzufügen"/>
                                 <Modal.Content scrolling>
-                                    <div>
-                                        {!this.state.loading && this.getExerciseTable(true)}
-                                    </div>
+                                    {!this.state.loading && this.getExerciseTable(true)}
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>

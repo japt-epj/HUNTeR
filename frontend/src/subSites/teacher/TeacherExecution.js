@@ -52,9 +52,9 @@ export default class TeacherExecution extends React.Component {
 
     handlePageChange(event, element) {
         this.setState({
-            pageNumber: element.index
+            pageNumber: element.activePage
         });
-        this.getStudents(element.index, this.state.limit);
+        this.getStudents(element.activePage, this.state.limit);
     }
 
     getStudents(page, limit) {
@@ -98,9 +98,7 @@ export default class TeacherExecution extends React.Component {
                                 {this.state.loading && this.state.loadingScreen}
                                 <Modal.Header content="Benutzer hinzufügen"/>
                                 <Modal.Content scrolling>
-                                    <div>
-                                        {!this.state.loading && this.getStudentTable(true)}
-                                    </div>
+                                    {!this.state.loading && this.getStudentTable(true)}
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
