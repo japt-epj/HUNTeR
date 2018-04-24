@@ -14,7 +14,7 @@ export default {
         ).catch(err => console.warn(err));
     },
 
-    getQRCode(exerciseID) {
+    downloadQRCode(exerciseID) {
         return axios.get(config.baseurl + 'qrCode/' + exerciseID, {
                 headers: {
                     "Accept": "image/png",

@@ -14,6 +14,7 @@ import TeacherQuizOverview from './TeacherQuizOverview';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from "../NotFound";
+import TeacherExecution from "./TeacherExecution";
 
 
 export default class TeacherStructure extends React.Component {
@@ -39,13 +40,14 @@ export default class TeacherStructure extends React.Component {
                                 {this.getSideBar(Data.getPathsTeacher())}
                                 <Sidebar.Pusher onClick={this.hideSidebar}>
                                     <Switch>
-                                    <Route exact path="/" render={props => Home(Data.getPathsTeacher())}/>
-                                    <Route path="/exercise" component={TeacherExercise}/>
-                                    <Route path="/exerciseOverview" component={ExerciseOverview}/>
-                                    <Route path="/quiz" component={Quiz}/>
-                                    <Route path="/quizOverview" component={TeacherQuizOverview}/>
-                                    <Route path="/newUser" component={TeacherNewStudent}/>
-                                    <Route component={NotFound}/>
+                                        <Route exact path="/" render={props => Home(Data.getPathsTeacher())}/>
+                                        <Route path="/exercise" component={TeacherExercise}/>
+                                        <Route path="/exerciseOverview" component={ExerciseOverview}/>
+                                        <Route path="/quiz" component={Quiz}/>
+                                        <Route path="/quizOverview" component={TeacherQuizOverview}/>
+                                        <Route path="/execution" component={TeacherExecution}/>
+                                        <Route path="/newUser" component={TeacherNewStudent}/>
+                                        <Route component={NotFound}/>
                                     </Switch>
                                 </Sidebar.Pusher>
                             </Sidebar.Pushable>

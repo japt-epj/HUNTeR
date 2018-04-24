@@ -6,7 +6,7 @@ import TableHandler from "./TableHandler";
 
 
 export default {
-    handleSelectment(event, checkbox) {
+    handleSelection(event, checkbox) {
         let newState = this.state.selectedExercises;
         if (checkbox.checked) {
             newState.push(checkbox.id);
@@ -18,7 +18,7 @@ export default {
 
     getExerciseTable(checkboxNeeded) {
         let headerElements = ['Titel', 'ID', 'Bearbeiten', 'QR-Code'];
-        if(checkboxNeeded){
+        if (checkboxNeeded) {
             headerElements.unshift('');
         }
 
@@ -33,10 +33,9 @@ export default {
                     {!this.state.loadingExercises && this.state.exercises.map(element =>
                         <Table.Row key={'TableRow' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
-                                <Checkbox id={element.id} onChange={this.handleExerciseSelectment}
+                                <Checkbox id={element.id} onChange={this.handleSelection}
                                           checked={this.state.selectedExercises.indexOf(element.id) !== -1}/>
-                            </Table.Cell>
-                            }
+                            </Table.Cell>}
                             <Table.Cell content={element.title}/>
                             <Table.Cell content={element.id} collapsing/>
                             <Table.Cell collapsing>
@@ -46,7 +45,7 @@ export default {
                             </Table.Cell>
                             <Table.Cell collapsing>
                                 <Button color="orange" basic icon="qrcode"
-                                        onClick={() => this.getQRCode(element.id)}/>
+                                        onClick={() => this.downloadQRCode(element.id)}/>
                             </Table.Cell>
                         </Table.Row>
                     )}
@@ -54,7 +53,7 @@ export default {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan="5">
-                            {this.getTablePageButtons(this.state.pageNumber, this.state.minPage, this.state.maxPageExercise)}
+                            {this.getTablePageButtons(this.state.pageNumber, this.state.minPage, this.state.maxPage)}
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>

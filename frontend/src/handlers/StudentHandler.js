@@ -1,10 +1,11 @@
 import React from 'react';
 
 import {Checkbox, Table} from 'semantic-ui-react';
+import TableHandler from "./TableHandler";
 
 
 export default {
-    handleSelectment(event, checkbox) {
+    handleSelection(event, checkbox) {
         let newState = this.state.selectedStudents;
         if (checkbox.checked) {
             newState.push(checkbox.id);
@@ -14,29 +15,39 @@ export default {
         this.setState({selectedStudents: newState});
     },
     getStudentTable(checkboxNeeded) {
+        let headerElements = ['Vorname', 'Nachname', 'E-Mail'];
+        if (checkboxNeeded) {
+            headerElements.unshift('');
+        }
+
         return (
             <Table>
+                <Table.Header>
+                    <Table.Row>
+                        {TableHandler.getTableHeader(headerElements)}
+                    </Table.Row>
+                </Table.Header>
                 <Table.Body>
                     {!this.state.loadingStudents && this.state.students.map(element =>
                         <Table.Row key={'StudentRows' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
-                                <Checkbox id={element.id}
-                                          checked={this.state.selectedStudents.indexOf(element.id) !== -1}
-                                          onChange={this.handleStudentSelectment}/>
+                                <Checkbox id={element.id} onChange={this.handleSelection}
+                                          checked={this.state.selectedStudents.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
                             <Table.Cell content={element.firstName}/>
                             <Table.Cell content={element.lastName}/>
+                            <Table.Cell content={element.email}/>
                         </Table.Row>
                     )}
                 </Table.Body>
                 <Table.Footer>
                     <Table.Row>
-                        <Table.HeaderCell colSpan="5">
-                            {this.getTablePageButtons(this.state.pageNumber, this.state.minPage, this.state.maxPageStudent)}
+                        <Table.HeaderCell colSpan="4">
+                            {this.getTablePageButtons(this.state.pageNumber, this.state.minPage, this.state.maxPage)}
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>
             </Table>
-        )
+        );
     }
 };

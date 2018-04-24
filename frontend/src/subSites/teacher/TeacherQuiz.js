@@ -2,49 +2,41 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
-import DayPickerInput from "react-day-picker/DayPickerInput";
-import "react-day-picker/lib/style.css";
-import {formatDate} from 'react-day-picker/moment';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
-import StudentHandler from "../../handlers/StudentHandler";
 import TableHandler from "../../handlers/TableHandler";
 import FormHandler from "../../handlers/FormHandler";
 
-export default class extends React.Component {
+
+export default class TeacherQuiz extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
             exercises: [],
             selectedExercises: [],
-            students: [],
-            selectedStudents: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
                 </Dimmer>
             )],
-            loadingExercises: true,
-            loadingStudents: true,
+            loading: true,
             limit: 5,
             pageNumber: 1,
             minPage: 1,
-            maxPageExercise: '',
-            maxPageStudent: '',
+            maxPage: '',
             endDate: new Date(),
             fireRedirect: false
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
-        this.getStudentTable = StudentHandler.getStudentTable.bind(this);
-        this.handleExerciseSelectment = ExerciseHandler.handleSelectment.bind(this);
-        this.handleStudentSelectment = StudentHandler.handleSelectment.bind(this);
+        this.handleSelection = ExerciseHandler.handleSelection.bind(this);
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
-        this.getQRCode = APIHandler.getQRCode;
+        this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
-        this.handleDayChange = this.handleDayChange.bind(this);
+        this.getExercises = this.getExercises.bind(this);
+
 
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
@@ -52,24 +44,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        APIHandler.getExercises(this.state.pageNumber, this.state.limit).then(resData => {
-            if (resData.status === 200) {
-                this.setState({
-                    exercises: resData.data.content,
-                    maxPageExercise: resData.data.totalPages,
-                    loadingExercises: false
-                })
-            }
-        });
-        APIHandler.getStudents().then(resData => {
-            if (resData.status === 200) {
-                this.setState({
-                    students: resData.data.content,
-                    maxPageStudent: resData.data.totalPages,
-                    loadingStudents: false
-                })
-            }
-        });
+        this.getExercises(this.state.pageNumber, this.state.limit);
     }
 
     handlePageChange(event, element) {
@@ -77,23 +52,23 @@ export default class extends React.Component {
             pageNumber: element.index,
             loadingStudents: true,
         });
-        APIHandler.getExercises(element.index, this.state.limit).then(resData => {
+        this.getExercises(element.index, this.state.limit);
+    }
+
+    getExercises(index, limit) {
+        APIHandler.getExercises(index, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,
-                    maxPageStudent: resData.data.totalPages,
-                    loadingStudents: false
+                    maxPage: resData.data.totalPages,
+                    loading: false
                 })
             }
         });
     }
 
-    resetPageNumber(){
+    resetPageNumber() {
         this.setState({pageNumber: 1});
-    }
-
-    handleDayChange(day) {
-        this.setState({endDate: day});
     }
 
     render() {
@@ -104,7 +79,7 @@ export default class extends React.Component {
                         <Grid.Column>
                             <Form.Input fluid label="Titel" name="title" value={this.state.title}
                                         onChange={this.handleChange}
-                                        placeholder="Bitte geben Sie einen Titel ein" required/>
+                                        placeholder="Bitte geben Sie einen Titel für das Quiz ein" required/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row columns="equal">
@@ -113,28 +88,18 @@ export default class extends React.Component {
                                    trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
                                                     label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
                                    closeIcon>
-                                {this.state.loadingExercises && this.state.loadingScreen}
+                                {this.state.loading && this.state.loadingScreen}
                                 <Modal.Header content="Aufgaben hinzufügen"/>
-                                <Modal.Content>
+                                <Modal.Content scrolling>
                                     <div>
-                                        {!this.state.loadingExercises && this.getExerciseTable(true)}
+                                        {!this.state.loading && this.getExerciseTable(true)}
                                     </div>
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
                         <Grid.Column>
-                            <Modal size="fullscreen"
-                                   trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
-                                                    label="Benutzer hinzufügen" onClick={this.resetPageNumber}/>}
-                                   closeIcon>
-                                {this.state.loadingStudents && this.state.loadingScreen}
-                                <Modal.Header content="Benutzer hinzufügen"/>
-                                <Modal.Content>
-                                    <div>
-                                        {!this.state.loadingStudents && this.getStudentTable(true)}
-                                    </div>
-                                </Modal.Content>
-                            </Modal>
+                            <p>Ausgewählte Aufgaben:</p>
+                            <p>{JSON.stringify(this.state.selectedExercises.sort((a, b) => a > b))}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
