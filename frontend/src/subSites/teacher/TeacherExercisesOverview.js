@@ -6,7 +6,6 @@ import {Button, Dimmer, Loader} from 'semantic-ui-react';
 import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
-import FormHandler from "../../handlers/FormHandler";
 
 
 export default class TeacherExercisesOverview extends React.Component {
@@ -28,7 +27,7 @@ export default class TeacherExercisesOverview extends React.Component {
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
-        this.getQRCode = APIHandler.getQRCode;
+        this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
     }
 
