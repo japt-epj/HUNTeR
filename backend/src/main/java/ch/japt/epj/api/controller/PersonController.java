@@ -76,7 +76,7 @@ public class PersonController implements ch.japt.epj.api.PersonApi, PaginatedPer
         Person result = personRepository.save(person);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/person/{personname}")
+                .fromCurrentContextPath().path("/person/{email}")
                 .buildAndExpand(result.getEmail()).toUri();
 
         return ResponseEntity.created(location).build();
@@ -85,12 +85,12 @@ public class PersonController implements ch.japt.epj.api.PersonApi, PaginatedPer
     }
 
     @Override
-    public ResponseEntity<Void> deletePerson(String personname) {
+    public ResponseEntity<Void> deletePerson(String email) {
         return null;
     }
 
     @Override
-    public ResponseEntity<PersonDto> getPersonByEmail(String personname) {
+    public ResponseEntity<PersonDto> getPersonByEmail(String email) {
         return null;
     }
 

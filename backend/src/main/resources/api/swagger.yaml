@@ -225,7 +225,7 @@ paths:
         default:
           description: "successful operation"
 
-  /person/{personname}:
+  /person/{email}:
     get:
       tags:
       - "person"
