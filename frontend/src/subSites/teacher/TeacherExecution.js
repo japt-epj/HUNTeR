@@ -1,14 +1,14 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
-import DayPickerInput from "react-day-picker/DayPickerInput";
-import "react-day-picker/lib/style.css";
-import {formatDate} from 'react-day-picker/moment';
+import {Button, Dimmer, Dropdown, Form, Grid, Loader, Modal} from 'semantic-ui-react';
+import {BigInputMoment} from 'react-input-moment';
+import moment from 'moment';
 
 import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";
 import FormHandler from "../../handlers/FormHandler";
+import Data from "../../data/Data";
 
 
 export default class TeacherExecution extends React.Component {
@@ -28,15 +28,22 @@ export default class TeacherExecution extends React.Component {
             pageNumber: 1,
             minPage: 1,
             maxPage: '',
-            endDate: new Date(),
-            fireRedirect: false
+            modifiers: {
+                highlighted: new Date(),
+                after: (new Date()).getDate() + 1,
+            },
+            fireRedirect: false,
+            startMoment: moment(),
+            dueMoment: moment()
         };
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
-        this.handleDayChange = this.handleDayChange.bind(this);
+        this.handleStartMomentChange = this.handleStartMomentChange.bind(this);
+        this.handleDueMomentChange = this.handleDueMomentChange.bind(this);
+        this.handleDropdownChange = this.handleDropdownChange.bind(this);
         this.getStudents = this.getStudents.bind(this);
 
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
@@ -71,8 +78,16 @@ export default class TeacherExecution extends React.Component {
         this.setState({pageNumber: 1});
     }
 
-    handleDayChange(day) {
-        this.setState({endDate: day});
+    handleStartMomentChange(event) {
+        this.setState({startMoment: moment(event._d)});
+    }
+
+    handleDueMomentChange(event) {
+        this.setState({dueMoment: moment(event._d)});
+    }
+
+    handleDropdownChange(event, element) {
+        this.setState({dueMoment: this.state.startMoment.clone().add(element.value.size, element.value.dimension)});
     }
 
     render() {
@@ -103,6 +118,26 @@ export default class TeacherExecution extends React.Component {
                         <Grid.Column>
                             <p>Ausgewählte Studenten:</p>
                             <p>{JSON.stringify(this.state.selectedStudents.sort((a, b) => a > b))}</p>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row columns="equal" textAlign="center">
+                        <Grid.Column>
+                            <BigInputMoment className="fromMoment"
+                                            moment={this.state.startMoment}
+                                            onChange={this.handleStartMomentChange}
+                                            locale="ch"
+                            />
+                        </Grid.Column>
+                        <Grid.Column width={5}>
+                            <Dropdown placeholder="Wähle eine Option" selection options={Data.getDateOptions()}
+                                      onChange={this.handleDropdownChange} className="icon" button labeled icon="long arrow right"/>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <BigInputMoment className="dueMoment"
+                                            moment={this.state.dueMoment}
+                                            onChange={this.handleDueMomentChange}
+                                            locale="ch"
+                            />
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
