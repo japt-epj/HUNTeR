@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Menu, Table} from 'semantic-ui-react';
+import {Table} from 'semantic-ui-react';
 
 
 export default {

@@ -1,0 +1,56 @@
+$page-fore: #111111;
+$accent-back: #20c028;
+$accent-fore: #ffffff;
+$slider-fore: rgba(32,192,40,0.2);
+
+.im-input-moment {
+  .options {
+    button {
+      color: $accent-back !important;
+      border-color: $accent-back !important;
+      &.is-active {
+        background-color: $accent-back !important;
+        color: $accent-fore !important;
+      }
+    }
+  }
+}
+.im-big-input-moment{
+  border: none !important;
+}
+.im-date-picker {
+  .toolbar {
+    color: $accent-back !important;
+  }
+  table td {
+    color: $page-fore !important;
+    &.current {
+      background-color: $accent-back !important;
+      color: $accent-fore !important;
+    }
+  }
+}
+.im-time-picker, .im-time-slider {
+  .time-text {
+    color: $slider-fore !important;
+  }
+  .showtime {
+    .time {
+      background-color: $accent-back !important;
+      color: $accent-fore !important;
+    }
+    .separator {
+      color: $accent-back !important;
+    }
+  }
+  .im-slider {
+    background-color: $slider-fore !important;
+    .value {
+      background-color: $accent-back !important;
+    }
+    .handle:after {
+      background-color: $accent-fore !important;
+      border-color: $accent-back !important;
+    }
+  }
+}

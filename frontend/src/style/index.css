@@ -7,7 +7,7 @@ html {
 }
 
 .left.aligned.column, a, .logoImage, .right.aligned.column, .ui.button {
-    height: calc(100%*1.2) !important;
+    height: calc(100% * 1.2) !important;
     min-height: 30px !important;
     max-height: 55px !important;
 }
@@ -64,6 +64,6 @@ html {
     color: #cc8e34;
 }
 
-.errorBackground{
+.errorBackground {
     background: #36c22f;
 }

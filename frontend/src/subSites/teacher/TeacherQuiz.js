@@ -25,7 +25,6 @@ export default class TeacherQuiz extends React.Component {
             pageNumber: 1,
             minPage: 1,
             maxPage: '',
-            endDate: new Date(),
             fireRedirect: false
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
