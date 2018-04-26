@@ -10,4 +10,4 @@ jobs:
               - ./mvnw -DskipTests=true package
         - stage: test
           script:
-              - ./mnvw test verify
+              - ./mvnw test verify
