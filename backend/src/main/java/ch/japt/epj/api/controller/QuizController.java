@@ -1,4 +1,4 @@
-package ch.japt.epj.api;
+package ch.japt.epj.api.controller;
 
 
 import ch.japt.epj.model.QuizModel;
@@ -28,7 +28,7 @@ public class QuizController implements ch.japt.epj.api.QuizApi {
 
     @Override
     public ResponseEntity<List<NewQuizDto>> quizGet() {
-        return new ResponseEntity<>(quizModel.allQuizes(), HttpStatus.OK);
+        return new ResponseEntity<>(quizModel.allQuizzes(), HttpStatus.OK);
     }
 
     @Override
