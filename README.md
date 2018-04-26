@@ -13,6 +13,9 @@ Participating in a scavenger hunt is easily done using any smartphone. As the ap
 ### Student
 
 # Deployment
+There is currently no completely public deployment of this application. However, you are free to host your own instance of Hunter. The easiest way to do so is using Docker. 
+
+## Database migration
 
 # Development
 
