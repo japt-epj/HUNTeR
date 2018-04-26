@@ -32,9 +32,11 @@ export default{
     handleQuizSumbit(){
         this.postData({
             title: this.state.title,
+            quizId: this.state.selectedQuizId,
             exercises: this.state.selectedExercises,
             students: this.state.selectedStudents,
-            endDate: this.state.endDate
+            startMoment: this.state.startMoment,
+            endDate: this.state.dueMoment
         }, 'execution')
     },
 

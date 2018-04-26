@@ -5,7 +5,7 @@ import {Form, Pagination, Table} from "semantic-ui-react";
 export default {
 
     getQuizTable() {
-        let headerElements = ['Name'];
+        let headerElements = ['','Name'];
         return (
             <Table>
                 <Table.Header>
