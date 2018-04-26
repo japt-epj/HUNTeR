@@ -76,8 +76,32 @@ These are the relevant parts of the apache reverse proxy configuration we use on
 ## Database migration
 
 # Development
+HUNTeR is completely open source, and exclusively uses open source technologies. Everything we use is well documented on the respective web sites.
+
+To start hacking on HUNTeR, just clone this repository.
+
+`$ git clone git@github.com:SBI-/epj-prototype.git`
+
+To create a test build and run all unit and integration tests, you can just run
+
+`$ ./mvnw clean test verify`
+
+There is a prepared wrapper script for running a development environment on your local development machine. You **must** have docker installed for this script to work.
+
+`$ ./dev.sh`
+
+This environment runs the spring backend separately from the react frontend. Both support hot reloading without having to restart the respective java and express servers. The frontend can be reached on [https://localhost:3000/](https://localhost:3000/) and the backend api can be reached on [https://localhost:8080/api/](https://localhost:8080/api/). You can use this environment for local testing and rapid feedback while developing.
+
+Hot reload for react is enabled automatically. To use the spring hot reload feature, you have to configure your IDE accordingly. [This](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html#_running_the_remote_client_application) section of the spring documentation covers how this can be achieved.
+
+TODO: Add explanation for IntelliJ, which is what we use.
 
 ## Technology
+The project is split up into frontend and backend. The frontend is what runs in the browser on a user's client device. The backend is a Java Spring application which runs on the server it is deployed on.
+
+### Frontend
+The main frontend technology is [React](), supplemented by 
+### Backend
 
 ## Architecture
 
