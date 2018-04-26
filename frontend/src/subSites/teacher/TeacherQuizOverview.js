@@ -2,7 +2,6 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button, Dimmer, Form, Loader, Table} from 'semantic-ui-react';
-import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
 import APIHandler from "../../handlers/APIHandler";
 

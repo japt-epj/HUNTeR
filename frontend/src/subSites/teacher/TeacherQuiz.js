@@ -8,7 +8,6 @@ import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from "../../handlers/FormHandler";
-import pin from '../../images/icons/e-map.png'
 
 
 export default class TeacherQuiz extends React.Component {
