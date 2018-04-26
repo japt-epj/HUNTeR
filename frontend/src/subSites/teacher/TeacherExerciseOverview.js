@@ -7,51 +7,47 @@ import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 
 
-export default class TeacherExercisesOverview extends React.Component {
+export default class TeacherExerciseOverview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             exercises: [],
-            exerciseTable: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
                 </Dimmer>
             )],
-            loadingExercises: true,
+            loading: true,
             pageNumber: 1,
             minPage: 1,
-            maxPageExercise: '',
+            maxPage: '',
             limit: 5,
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.getExercises = this.getExercises.bind(this);
+    }
+
+
+    componentDidMount() {
+        this.getExercises(this.state.pageNumber, this.state.limit);
     }
 
     handlePageChange(event, element) {
         this.setState({
-            pageNumber: element.index,
-            loadingStudents: true,
+            pageNumber: element.activePage
         });
-        APIHandler.getExercises(element.index, this.state.limit).then(resData => {
-            if (resData.status === 200) {
-                this.setState({
-                    exercises: resData.data.content,
-                    maxPageStudent: resData.data.totalPages,
-                    loadingStudents: false
-                })
-            }
-        });
+        this.getExercises(element.activePage, this.state.limit);
     }
 
-    componentDidMount() {
-        APIHandler.getExercises(this.state.pageNumber, this.state.limit).then(resData => {
+    getExercises(page, limit) {
+        APIHandler.getExercises(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,
-                    maxPageExercise: resData.data.totalPages,
-                    loadingExercises: false
+                    maxPage: resData.data.totalPages,
+                    loading: false
                 })
             }
         });
@@ -60,10 +56,10 @@ export default class TeacherExercisesOverview extends React.Component {
     render() {
         return (
             <div>
-                {this.state.loadingExercises && this.state.loadingScreen}
-                {!this.state.loadingExercises && this.getExerciseTable(false)}
+                {this.state.loading && this.state.loadingScreen}
+                {!this.state.loading && this.getExerciseTable(false)}
                 <NavLink to="/exercise">
-                    <Button icocolor="green" icon="add square" positive labelPosition="right"
+                    <Button color="green" icon="add square" positive labelPosition="right"
                             label="Aufgabe hinzufügen"/>
                 </NavLink>
             </div>

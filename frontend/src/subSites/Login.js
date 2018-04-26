@@ -33,7 +33,7 @@ export default class Login extends React.Component {
                                         onChange={this.handleChange} required/>
                             <Form.Input label="Passwort" type="password" name="password" value={this.state.password}
                                         onChange={this.handleChange} required/>
-                            <Form.Button content="Submit"/>
+                            <Form.Button type="submit" content="Submit"/>
                         </Form>
                         <NavLink to={'/student'}>Student</NavLink>
                         <NavLink to={'/teacher'}>Teacher</NavLink>
