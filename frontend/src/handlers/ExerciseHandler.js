@@ -8,12 +8,18 @@ import TableHandler from "./TableHandler";
 export default {
     handleSelection(event, checkbox) {
         let newState = this.state.selectedExercises;
+        let newPositions = this.state.selectedPositions;
         if (checkbox.checked) {
             newState.push(checkbox.id);
+            newPositions.set(checkbox.id, {longitutde: undefined, latitude: undefined});
         } else {
             newState.splice(newState.lastIndexOf(checkbox.id), 1);
+            newPositions.delete(checkbox.id);
         }
-        this.setState({selectedExercises: newState});
+        this.setState({
+            selectedExercises: newState.sort((a,b) => a > b),
+            selectedPositions: newPositions
+        });
     },
 
     getSelectedExerciseTable() {
