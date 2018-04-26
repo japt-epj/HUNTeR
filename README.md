@@ -12,6 +12,11 @@ Participating in a scavenger hunt is easily done using any smartphone. As the ap
 
 ## User Guide
 
+### A Note on Language
+Currently, the entire frontend is in german, and german only. This is due to the fact that this project is being developed in the german speaking part of Switzerland, as a project by four german speaking students, for users who's first language is german. However, all of the documentation is in english, as is all of the source code, to be as accessible as possible to other developers.
+
+Internationalization is not one of our prime concerns, due to the nature of the project and the scope we have to keep. However, there is no strict dependency on german as the only language, and we would be more than welcome for pull requests that modularize the UI in terms of the primary display language.
+
 ### Teacher
 
 ### Student
@@ -28,7 +33,7 @@ Docker and docker-compose must be installed. Familiarity using these tools will 
 
     $ git clone git@github.com:japt-epj/HUNTeR-Deploy.git
     $ cd HUNTeR-Deploy
-    # docker compose up
+    # docker-compose up
 
 You can now connect to the HUNTeR Website by navigating to [http://localhost:8080/](http://localhost:8080/). The docker configuration is optimized to be hosted behind a reverse proxy. For a detailed example of an optimal deployment, see the next section.
 
@@ -99,6 +104,19 @@ TODO: Add explanation for IntelliJ, which is what we use.
 ## Technology
 The project is split up into frontend and backend. The frontend is what runs in the browser on a user's client device. The backend is a Java Spring application which runs on the server it is deployed on.
 
+### Build
+
+#### Travis
+Travis is used to create all public builds and push to docker hub. For specific information on the travis build, you should use the travis build link and consult the travis build file. All deployable artifacts on docker hub are built using the configuration available in this repository.
+
+#### Maven
+The main build uses [maven](https://maven.apache.org/) to create a monolithic jar that contains all modules. As we use maven wrapper, maven itself is not a hard dependency. If you have the project checked out, you can build the entire project by running `./mvnw install`.
+
+Maven is also used for dependency management and the entire build process of the backend. You are free to run custom maven builds from the backend directory.
+
+#### NPM
+The frontend is built using npm, also using npm for dependency management. When you run maven install from the main directory, npm is fetched automatically, without requiring a native installation of the node tooling. Should you want to create custom builds, you can run npm form the frontend directory. This step should only be necessary when developing specific frontend features. For npm specifics, please consult the [npm documentation](https://docs.npmjs.com/).
+
 ### Frontend
 The main frontend technology is [React](https://reactjs.org/), supplemented by different libraries. For a comprehensive list of all dependencies, consult the [package.json](https://github.com/SBI-/epj-prototype/blob/master/frontend/package.json) file of the frontend module.
 
@@ -129,15 +147,67 @@ The entire application architecture is a fairly traditional REST API + HTML5 Fro
 ### Application
 This layer diagram shows the current tiers of the entire application logic. The presentation layer represents the entire front-end module, which is implemented in Javascript using React. All the other layers apart from the database are implemented in Java using Spring.
 
-Frontend and Backend communicate using HTTP, using the REST API which is documented [here](https://sinv-56053.edu.hsr.ch/swagger-ui.html). Backend and database communicate using JDBC.
+The Presentation and Logic layers communicate using HTTP, using the REST API which is documented [here](https://sinv-56053.edu.hsr.ch/swagger-ui.html). The Data Access Layer and database communicate using JDBC.
 
 ![Layer Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/layer_diagram.png)
 
 
 ### Database
+The database design is relational. The complete entity description is written with JPA annotations in Java code, and all database tables are generated at application boot. We strictly use no hand-written sql to design the database.
 
-Something something JPA
+This domain model diagram shows the entire database design.
+
+![Domain Model](https://github.com/SBI-/epj-prototype/raw/master/documentation/domain_model.png)
 
 ### Extending functionality
+The technological choices made thus far should make the addition of new features no harder than what has been done so far. Depending on what type of feature is to be added, there are different considerations that have to be made when implementing them. When adding a new feature, you will probably have to consider more than one of the following points.
+
+#### Adding a View
+Creating new views for users will most likely entail writing new React components. If you are familiar with recent frontend technologies and ES6, you are good to hack away at creating new features.
+
+Interesting views will communicate with the API, so sound knowledge of HTTP calls and JSON will enable you to fully take advantage of the entire backend.
+
+#### Extending the API
+Swagger is used for the entire API description. Adding new API endpoints or expanding on existing endpoints can be as easy as editing the `swagger.yaml` file (the [online editor](https://editor.swagger.io//#/) is particularly useful for this). A `mvn clean test` will generate the corresponding Spring interface files (which you have to implement), and also any DTOs that you have specified. Also, running test will at least guarantee, that the generated Java code is sensible enough to be loaded by Spring. 
+Once the interfaces are generated, you have to implement them in a controller class.
+
+#### Adding Database Tables
+As previously mentioned, no SQL needs to be written. All entity definitions are created by JPA annotated classes and tables are created on first startup. To create new columns in existing tables, the entities in the `ch.japt.epj.model.data` package have to be edited.
+
+To create additional tables, new entity classes should be added to the same package. When adding new rows, you will most likely want to edit the existing model classes to account for the changes you have made. When adding new tables, you will have to create new [repository interfaces](https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html) to access the data. 
+
+Make yourself familiar with model mapper to easily integrate your new data with DTOs that are served to the API endpoints.
+
+#### Writing Tests
+You can never have enough tests, so obviously, writing tests is always a welcome addition to any project. We use spring test, which facilitates a lot of common testing gripes such as mocking and bootstrapping. Dependency Injection is handled out of the box and writing new tests is fairly simple. To write tests for your new code, you best consult the existing unit and integration tests to see how model and controller tests are handled.
+
+#### Adding Dependencies
+Most of the complexity the code base is handled using external dependencies. We favour code reuse to save time and keep our own code as simple as possible. However, when adding new dependencies, there are a few considerations to keep in mind. First and foremost, new dependencies need to be compatible with the MIT license and the licenses of current dependencies. This is a strict rule, as we wish to keep this project as open as possible.
+
+New dependencies should be stable, or at least very actively developed. Predicting the future is hard, but sticking with dependencies that are already popular should be a fairly safe bet for the near future.
+
+To add a new frontend dependency, use npm install to add the dependency to the package.json file. Adding a new backend dependency entails editing the `pom.xml`. We strictly discourage using dependencies that are not available on npm or maven central, because manual dependency management is a pain.
 
 ### Thoughts on scalability
+
+#### Current
+The current setup is made to be as simple as possible. A single maven build is used to create a monolithic jar file which contains the static frontend files, as well as the application server to host the backend. This is obviously not optimal for scalability, but makes it possible to publish a single docker file and keep docker-compose files as simple as possible. The reasoning behind this is to keep complexity as low as possible, which makes building and pushing production images very easy.
+
+At the same time, the project is modularized enough to enable more refined builds and deployment strategies to create more elaborate deployment strategies.
+#### Scaling up
+Scaling up is the easiest solution to counter performance problems. As deploying the application on a single machine is as easy as the documented docker deployment, deplyoing on a stronger machine with better network will generally result in better performance. However, this solution provides no real scaling in terms of distributing load between several machines.
+
+Currently, the test environment is hosted on a single core, 2GB virtual machine and works fairly well for testing purposes. Taking into account the underpowered solution that we currently have, scaling to a realistic load of users on a monolithic setup is not unrealistic.
+
+#### Scaling out
+Scaling out with this project will require changes to the build, but especially to the deployment. Precautions to these measures have been taken though, and changes are certainly possible, while requiring some tweaks to the current setup.
+
+A first step towards better distributed scalability is creating a non-monolithic build artifact. The current single-jar deployment is targeted towards deployment on a single tomcat server instance. To move away from this restriction, a first step should be splitting up the backend and frontend builds so that they can be deployed separately. This can be done by maintaining the current build configuration, but not packaging a single jar.
+
+The frontend consists of static artifacts, which can be hosted on any web server, such as apache or nginx. As the frontend is completely independent of the backend in terms of deployment, it doesn't matter how many servers host the frontend behind an entry reverse proxy. Scaling the frontend is therefor as easy as hosting multiple web servers on multiple machines.
+
+The backend is designed is to be as stateless as possible. The only state is handling user authentication tokens. Currently, these are stored in the same postgres database as the rest of the application data for simplicity. However, extracting session management into a redis cluster is possible, because the dependencies on session management are practically inexistant.
+
+POSTGRES presents a certain bottleneck because horizontal scalability is not a speciality of any relational database. However, a powerful database server will be able to scale to very many queries in the current design. Should this ever be a real problem, it will have to be addressed accordingly, and probably require a switch of the database technology, and the database design as such. Should we ever reach this point, we should have enogh resources and money to throw at the problem.
+
+TODO: Add a picture of best scaling out deployment!
