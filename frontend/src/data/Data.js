@@ -35,14 +35,14 @@ export default {
         return quizMap.get(quizString);
     },
 
-    getQuizzes() {
-        return [
-            {key: 'quiz1', value: 'quiz1', text: 'Quiz 1', title: 'IP-Adressen', score: '60%'},
-            {key: 'quiz2', value: 'quiz2', text: 'Quiz 2', title: 'Transportmedien', score: '30%'},
-            {key: 'quiz3', value: 'quiz3', text: 'Quiz 3', title: 'Wirtschaftsinformatik', score: '10%'},
-            {key: 'quiz4', value: 'quiz4', text: 'Quiz 4', title: 'Business und Recht 2', score: '30%'}
-        ]
-    },
+    // getQuizzes() {
+    //     return [
+    //         {key: 'quiz1', value: 'quiz1', text: 'Quiz 1', title: 'IP-Adressen', score: '60%'},
+    //         {key: 'quiz2', value: 'quiz2', text: 'Quiz 2', title: 'Transportmedien', score: '30%'},
+    //         {key: 'quiz3', value: 'quiz3', text: 'Quiz 3', title: 'Wirtschaftsinformatik', score: '10%'},
+    //         {key: 'quiz4', value: 'quiz4', text: 'Quiz 4', title: 'Business und Recht 2', score: '30%'}
+    //     ]
+    // },
 
     getProgress(quizString) {
         return {value: this.getQuiz(quizString).solvedExercises, total: this.getQuiz(quizString).exercises};
