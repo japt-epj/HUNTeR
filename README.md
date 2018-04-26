@@ -124,13 +124,19 @@ HUNTeR is designed to be used with [POSTGRESQL](https://www.postgresql.org/) for
 - [QR Code Gen](https://www.nayuki.io/page/qr-code-generator-library)
 
 ## Architecture
-The entire application architecture is a fairly traditional REST API + HTML5 Frontend. Our aim is to keep the architecture as simple as possible so that we can focus on adding features.
+The entire application architecture is a fairly traditional REST API + HTML5 Frontend modelled after the [Model-View-Controller pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller). Our aim is to keep the architecture as simple as possible so that we can focus on adding features. Apart from an authentication token which is generated when a user logs in, the entire backend is completely stateless. This makes development on the backend straight forward, but also has important scalability implications, which we cover in a later section.
 
 ### Application
+This layer diagram shows the current tiers of the entire application logic. The presentation layer represents the entire front-end module, which is implemented in Javascript using React. All the other layers apart from the database are implemented in Java using Spring.
+
+Frontend and Backend communicate using HTTP, using the REST API which is documented [here](https://sinv-56053.edu.hsr.ch/swagger-ui.html). Backend and database communicate using JDBC.
+
 ![Layer Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/layer_diagram.png)
 
 
 ### Database
+
+Something something JPA
 
 ### Extending functionality
 
