@@ -99,6 +99,8 @@ TODO: Add explanation for IntelliJ, which is what we use.
 ## Technology
 The project is split up into frontend and backend. The frontend is what runs in the browser on a user's client device. The backend is a Java Spring application which runs on the server it is deployed on.
 
+### Build
+
 ### Frontend
 The main frontend technology is [React](https://reactjs.org/), supplemented by different libraries. For a comprehensive list of all dependencies, consult the [package.json](https://github.com/SBI-/epj-prototype/blob/master/frontend/package.json) file of the frontend module.
 
@@ -142,5 +144,19 @@ This domain model diagram shows the entire database design.
 ![Domain Model](https://github.com/SBI-/epj-prototype/raw/master/documentation/domain_model.png)
 
 ### Extending functionality
+The technological choices made thus far should make the addition of new features no harder than what has been done so far. Depending on what type of feature is to be added, there are different considerations that have to be made when implementing them.
+
+#### Adding a View
+Creating new views for users will most likely entail writing new React components. If you are familiar with recent frontend technologies and ES6, you are good to hack away at creating new features.
+
+Interesting views will communicate with the API, so sound knowledge of HTTP calls and JSON will enable you to fully take advantage of the entire backend.
+
+#### Extending the API
+
+#### Adding Database Tables
 
 ### Thoughts on scalability
+
+#### Current
+#### Scaling up
+#### Scaling out
