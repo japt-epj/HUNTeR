@@ -16,9 +16,8 @@ jobs:
           script:
               - ./mvnw test verify
         - stage: publish
-          #if: branch = master
+          if: branch = master
           script:
-              #- ./mvnw -DskipTests=true package
               - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
               - docker build -t hunter -f docker/Dockerfile-Prod .
               - docker images
