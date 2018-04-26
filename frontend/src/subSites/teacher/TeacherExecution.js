@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Dimmer, Dropdown, Form, Grid, Header, Loader, Modal} from 'semantic-ui-react';
+import {Button, Dimmer, Form, Grid, Header, Loader, Modal} from 'semantic-ui-react';
 import {BigInputMoment} from 'react-input-moment';
 import moment from 'moment';
 
@@ -9,7 +9,6 @@ import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";
 import QuizHandler from "../../handlers/QuizHandler";
 import FormHandler from "../../handlers/FormHandler";
-import Data from "../../data/Data";
 
 
 export default class TeacherExecution extends React.Component {
