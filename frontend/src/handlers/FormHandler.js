@@ -32,11 +32,6 @@ export default {
     handleQuizSumbit() {
         this.postData({
             title: this.state.title,
-            quizId: this.state.selectedQuizId,
-            exercises: this.state.selectedExercises,
-            students: this.state.selectedStudents,
-            startMoment: this.state.startMoment,
-            endDate: this.state.dueMoment,
             locations: Array.from(this.state.selectedPositions.keys()).map(key => {
                 return {"exerciseID": key, "location": this.state.selectedPositions.get(key)}
             })

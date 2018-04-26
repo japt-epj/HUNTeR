@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Form, Checkbox, Pagination, Table} from 'semantic-ui-react';
+import {Button, Checkbox, Pagination, Table} from 'semantic-ui-react';
 import TableHandler from "./TableHandler";
 
 
@@ -36,10 +36,10 @@ export default {
                         <Table.Row key={'TableRow' + element}>
                             <Table.Cell content={element}/>
                             <Table.Cell collapsing>
-                                <Form.Button color="green" basic icon="map pin" onClick={() => {
+                                <Button color="green" basic icon="map pin" onClick={() => {
                                     if (this.state.map.currentExercise !== undefined) {
                                         let newPositions = this.state.selectedPositions;
-                                        newPositions.set(this.state.map.currentExercise, {location: this.state.map.location});
+                                        newPositions.set(this.state.map.currentExercise, this.state.map.location);
                                         this.setState({selectedPositions: newPositions});
                                     }
                                     let map = {...this.state.map};
@@ -50,7 +50,7 @@ export default {
                                     } else {
                                         map.location = this.state.selectedPositions.get(element);
                                     }
-                                    this.setState({map});
+                                    this.setState({map: map});
                                 }
                                 }/>
                             </Table.Cell>
@@ -78,14 +78,14 @@ export default {
                     {!this.state.loadingExercises && this.state.exercises.map(element =>
                         <Table.Row key={'TableRow' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
-                                <Checkbox id={element.id} onChange={this.handleSelection}
+                                <Checkbox id={element.id} name={element.title} onChange={this.handleSelection}
                                           checked={this.state.selectedExercises.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
                             <Table.Cell content={element.title}/>
                             <Table.Cell content={element.id} collapsing/>
                             <Table.Cell collapsing>
                                 <NavLink to={'/exercise?id=' + element.id}>
-                                    <Form.Button basic icon="edit" color="green"/>
+                                    <Button type="button" basic icon="edit" color="green"/>
                                 </NavLink>
                             </Table.Cell>
                             <Table.Cell collapsing>
