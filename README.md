@@ -4,6 +4,30 @@
 App for creating and playing a scavenger hunt. 
 
 # Table Of Contents
+-   [Introduction](#introduction)
+-   [User Guide](#user-guide)
+    -   [A Note on Language](#a-note-on-language)
+    -   [Teacher](#teacher)
+    -   [Student](#student)
+-   [Deployment](#deployment)
+    -   [Prerequisites](#prerequisites)
+    -   [Quick setup](#quick-setup)
+    -   [Cloud](#cloud)
+    -   [Detailed deployment diagram of testing
+        environment](#detailed-deployment-diagram-of-testing-environment)
+        -   [Example Apache
+            Configuration](#example-apache-configuration)
+    -   [Database migration](#database-migration)
+-   [Development](#development)
+    -   [Technology](#technology)
+        -   [Build](#build)
+        -   [Frontend](#frontend)
+        -   [Backend](#backend)
+    -   [Architecture](#architecture)
+        -   [Application](#application)
+        -   [Database](#database)
+        -   [Extending functionality](#extending-functionality)
+        -   [Thoughts on scalability](#thoughts-on-scalability)
 
 ## Introduction
 The goal of this app is to support teachers in creating interactive content for interesting lessons. The application is web-based, and can be used from either your computer, your tablet, or your mobile phone. Creating lessons is enabled for teachers, and is facilitated by a simple web interface for organizing questions and quizzes.
