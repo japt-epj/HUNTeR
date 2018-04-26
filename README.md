@@ -26,11 +26,9 @@ Docker and docker-compose must be installed. Familiarity using these tools will 
 
 ## Quick setup
 
-`$ git clone git@github.com:japt-epj/HUNTeR-Deploy.git`
-
-`$ cd HUNTeR-Deploy`
-
-`# docker compose up`
+    $ git clone git@github.com:japt-epj/HUNTeR-Deploy.git
+    $ cd HUNTeR-Deploy
+    # docker compose up
 
 You can now connect to the HUNTeR Website by navigating to [http://localhost:8080/](http://localhost:8080/). The docker configuration is optimized to be hosted behind a reverse proxy. For a detailed example of an optimal deployment, see the next section.
 
