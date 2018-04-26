@@ -86,6 +86,8 @@ To create a test build and run all unit and integration tests, you can just run
 
 `$ ./mvnw clean test verify`
 
+This command has to be run at least once when you start to develop, because a lot of interfaces and DTO classes are generated and not checked into source control.
+
 There is a prepared wrapper script for running a development environment on your local development machine. You **must** have docker installed for this script to work.
 
 `$ ./dev.sh`
@@ -110,11 +112,21 @@ The main frontend technology is [React](https://reactjs.org/), supplemented by d
 - [Leaflet](http://leafletjs.com/) with [React-Leaflet](https://react-leaflet.js.org/)
 
 ### Backend
+The backend is based on [Spring Boot 1.5](https://docs.spring.io/spring-boot/docs/1.5.12.RELEASE/reference/htmlsingle/). For a comprehensive list of all Spring plugins, and dependencies, consult the backend [maven configuration](https://github.com/SBI-/epj-prototype/blob/master/backend/pom.xml).
 
-### Deployment
+The API description uses [Swagger](https://swagger.io/), which enables us to generate DTOs and HTTP controller interfaces. The current stable [API documentation](https://sinv-56053.edu.hsr.ch/swagger-ui.html) is always generated at runtime with every build, and can be reached at `your-hunter-host/swagger-ui.html`.
+
+HUNTeR is designed to be used with [POSTGRESQL](https://www.postgresql.org/) for storage.
+
+#### Most Important Technologies:
+- [Spring Boot 1.5](https://docs.spring.io/spring-boot/docs/1.5.12.RELEASE/reference/htmlsingle/)
+- [Swagger](https://swagger.io/)
+- [POSTGRESQL](https://www.postgresql.org/)
+- [modelmapper](http://modelmapper.org/)
+- [QR Code Gen](https://www.nayuki.io/page/qr-code-generator-library)
 
 ## Architecture
 
-### Adding new Features
+### Extending functionality
 
 ### Thoughts on scalability
