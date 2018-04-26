@@ -33,7 +33,7 @@ Docker and docker-compose must be installed. Familiarity using these tools will 
 
     $ git clone git@github.com:japt-epj/HUNTeR-Deploy.git
     $ cd HUNTeR-Deploy
-    # docker compose up
+    # docker-compose up
 
 You can now connect to the HUNTeR Website by navigating to [http://localhost:8080/](http://localhost:8080/). The docker configuration is optimized to be hosted behind a reverse proxy. For a detailed example of an optimal deployment, see the next section.
 
@@ -149,7 +149,7 @@ This domain model diagram shows the entire database design.
 ![Domain Model](https://github.com/SBI-/epj-prototype/raw/master/documentation/domain_model.png)
 
 ### Extending functionality
-The technological choices made thus far should make the addition of new features no harder than what has been done so far. Depending on what type of feature is to be added, there are different considerations that have to be made when implementing them.
+The technological choices made thus far should make the addition of new features no harder than what has been done so far. Depending on what type of feature is to be added, there are different considerations that have to be made when implementing them. When adding a new feature, you will probably have to consider more than one of the following points.
 
 #### Adding a View
 Creating new views for users will most likely entail writing new React components. If you are familiar with recent frontend technologies and ES6, you are good to hack away at creating new features.
@@ -177,9 +177,22 @@ New dependencies should be stable, or at least very actively developed. Predicti
 
 To add a new frontend dependency, use npm install to add the dependency to the package.json file. Adding a new backend dependency entails editing the `pom.xml`. We strictly discourage using dependencies that are not available on npm or maven central, because manual dependency management is a pain.
 
-
 ### Thoughts on scalability
 
 #### Current
+The current setup is made to be as simple as possible. A single maven build is used to create a monolithic jar file which contains the static frontend files, as well as the application server to host the backend. This is obviously not optimal for scalability, but makes it possible to publish a single docker file and keep docker-compose files as simple as possible. The reasoning behind this is to keep complexity as low as possible, which makes building and pushing production images very easy.
+
+At the same time, the project is modularized enough to enable more refined builds and deployment strategies to create more elaborate deployment strategies.
 #### Scaling up
+Scaling up is the easiest solution to counter performance problems. As deploying the application on a single machine is as easy as the documented docker deployment, deplyoing on a stronger machine with better network will generally result in better performance. However, this solution provides no real scaling in terms of distributing load between several machines.
+
+Currently, the test environment is hosted on a single core, 2GB virtual machine and works fairly well for testing purposes. Taking into account the underpowered solution that we currently have, scaling to a realistic load of users on a monolithic setup is not unrealistic.
+
 #### Scaling out
+Scaling out with this project will require changes to the build, but especially to the deployment. Precautions to these measures have been taken though, and changes are certainly possible, while requiring some tweaks to the current setup.
+
+A first step towards better distributed scalability is creating a non-monolithic build artifact. The current single-jar deployment is targeted towards deployment on a single tomcat server instance. To move away from this restriction, a first step should be splitting up the backend and frontend builds so that they can be deployed separately.
+
+The frontend consists of static artifacts, which can be hosted on any web server, such as apache or nginx. As the frontend is completely stateless, it doesn't matter how many servers host the frontend behind an entry reverse proxy.. As the frontend is completely stateless, it doesn't matter how many servers host the frontend behind an entry reverse proxy.
+
+TODO: Add a picture of best scaling out deployment!
