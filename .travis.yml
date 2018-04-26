@@ -7,4 +7,7 @@ jobs:
     include:
         - stage: build
           script:
-              - ./mvnw package
+              - ./mvnw -DskipTests=true package
+          -stage: test
+           script:
+              - ./mnvw test verify
