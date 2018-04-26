@@ -5,9 +5,20 @@ sudo: true
 
 jobs:
     include:
-        - stage: build
+        - stage: package
           script:
               - ./mvnw -DskipTests=true package
         - stage: test
           script:
               - ./mvnw test verify
+        - stage: build
+          script:
+              - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+              - docker build -t hunter -f docker/Dockerfile-Prod
+              - docker images
+              - docker tag hunter japt/hunter
+        - stage: publish
+          script:
+              #- [[ "$TRAVIS_BRANCH" == "master"  ]] && docker push japt/hunter
+              - docker push japt/hunter
+
