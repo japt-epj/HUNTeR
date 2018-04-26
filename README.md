@@ -191,8 +191,12 @@ Currently, the test environment is hosted on a single core, 2GB virtual machine 
 #### Scaling out
 Scaling out with this project will require changes to the build, but especially to the deployment. Precautions to these measures have been taken though, and changes are certainly possible, while requiring some tweaks to the current setup.
 
-A first step towards better distributed scalability is creating a non-monolithic build artifact. The current single-jar deployment is targeted towards deployment on a single tomcat server instance. To move away from this restriction, a first step should be splitting up the backend and frontend builds so that they can be deployed separately.
+A first step towards better distributed scalability is creating a non-monolithic build artifact. The current single-jar deployment is targeted towards deployment on a single tomcat server instance. To move away from this restriction, a first step should be splitting up the backend and frontend builds so that they can be deployed separately. This can be done by maintaining the current build configuration, but not packaging a single jar.
 
-The frontend consists of static artifacts, which can be hosted on any web server, such as apache or nginx. As the frontend is completely stateless, it doesn't matter how many servers host the frontend behind an entry reverse proxy.. As the frontend is completely stateless, it doesn't matter how many servers host the frontend behind an entry reverse proxy.
+The frontend consists of static artifacts, which can be hosted on any web server, such as apache or nginx. As the frontend is completely independent of the backend in terms of deployment, it doesn't matter how many servers host the frontend behind an entry reverse proxy. Scaling the frontend is therefor as easy as hosting multiple web servers on multiple machines.
+
+The backend is designed is to be as stateless as possible. The only state is handling user authentication tokens. Currently, these are stored in the same postgres database as the rest of the application data for simplicity. However, extracting session management into a redis cluster is possible, because the dependencies on session management are practically inexistant.
+
+POSTGRES presents a certain bottleneck because horizontal scalability is not a speciality of any relational database. However, a powerful database server will be able to scale to very many queries in the current design. Should this ever be a real problem, it will have to be addressed accordingly, and probably require a switch of the database technology, and the database design as such. Should we ever reach this point, we should have enogh resources and money to throw at the problem.
 
 TODO: Add a picture of best scaling out deployment!
