@@ -46,7 +46,7 @@ INSERT INTO exercise (name, question) VALUES
   ('Tiere', 'Seit jeher haben die meisten...'),
   ('Natur und Umwelt', 'Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...'),
   ('Natur und Umwelt', 'Mit dem Picknick im Grünen wird es meist nur dann etwas, wenn...'),
-  ('Strassenverkehr.', 'Auch ein Navi führt manchmal in die...?'),
+  ('Strassenverkehr', 'Auch ein Navi führt manchmal in die...?'),
   ('Kind und Kegel', 'Hält der Bengel im Kinderzimmer einfach keine Ordnung, darf er sich auch nicht wundern, wenn er ständig irgendein...?'),
   ('Zitate', 'Was steht zu erwarten, wenn eine Fernsehserie erfolgreich gestartet ist?'),
   ('Hygiene', '50 Euro! „Wer“ kommt häufig bei der Körperpflege zum Einsatz'),
