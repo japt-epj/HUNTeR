@@ -20,7 +20,7 @@ public class QuizModel {
         this.quizzes = quizzes;
     }
 
-    public List<NewQuizDto> allQuizes() {
+    public List<NewQuizDto> allQuizzes() {
         Type type = new TypeToken<List<NewQuizDto>>() {}.getType();
         Iterable<Quiz> all = quizzes.findAll();
         return mapper.map(all, type);
