@@ -106,6 +106,17 @@ The project is split up into frontend and backend. The frontend is what runs in 
 
 ### Build
 
+#### Travis
+Travis is used to create all public builds and push to docker hub. For specific information on the travis build, you should use the travis build link and consult the travis build file. All deployable artifacts on docker hub are built using the configuration available in this repository.
+
+#### Maven
+The main build uses [maven](https://maven.apache.org/) to create a monolithic jar that contains all modules. As we use maven wrapper, maven itself is not a hard dependency. If you have the project checked out, you can build the entire project by running `./mvnw install`.
+
+Maven is also used for dependency management and the entire build process of the backend. You are free to run custom maven builds from the backend directory.
+
+#### NPM
+The frontend is built using npm, also using npm for dependency management. When you run maven install from the main directory, npm is fetched automatically, without requiring a native installation of the node tooling. Should you want to create custom builds, you can run npm form the frontend directory. This step should only be necessary when developing specific frontend features. For npm specifics, please consult the [npm documentation](https://docs.npmjs.com/).
+
 ### Frontend
 The main frontend technology is [React](https://reactjs.org/), supplemented by different libraries. For a comprehensive list of all dependencies, consult the [package.json](https://github.com/SBI-/epj-prototype/blob/master/frontend/package.json) file of the frontend module.
 
