@@ -100,8 +100,18 @@ TODO: Add explanation for IntelliJ, which is what we use.
 The project is split up into frontend and backend. The frontend is what runs in the browser on a user's client device. The backend is a Java Spring application which runs on the server it is deployed on.
 
 ### Frontend
-The main frontend technology is [React](), supplemented by 
+The main frontend technology is [React](https://reactjs.org/), supplemented by different libraries. For a comprehensive list of all dependencies, consult the [package.json](https://github.com/SBI-/epj-prototype/blob/master/frontend/package.json) file of the frontend module.
+
+#### Most Important Libraries:
+
+- [React](https://reactjs.org/)
+- [Semantic UI](https://react.semantic-ui.com/introduction)
+- [Axios](https://github.com/axios/axios)
+- [Leaflet](http://leafletjs.com/) with [React-Leaflet](https://react-leaflet.js.org/)
+
 ### Backend
+
+### Deployment
 
 ## Architecture
 
