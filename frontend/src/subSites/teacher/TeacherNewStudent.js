@@ -33,7 +33,7 @@ export default class TeacherNewStudent extends React.Component {
                 <Form.Input fluid label="Nachname" name="lastName" value={this.state.lastName}
                             onChange={this.handleChange}
                             placeholder="Bitte geben Sie den Nachnamen des Schülers ein" required/>
-                <Form.Button content="Submit"/>
+                <Form.Button type="submit" content="Submit"/>
                 {
                     this.state.fireRedirect && (
                         <Redirect to={{pathname: '/', state: {person: this.state}}}/>

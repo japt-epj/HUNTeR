@@ -104,7 +104,7 @@ export default class TeacherExecution extends React.Component {
                     <Grid.Row columns="equal">
                         <Grid.Column>
                             <Modal size="fullscreen"
-                                   trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
+                                   trigger={<Button color="green" icon="add square" positive labelPosition="right"
                                                     label="Benutzer zur Durchführung hinzufügen"
                                                     onClick={this.resetPageNumber}/>}
                                    closeIcon>

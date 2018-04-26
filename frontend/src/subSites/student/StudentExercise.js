@@ -46,7 +46,7 @@ export default class StudentExercise extends React.Component {
                         })}
                     </Grid.Row>
                     <Grid.Row>
-                        <Button>Submit</Button>
+                        <Button content="Submit"/>
                     </Grid.Row>
                     {this.state.fireRedirect && (<Redirect to="/"/>)}
                 </Form>
