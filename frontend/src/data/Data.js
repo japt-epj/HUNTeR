@@ -96,17 +96,5 @@ export default {
             {key: 'silverUser', name: 'Jonas Kugler', score: '90%', trophyColor: 'silver'},
             {key: 'broncenUser', name: 'Pascal Hürlimann', score: '80%', trophyColor: 'bronce'},
         ];
-    },
-
-    getDateOptions() {
-        return [
-            {key: '2hours', text: 'Nächste zwei Stunden', value: {size: 2, dimension: 'hours'}},
-            {key: '4hours', text: 'Nächste vier Stunden', value: {size: 4, dimension: 'hours'}},
-            {key: '1day', text: 'Nächster Tag', value: {size: 1, dimension: 'days'}},
-            {key: '2day', text: 'Nächsten zwei Tage', value: {size: 2, dimension: 'days'}},
-            {key: '3days', text: 'Nächsten drei Tage', value: {size: 3, dimension: 'days'}},
-            {key: '1week', text: 'Nächste Woche', value: {size: 1, dimension: 'weeks'}},
-            {key: '2week', text: 'Nächsten zwei Wochen', value: {size: 2, dimension: 'weeks'}},
-        ];
     }
 }
