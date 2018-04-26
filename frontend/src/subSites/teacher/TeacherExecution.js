@@ -130,7 +130,7 @@ export default class TeacherExecution extends React.Component {
                         </Grid.Column>
                         <Grid.Column width={5}>
                             <Dropdown placeholder="Wähle eine Option" selection options={Data.getDateOptions()}
-                                      onChange={this.handleDropdownChange} className="icon" button labeled icon="long arrow right"/>
+                                      onChange={this.handleDropdownChange} labeled/>
                         </Grid.Column>
                         <Grid.Column>
                             <BigInputMoment className="dueMoment"
