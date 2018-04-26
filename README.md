@@ -12,6 +12,11 @@ Participating in a scavenger hunt is easily done using any smartphone. As the ap
 
 ## User Guide
 
+### A Note on Language
+Currently, the entire frontend is in german, and german only. This is due to the fact that this project is being developed in the german speaking part of Switzerland, as a project by four german speaking students, for users who's first language is german. However, all of the documentation is in english, as is all of the source code, to be as accessible as possible to other developers.
+
+Internationalization is not one of our prime concerns, due to the nature of the project and the scope we have to keep. However, there is no strict dependency on german as the only language, and we would be more than welcome for pull requests that modularize the UI in terms of the primary display language.
+
 ### Teacher
 
 ### Student
@@ -162,8 +167,16 @@ To create additional tables, new entity classes should be added to the same pack
 
 Make yourself familiar with model mapper to easily integrate your new data with DTOs that are served to the API endpoints.
 
-#### Writing tests
+#### Writing Tests
 You can never have enough tests, so obviously, writing tests is always a welcome addition to any project. We use spring test, which facilitates a lot of common testing gripes such as mocking and bootstrapping. Dependency Injection is handled out of the box and writing new tests is fairly simple. To write tests for your new code, you best consult the existing unit and integration tests to see how model and controller tests are handled.
+
+#### Adding Dependencies
+Most of the complexity the code base is handled using external dependencies. We favour code reuse to save time and keep our own code as simple as possible. However, when adding new dependencies, there are a few considerations to keep in mind. First and foremost, new dependencies need to be compatible with the MIT license and the licenses of current dependencies. This is a strict rule, as we wish to keep this project as open as possible.
+
+New dependencies should be stable, or at least very actively developed. Predicting the future is hard, but sticking with dependencies that are already popular should be a fairly safe bet for the near future.
+
+To add a new frontend dependency, use npm install to add the dependency to the package.json file. Adding a new backend dependency entails editing the `pom.xml`. We strictly discourage using dependencies that are not available on npm or maven central, because manual dependency management is a pain.
+
 
 ### Thoughts on scalability
 
