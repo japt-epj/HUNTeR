@@ -71,6 +71,11 @@ export default class TeacherQuizOverview extends React.Component {
                         {!this.state.loadingQuizzes && this.state.quizzes.map(element =>
                             <Table.Row key={'row' + element.name}>
                                 <Table.Cell>
+                                    <Form.Radio value={element.name}
+                                                checked={this.state.checkBox === element.name}
+                                                onChange={this.handleSelectChange}/>
+                                </Table.Cell>
+                                <Table.Cell>
                                     {element.name}
                                 </Table.Cell>
                             </Table.Row>

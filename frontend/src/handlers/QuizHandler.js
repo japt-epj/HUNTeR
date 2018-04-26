@@ -1,18 +1,8 @@
 import React from 'react';
 import TableHandler from "./TableHandler";
-import {Pagination, Table} from "semantic-ui-react";
+import {Form, Pagination, Table} from "semantic-ui-react";
 
 export default {
-    handleSelection(event, checkbox) {
-        let newState = this.state.selectedQuiz;
-        if (checkbox.checked){
-            newState.push(checkbox.id);
-        } else {
-            newState.splice(newState.lastIndexOf(checkbox.id), 1);
-        }
-        this.setState({selectedQuiz: newState});
-
-    },
 
     getQuizTable() {
         let headerElements = ['Name'];
@@ -26,8 +16,14 @@ export default {
                 <Table.Body>
                     {!this.state.loadingQuizzes && this.state.quizzes.map(element =>
                     <Table.Row key={'TableRow' + element.id}>
-                        <Table.Cell content={element.name}/>
-                        <Table.Cell content={element.id} collapsing/>
+                        <Table.Cell>
+                            <Form.Radio value={element.id}
+                                        checked={this.state.selectedQuizId === element.id}
+                                        onChange={this.handleSelectChange}/>
+                        </Table.Cell>
+                        <Table.Cell>
+                            {element.name}
+                        </Table.Cell>
                     </Table.Row>
                     )}
                 </Table.Body>

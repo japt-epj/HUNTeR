@@ -19,6 +19,7 @@ export default class TeacherExecution extends React.Component {
             title: '',
             students: [],
             quizzes: [],
+            selectedQuizId: '',
             selectedStudents: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
@@ -39,6 +40,7 @@ export default class TeacherExecution extends React.Component {
             startMoment: moment(),
             dueMoment: moment()
         };
+        console.log("hello world");
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
@@ -107,6 +109,11 @@ export default class TeacherExecution extends React.Component {
         this.setState({dueMoment: this.state.startMoment.clone().add(element.value.size, element.value.dimension)});
     }
 
+    handleSelectChange = (e, {value}) => {
+        this.setState({selectedQuizId: value});
+        console.log(this.state.selectedQuizId);
+    }
+
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -122,19 +129,6 @@ export default class TeacherExecution extends React.Component {
                         <Grid.Column>
                             <Modal size="fullscreen"
                                    trigger={<Button iconcolor="green" icon="add square" positive labelPosition="right"
-                                                    label="Benutzer zur Durchführung hinzufügen"
-                                                    onClick={this.resetPageNumber}/>}
-                                   closeIcon>
-                                {this.state.loadingUser && this.state.loadingScreen}
-                                <Modal.Header content="Benutzer hinzufügen"/>
-                                <Modal.Content scrolling>
-                                    {!this.state.loadingUser && this.getStudentTable(true)}
-                                </Modal.Content>
-                            </Modal>
-                        </Grid.Column>
-                        <Grid.Column>
-                            <Modal size="fullscreen"
-                                   trigger={<Button iconcolor="green" icon="add square" positive labelPosition="right"
                                                     label="Quiz für die Durchführung"
                                                     onClick={this.resetPageNumber}/>}
                                    closeIcon>
@@ -142,6 +136,19 @@ export default class TeacherExecution extends React.Component {
                                 <Modal.Header content="Quiz auswählen"/>
                                 <Modal.Content scrolling>
                                     {!this.state.loadingQuiz && this.getQuizTable(true)}
+                                </Modal.Content>
+                            </Modal>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Modal size="fullscreen"
+                                   trigger={<Button iconcolor="green" icon="add square" positive labelPosition="right"
+                                                    label="Benutzer zur Durchführung hinzufügen"
+                                                    onClick={this.resetPageNumber}/>}
+                                   closeIcon>
+                                {this.state.loadingUser && this.state.loadingScreen}
+                                <Modal.Header content="Benutzer hinzufügen"/>
+                                <Modal.Content scrolling>
+                                    {!this.state.loadingUser && this.getStudentTable(true)}
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
