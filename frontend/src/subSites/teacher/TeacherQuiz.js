@@ -36,7 +36,6 @@ export default class TeacherQuiz extends React.Component {
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.getExercises = this.getExercises.bind(this);
 
-
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
@@ -83,7 +82,7 @@ export default class TeacherQuiz extends React.Component {
                     <Grid.Row columns="equal">
                         <Grid.Column>
                             <Modal size="fullscreen"
-                                   trigger={<Button icocolor="green" icon="add square" positive labelPosition="right"
+                                   trigger={<Button color="green" icon="add square" positive labelPosition="right"
                                                     label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
                                    closeIcon>
                                 {this.state.loading && this.state.loadingScreen}

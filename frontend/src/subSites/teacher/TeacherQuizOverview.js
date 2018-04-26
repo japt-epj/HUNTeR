@@ -49,8 +49,8 @@ export default class TeacherQuizOverview extends React.Component {
                     title: /*Data.getQuiz(this.state.checkBox).text +*/' löschen',
                     description: 'Hallo'
                 })}
-                <NavLink to={'/teacher/quiz?id=' + this.state.checkBox}><Button basic positive>Quiz
-                    öffnen</Button></NavLink>
+                <NavLink to={'/teacher/quiz?id=' + this.state.checkBox}><Button basic positive content="Quiz
+                    öffnen"/></NavLink>
             </Form>
         );
     }
