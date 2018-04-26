@@ -3,6 +3,8 @@
 # HUNTeR
 App for creating and playing a scavenger hunt. 
 
+# Table Of Contents
+
 ## Introduction
 The goal of this app is to support teachers in creating interactive content for interesting lessons. The application is web-based, and can be used from either your computer, your tablet, or your mobile phone. Creating lessons is enabled for teachers, and is facilitated by a simple web interface for organizing questions and quizzes.
 
@@ -15,9 +17,23 @@ Participating in a scavenger hunt is easily done using any smartphone. As the ap
 ### Student
 
 # Deployment
-There is currently no completely public deployment of this application. However, you are free to host your own instance of Hunter. The easiest way to do so is using Docker. 
+There is currently no completely public deployment of this application, only our internal testing environment on [the HSR server](https://sinv-56053.edu.hsr.ch/). However, you are free to host your own instance of Hunter. The easiest way to do so is using Docker. 
 
-HUNTeR relies on docker-compose for setting up the entire application environment.
+HUNTeR relies on docker-compose for setting up the entire application environment. We have prepared a separate repository for supplying a standalone docker-compose configuration: [HUNTeR-Deploy](https://github.com/japt-epj/HUNTeR-Deploy). You can download the compose file or clone the directory.
+
+## Quick setup
+
+`$ git clone git@github.com:japt-epj/HUNTeR-Deploy.git`
+
+`$ cd HUNTeR-Deploy`
+
+`# docker compose up`
+
+You can now connect to the HUNTeR Website by navigating to [http://localhost:8080/](http://localhost:8080/). The docker configuration is optimized to be hosted behind a reverse proxy. For a detailed example of an optimal deployment, see the next section.
+
+## Detailed deployment diagram of testing environment
+
+### Example Apache Configuration
 
 ## Database migration
 
