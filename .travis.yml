@@ -11,7 +11,7 @@ jobs:
     include:
         - stage: prepare cache
           script:
-              - ./mvnw -DskipTests=true install
+              - ./mvnw -DskipTests=true clean install
         - stage: test
           script:
               - ./mvnw test verify
