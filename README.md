@@ -12,4 +12,11 @@ Participating in a scavenger hunt is easily done using any smartphone. As the ap
 
 ### Student
 
+# Deployment
+
 # Development
+
+## Technology
+
+## Architecture
+
