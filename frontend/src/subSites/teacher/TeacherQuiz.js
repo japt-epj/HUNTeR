@@ -15,6 +15,7 @@ export default class TeacherQuiz extends React.Component {
             title: '',
             exercises: [],
             selectedExercises: [],
+            selectedPositions: new Map(),
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>

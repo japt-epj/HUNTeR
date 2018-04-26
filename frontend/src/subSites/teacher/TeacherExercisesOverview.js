@@ -3,7 +3,6 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Dimmer, Loader} from 'semantic-ui-react';
 
-import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 
