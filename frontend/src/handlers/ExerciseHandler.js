@@ -11,13 +11,13 @@ export default {
         let newPositions = this.state.selectedPositions;
         if (checkbox.checked) {
             newState.push(checkbox.id);
-            newPositions.set(checkbox.id, {longitutde: undefined, latitude: undefined});
+            newPositions.set(checkbox.id, {location: undefined});
         } else {
             newState.splice(newState.lastIndexOf(checkbox.id), 1);
             newPositions.delete(checkbox.id);
         }
         this.setState({
-            selectedExercises: newState.sort((a,b) => a > b),
+            selectedExercises: newState.sort((a, b) => a > b),
             selectedPositions: newPositions
         });
     },
@@ -36,14 +36,24 @@ export default {
                         <Table.Row key={'TableRow' + element}>
                             <Table.Cell content={element}/>
                             <Table.Cell collapsing>
-                                <Modal size="fullscreen"
-                                       trigger={<Button color="green" basic icon="map pin"/>}
-                                       closeIcon>
-                                    <Modal.Header content="Ort setzen"/>
-                                    <Modal.Content>
-                                        Hallo
-                                    </Modal.Content>
-                                </Modal>
+                                <Button color="green" basic icon="map pin" onClick={() => {
+                                    if (this.state.map.currentExercise !== undefined) {
+                                        let newPositions = this.state.selectedPositions;
+                                        newPositions.set(this.state.map.currentExercise, {location: this.state.map.location});
+                                        this.setState({selectedPositions: newPositions});
+                                    }
+                                    let map = {...this.state.map};
+                                    map.currentExercise = element;
+                                    map.popupText = element;
+                                    if (this.state.selectedPositions.get(element).location === undefined) {
+                                        map.location = this.state.map.location
+                                    } else {
+                                        map.location = this.state.selectedPositions.get(element).location;
+                                    }
+                                    this.setState({map});
+                                    console.log(this.state.selectedPositions);
+                                }
+                                }/>
                             </Table.Cell>
                         </Table.Row>
                     )}
