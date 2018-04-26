@@ -86,7 +86,7 @@ export default class TeacherExecution extends React.Component {
             if (resData.status === 200) {
                 this.setState({
                     quizzes: resData.data,
-                   // maxPage: resData.data.totalPages,
+                    // maxPage: resData.data.totalPages,
                     loadingQuiz: false
                 })
             }
@@ -116,71 +116,71 @@ export default class TeacherExecution extends React.Component {
     };
 
     render() {
-    }
-    return (
-<Form onSubmit={this.handleSubmit}>
-<Grid>
-<Grid.Row>
-<Grid.Column>
-<Form.Input fluid label="Titel" name="title" value={this.state.title}
-onChange={this.handleChange}
-placeholder="Bitte geben Sie einen Titel für die Durchführung ein" required/>
-</Grid.Column>
-</Grid.Row>
-<Grid.Row columns="equal">
-<Grid.Column>
-<Modal size="fullscreen"
-trigger={<Button color="green" icon="add square" positive labelPosition="right"
-                 label="Quiz für die Durchführung auswählen"
+        return (
+            <Form onSubmit={this.handleSubmit}>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Form.Input fluid label="Titel" name="title" value={this.state.title}
+                                        onChange={this.handleChange}
+                                        placeholder="Bitte geben Sie einen Titel für die Durchführung ein" required/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row columns="equal">
+                        <Grid.Column>
+                            <Modal size="fullscreen"
+                                   trigger={<Button color="green" icon="add square" positive labelPosition="right"
+                                                    label="Quiz für die Durchführung auswählen"
 
-                 onClick={this.resetPageNumber}/>}
-closeIcon>
-{this.state.loadingQuiz && this.state.loadingScreen}
-<Modal.Header content="Quiz auswählen"/>
-<Modal.Content scrolling>
-{!this.state.loadingQuiz && this.getQuizTable(true)}
-</Modal.Content>
-</Modal>
-</Grid.Column>
-<Grid.Column>
-<Modal size="fullscreen"
-trigger={<Button color="green" icon="add square" positive labelPosition="right"
-                 label="Benutzer zur Durchführung hinzufügen"
-                 onClick={this.resetPageNumber}/>}
-closeIcon>
-{this.state.loadingUser && this.state.loadingScreen}
-<Modal.Header content="Benutzer hinzufügen"/>
-<Modal.Content scrolling>
-{!this.state.loadingUser && this.getStudentTable(true)}
-</Modal.Content>
-</Modal>
-</Grid.Column>
-</Grid.Row>
-<Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
-<Grid.Column>
-<Header content="Start Datum mit Uhrzeit eintragen"/>
-<BigInputMoment className="fromMoment"
-moment={this.state.startMoment}
-onChange={this.handleStartMomentChange}
-locale="ch"
-/>
-</Grid.Column>
-<Grid.Column>
-<Header content="End Datum mit Uhrzeit eintragen"/>
-<BigInputMoment className="dueMoment"
-moment={this.state.dueMoment}
-onChange={this.handleDueMomentChange}
-locale="ch"
-/>
-</Grid.Column>
-</Grid.Row>
-<Grid.Row>
-<Grid.Column>
-<Form.Button content="Submit"/>
-</Grid.Column>
-</Grid.Row>
-</Grid>
-{this.state.fireRedirect && (<Redirect to="/"/>)}
-</Form>
-);
+                                                    onClick={this.resetPageNumber}/>}
+                                   closeIcon>
+                                {this.state.loadingQuiz && this.state.loadingScreen}
+                                <Modal.Header content="Quiz auswählen"/>
+                                <Modal.Content scrolling>
+                                    {!this.state.loadingQuiz && this.getQuizTable(true)}
+                                </Modal.Content>
+                            </Modal>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Modal size="fullscreen"
+                                   trigger={<Button color="green" icon="add square" positive labelPosition="right"
+                                                    label="Benutzer zur Durchführung hinzufügen"
+                                                    onClick={this.resetPageNumber}/>}
+                                   closeIcon>
+                                {this.state.loadingUser && this.state.loadingScreen}
+                                <Modal.Header content="Benutzer hinzufügen"/>
+                                <Modal.Content scrolling>
+                                    {!this.state.loadingUser && this.getStudentTable(true)}
+                                </Modal.Content>
+                            </Modal>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
+                        <Grid.Column>
+                            <Header content="Start Datum mit Uhrzeit eintragen"/>
+                            <BigInputMoment className="fromMoment"
+                                            moment={this.state.startMoment}
+                                            onChange={this.handleStartMomentChange}
+                                            locale="ch"
+                            />
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Header content="End Datum mit Uhrzeit eintragen"/>
+                            <BigInputMoment className="dueMoment"
+                                            moment={this.state.dueMoment}
+                                            onChange={this.handleDueMomentChange}
+                                            locale="ch"
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Form.Button content="Submit"/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                {this.state.fireRedirect && (<Redirect to="/"/>)}
+            </Form>
+        );
+    }
 }
