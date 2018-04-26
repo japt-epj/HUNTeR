@@ -5,7 +5,7 @@ export default {
             {
                 path: 'exerciseOverview',
                 title: 'Übersicht der Aufgaben',
-                component: 'TeacherExercisesOverview',
+                component: 'TeacherExerciseOverview',
                 icon: 'stack exchange'
             },
             {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
