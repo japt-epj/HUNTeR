@@ -45,6 +45,33 @@ We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined
 ![Deployment Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/deployment_diagram.png)
 
 ### Example Apache Configuration
+These are the relevant parts of the apache reverse proxy configuration we use on our testing system. It uses [Let's Encrypt](https://letsencrypt.org/) for proper SSL configuration to enable HTTPS for the entire HUNTeR frontend and backend.
+
+    ServerName              sinv-56053.edu.hsr.ch
+    <VirtualHost *:80>
+            ServerName              sinv-56053.edu.hsr.ch
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+            Redirect / https://sinv-56053.edu.hsr.ch/
+    </VirtualHost>
+    <VirtualHost *:443>
+            ServerName              sinv-56053.edu.hsr.ch
+            SSLEngine               ON
+            SSLProxyEngine          ON
+            SSLCertificateFile      /etc/letsencrypt/live/sinv-56053.edu.hsr.ch/cert.pem
+            SSLCertificateKeyFile   /etc/letsencrypt/live/sinv-56053.edu.hsr.ch/privkey.pem
+            SSLCertificateChainFile /etc/letsencrypt/live/sinv-56053.edu.hsr.ch/chain.pem
+
+            # app
+            ProxyPreserveHost On
+            ProxyPass               / http://127.0.0.1:8080/ nocanon
+            ProxyPassReverse        / http://127.0.0.1:8080/
+            ProxyRequests           Off
+            AllowEncodedSlashes     NoDecode
+            RequestHeader           set X-Forwarded-Proto "https"
+            RequestHeader           set X-Forwarded-Port 443
+    </VirtualHost>
+
 
 ## Database migration
 
