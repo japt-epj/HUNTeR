@@ -129,14 +129,17 @@ The entire application architecture is a fairly traditional REST API + HTML5 Fro
 ### Application
 This layer diagram shows the current tiers of the entire application logic. The presentation layer represents the entire front-end module, which is implemented in Javascript using React. All the other layers apart from the database are implemented in Java using Spring.
 
-Frontend and Backend communicate using HTTP, using the REST API which is documented [here](https://sinv-56053.edu.hsr.ch/swagger-ui.html). Backend and database communicate using JDBC.
+The Presentation and Logic layers communicate using HTTP, using the REST API which is documented [here](https://sinv-56053.edu.hsr.ch/swagger-ui.html). The Data Access Layer and database communicate using JDBC.
 
 ![Layer Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/layer_diagram.png)
 
 
 ### Database
+The database design is relational. The complete entity description is written with JPA annotations in Java code, and all database tables are generated at application boot. We strictly use no hand-written sql to design the database.
 
-Something something JPA
+This domain model diagram shows the entire database design.
+
+![Domain Model](https://github.com/SBI-/epj-prototype/raw/master/documentation/domain_model.png)
 
 ### Extending functionality
 
