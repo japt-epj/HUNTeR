@@ -14,7 +14,7 @@ jobs:
         - stage: build
           script:
               - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-              - docker build -t hunter -f docker/Dockerfile-Prod
+              - docker build -t hunter -f docker/Dockerfile-Prod .
               - docker images
               - docker tag hunter japt/hunter
         - stage: publish
