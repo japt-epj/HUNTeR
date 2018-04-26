@@ -5,7 +5,7 @@ sudo: required
 cache:
     directories:
         - $HOME/.m2
-        - ./backend/target/
+        - backend/target
 
 jobs:
     include:
