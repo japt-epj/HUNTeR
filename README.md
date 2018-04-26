@@ -40,7 +40,8 @@ Any cloud service that supports docker-compose files perfectly supports hosting 
 ## Detailed deployment diagram of testing environment
 This is how we host our testing environment of hunter, and can be used as an example of how HUNTeR can be hosted in a productive environment facing the internet. The main detail to be aware of is that our docker configuration is meant to be hosted behind a reverse proxy. The configuration doesn't support HTTPS, and we rely on a properly configured reverse proxy to supply security. Configuration within the compose network is unsecured and not meant to face the internet.
 
-We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined in the [Jenkinsfile](https://github.com/SBI-/epj-prototype/blob/master/Jenkinsfile). Every push to master triggers a build, unit and integration test cycle. Every successful build is continuously deployed as a completely clean test environment, supplied with test data. 
+We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined in the [Jenkinsfile](https://github.com/SBI-/epj-prototype/blob/master/Jenkinsfile). Every push to master triggers a build, unit and integration test cycle. Every successful build is continuously deployed as a completely clean test environment, supplied with test data. This is the deployment we use for integration testing.
+![Deployment Diagram]()
 
 ### Example Apache Configuration
 
