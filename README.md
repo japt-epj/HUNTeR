@@ -152,8 +152,18 @@ Creating new views for users will most likely entail writing new React component
 Interesting views will communicate with the API, so sound knowledge of HTTP calls and JSON will enable you to fully take advantage of the entire backend.
 
 #### Extending the API
+Swagger is used for the entire API description. Adding new API endpoints or expanding on existing endpoints can be as easy as editing the `swagger.yaml` file (the [online editor](https://editor.swagger.io//#/) is particularly useful for this). A `mvn clean test` will generate the corresponding Spring interface files (which you have to implement), and also any DTOs that you have specified. Also, running test will at least guarantee, that the generated Java code is sensible enough to be loaded by Spring. 
+Once the interfaces are generated, you have to implement them in a controller class.
 
 #### Adding Database Tables
+As previously mentioned, no SQL needs to be written. All entity definitions are created by JPA annotated classes and tables are created on first startup. To create new columns in existing tables, the entities in the `ch.japt.epj.model.data` package have to be edited.
+
+To create additional tables, new entity classes should be added to the same package. When adding new rows, you will most likely want to edit the existing model classes to account for the changes you have made. When adding new tables, you will have to create new [repository interfaces](https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html) to access the data. 
+
+Make yourself familiar with model mapper to easily integrate your new data with DTOs that are served to the API endpoints.
+
+#### Writing tests
+You can never have enough tests, so obviously, writing tests is always a welcome addition to any project. We use spring test, which facilitates a lot of common testing gripes such as mocking and bootstrapping. Dependency Injection is handled out of the box and writing new tests is fairly simple. To write tests for your new code, you best consult the existing unit and integration tests to see how model and controller tests are handled.
 
 ### Thoughts on scalability
 
