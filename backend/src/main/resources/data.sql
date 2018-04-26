@@ -54,6 +54,16 @@ INSERT INTO exercise (name, question) VALUES
   ('Arbeitswelt', 'Sind sie gute Kollegen, arbeiten auch die härtesten Machos..?'),
   ('Sexualkunde', 'Was machte Reinhold Messner mit dem Mount Everest?');
 
+INSERT INTO quiz (name) VALUES
+    ('Mathe'),
+    ('Englisch'),
+    ('Deutsch'),
+    ('Biologie'),
+    ('Nahkampf'),
+    ('StGB'),
+    ('Informatik'),
+    ('Geologie');
+
  INSERT INTO person (email, first_name, last_name, is_creator, password) VALUES
    ('tobias.saladin@hsr.ch', 'Tobias', 'Saladin', true, '$2y$10$LvqIvFRp.5XXRZW4/u.JAuN8B7QI/wT2FR9QXDAdiiLTSxbaA8Ku.'),
    ('pascal.huerlimann@hsr.ch', 'Pascal', 'Hürlimann', true, '$2y$10$fC3tygM0BO.7/i5PlCKo.eZytMnr3dmBWYMK9GejBFk07BSTdPhdS'),

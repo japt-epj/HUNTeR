@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";
+import QuizHandler from "../../handlers/QuizHandler";
 import FormHandler from "../../handlers/FormHandler";
 import Data from "../../data/Data";
 
@@ -17,13 +18,16 @@ export default class TeacherExecution extends React.Component {
         this.state = {
             title: '',
             students: [],
+            quizzes: [],
+            selectedQuizId: '',
             selectedStudents: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
                 </Dimmer>
             )],
-            loading: true,
+            loadingUser: true,
+            loadingQuiz: true,
             limit: 5,
             pageNumber: 1,
             minPage: 1,
@@ -36,7 +40,9 @@ export default class TeacherExecution extends React.Component {
             startMoment: moment(),
             dueMoment: moment()
         };
+        console.log("hello world");
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
+        this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -53,6 +59,7 @@ export default class TeacherExecution extends React.Component {
 
     componentDidMount() {
         this.getStudents(this.state.pageNumber, this.state.limit);
+        this.getQuizzes(this.state.pageNumber, this.state.limit);
     }
 
     handlePageChange(event, element) {
@@ -68,7 +75,19 @@ export default class TeacherExecution extends React.Component {
                 this.setState({
                     students: resData.data.content,
                     maxPage: resData.data.totalPages,
-                    loading: false
+                    loadingUser: false
+                })
+            }
+        });
+    }
+
+    getQuizzes(page, limit) {
+        APIHandler.getQuizzes(page, limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    quizzes: resData.data,
+                   // maxPage: resData.data.totalPages,
+                    loadingQuiz: false
                 })
             }
         });
@@ -90,6 +109,11 @@ export default class TeacherExecution extends React.Component {
         this.setState({dueMoment: this.state.startMoment.clone().add(element.value.size, element.value.dimension)});
     }
 
+    handleSelectChange = (e, {value}) => {
+        this.setState({selectedQuizId: value});
+        console.log(this.state.selectedQuizId);
+    }
+
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -106,18 +130,28 @@ export default class TeacherExecution extends React.Component {
                             <Modal size="fullscreen"
                                    trigger={<Button color="green" icon="add square" positive labelPosition="right"
                                                     label="Benutzer zur Durchführung hinzufügen"
+
                                                     onClick={this.resetPageNumber}/>}
                                    closeIcon>
-                                {this.state.loading && this.state.loadingScreen}
-                                <Modal.Header content="Benutzer hinzufügen"/>
+                                {this.state.loadingQuiz && this.state.loadingScreen}
+                                <Modal.Header content="Quiz auswählen"/>
                                 <Modal.Content scrolling>
-                                    {!this.state.loading && this.getStudentTable(true)}
+                                    {!this.state.loadingQuiz && this.getQuizTable(true)}
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
                         <Grid.Column>
-                            <p>Ausgewählte Studenten:</p>
-                            <p>{JSON.stringify(this.state.selectedStudents.sort((a, b) => a > b))}</p>
+                            <Modal size="fullscreen"
+                                   trigger={<Button iconcolor="green" icon="add square" positive labelPosition="right"
+                                                    label="Benutzer zur Durchführung hinzufügen"
+                                                    onClick={this.resetPageNumber}/>}
+                                   closeIcon>
+                                {this.state.loadingUser && this.state.loadingScreen}
+                                <Modal.Header content="Benutzer hinzufügen"/>
+                                <Modal.Content scrolling>
+                                    {!this.state.loadingUser && this.getStudentTable(true)}
+                                </Modal.Content>
+                            </Modal>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row columns="equal" textAlign="center">

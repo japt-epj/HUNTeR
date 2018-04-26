@@ -1,18 +1,58 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Form, Table} from 'semantic-ui-react';
-
-import Data from '../../data/Data';
+import {Button, Dimmer, Form, Loader, Table} from 'semantic-ui-react';
 import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
+import APIHandler from "../../handlers/APIHandler";
 
 
 export default class TeacherQuizOverview extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {checkBox: ''};
+        this.state = {
+            checkBox: '',
+            quizzes: [],
+            loadingScreen: [(
+                <Dimmer active inverted key={'dimmer'}>
+                    <Loader size="large">Loading</Loader>
+                </Dimmer>
+            )],
+            loadingQuizzes: true,
+            pageNumber: 1,
+            minPage: 1,
+            maxPageQuiz: '',
+            limit: 5,
+        };
         this.handleSelectChange = this.handleSelectChange.bind(this);
+    }
+
+    handlePageChange(event, element) {
+        this.setState({
+            pageNumber: element.index,
+
+        });
+        APIHandler.getQuizzes(this.state.pageNumber, this.state.limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    quizzes: resData.data,
+                    maxPageQuizzes: resData.data.totalPages,
+                    loadingQuizzes: false
+                })
+            }
+        });
+    }
+
+    componentDidMount() {
+        APIHandler.getQuizzes(this.state.pageNumber, this.state.limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    quizzes: resData.data,
+                    maxPageQuizzes: resData.data.totalPages,
+                    loadingQuizzes: false
+                })
+            }
+        });
     }
 
     handleSelectChange = (e, {value}) => this.setState({checkBox: value});
@@ -20,35 +60,28 @@ export default class TeacherQuizOverview extends React.Component {
     render() {
         return (
             <Form>
-                <Table definition>
+                <Table>
                     <Table.Header>
                         <Table.Row>
-                            {TableHandler.getTableHeader(['', 'Titel', 'Quote'])}
+                            {TableHandler.getTableHeader(['Name'])}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {Data.getQuizzes().map(element =>
-                            <Table.Row key={'row' + element.key}>
-                                <Table.Cell collapsing>
-                                    <Form.Radio value={element.key}
-                                                checked={this.state.checkBox === element.key}
+
+                        {!this.state.loadingQuizzes && this.state.quizzes.map(element =>
+                            <Table.Row key={'row' + element.name}>
+                                <Table.Cell>
+                                    <Form.Radio value={element.name}
+                                                checked={this.state.checkBox === element.name}
                                                 onChange={this.handleSelectChange}/>
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {element.title}
-                                </Table.Cell>
-                                <Table.Cell>
-                                    {'0%'}
+                                    {element.name}
                                 </Table.Cell>
                             </Table.Row>
                         )}
                     </Table.Body>
                 </Table>
-                {ModalHandler.getDeleteModal({
-                    buttonContent: 'Quiz löschen',
-                    title: /*Data.getQuiz(this.state.checkBox).text +*/' löschen',
-                    description: 'Hallo'
-                })}
                 <NavLink to={'/teacher/quiz?id=' + this.state.checkBox}><Button basic positive content="Quiz
                     öffnen"/></NavLink>
             </Form>
