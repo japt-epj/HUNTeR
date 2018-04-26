@@ -3,7 +3,7 @@ import {Redirect} from 'react-router';
 
 import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
 import L from 'leaflet';
-import {Map as LeafletMap, Marker, Popup, TileLayer} from 'react-leaflet';
+import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
@@ -35,7 +35,7 @@ export default class TeacherQuiz extends React.Component {
                 zoom: 19,
                 clicked: false,
                 currentExercise: undefined,
-                popupText: ''
+                popupText: undefined
             }
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
@@ -105,11 +105,18 @@ export default class TeacherQuiz extends React.Component {
     }
 
     render() {
+        const image = L.icon({
+            iconUrl: require('../../images/icons/e-map.png'),
+            iconSize: [57, 50],
+            iconAnchor: [25, 57]
+        });
+
         const marker = this.state.map.location && (
-            <Marker position={this.state.map.location}>
-                <Popup>
-                    <b>{this.state.map.popupText}</b>
-                </Popup>
+            <Marker position={this.state.map.location} icon={image}>
+                {this.state.map.popupText !== undefined &&
+                <Tooltip direction='right' offset={[6, -45]} opacity={0.7} permanent>
+                    <span>{this.state.map.popupText}</span>
+                </Tooltip>}
             </Marker>
         );
         return (
