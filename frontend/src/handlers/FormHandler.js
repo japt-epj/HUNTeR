@@ -1,7 +1,7 @@
 import APIHandler from './APIHandler';
 
 
-export default{
+export default {
     handleChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -29,20 +29,24 @@ export default{
         }
     },
 
-    handleQuizSumbit(){
+    handleQuizSumbit() {
         this.postData({
             title: this.state.title,
             quizId: this.state.selectedQuizId,
             exercises: this.state.selectedExercises,
             students: this.state.selectedStudents,
             startMoment: this.state.startMoment,
-            endDate: this.state.dueMoment
-        }, 'execution')
+            endDate: this.state.dueMoment,
+            locations: Array.from(this.state.selectedPositions.keys()).map(key => {
+                return {"exerciseID": key, "location": this.state.selectedPositions.get(key)}
+            })
+        }, 'execution');
     },
 
     handleLoginSubmit() {
         this.postData(this.state, 'login');
-    },
+    }
+    ,
 
     handleNewStudentSubmit() {
         this.postData(this.state, 'student');

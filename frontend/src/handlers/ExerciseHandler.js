@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Checkbox, Modal, Pagination, Table} from 'semantic-ui-react';
+import {Button, Form, Checkbox, Pagination, Table} from 'semantic-ui-react';
 import TableHandler from "./TableHandler";
 
 
@@ -11,7 +11,7 @@ export default {
         let newPositions = this.state.selectedPositions;
         if (checkbox.checked) {
             newState.push(checkbox.id);
-            newPositions.set(checkbox.id, {location: undefined});
+            newPositions.set(checkbox.id, undefined);
         } else {
             newState.splice(newState.lastIndexOf(checkbox.id), 1);
             newPositions.delete(checkbox.id);
@@ -36,7 +36,7 @@ export default {
                         <Table.Row key={'TableRow' + element}>
                             <Table.Cell content={element}/>
                             <Table.Cell collapsing>
-                                <Button color="green" basic icon="map pin" onClick={() => {
+                                <Form.Button color="green" basic icon="map pin" onClick={() => {
                                     if (this.state.map.currentExercise !== undefined) {
                                         let newPositions = this.state.selectedPositions;
                                         newPositions.set(this.state.map.currentExercise, {location: this.state.map.location});
@@ -45,13 +45,12 @@ export default {
                                     let map = {...this.state.map};
                                     map.currentExercise = element;
                                     map.popupText = element;
-                                    if (this.state.selectedPositions.get(element).location === undefined) {
+                                    if (this.state.selectedPositions.get(element) === undefined) {
                                         map.location = this.state.map.location
                                     } else {
-                                        map.location = this.state.selectedPositions.get(element).location;
+                                        map.location = this.state.selectedPositions.get(element);
                                     }
                                     this.setState({map});
-                                    console.log(this.state.selectedPositions);
                                 }
                                 }/>
                             </Table.Cell>
@@ -86,7 +85,7 @@ export default {
                             <Table.Cell content={element.id} collapsing/>
                             <Table.Cell collapsing>
                                 <NavLink to={'/exercise?id=' + element.id}>
-                                    <Button basic icon="edit" color="green"/>
+                                    <Form.Button basic icon="edit" color="green"/>
                                 </NavLink>
                             </Table.Cell>
                             <Table.Cell collapsing>
