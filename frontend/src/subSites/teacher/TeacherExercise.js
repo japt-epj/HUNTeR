@@ -68,7 +68,7 @@ export default class TeacherExercise extends React.Component {
                         })}
                     </Table.Body>
                 </Table>
-                <Form.Button type="submit" content="Submit"/>
+                <Form.Button content="Submit"/>
                 {this.state.fireRedirect && (<Redirect to="/"/>)}
             </Form>
         );

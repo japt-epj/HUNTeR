@@ -62,7 +62,12 @@ export default class TeacherQuiz extends React.Component {
         map.location = e.latlng;
         map.zoom = this.mapref.current.leafletElement.getZoom();
         map.clicked = true;
-        this.setState({map});
+        let newPositions = this.state.selectedPositions;
+        newPositions.set(this.state.map.currentExercise, this.state.map.location);
+        this.setState({
+            selectedPositions: newPositions,
+            map: map
+        });
     };
 
     handleZoom = e => {
@@ -99,25 +104,29 @@ export default class TeacherQuiz extends React.Component {
         });
     }
 
-    resetPageNumber() {
+    resetPageNumber(event) {
+        event.preventDefault();
         this.setState({pageNumber: 1});
     }
 
     render() {
         const image = L.icon({
             iconUrl: require('../../images/icons/e-map.png'),
-            iconSize: [57, 50],
-            iconAnchor: [25, 57]
+            iconSize: [50, 81],
+            iconAnchor: [8, 81]
         });
 
-        const marker = this.state.map.location && (
+        const marker = this.state.map.location !== undefined ? (
             <Marker position={this.state.map.location} icon={image}>
                 {this.state.map.popupText !== undefined &&
-                <Tooltip direction='right' offset={[6, -45]} opacity={0.7} permanent>
+                <Tooltip direction='right' offset={[42, -67]} opacity={0.9} permanent>
                     <span>{this.state.map.popupText}</span>
                 </Tooltip>}
             </Marker>
-        );
+        ) : null;
+
+        console.log(this.state.map.selectedPositions);
+
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>
@@ -129,21 +138,7 @@ export default class TeacherQuiz extends React.Component {
                                             placeholder="Bitte geben Sie einen Titel für das Quiz ein" required/>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns="equal">
-                            <Grid.Column>
-                                <Modal size="fullscreen"
-                                       trigger={<Button color="green" icon="add square" positive labelPosition="right"
-                                                        label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
-                                       closeIcon>
-                                    {this.state.loading && this.state.loadingScreen}
-                                    <Modal.Header content="Aufgaben hinzufügen"/>
-                                    <Modal.Content scrolling>
-                                        {!this.state.loading && this.getExerciseTable(true)}
-                                    </Modal.Content>
-                                </Modal>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row columns="equal" className="mapContainer">
+                        <Grid.Row columns="equal" id="mapContainer">
                             <Grid.Column width={4}>
                                 {!this.state.loading && this.state.selectedExercises.length !== 0 && this.getSelectedExerciseTable()}
                             </Grid.Column>
@@ -160,9 +155,22 @@ export default class TeacherQuiz extends React.Component {
                                 </LeafletMap>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row>
+                        <Grid.Row columns="equal">
                             <Grid.Column>
-                                <Form.Button type="submit" content="Submit"/>
+                                <Modal size="fullscreen"
+                                       trigger={<Button color="green" icon="add square" positive
+                                                        labelPosition="right"
+                                                        label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
+                                       closeIcon>
+                                    {this.state.loading && this.state.loadingScreen}
+                                    <Modal.Header content="Aufgaben hinzufügen"/>
+                                    <Modal.Content scrolling>
+                                        {!this.state.loading && this.getExerciseTable(true)}
+                                    </Modal.Content>
+                                </Modal>
+                            </Grid.Column>
+                            <Grid.Column>
+                                <Form.Button content="Submit"/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
