@@ -124,6 +124,13 @@ HUNTeR is designed to be used with [POSTGRESQL](https://www.postgresql.org/) for
 - [QR Code Gen](https://www.nayuki.io/page/qr-code-generator-library)
 
 ## Architecture
+The entire application architecture is a fairly traditional REST API + HTML5 Frontend. Our aim is to keep the architecture as simple as possible so that we can focus on adding features.
+
+### Application
+![Layer Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/layer_diagram.png)
+
+
+### Database
 
 ### Extending functionality
 
