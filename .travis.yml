@@ -9,5 +9,5 @@ jobs:
           script:
               - ./mvnw -DskipTests=true package
         - stage: test
-           script:
+          script:
               - ./mnvw test verify
