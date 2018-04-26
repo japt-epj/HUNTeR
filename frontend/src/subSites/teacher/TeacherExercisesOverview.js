@@ -26,7 +26,6 @@ export default class TeacherExercisesOverview extends React.Component {
             limit: 5,
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
-        this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
     }
