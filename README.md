@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/SBI-/epj-prototype.svg?token=KYkpx1fhK2TYuVsyAFZV&branch=master)](https://travis-ci.com/SBI-/epj-prototype)
+
 # HUNTeR
 App for creating and playing a scavenger hunt. 
 
