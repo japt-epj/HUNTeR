@@ -28,6 +28,7 @@ export default class TeacherQuiz extends React.Component {
             fireRedirect: false
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
+        this.getSelectedExerciseTable = ExerciseHandler.getSelectedExerciseTable.bind(this);
         this.handleSelection = ExerciseHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -92,8 +93,7 @@ export default class TeacherQuiz extends React.Component {
                             </Modal>
                         </Grid.Column>
                         <Grid.Column>
-                            <p>Ausgewählte Aufgaben:</p>
-                            <p>{JSON.stringify(this.state.selectedExercises.sort((a, b) => a > b))}</p>
+                            {!this.state.loading && this.state.selectedExercises.length !== 0 && this.getSelectedExerciseTable()}
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
