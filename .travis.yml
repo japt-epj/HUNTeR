@@ -8,6 +8,6 @@ jobs:
         - stage: build
           script:
               - ./mvnw -DskipTests=true package
-          -stage: test
+        - stage: test
            script:
               - ./mnvw test verify
