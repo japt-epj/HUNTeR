@@ -21,6 +21,9 @@ There is currently no completely public deployment of this application, only our
 
 HUNTeR relies on docker-compose for setting up the entire application environment. We have prepared a separate repository for supplying a standalone docker-compose configuration: [HUNTeR-Deploy](https://github.com/japt-epj/HUNTeR-Deploy). You can download the compose file or clone the directory.
 
+## Prerequisites
+Docker and docker-compose must be installed. Familiarity using these tools will help in creating a sensible productive deployment environment.
+
 ## Quick setup
 
 `$ git clone git@github.com:japt-epj/HUNTeR-Deploy.git`
@@ -30,6 +33,9 @@ HUNTeR relies on docker-compose for setting up the entire application environmen
 `# docker compose up`
 
 You can now connect to the HUNTeR Website by navigating to [http://localhost:8080/](http://localhost:8080/). The docker configuration is optimized to be hosted behind a reverse proxy. For a detailed example of an optimal deployment, see the next section.
+
+## Cloud
+Any cloud service that supports docker-compose files perfectly supports hosting an instance of HUNTeR.
 
 ## Detailed deployment diagram of testing environment
 
@@ -43,3 +49,6 @@ You can now connect to the HUNTeR Website by navigating to [http://localhost:808
 
 ## Architecture
 
+### Adding new Features
+
+### Thoughts on scalability
