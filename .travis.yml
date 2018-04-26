@@ -1,3 +1,10 @@
 language: java
 notifications:
     email: false
+sudo: true
+
+jobs:
+    include:
+        - stage: build
+          script:
+              - ./mvnw package
