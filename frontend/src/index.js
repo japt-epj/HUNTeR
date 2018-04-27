@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import {Route, BrowserRouter, Switch} from 'react-router-dom';
 
 import 'semantic-ui-css/semantic.min.css';
-import './style/input-moment.min.css';
-import './style/input-moment-colors.css'
 import './style/index.css';
 
 import registerServiceWorker from './registerServiceWorker';

@@ -2,8 +2,10 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Button, Dimmer, Form, Grid, Header, Loader, Modal} from 'semantic-ui-react';
-import {BigInputMoment} from 'react-input-moment';
+import DateTime from 'react-datetime';
 import moment from 'moment';
+import deCH from 'moment/locale/de-ch';
+import '../../style/react-datetime.css';
 
 import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";
@@ -37,7 +39,7 @@ export default class TeacherExecution extends React.Component {
             },
             fireRedirect: false,
             startMoment: moment(),
-            dueMoment: moment()
+            dueMoment: moment(),
         };
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
@@ -47,8 +49,9 @@ export default class TeacherExecution extends React.Component {
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.handleStartMomentChange = this.handleStartMomentChange.bind(this);
         this.handleDueMomentChange = this.handleDueMomentChange.bind(this);
-        this.handleDropdownChange = this.handleDropdownChange.bind(this);
         this.getStudents = this.getStudents.bind(this);
+        this.isStartDateValid = this.isStartDateValid.bind(this);
+        this.isDueDateValid = this.isDueDateValid.bind(this);
 
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
@@ -104,12 +107,16 @@ export default class TeacherExecution extends React.Component {
         this.setState({dueMoment: moment(event._d)});
     }
 
-    handleDropdownChange(event, element) {
-        this.setState({dueMoment: this.state.startMoment.clone().add(element.value.size, element.value.dimension)});
-    }
-
     handleSelectChange = (e, {value}) => {
         this.setState({selectedQuizId: value});
+    };
+
+    isStartDateValid(current) {
+        return current.isAfter(moment().add(-1, "day"));
+    };
+
+    isDueDateValid(current) {
+        return current.isAfter(this.state.startMoment);
     };
 
     render() {
@@ -155,11 +162,13 @@ export default class TeacherExecution extends React.Component {
                     <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
                         <Grid.Column>
                             <Header content="Start Datum mit Uhrzeit eintragen"/>
-                            <BigInputMoment moment={this.state.startMoment} onChange={this.handleStartMomentChange}/>
+                            <DateTime isValidDate={this.isStartDateValid} value={this.state.startMoment}
+                                      onChange={this.handleStartMomentChange}/>
                         </Grid.Column>
                         <Grid.Column>
                             <Header content="End Datum mit Uhrzeit eintragen"/>
-                            <BigInputMoment moment={this.state.dueMoment} onChange={this.handleDueMomentChange}/>
+                            <DateTime isValidDate={this.isDueDateValid} value={this.state.dueMoment}
+                                      onChange={this.handleDueMomentChange}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
