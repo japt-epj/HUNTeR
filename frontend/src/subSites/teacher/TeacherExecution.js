@@ -69,7 +69,6 @@ export default class TeacherExecution extends React.Component {
         this.setState({
             pageNumber: element.activePage
         });
-        console.log(element);
         this.getStudents(element.activePage, this.state.limit);
     }
 

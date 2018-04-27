@@ -63,6 +63,7 @@ export default class TeacherQuizOverview extends React.Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
+                        {this.state.loading && this.state.loadingScreen}
                         {!this.state.loading && this.state.quizzes.map(element =>
                             <Table.Row key={'row' + element.name}>
                                 <Table.Cell>
