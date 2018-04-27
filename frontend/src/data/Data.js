@@ -5,7 +5,7 @@ export default {
             {
                 path: 'exerciseOverview',
                 title: 'Übersicht der Aufgaben',
-                component: 'TeacherExercisesOverview',
+                component: 'TeacherExerciseOverview',
                 icon: 'stack exchange'
             },
             {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
@@ -34,15 +34,6 @@ export default {
         quizMap.set('quiz4', {text: 'Quiz 4', exercises: 4, solvedExercises: 4, points: 12});
         return quizMap.get(quizString);
     },
-
-    // getQuizzes() {
-    //     return [
-    //         {key: 'quiz1', value: 'quiz1', text: 'Quiz 1', title: 'IP-Adressen', score: '60%'},
-    //         {key: 'quiz2', value: 'quiz2', text: 'Quiz 2', title: 'Transportmedien', score: '30%'},
-    //         {key: 'quiz3', value: 'quiz3', text: 'Quiz 3', title: 'Wirtschaftsinformatik', score: '10%'},
-    //         {key: 'quiz4', value: 'quiz4', text: 'Quiz 4', title: 'Business und Recht 2', score: '30%'}
-    //     ]
-    // },
 
     getProgress(quizString) {
         return {value: this.getQuiz(quizString).solvedExercises, total: this.getQuiz(quizString).exercises};
@@ -95,18 +86,6 @@ export default {
             {key: 'goldenUser', name: 'Andi Hörler', score: '99%', trophyColor: 'golden'},
             {key: 'silverUser', name: 'Jonas Kugler', score: '90%', trophyColor: 'silver'},
             {key: 'broncenUser', name: 'Pascal Hürlimann', score: '80%', trophyColor: 'bronce'},
-        ];
-    },
-
-    getDateOptions() {
-        return [
-            {key: '2hours', text: 'Nächste zwei Stunden', value: {size: 2, dimension: 'hours'}},
-            {key: '4hours', text: 'Nächste vier Stunden', value: {size: 4, dimension: 'hours'}},
-            {key: '1day', text: 'Nächster Tag', value: {size: 1, dimension: 'days'}},
-            {key: '2day', text: 'Nächsten zwei Tage', value: {size: 2, dimension: 'days'}},
-            {key: '3days', text: 'Nächsten drei Tage', value: {size: 3, dimension: 'days'}},
-            {key: '1week', text: 'Nächste Woche', value: {size: 1, dimension: 'weeks'}},
-            {key: '2week', text: 'Nächsten zwei Wochen', value: {size: 2, dimension: 'weeks'}},
         ];
     }
 }

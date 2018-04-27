@@ -6,7 +6,7 @@ import '../../style/index.css';
 
 import Home from '../../handlers/HomeHandler';
 import TeacherExercise from './TeacherExercise';
-import ExerciseOverview from './TeacherExercisesOverview';
+import ExerciseOverview from './TeacherExerciseOverview';
 import TeacherNewStudent from './TeacherNewStudent';
 import Quiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';

@@ -2,7 +2,6 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button, Dimmer, Form, Loader, Table} from 'semantic-ui-react';
-import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
 import APIHandler from "../../handlers/APIHandler";
 
@@ -67,7 +66,6 @@ export default class TeacherQuizOverview extends React.Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-
                         {!this.state.loadingQuizzes && this.state.quizzes.map(element =>
                             <Table.Row key={'row' + element.name}>
                                 <Table.Cell>
@@ -82,8 +80,8 @@ export default class TeacherQuizOverview extends React.Component {
                         )}
                     </Table.Body>
                 </Table>
-                <NavLink to={'/teacher/quiz?id=' + this.state.checkBox}><Button basic positive>Quiz
-                    öffnen</Button></NavLink>
+                <NavLink to={'/teacher/quiz?id=' + this.state.checkBox}><Button basic positive content="Quiz
+                    öffnen"/></NavLink>
             </Form>
         );
     }

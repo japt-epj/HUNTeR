@@ -6,6 +6,9 @@ import ch.japt.epj.repository.QuizRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
@@ -20,10 +23,16 @@ public class QuizModel {
         this.quizzes = quizzes;
     }
 
+    @Deprecated
     public List<NewQuizDto> allQuizzes() {
         Type type = new TypeToken<List<NewQuizDto>>() {}.getType();
         Iterable<Quiz> all = quizzes.findAll();
         return mapper.map(all, type);
+    }
+
+    public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
+        return quizzes.findAll(new PageRequest(page, limit, sort))
+                .map(quiz -> mapper.map(quiz, NewQuizDto.class));
     }
 
     public NewQuizDto getQuiz(long id) {

@@ -1,8 +1,5 @@
 package ch.japt.epj.model.data;
 
-
-import sun.security.util.Length;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;

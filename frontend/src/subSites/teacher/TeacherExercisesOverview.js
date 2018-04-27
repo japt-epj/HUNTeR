@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Dimmer, Loader} from 'semantic-ui-react';
 
+import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 
@@ -25,7 +26,8 @@ export default class TeacherExercisesOverview extends React.Component {
             limit: 5,
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
-        this.getQRCode = APIHandler.downloadQRCode;
+        this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
+        this.getQRCode = APIHandler.getQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
     }
 
