@@ -2,6 +2,8 @@ package ch.japt.epj.model.data;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -13,9 +15,11 @@ public class Execution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long executionId;
 
-    private Date date;
+    private String name;
 
-    private Time time;
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
 
     @OneToMany
     private Collection<Person> participants = new ArrayList<>();
@@ -33,23 +37,31 @@ public class Execution {
         return participants;
     }
 
-    public Time getTime() {
-        return time;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
 
     public long getExecutionId() {
         return executionId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
