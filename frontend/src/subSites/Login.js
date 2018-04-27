@@ -35,7 +35,7 @@ export default class Login extends React.Component {
                                         onChange={this.handleChange} required/>
                             <Form.Button content="Submit"/>
                         </Form>
-                        <NavLink to={'/student'}>Student</NavLink>
+                        <NavLink to={'/participant'}>Participant</NavLink>
                         <NavLink to={'/teacher'}>Teacher</NavLink>
                     </div>
                 </Grid.Row>

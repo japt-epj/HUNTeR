@@ -22,7 +22,7 @@ export default {
             if (userType === 'teacher') {
                 this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
             } else {
-                this.postData(APIHandler.prepareStudentData(this.state), 'exercise');
+                this.postData(APIHandler.prepareParticipantData(this.state), 'exercise');
             }
         } else {
             alert('Keine Antwort wurde als richtig markiert!');
@@ -44,11 +44,11 @@ export default {
     },
 
     handleExecutionSumbit() {
-        if (this.state.selectedStudents.length !== 0 && this.state.selectedQuizId !== undefined) {
+        if (this.state.selectedParticipants.length !== 0 && this.state.selectedQuizId !== undefined) {
             this.postData({
                 title: this.state.title,
                 quizId: this.state.selectedQuizId,
-                students: this.state.selectedStudents,
+                participants: this.state.selectedParticipants,
                 startDate: this.state.startDate,
                 endDate: this.state.endDate
             }, 'execution');
@@ -61,7 +61,7 @@ export default {
         this.postData(this.state, 'login');
     },
 
-    handleNewStudentSubmit() {
-        this.postData(this.state, 'student');
+    handleNewParticipantSubmit() {
+        this.postData(this.state, 'participant');
     }
 }

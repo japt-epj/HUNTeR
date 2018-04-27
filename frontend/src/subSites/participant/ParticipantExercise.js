@@ -8,7 +8,7 @@ import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 
 
-export default class StudentExercise extends React.Component {
+export default class ParticipantExercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

@@ -28,20 +28,20 @@ export default class TeacherExercisesOverview extends React.Component {
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.getQRCode;
-        this.handlePageChangeStudents = this.handlePageChangeStudents.bind(this);
+        this.handlePageChangeParticipants = this.handlePageChangeParticipants.bind(this);
     }
 
-    handlePageChangeStudents(event, element) {
+    handlePageChangeParticipants(event, element) {
         this.setState({
             pageNumber: element.index,
-            loadingStudents: true,
+            loadingParticipants: true,
         });
         APIHandler.getExercises(element.index, this.state.limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,
-                    maxPageStudent: resData.data.totalPages,
-                    loadingStudents: false
+                    maxPageParticipant: resData.data.totalPages,
+                    loadingParticipants: false
                 })
             }
         });

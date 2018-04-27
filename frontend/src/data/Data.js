@@ -1,7 +1,7 @@
 export default {
     getPathsTeacher() {
         return [
-            {path: 'exercise', title: 'Aufgabe erstellen', component: 'StudentExercise', icon: 'tasks'},
+            {path: 'exercise', title: 'Aufgabe erstellen', component: 'ParticipantExercise', icon: 'tasks'},
             {
                 path: 'exerciseOverview',
                 title: 'Übersicht der Aufgaben',
@@ -14,15 +14,15 @@ export default {
                 component: 'TeacherQuizOverview', icon: 'stack exchange'
             },
             {path: 'execution', title: 'Ausführung erstellen', component: 'TeacherExecution', icon: 'calendar'},
-            {path: 'newUser', title: 'Schüler erstellen', component: 'TeacherNewStudent', icon: 'add user'},
+            {path: 'newUser', title: 'Schüler erstellen', component: 'TeacherNewParticipant', icon: 'add user'},
         ];
     },
 
-    getPathsStudent() {
+    getPathsParticipant() {
         return [
             {path: 'settings', title: 'Persönliches', component: 'Settings', icon: 'setting'},
-            {path: 'scan', title: 'Aufgabe scannen', component: 'StudentScanExercise', icon: 'camera retro'},
-            {path: 'score', title: 'Aktueller StudentScore', component: 'StudentScore', icon: 'trophy'}
+            {path: 'scan', title: 'Aufgabe scannen', component: 'ParticipantScanExercise', icon: 'camera retro'},
+            {path: 'score', title: 'Aktueller ParticipantScore', component: 'ParticipantScore', icon: 'trophy'}
         ];
     },
 
@@ -37,15 +37,6 @@ export default {
 
     getProgress(quizString) {
         return {value: this.getQuiz(quizString).solvedExercises, total: this.getQuiz(quizString).exercises};
-    },
-
-    getStudents(quizString) {
-        return [
-            {
-                key: 'student1',
-                email: 'schlaubi.schlumpf@gmail.com'
-            }
-        ]
     },
 
     getResults(quizString) {

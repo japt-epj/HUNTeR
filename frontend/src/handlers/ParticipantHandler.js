@@ -6,15 +6,15 @@ import TableHandler from "./TableHandler";
 
 export default {
     handleSelection(event, checkbox) {
-        let newState = this.state.selectedStudents;
+        let newState = this.state.selectedParticipants;
         if (checkbox.checked) {
             newState.push(checkbox.id);
         } else {
             newState.splice(newState.lastIndexOf(checkbox.id), 1);
         }
-        this.setState({selectedStudents: newState});
+        this.setState({selectedParticipants: newState});
     },
-    getStudentTable(checkboxNeeded) {
+    getParticipantTable(checkboxNeeded) {
         let headerElements = ['Vorname', 'Nachname', 'E-Mail'];
         if (checkboxNeeded) {
             headerElements.unshift('');
@@ -28,11 +28,11 @@ export default {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {!this.state.loadingStudents && this.state.students.map(element =>
-                        <Table.Row key={'StudentRows' + element.id}>
+                    {!this.state.loadingParticipants && this.state.participants.map(element =>
+                        <Table.Row key={'ParticipantRows' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
                                 <Checkbox id={element.id} onChange={this.handleSelection}
-                                          checked={this.state.selectedStudents.indexOf(element.id) !== -1}/>
+                                          checked={this.state.selectedParticipants.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
                             <Table.Cell content={element.firstName}/>
                             <Table.Cell content={element.lastName}/>
@@ -44,8 +44,8 @@ export default {
                     <Table.Row>
                         <Table.HeaderCell colSpan="4">
 
-                            <Pagination totalPages={this.state.maxPageStudent} activePage={this.state.pageNumber}
-                                        onPageChange={this.handlePageChangeStudents}/>
+                            <Pagination totalPages={this.state.maxPageParticipant} activePage={this.state.pageNumber}
+                                        onPageChange={this.handlePageChangeParticipants}/>
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>

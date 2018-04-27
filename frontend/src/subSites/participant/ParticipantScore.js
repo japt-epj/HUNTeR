@@ -5,7 +5,7 @@ import {Button, Card, Dropdown, Grid, Icon, Menu, Modal, Progress, Segment, Stat
 import Data from '../../data/Data';
 
 
-export default class StudentScore extends React.Component {
+export default class ParticipantScore extends React.Component {
     constructor(props) {
         super(props);
         this.state = {quiz: 'quiz1'};
@@ -56,13 +56,13 @@ export default class StudentScore extends React.Component {
         return (
             <Tab panes={Data.getResults(this.state.quiz).map((element, index) =>
                 <Tab.Pane attached={false} key={'tab' + element.key}>
-                    Lösungen Aufgabe {index + 1} | Punkte: {StudentScore.getScore(element)}
+                    Lösungen Aufgabe {index + 1} | Punkte: {ParticipantScore.getScore(element)}
                     <Segment.Group horizontal>
                         {Array.apply(null, Array(element.correctAnswers.length)).map(function (item, i) {
                             return (
-                                <Segment inverted color={StudentScore.getColor(element, i)}
+                                <Segment inverted color={ParticipantScore.getColor(element, i)}
                                          key={element.key + 'Answer' + i}>{
-                                    StudentScore.getUserAnswer(element, i)}</Segment>
+                                    ParticipantScore.getUserAnswer(element, i)}</Segment>
                             );
                         })}
                     </Segment.Group>
@@ -109,7 +109,7 @@ export default class StudentScore extends React.Component {
                         <Modal.Header>{'Andi Hörler - ' + Data.getQuiz(this.state.quiz).text}</Modal.Header>
                         <Modal.Content>
                             <Modal.Description>
-                                <Statistic.Group items={StudentScore.buildScoreOverview(Data.getQuiz(this.state.quiz))}
+                                <Statistic.Group items={ParticipantScore.buildScoreOverview(Data.getQuiz(this.state.quiz))}
                                                  size="mini"
                                                  horizontal/>
                                 <Progress value={Data.getProgress(this.state.quiz).value}

@@ -8,7 +8,7 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 
 import APIHandler from '../../handlers/APIHandler';
-import StudentHandler from "../../handlers/StudentHandler";
+import ParticipantHandler from "../../handlers/ParticipantHandler";
 import QuizHandler from "../../handlers/QuizHandler";
 import FormHandler from "../../handlers/FormHandler";
 
@@ -18,10 +18,10 @@ export default class TeacherExecution extends React.Component {
         super(props);
         this.state = {
             title: '',
-            students: [],
+            participants: [],
             quizzes: [],
             selectedQuizId: undefined,
-            selectedStudents: [],
+            selectedParticipants: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
@@ -33,7 +33,7 @@ export default class TeacherExecution extends React.Component {
             pageNumber: 1,
             minPage: 1,
             maxPageQuiz: '',
-            maxPageStudent: '',
+            maxPageParticipant: '',
             modifiers: {
                 highlighted: new Date(),
                 after: (new Date()).getDate() + 1,
@@ -42,16 +42,16 @@ export default class TeacherExecution extends React.Component {
             startDate: moment(),
             endDate: moment().add(1, "hour")
         };
-        this.getStudentTable = StudentHandler.getStudentTable.bind(this);
+        this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
-        this.handleSelection = StudentHandler.handleSelection.bind(this);
+        this.handleSelection = ParticipantHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChangeQuizzes = this.handlePageChangeQuizzes.bind(this);
-        this.handlePageChangeStudents = this.handlePageChangeStudents.bind(this);
+        this.handlePageChangeParticipants = this.handlePageChangeParticipants.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.handleStartMomentChange = this.handleStartMomentChange.bind(this);
         this.handleEndMomentChange = this.handleEndMomentChange.bind(this);
-        this.getStudents = this.getStudents.bind(this);
+        this.getParticipants = this.getParticipants.bind(this);
         this.isStartDateValid = this.isStartDateValid.bind(this);
         this.isEndDateValid = this.isEndDateValid.bind(this);
 
@@ -61,31 +61,30 @@ export default class TeacherExecution extends React.Component {
     }
 
     componentDidMount() {
-        this.getStudents(this.state.pageNumber, this.state.limit);
+        this.getParticipants(this.state.pageNumber, this.state.limit);
         this.getQuizzes(this.state.pageNumber, this.state.limit);
     }
 
-    handlePageChangeStudents(event, element) {
+    handlePageChangeParticipants(event, element) {
         this.setState({
             pageNumber: element.activePage
         });
-        this.getStudents(element.activePage, this.state.limit);
+        this.getParticipants(element.activePage, this.state.limit);
     }
 
     handlePageChangeQuizzes(event, element) {
         this.setState({
             pageNumber: element.activePage
         });
-        console.log(element);
         this.getQuizzes(element.activePage, this.state.limit);
     }
 
-    getStudents(page, limit) {
-        APIHandler.getStudents(page, limit).then(resData => {
+    getParticipants(page, limit) {
+        APIHandler.getParticipants(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
-                    students: resData.data.content,
-                    maxPageStudent: resData.data.totalPages,
+                    participants: resData.data.content,
+                    maxPageParticipant: resData.data.totalPages,
                     loadingUser: false
                 })
             }
@@ -167,7 +166,7 @@ export default class TeacherExecution extends React.Component {
                                 {this.state.loadingUser && this.state.loadingScreen}
                                 <Modal.Header content="Benutzer hinzufügen"/>
                                 <Modal.Content scrolling>
-                                    {!this.state.loadingUser && this.getStudentTable(true)}
+                                    {!this.state.loadingUser && this.getParticipantTable(true)}
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>

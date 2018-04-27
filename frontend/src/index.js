@@ -8,7 +8,7 @@ import './style/index.css';
 import registerServiceWorker from './registerServiceWorker';
 import Login from './subSites/Login';
 import Teacher from './subSites/teacher/TeacherStructure';
-import Student from './subSites/student/StudentStructure';
+import Participant from './subSites/participant/ParticipantStructure';
 
 
 ReactDOM.render(
@@ -16,7 +16,7 @@ ReactDOM.render(
         <Switch>
             <Route exact path="/" component={Login}/>
             <Route path="/teacher" component={Teacher}/>
-            <Route path="/student" component={Student}/>
+            <Route path="/participant" component={Participant}/>
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));
