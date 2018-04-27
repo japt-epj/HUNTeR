@@ -2,9 +2,9 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
-import DayPickerInput from "react-day-picker/DayPickerInput";
+//import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
-import {formatDate} from 'react-day-picker/moment';
+// import {formatDate} from 'react-day-picker/moment';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
