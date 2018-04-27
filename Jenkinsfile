@@ -33,8 +33,6 @@ pipeline {
         success {
             sh "sudo docker-compose -f docker/docker-compose-test.yaml down --rmi all -v"
             sh "sudo docker-compose -f docker/docker-compose-test.yaml up -d"
-            // this is useless, we should publish the finished docker files...
-            //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
     }
 }
