@@ -39,7 +39,6 @@ export default class TeacherExecution extends React.Component {
             startMoment: moment(),
             dueMoment: moment()
         };
-        console.log("hello world");
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
@@ -111,7 +110,6 @@ export default class TeacherExecution extends React.Component {
 
     handleSelectChange = (e, {value}) => {
         this.setState({selectedQuizId: value});
-        console.log(this.state.selectedQuizId);
     };
 
     render() {
@@ -157,19 +155,11 @@ export default class TeacherExecution extends React.Component {
                     <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
                         <Grid.Column>
                             <Header content="Start Datum mit Uhrzeit eintragen"/>
-                            <BigInputMoment className="fromMoment"
-                                            moment={this.state.startMoment}
-                                            onChange={this.handleStartMomentChange}
-                                            locale="ch"
-                            />
+                            <BigInputMoment moment={this.state.startMoment} onChange={this.handleStartMomentChange}/>
                         </Grid.Column>
                         <Grid.Column>
                             <Header content="End Datum mit Uhrzeit eintragen"/>
-                            <BigInputMoment className="dueMoment"
-                                            moment={this.state.dueMoment}
-                                            onChange={this.handleDueMomentChange}
-                                            locale="ch"
-                            />
+                            <BigInputMoment moment={this.state.dueMoment} onChange={this.handleDueMomentChange}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
