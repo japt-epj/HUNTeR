@@ -20,7 +20,7 @@ export default class TeacherExecution extends React.Component {
             title: '',
             students: [],
             quizzes: [],
-            selectedQuizId: '',
+            selectedQuizId: undefined,
             selectedStudents: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
@@ -32,28 +32,30 @@ export default class TeacherExecution extends React.Component {
             limit: 5,
             pageNumber: 1,
             minPage: 1,
-            maxPage: '',
+            maxPageQuiz: '',
+            maxPageStudent: '',
             modifiers: {
                 highlighted: new Date(),
                 after: (new Date()).getDate() + 1,
             },
             fireRedirect: false,
-            startMoment: moment(),
-            dueMoment: moment().add(1, "hour"),
+            startDate: moment(),
+            endDate: moment().add(1, "hour")
         };
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.handlePageChange = this.handlePageChange.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.handleStartMomentChange = this.handleStartMomentChange.bind(this);
-        this.handleDueMomentChange = this.handleDueMomentChange.bind(this);
+        this.handleEndMomentChange = this.handleEndMomentChange.bind(this);
         this.getStudents = this.getStudents.bind(this);
         this.isStartDateValid = this.isStartDateValid.bind(this);
-        this.isDueDateValid = this.isDueDateValid.bind(this);
+        this.isEndDateValid = this.isEndDateValid.bind(this);
 
-        this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
+        this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
     }
@@ -63,11 +65,20 @@ export default class TeacherExecution extends React.Component {
         this.getQuizzes(this.state.pageNumber, this.state.limit);
     }
 
-    handlePageChange(event, element) {
+    handlePageChangeStudent(event, element) {
         this.setState({
             pageNumber: element.activePage
         });
+        console.log(element);
         this.getStudents(element.activePage, this.state.limit);
+    }
+
+    handlePageChangeQuiz(event, element) {
+        this.setState({
+            pageNumber: element.activePage
+        });
+        console.log(element);
+        this.getQuizzes(element.activePage, this.state.limit);
     }
 
     getStudents(page, limit) {
@@ -75,7 +86,7 @@ export default class TeacherExecution extends React.Component {
             if (resData.status === 200) {
                 this.setState({
                     students: resData.data.content,
-                    maxPage: resData.data.totalPages,
+                    maxPageStudent: resData.data.totalPages,
                     loadingUser: false
                 })
             }
@@ -86,8 +97,8 @@ export default class TeacherExecution extends React.Component {
         APIHandler.getQuizzes(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
-                    quizzes: resData.data,
-                    // maxPage: resData.data.totalPages,
+                    quizzes: resData.data.content,
+                    maxPageQuiz: resData.data.totalPages,
                     loadingQuiz: false
                 })
             }
@@ -100,14 +111,14 @@ export default class TeacherExecution extends React.Component {
     }
 
     handleStartMomentChange(event) {
-        if (event._d >= this.state.dueMoment) {
-            this.setState({dueMoment: moment(event._d).add(1, "hour")});
+        if (event._d >= this.state.endDate) {
+            this.setState({endDate: moment(event._d).add(1, "hour")});
         }
-        this.setState({startMoment: moment(event._d)});
+        this.setState({startDate: moment(event._d)});
     }
 
-    handleDueMomentChange(event) {
-        this.setState({dueMoment: moment(event._d)});
+    handleEndMomentChange(event) {
+        this.setState({endDate: moment(event._d)});
     }
 
     handleSelectChange = (e, {value}) => {
@@ -118,8 +129,8 @@ export default class TeacherExecution extends React.Component {
         return current.isAfter(moment().add(-1, "day"));
     };
 
-    isDueDateValid(current) {
-        return current.isAfter(this.state.startMoment);
+    isEndDateValid(current) {
+        return current.isAfter(this.state.startDate);
     };
 
     render() {
@@ -165,13 +176,13 @@ export default class TeacherExecution extends React.Component {
                     <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
                         <Grid.Column>
                             <Header content="Start Datum mit Uhrzeit eintragen"/>
-                            <DateTime isValidDate={this.isStartDateValid} value={this.state.startMoment}
+                            <DateTime isValidDate={this.isStartDateValid} value={this.state.startDate}
                                       onChange={this.handleStartMomentChange}/>
                         </Grid.Column>
                         <Grid.Column>
                             <Header content="End Datum mit Uhrzeit eintragen"/>
-                            <DateTime isValidDate={this.isDueDateValid} value={this.state.dueMoment}
-                                      onChange={this.handleDueMomentChange}/>
+                            <DateTime isValidDate={this.isEndDateValid} value={this.state.endDate}
+                                      onChange={this.handleEndMomentChange}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
