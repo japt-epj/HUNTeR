@@ -36,7 +36,8 @@ export default {
                         <Table.Row key={'TableRow' + element}>
                             <Table.Cell content={element}/>
                             <Table.Cell collapsing>
-                                <Button color="green" basic icon="map pin" onClick={() => {
+                                <Button color="green" basic icon="map pin" onClick={(event) => {
+                                    event.preventDefault();
                                     if (this.state.map.currentExercise !== undefined) {
                                         let newPositions = this.state.selectedPositions;
                                         newPositions.set(this.state.map.currentExercise, this.state.map.location);
