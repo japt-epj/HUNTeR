@@ -112,14 +112,14 @@ export default class TeacherQuiz extends React.Component {
     render() {
         const image = L.icon({
             iconUrl: require('../../images/icons/e-map.png'),
-            iconSize: [50, 81],
-            iconAnchor: [8, 81]
+            iconSize: [50, 94],
+            iconAnchor: [50, 0]
         });
 
         const marker = this.state.map.location !== undefined ? (
             <Marker position={this.state.map.location} icon={image}>
                 {this.state.map.popupText !== undefined &&
-                <Tooltip direction='right' offset={[42, -67]} opacity={0.9} permanent>
+                <Tooltip direction="left" offset={[-50, 75]} opacity={0.9} permanent>
                     <span>{this.state.map.popupText}</span>
                 </Tooltip>}
             </Marker>
