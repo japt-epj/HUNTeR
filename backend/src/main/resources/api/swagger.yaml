@@ -152,79 +152,6 @@ paths:
         404:
           description: "QRCode not found"
 
-  /person:
-    post:
-      tags:
-      - "person"
-      summary: "Create person"
-      description: "This can only be done by the logged in person."
-      operationId: "createPerson"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Created person object"
-        required: true
-        schema:
-          $ref: "#/definitions/Person"
-      responses:
-        default:
-          description: "successful operation"
-  /person/login:
-    get:
-      tags:
-      - "person"
-      summary: "Logs person into the system"
-      description: ""
-      operationId: "authenticatePerson"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "email"
-        in: "query"
-        description: "The email for login"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "string"
-          headers:
-            X-Rate-Limit:
-              type: "integer"
-              format: "int32"
-              description: "calls per hour allowed by the person"
-            X-Expires-After:
-              type: "string"
-              format: "date-time"
-              description: "date in UTC when token expires"
-        400:
-          description: "Invalid email/password supplied"
-
-  /person/logout:
-    get:
-      tags:
-      - "person"
-      summary: "Logs out current logged in person session"
-      description: ""
-      operationId: "logoutPerson"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters: []
-      responses:
-        default:
-          description: "successful operation"
-
   /person/{email}:
     get:
       tags:
@@ -276,26 +203,76 @@ paths:
           description: "Invalid person supplied"
         404:
           description: "person not found"
-    delete:
+#    delete:
+#      tags:
+#      - "person"
+#      summary: "Delete person"
+#      description: "This can only be done by the logged in person."
+#      operationId: "deletePerson"
+#      produces:
+#      - "application/xml"
+#      - "application/json"
+#      parameters:
+#      - name: "email"
+#        in: "path"
+#        description: "The email of the person that needs to be deleted"
+#        required: true
+#        type: "string"
+#      responses:
+#        400:
+#          description: "Invalid email supplied"
+#        404:
+#          description: "email not found"
+
+  /auth/register:
+    post:
       tags:
-      - "person"
-      summary: "Delete person"
-      description: "This can only be done by the logged in person."
-      operationId: "deletePerson"
+      - "auth"
+      summary: "Register a new person"
+      description: ""
+      operationId: "registerPerson"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "email"
-        in: "path"
-        description: "The email of the person that needs to be deleted"
+      - in: "body"
+        name: "body"
+        description: "Created person object"
         required: true
-        type: "string"
+        schema:
+          $ref: "#/definitions/RegPerson"
       responses:
+        default:
+          description: "Registration of new person successful"
+
+  /auth/login:
+    post:
+      tags:
+      - "auth"
+      summary: "Login person"
+      description: "Authenticate user"
+      operationId: "loginPerson"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User information required to log in"
+        required: true
+        schema:
+          $ref: "#/definitions/AuthPerson"
+      responses:
+        200:
+          description: "Login succesful"
+          schema:
+            $ref: "#/definitions/JWT"
+          headers:
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
         400:
-          description: "Invalid email supplied"
-        404:
-          description: "email not found"
+          description: "Invalid email/password supplied"
+
 
   /quiz:
     post:
@@ -667,6 +644,39 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/NewExercise"
+
+  JWT:
+    type: "object"
+    required:
+    - "token"
+    properties:
+      token:
+        type: "string"
+      tokenType:
+        type: "string"
+
+  RegPerson:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+
+  AuthPerson:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
 
 
 externalDocs:
