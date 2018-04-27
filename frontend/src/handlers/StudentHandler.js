@@ -44,8 +44,8 @@ export default {
                     <Table.Row>
                         <Table.HeaderCell colSpan="4">
 
-                            <Pagination totalPages={this.state.maxPage} activePage={this.state.pageNumber}
-                                        onPageChange={this.handlePageChange}/>
+                            <Pagination totalPages={this.state.maxPageStudent} activePage={this.state.pageNumber}
+                                        onPageChange={this.handlePageChangeStudents}/>
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>

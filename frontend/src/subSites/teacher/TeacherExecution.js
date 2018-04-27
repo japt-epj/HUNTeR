@@ -46,8 +46,8 @@ export default class TeacherExecution extends React.Component {
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
-        this.handlePageChange = this.handlePageChange.bind(this);
-        this.handlePageChange = this.handlePageChange.bind(this);
+        this.handlePageChangeQuizzes = this.handlePageChangeQuizzes.bind(this);
+        this.handlePageChangeStudents = this.handlePageChangeStudents.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.handleStartMomentChange = this.handleStartMomentChange.bind(this);
         this.handleEndMomentChange = this.handleEndMomentChange.bind(this);
@@ -65,7 +65,7 @@ export default class TeacherExecution extends React.Component {
         this.getQuizzes(this.state.pageNumber, this.state.limit);
     }
 
-    handlePageChangeStudent(event, element) {
+    handlePageChangeStudents(event, element) {
         this.setState({
             pageNumber: element.activePage
         });
@@ -73,7 +73,7 @@ export default class TeacherExecution extends React.Component {
         this.getStudents(element.activePage, this.state.limit);
     }
 
-    handlePageChangeQuiz(event, element) {
+    handlePageChangeQuizzes(event, element) {
         this.setState({
             pageNumber: element.activePage
         });
