@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Checkbox, Modal, Pagination, Table} from 'semantic-ui-react';
+import {Button, Checkbox, Pagination, Table} from 'semantic-ui-react';
 import TableHandler from "./TableHandler";
 
 
@@ -11,13 +11,13 @@ export default {
         let newPositions = this.state.selectedPositions;
         if (checkbox.checked) {
             newState.push(checkbox.id);
-            newPositions.set(checkbox.id, {longitutde: undefined, latitude: undefined});
+            newPositions.set(checkbox.id, undefined);
         } else {
             newState.splice(newState.lastIndexOf(checkbox.id), 1);
             newPositions.delete(checkbox.id);
         }
         this.setState({
-            selectedExercises: newState.sort((a,b) => a > b),
+            selectedExercises: newState.sort((a, b) => a > b),
             selectedPositions: newPositions
         });
     },
@@ -36,14 +36,24 @@ export default {
                         <Table.Row key={'TableRow' + element}>
                             <Table.Cell content={element}/>
                             <Table.Cell collapsing>
-                                <Modal size="fullscreen"
-                                       trigger={<Button color="green" basic icon="map pin"/>}
-                                       closeIcon>
-                                    <Modal.Header content="Ort setzen"/>
-                                    <Modal.Content>
-                                        Hallo
-                                    </Modal.Content>
-                                </Modal>
+                                <Button color="green" basic icon="map pin" onClick={(event) => {
+                                    event.preventDefault();
+                                    if (this.state.map.currentExercise !== undefined) {
+                                        let newPositions = this.state.selectedPositions;
+                                        newPositions.set(this.state.map.currentExercise, this.state.map.location);
+                                        this.setState({selectedPositions: newPositions});
+                                    }
+                                    let map = {...this.state.map};
+                                    map.currentExercise = element;
+                                    map.popupText = element;
+                                    if (this.state.selectedPositions.get(element) === undefined) {
+                                        map.location = this.state.map.location
+                                    } else {
+                                        map.location = this.state.selectedPositions.get(element);
+                                    }
+                                    this.setState({map: map});
+                                }
+                                }/>
                             </Table.Cell>
                         </Table.Row>
                     )}
@@ -69,14 +79,14 @@ export default {
                     {!this.state.loadingExercises && this.state.exercises.map(element =>
                         <Table.Row key={'TableRow' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
-                                <Checkbox id={element.id} onChange={this.handleSelection}
+                                <Checkbox id={element.id} name={element.title} onChange={this.handleSelection}
                                           checked={this.state.selectedExercises.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
                             <Table.Cell content={element.title}/>
                             <Table.Cell content={element.id} collapsing/>
                             <Table.Cell collapsing>
                                 <NavLink to={'/exercise?id=' + element.id}>
-                                    <Button basic icon="edit" color="green"/>
+                                    <Button type="button" basic icon="edit" color="green"/>
                                 </NavLink>
                             </Table.Cell>
                             <Table.Cell collapsing>

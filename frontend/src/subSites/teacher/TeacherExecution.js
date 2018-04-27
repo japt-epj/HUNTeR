@@ -1,15 +1,16 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Dimmer, Dropdown, Form, Grid, Loader, Modal} from 'semantic-ui-react';
-import {BigInputMoment} from 'react-input-moment';
+import {Button, Dimmer, Form, Grid, Header, Loader, Modal} from 'semantic-ui-react';
+import DateTime from 'react-datetime';
 import moment from 'moment';
+import 'moment/locale/de-ch';
+import '../../style/react-datetime.css';
 
 import APIHandler from '../../handlers/APIHandler';
 import StudentHandler from "../../handlers/StudentHandler";
 import QuizHandler from "../../handlers/QuizHandler";
 import FormHandler from "../../handlers/FormHandler";
-import Data from "../../data/Data";
 
 
 export default class TeacherExecution extends React.Component {
@@ -38,9 +39,8 @@ export default class TeacherExecution extends React.Component {
             },
             fireRedirect: false,
             startMoment: moment(),
-            dueMoment: moment()
+            dueMoment: moment().add(1, "hour"),
         };
-        console.log("hello world");
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = StudentHandler.handleSelection.bind(this);
@@ -49,8 +49,9 @@ export default class TeacherExecution extends React.Component {
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.handleStartMomentChange = this.handleStartMomentChange.bind(this);
         this.handleDueMomentChange = this.handleDueMomentChange.bind(this);
-        this.handleDropdownChange = this.handleDropdownChange.bind(this);
         this.getStudents = this.getStudents.bind(this);
+        this.isStartDateValid = this.isStartDateValid.bind(this);
+        this.isDueDateValid = this.isDueDateValid.bind(this);
 
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
@@ -86,18 +87,22 @@ export default class TeacherExecution extends React.Component {
             if (resData.status === 200) {
                 this.setState({
                     quizzes: resData.data,
-                   // maxPage: resData.data.totalPages,
+                    // maxPage: resData.data.totalPages,
                     loadingQuiz: false
                 })
             }
         });
     }
 
-    resetPageNumber() {
+    resetPageNumber(event) {
+        event.preventDefault();
         this.setState({pageNumber: 1});
     }
 
     handleStartMomentChange(event) {
+        if (event._d >= this.state.dueMoment) {
+            this.setState({dueMoment: moment(event._d).add(1, "hour")});
+        }
         this.setState({startMoment: moment(event._d)});
     }
 
@@ -105,14 +110,17 @@ export default class TeacherExecution extends React.Component {
         this.setState({dueMoment: moment(event._d)});
     }
 
-    handleDropdownChange(event, element) {
-        this.setState({dueMoment: this.state.startMoment.clone().add(element.value.size, element.value.dimension)});
-    }
-
     handleSelectChange = (e, {value}) => {
         this.setState({selectedQuizId: value});
-        console.log(this.state.selectedQuizId);
-    }
+    };
+
+    isStartDateValid(current) {
+        return current.isAfter(moment().add(-1, "day"));
+    };
+
+    isDueDateValid(current) {
+        return current.isAfter(this.state.startMoment);
+    };
 
     render() {
         return (
@@ -128,8 +136,9 @@ export default class TeacherExecution extends React.Component {
                     <Grid.Row columns="equal">
                         <Grid.Column>
                             <Modal size="fullscreen"
-                                   trigger={<Button iconcolor="green" icon="add square" positive labelPosition="right"
-                                                    label="Quiz für die Durchführung"
+                                   trigger={<Button color="green" icon="add square" positive labelPosition="right"
+                                                    label="Quiz für die Durchführung auswählen"
+
                                                     onClick={this.resetPageNumber}/>}
                                    closeIcon>
                                 {this.state.loadingQuiz && this.state.loadingScreen}
@@ -141,7 +150,7 @@ export default class TeacherExecution extends React.Component {
                         </Grid.Column>
                         <Grid.Column>
                             <Modal size="fullscreen"
-                                   trigger={<Button iconcolor="green" icon="add square" positive labelPosition="right"
+                                   trigger={<Button color="green" icon="add square" positive labelPosition="right"
                                                     label="Benutzer zur Durchführung hinzufügen"
                                                     onClick={this.resetPageNumber}/>}
                                    closeIcon>
@@ -153,29 +162,21 @@ export default class TeacherExecution extends React.Component {
                             </Modal>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row columns="equal" textAlign="center">
+                    <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
                         <Grid.Column>
-                            <BigInputMoment className="fromMoment"
-                                            moment={this.state.startMoment}
-                                            onChange={this.handleStartMomentChange}
-                                            locale="ch"
-                            />
-                        </Grid.Column>
-                        <Grid.Column width={5}>
-                            <Dropdown placeholder="Wähle eine Option" selection options={Data.getDateOptions()}
-                                      onChange={this.handleDropdownChange} labeled/>
+                            <Header content="Start Datum mit Uhrzeit eintragen"/>
+                            <DateTime isValidDate={this.isStartDateValid} value={this.state.startMoment}
+                                      onChange={this.handleStartMomentChange}/>
                         </Grid.Column>
                         <Grid.Column>
-                            <BigInputMoment className="dueMoment"
-                                            moment={this.state.dueMoment}
-                                            onChange={this.handleDueMomentChange}
-                                            locale="ch"
-                            />
+                            <Header content="End Datum mit Uhrzeit eintragen"/>
+                            <DateTime isValidDate={this.isDueDateValid} value={this.state.dueMoment}
+                                      onChange={this.handleDueMomentChange}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <Form.Button type="submit" content="Submit"/>
+                            <Form.Button content="Submit"/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

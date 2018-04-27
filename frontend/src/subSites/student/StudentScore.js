@@ -104,7 +104,7 @@ export default class StudentScore extends React.Component {
                 </Grid.Row>
                 <Grid.Row>
                     <Modal style={{marginTop: 0}} size="fullscreen"
-                           trigger={<Button>Resultate einsehen</Button>}
+                           trigger={<Button content="Resultate einsehen"/>}
                            closeIcon>
                         <Modal.Header>{'Andi Hörler - ' + Data.getQuiz(this.state.quiz).text}</Modal.Header>
                         <Modal.Content>

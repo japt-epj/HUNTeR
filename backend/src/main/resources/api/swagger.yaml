@@ -350,19 +350,6 @@ paths:
       - auth:
         - "write:quizzes"
         - "read:quizzes"
-    get:
-      tags:
-      - "quiz"
-      summary: "Get all quizzes"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "All quizzes"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/NewQuiz"
 
   /quiz/{id}:
     get:

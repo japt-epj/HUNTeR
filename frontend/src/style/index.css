@@ -2,6 +2,19 @@ html {
     font-size: 16px !important;
 }
 
+#mapContainer{
+    height: 60vh;
+}
+
+#dateTimePickerContainer{
+    height: 40vh;
+}
+
+.leaflet-container{
+    height: 100%;
+    width: 100%;
+}
+
 .siteGrid {
     height: 100vh;
 }
