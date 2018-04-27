@@ -4,7 +4,7 @@ import {Redirect} from 'react-router';
 import {Button, Dimmer, Form, Grid, Header, Loader, Modal} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import moment from 'moment';
-import deCH from 'moment/locale/de-ch';
+import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 
 import APIHandler from '../../handlers/APIHandler';
@@ -39,7 +39,7 @@ export default class TeacherExecution extends React.Component {
             },
             fireRedirect: false,
             startMoment: moment(),
-            dueMoment: moment(),
+            dueMoment: moment().add(1, "hour"),
         };
         this.getStudentTable = StudentHandler.getStudentTable.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
@@ -100,6 +100,9 @@ export default class TeacherExecution extends React.Component {
     }
 
     handleStartMomentChange(event) {
+        if (event._d >= this.state.dueMoment) {
+            this.setState({dueMoment: moment(event._d).add(1, "hour")});
+        }
         this.setState({startMoment: moment(event._d)});
     }
 
