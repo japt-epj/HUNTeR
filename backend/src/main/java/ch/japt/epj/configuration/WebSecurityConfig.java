@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -22,21 +23,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Autowired
+    JwtTokenProvider tokenProvider;
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
+
+
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    private final CustomUserDetailsService customUserDetailsService;
+//    private final CustomUserDetailsService customUserDetailsService;
 
 
     public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler, @Autowired CustomUserDetailsService customUserDetailsService) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.customUserDetailsService = customUserDetailsService;
-    }
-
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(
-            @Autowired JwtTokenProvider tokenProvider,
-            @Autowired CustomUserDetailsService customUserDetailsService) {
-        return new JwtAuthenticationFilter(tokenProvider, customUserDetailsService);
     }
 
     @Bean
@@ -64,32 +64,43 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         String[] allowed = {
                 "/",
                 "/*",
+                "/**",
                 "/static/**/*"
         };
 
         http
+//                .cors()
+//                    .and()
+//                .csrf()
+//                    .disable()
                 .exceptionHandling()
                     .authenticationEntryPoint(unauthorizedHandler)
-                    .and()
-                .authorizeRequests()
-                    .antMatchers(allowed).permitAll()
-                    .anyRequest().authenticated()
                     .and()
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                .formLogin()
-                    // uncommenting this should enable a default login form
-                    // we need to replace this with a custom one
-                    //.loginPage("login")
-                    .permitAll()
+                .authorizeRequests()
+                    .antMatchers(allowed)
+                        .permitAll()
+                    .antMatchers("/api/auth/**")
+                        .permitAll()
+//                .antMatchers("/api/**")
+//                    .permitAll()
+                .anyRequest()
+                    .authenticated()
                     .and()
+//                .formLogin()
+//                    // uncommenting this should enable a default login form
+//                    // we need to replace this with a custom one
+//                    //.loginPage("login")
+//                    .permitAll()
+//                    .and()
                 .logout()
                     .permitAll();
 //
 //        // This is key for exposing csrf tokens in apis that are outside
 //        // of the browser. We will need these headers in react and for
 //        // testing with postman etc.
-//        http.addFilterAfter(new CsrfTokenResponseHeaderBindingFilter(), CsrfFilter.class);
+       http.addFilterBefore(new JwtAuthenticationFilter(tokenProvider, customUserDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
 }
