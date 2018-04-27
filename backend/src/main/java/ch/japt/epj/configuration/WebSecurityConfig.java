@@ -1,6 +1,7 @@
 package ch.japt.epj.configuration;
 
 import ch.japt.epj.security.CustomUserDetailsService;
+import ch.japt.epj.security.JwtAuthenticationEntryPoint;
 import ch.japt.epj.security.JwtAuthenticationFilter;
 import ch.japt.epj.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
@@ -20,9 +22,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
+
     private final CustomUserDetailsService customUserDetailsService;
 
-    public WebSecurityConfig(@Autowired CustomUserDetailsService customUserDetailsService) {
+
+    public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler, @Autowired CustomUserDetailsService customUserDetailsService) {
+        this.unauthorizedHandler = unauthorizedHandler;
         this.customUserDetailsService = customUserDetailsService;
     }
 
@@ -62,9 +68,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         };
 
         http
+                .exceptionHandling()
+                    .authenticationEntryPoint(unauthorizedHandler)
+                    .and()
                 .authorizeRequests()
                     .antMatchers(allowed).permitAll()
                     .anyRequest().authenticated()
+                    .and()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                 .formLogin()
                     // uncommenting this should enable a default login form
