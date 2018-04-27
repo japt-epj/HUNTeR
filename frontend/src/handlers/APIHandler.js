@@ -54,7 +54,7 @@ export default {
         ).catch(err => console.warn(err));
     },
 
-    getStudents(page, limit) {
+    getParticipants(page, limit) {
         let requestURL = config.baseurl + 'person/';
         if (page !== undefined && limit !== undefined) {
             requestURL += '?page=' + (page-1) + '&limit=' + limit;
@@ -91,7 +91,7 @@ export default {
         }
     },
 
-    prepareStudentData(data) {
+    prepareParticipantData(data) {
         return {
             exerciseID: data.exerciseID,
             answers: [data.checked0, data.checked1, data.checked2, data.checked3]

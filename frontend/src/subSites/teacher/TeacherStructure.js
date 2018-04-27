@@ -7,7 +7,7 @@ import '../../style/index.css';
 import Home from '../../handlers/HomeHandler';
 import TeacherExercise from './TeacherExercise';
 import ExerciseOverview from './TeacherExerciseOverview';
-import TeacherNewStudent from './TeacherNewStudent';
+import TeacherNewParticipant from './TeacherNewParticipant';
 import Quiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
 
@@ -46,7 +46,7 @@ export default class TeacherStructure extends React.Component {
                                         <Route path="/quiz" component={Quiz}/>
                                         <Route path="/quizOverview" component={TeacherQuizOverview}/>
                                         <Route path="/execution" component={TeacherExecution}/>
-                                        <Route path="/newUser" component={TeacherNewStudent}/>
+                                        <Route path="/newUser" component={TeacherNewParticipant}/>
                                         <Route component={NotFound}/>
                                     </Switch>
                                 </Sidebar.Pusher>
