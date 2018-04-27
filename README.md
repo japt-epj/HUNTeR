@@ -46,7 +46,7 @@ Internationalization is not one of our prime concerns, due to the nature of the 
 ### Student
 
 # Deployment
-There is currently no completely public deployment of this application, only our internal testing environment on [the HSR server](https://sinv-56053.edu.hsr.ch/). However, you are free to host your own instance of Hunter. The easiest way to do so is using Docker. 
+There is currently no completely public deployment of this application, only our internal testing environment on [the HSR server](https://sinv-56053.edu.hsr.ch/). However, you are free to host your own instance of HUNTeR. The easiest way to do so is using Docker. 
 
 HUNTeR relies on docker-compose for setting up the entire application environment. We have prepared a separate repository for supplying a standalone docker-compose configuration: [HUNTeR-Deploy](https://github.com/japt-epj/HUNTeR-Deploy). You can download the compose file or clone the directory.
 
