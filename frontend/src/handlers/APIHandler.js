@@ -74,7 +74,7 @@ export default {
                 'Content-Type': 'application/json',
             }
         }).catch(err => console.error('Error:', err)
-        ).then(res => {
+        ).then(() => {
             this.setState({fireRedirect: true});
         });
     },
