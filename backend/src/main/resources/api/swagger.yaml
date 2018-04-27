@@ -94,13 +94,17 @@ paths:
         - in: "path"
           name: "id"
           required: true
-          type: "integer"
-          description: "exercise id"
+          type: "array"
+          items:
+            type: "integer"
+          description: "exercise id, or multiple comma separated ids"
       responses:
         200:
           description: "Exercises found"
           schema:
-            $ref: "#/definitions/Exercise"
+            type: array
+            items:
+              $ref: "#/definitions/Exercise"
     post:
       tags:
       - "exercise"
@@ -672,3 +676,4 @@ definitions:
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
+

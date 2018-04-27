@@ -60,6 +60,14 @@ public class ExerciseModel {
                 .map(exercise -> mapper.map(exercise, ExerciseDto.class));
     }
 
+    public List<ExerciseDto> getExercises(List<Integer> ids) {
+        return null;
+//        return exercises.findByExerciseId(ids)
+//                .stream()
+//                .map(t -> mapper.map(t, ExerciseDto.class))
+//                .collect(Collectors.toList());
+    }
+
     public Optional<ExerciseDto> getExercise(Long id) {
         return exercises.findByExerciseId(id)
                 .map(t -> Optional.of(mapper.map(t, ExerciseDto.class)))
