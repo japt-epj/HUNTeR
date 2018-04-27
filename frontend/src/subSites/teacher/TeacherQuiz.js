@@ -125,8 +125,6 @@ export default class TeacherQuiz extends React.Component {
             </Marker>
         ) : null;
 
-        console.log(this.state.map.selectedPositions);
-
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>
