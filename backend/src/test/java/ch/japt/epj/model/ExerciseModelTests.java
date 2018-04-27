@@ -46,7 +46,7 @@ public class ExerciseModelTests {
         model.addExercise(testDto);
         ExerciseDto returnDto = model.allExercises().get(model.allExercises().size() - 1);
         assertThat(returnDto)
-                .hasFieldOrPropertyWithValue("title", "Unit Test Question")
+                .hasFieldOrPropertyWithValue("name", "Unit Test Question")
                 .hasFieldOrPropertyWithValue("question", "Is this a unit test?");
 
         assertThat(returnDto.getAnswers()).isEqualTo(Arrays.asList(new String[]{"Yes", "No"}));
@@ -54,7 +54,7 @@ public class ExerciseModelTests {
 
     @Test
     public void failWithInvalidPayload() {
-        NewExerciseDto fail = new NewExerciseDto().title("This should fail");
+        NewExerciseDto fail = new NewExerciseDto().name("This should fail");
         Assertions
                 .assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> model.addExercise(fail));
@@ -65,7 +65,7 @@ public class ExerciseModelTests {
         NewAnswerDto no = new NewAnswerDto().text("No").checked(false);
 
         return new NewExerciseDto()
-                .title("Unit Test Question")
+                .name("Unit Test Question")
                 .question("Is this a unit test?")
                 .answers(Arrays.asList(new NewAnswerDto[]{yes, no}));
     }

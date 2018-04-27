@@ -31,7 +31,7 @@ public class ExerciseControllerTests {
         mvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.title").value("Natur und Umwelt"))
+                .andExpect(jsonPath("$.name").value("Natur und Umwelt"))
                 .andExpect(jsonPath("$.question").value("Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und..."))
                 .andExpect(jsonPath("$.answers[0]").value("...einen draufmachen"))
                 .andExpect(jsonPath("$.answers[1]").value("...die Nacht durchzechen"))

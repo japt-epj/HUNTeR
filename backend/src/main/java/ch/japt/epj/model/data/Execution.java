@@ -13,9 +13,11 @@ public class Execution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long executionId;
 
-    private Date date;
+    private String name;
 
-    private Time time;
+    private Date startDate;
+
+    private Date endDate;
 
     @OneToMany
     private Collection<Person> participants = new ArrayList<>();
@@ -33,23 +35,31 @@ public class Execution {
         return participants;
     }
 
-    public Time getTime() {
-        return time;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setEndDate(Time endDate) {
+        this.endDate = endDate;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public long getExecutionId() {
         return executionId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
