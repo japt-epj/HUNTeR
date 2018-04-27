@@ -36,79 +36,28 @@ import javax.validation.Valid;
 public class PersonController implements ch.japt.epj.api.PersonApi, PaginatedPerson{
 
     private final PersonModel personModel;
-    private final AuthenticationManager authenticationManager;
-    private final PersonRepository personRepository;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider tokenProvider;
-
 
     public PersonController(
-            @Autowired PersonModel personModel,
-            @Autowired AuthenticationManager authenticationManager,
-            @Autowired PersonRepository personRepository,
-            @Autowired RoleRepository roleRepository,
-            @Autowired PasswordEncoder passwordEncoder,
-            @Autowired JwtTokenProvider tokenProvider
-            ) {
-            this.personModel = personModel;
-            this.authenticationManager = authenticationManager;
-            this.personRepository = personRepository;
-            this.roleRepository = roleRepository;
-            this.passwordEncoder = passwordEncoder;
-            this.tokenProvider = tokenProvider;
-            }
+            @Autowired PersonModel personModel
+    ) {
+        this.personModel = personModel;
+    }
 
 
-    @Override
-    public ResponseEntity<Void> createPerson(@Valid @RequestBody PersonDto body) {
 
-        if (personRepository.existsByEmail(body.getEmail())) {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        Person person = new Person(body.getFirstName(), body.getLastName(), body.getEmail(), passwordEncoder.encode(body.getPassword()) );
-
-        Role personRole = roleRepository.findByName(RoleName.ROLE_TEACHER).orElseThrow(() -> new IllegalArgumentException("Unable to assign teacher role to person."));
-
-        person.setRoles(Collections.singleton(personRole));
-
-        Person result = personRepository.save(person);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/person/{email}")
-                .buildAndExpand(result.getEmail()).toUri();
-
-        return ResponseEntity.created(location).build();
-
+//
+//    @Override
+//    public ResponseEntity<Void> deletePerson(String email) {
 //        return null;
-    }
-
-    @Override
-    public ResponseEntity<Void> deletePerson(String email) {
-        return null;
-    }
+//    }
 
     @Override
     public ResponseEntity<PersonDto> getPersonByEmail(String email) {
         return null;
     }
 
-    @Override
-    public ResponseEntity<String> authenticatePerson(@Valid String email, String password) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(jwt);
-    }
 
-    @Override
-    public ResponseEntity<Void> logoutPerson() {
-        return null;
-    }
 
     @Override
     public ResponseEntity<Void> updatePerson(String personname, PersonDto body) {
