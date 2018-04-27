@@ -576,11 +576,11 @@ definitions:
   NewExercise:
     type: "object"
     required:
-    - "title"
+    - "name"
     - "question"
     - "answertemplates"
     properties:
-      title:
+      name:
         type: "string"
         example: "IPv4"
       question:
@@ -594,14 +594,14 @@ definitions:
   Exercise:
     type: "object"
     required:
-    - "title"
+    - "name"
     - "question"
     - "answertemplates"
     properties:
       id:
         type: "integer"
         format: "int64"
-      title:
+      name:
         type: "string"
         example: "IPv4"
       question:
@@ -616,33 +616,44 @@ definitions:
   NewExecution:
       type: "object"
       required:
-        - "date"
-        - "time"
+        - "startDate"
+        - "endDate"
+        - "name"
+        - "quizId"
       properties:
         id:
           type: "integer"
           format: "int64"
-        date:
+        quizId:
+          type: "integer"
+          format: "int64"
+        name:
           type: "string"
-        time:
+        startDate:
+          type: "string"
+        endDate:
           type: "string"
         participants:
           type: "array"
           items:
-            $ref: "#/definitions/Person"
+            type: "integer"
+            format: "int64"
 
   Execution:
     type: "object"
     required:
-    - "date"
-    - "time"
+    - "startDate"
+    - "endDate"
+    - "name"
     properties:
       id:
         type: "integer"
         format: "int64"
-      date:
+      name:
         type: "string"
-      time:
+      startDate:
+        type: "string"
+      endDate:
         type: "string"
       participants:
         type: "array"
