@@ -6,7 +6,7 @@ import {Button, Dimmer, Loader} from 'semantic-ui-react';
 import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
-import FormHandler from "../../handlers/FormHandler";
+// import FormHandler from "../../handlers/FormHandler";
 
 
 export default class TeacherExercisesOverview extends React.Component {
