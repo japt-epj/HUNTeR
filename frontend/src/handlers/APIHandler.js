@@ -81,7 +81,7 @@ export default {
 
     prepareTeacherData(data) {
         return {
-            title: data.title,
+            name: data.name,
             question: data.question,
             answers: [
                 {text: data.answer0, checked: data.checked0},

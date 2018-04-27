@@ -33,7 +33,7 @@ export default {
         if (this.state.selectedPositions.size !== 0 && Array.from(this.state.selectedPositions.keys())
             .every(key => this.state.selectedPositions.get(key) !== undefined)) {
             this.postData({
-                title: this.state.title,
+                name: this.state.name,
                 locations: Array.from(this.state.selectedPositions.keys()).map(key => {
                     return {'exerciseID': key, 'location': this.state.selectedPositions.get(key)}
                 })
@@ -46,7 +46,7 @@ export default {
     handleExecutionSumbit() {
         if (this.state.selectedParticipants.length !== 0 && this.state.selectedQuizId !== undefined) {
             this.postData({
-                name: this.state.title,
+                name: this.state.name,
                 quizId: this.state.selectedQuizId,
                 participants: this.state.selectedParticipants,
                 startDate: this.state.startDate,

@@ -40,7 +40,7 @@ export default class ParticipantScanExercise extends React.Component {
                     this.setState({
                         exercise: {
                             id: resData.data.id,
-                            title: resData.data.title,
+                            name: resData.data.name,
                             question: resData.data.question,
                             answers: resData.data.answers,
                         }

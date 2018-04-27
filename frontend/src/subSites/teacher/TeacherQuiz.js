@@ -14,7 +14,7 @@ export default class TeacherQuiz extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
+            name: '',
             exercises: [],
             selectedExercises: [],
             loadingScreen: [(
@@ -130,9 +130,9 @@ export default class TeacherQuiz extends React.Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <Form.Input fluid label="Titel" name="title" value={this.state.title}
+                                <Form.Input fluid label="Name" name="name" value={this.state.name}
                                             onChange={this.handleChange}
-                                            placeholder="Bitte geben Sie einen Titel für das Quiz ein" required/>
+                                            placeholder="Bitte geben Sie einen Name für das Quiz ein" required/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns="equal" id="mapContainer">
