@@ -46,7 +46,7 @@ Internationalization is not one of our prime concerns, due to the nature of the 
 ### Student
 
 # Deployment
-There is currently no completely public deployment of this application, only our internal testing environment on [the HSR server](https://sinv-56053.edu.hsr.ch/). However, you are free to host your own instance of Hunter. The easiest way to do so is using Docker. 
+There is currently no completely public deployment of this application, only our internal testing environment on [the HSR server](https://sinv-56053.edu.hsr.ch/). However, you are free to host your own instance of HUNTeR. The easiest way to do so is using Docker. 
 
 HUNTeR relies on docker-compose for setting up the entire application environment. We have prepared a separate repository for supplying a standalone docker-compose configuration: [HUNTeR-Deploy](https://github.com/japt-epj/HUNTeR-Deploy). You can download the compose file or clone the directory.
 
@@ -59,13 +59,13 @@ Docker and docker-compose must be installed. Familiarity using these tools will 
     $ cd HUNTeR-Deploy
     # docker-compose up
 
-You can now connect to the HUNTeR Website by navigating to [http://localhost:8080/](http://localhost:8080/). The docker configuration is optimized to be hosted behind a reverse proxy. For a detailed example of an optimal deployment, see the next section.
+You can now connect to the HUNTeR Website by navigating to [http://localhost:3000/](http://localhost:3000/). The docker configuration is optimized to be hosted behind a reverse proxy. For a detailed example of an optimal deployment, see the next section.
 
 ## Cloud
 Any cloud service that supports docker-compose files perfectly supports hosting an instance of HUNTeR.
 
 ## Detailed deployment diagram of testing environment
-This is how we host our testing environment of hunter, and can be used as an example of how HUNTeR can be hosted in a productive environment facing the internet. The main detail to be aware of is that our docker configuration is meant to be hosted behind a reverse proxy. The configuration doesn't support HTTPS, and we rely on a properly configured reverse proxy to supply security. Configuration within the compose network is unsecured and not meant to face the internet.
+This is how we host our testing environment of HUNTeR, and can be used as an example of how HUNTeR can be hosted in a productive environment facing the internet. The main detail to be aware of is that our docker configuration is meant to be hosted behind a reverse proxy. The configuration doesn't support HTTPS, and we rely on a properly configured reverse proxy to supply security. Configuration within the compose network is unsecured and not meant to face the internet.
 
 We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined in the [Jenkinsfile](https://github.com/SBI-/epj-prototype/blob/master/Jenkinsfile). Every push to master triggers a build, unit and integration test cycle. Every successful build is continuously deployed as a completely clean test environment, supplied with test data. This is the deployment we use for integration testing.
 
@@ -230,7 +230,7 @@ A first step towards better distributed scalability is creating a non-monolithic
 
 The frontend consists of static artifacts, which can be hosted on any web server, such as apache or nginx. As the frontend is completely independent of the backend in terms of deployment, it doesn't matter how many servers host the frontend behind an entry reverse proxy. Scaling the frontend is therefor as easy as hosting multiple web servers on multiple machines.
 
-The backend is designed is to be as stateless as possible. The only state is handling user authentication tokens. Currently, these are stored in the same postgres database as the rest of the application data for simplicity. However, extracting session management into a redis cluster is possible, because the dependencies on session management are practically inexistant.
+The backend is designed is to be as stateless.
 
 POSTGRES presents a certain bottleneck because horizontal scalability is not a speciality of any relational database. However, a powerful database server will be able to scale to very many queries in the current design. Should this ever be a real problem, it will have to be addressed accordingly, and probably require a switch of the database technology, and the database design as such. Should we ever reach this point, we should have enogh resources and money to throw at the problem.
 
