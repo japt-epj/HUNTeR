@@ -1,28 +1,28 @@
 export default {
     getPathsTeacher() {
         return [
-            {path: 'exercise', title: 'Aufgabe erstellen', component: 'ParticipantExercise', icon: 'tasks'},
+            {path: 'exercise', name: 'Aufgabe erstellen', component: 'ParticipantExercise', icon: 'tasks'},
             {
                 path: 'exerciseOverview',
-                title: 'Übersicht der Aufgaben',
+                name: 'Übersicht der Aufgaben',
                 component: 'TeacherExerciseOverview',
                 icon: 'stack exchange'
             },
-            {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
+            {path: 'quiz', name: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
             {
-                path: 'quizOverview', title: 'Übersicht der Quizzes',
+                path: 'quizOverview', name: 'Übersicht der Quizzes',
                 component: 'TeacherQuizOverview', icon: 'stack exchange'
             },
-            {path: 'execution', title: 'Ausführung erstellen', component: 'TeacherExecution', icon: 'calendar'},
-            {path: 'newUser', title: 'Schüler erstellen', component: 'TeacherNewParticipant', icon: 'add user'},
+            {path: 'execution', name: 'Ausführung erstellen', component: 'TeacherExecution', icon: 'calendar'},
+            {path: 'newUser', name: 'Schüler erstellen', component: 'TeacherNewParticipant', icon: 'add user'},
         ];
     },
 
     getPathsParticipant() {
         return [
-            {path: 'settings', title: 'Persönliches', component: 'Settings', icon: 'setting'},
-            {path: 'scan', title: 'Aufgabe scannen', component: 'ParticipantScanExercise', icon: 'camera retro'},
-            {path: 'score', title: 'Aktueller ParticipantScore', component: 'ParticipantScore', icon: 'trophy'}
+            {path: 'settings', name: 'Persönliches', component: 'Settings', icon: 'setting'},
+            {path: 'scan', name: 'Aufgabe scannen', component: 'ParticipantScanExercise', icon: 'camera retro'},
+            {path: 'score', name: 'Aktueller ParticipantScore', component: 'ParticipantScore', icon: 'trophy'}
         ];
     },
 

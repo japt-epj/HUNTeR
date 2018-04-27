@@ -23,7 +23,7 @@ export default {
     },
 
     getSelectedExerciseTable() {
-        let headerElements = ['Titel', 'Standort setzen'];
+        let headerElements = ['Name', 'Standort setzen'];
         return (
             <Table>
                 <Table.Header>
@@ -63,7 +63,7 @@ export default {
     },
 
     getExerciseTable(checkboxNeeded) {
-        let headerElements = ['Titel', 'ID', 'Bearbeiten', 'QR-Code'];
+        let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Code'];
         if (checkboxNeeded) {
             headerElements.unshift('');
         }
@@ -79,10 +79,10 @@ export default {
                     {!this.state.loadingExercises && this.state.exercises.map(element =>
                         <Table.Row key={'TableRow' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
-                                <Checkbox id={element.id} name={element.title} onChange={this.handleSelection}
+                                <Checkbox id={element.id} name={element.name} onChange={this.handleSelection}
                                           checked={this.state.selectedExercises.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
-                            <Table.Cell content={element.title}/>
+                            <Table.Cell content={element.name}/>
                             <Table.Cell content={element.id} collapsing/>
                             <Table.Cell collapsing>
                                 <NavLink to={'/exercise?id=' + element.id}>
