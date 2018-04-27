@@ -46,7 +46,7 @@ export default {
     handleExecutionSumbit() {
         if (this.state.selectedParticipants.length !== 0 && this.state.selectedQuizId !== undefined) {
             this.postData({
-                title: this.state.title,
+                name: this.state.title,
                 quizId: this.state.selectedQuizId,
                 participants: this.state.selectedParticipants,
                 startDate: this.state.startDate,
