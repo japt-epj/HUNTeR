@@ -6,4 +6,4 @@ COPY ./backend/target/*.jar /app/hunter.jar
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8443
-CMD ["java", "-jar", "/app/hunter.jar"]
+CMD ["java", "-jar", "/app/hunter.jar"
