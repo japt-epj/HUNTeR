@@ -100,7 +100,7 @@ export default {
                     <Table.Row>
                         <Table.HeaderCell colSpan="5">
                             <Pagination totalPages={this.state.maxPage} activePage={this.state.pageNumber}
-                                        onPageChange={this.handlePageChange}/>
+                                        onPageChange={this.handlePageChangeExercises}/>
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>

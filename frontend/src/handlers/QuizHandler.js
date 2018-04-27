@@ -30,8 +30,8 @@ export default {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan="5">
-                            <Pagination totalPages={this.state.maxPage} activePage={this.state.pageNumber}
-                                        onPageChange={this.handlePageChange}/>
+                            <Pagination totalPages={this.state.maxPageQuiz} activePage={this.state.pageNumber}
+                                        onPageChange={this.handlePageChangeQuizzes}/>
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>
