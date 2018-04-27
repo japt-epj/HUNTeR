@@ -26,7 +26,7 @@ export default class TeacherQuizOverview extends React.Component {
         this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
-    handlePageChange(event, element) {
+    handlePageChangeQuizzes(event, element) {
         this.setState({
             pageNumber: element.index,
 
