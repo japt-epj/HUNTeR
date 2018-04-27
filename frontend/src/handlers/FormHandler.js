@@ -37,16 +37,29 @@ export default {
                 locations: Array.from(this.state.selectedPositions.keys()).map(key => {
                     return {'exerciseID': key, 'location': this.state.selectedPositions.get(key)}
                 })
-            }, 'execution');
+            }, 'quiz');
         } else {
             alert('Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.');
         }
     },
 
+    handleExecutionSumbit() {
+        if (this.state.selectedStudents.length !== 0 && this.state.selectedQuizId !== undefined) {
+            this.postData({
+                title: this.state.title,
+                quizId: this.state.selectedQuizId,
+                students: this.state.selectedStudents,
+                startDate: this.state.startDate,
+                endDate: this.state.endDate
+            }, 'execution');
+        } else {
+            alert('Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet.');
+        }
+    },
+
     handleLoginSubmit() {
         this.postData(this.state, 'login');
-    }
-    ,
+    },
 
     handleNewStudentSubmit() {
         this.postData(this.state, 'student');

@@ -28,10 +28,10 @@ export default class TeacherExercisesOverview extends React.Component {
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.getQRCode;
-        this.handlePageChange = this.handlePageChange.bind(this);
+        this.handlePageChangeStudents = this.handlePageChangeStudents.bind(this);
     }
 
-    handlePageChange(event, element) {
+    handlePageChangeStudents(event, element) {
         this.setState({
             pageNumber: element.index,
             loadingStudents: true,
