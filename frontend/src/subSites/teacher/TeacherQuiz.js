@@ -41,6 +41,7 @@ export default class TeacherQuiz extends React.Component {
         this.getSelectedExerciseTable = ExerciseHandler.getSelectedExerciseTable.bind(this);
         this.handleSelection = ExerciseHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
+        this.getJSONHeader = APIHandler.getJSONHeader;
         this.handlePageChangeExercises = this.handlePageChangeExercises.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
         this.getExercises = this.getExercises.bind(this);
@@ -48,6 +49,7 @@ export default class TeacherQuiz extends React.Component {
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
+        this.getJSONHeader = APIHandler.getJSONHeader;
         this.mapref = React.createRef();
     }
 
