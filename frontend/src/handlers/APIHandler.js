@@ -29,7 +29,7 @@ export default {
     getExercises(page, limit) {
         let requestURL = config.baseurl + 'exercise/';
         if (page !== undefined && limit !== undefined) {
-            requestURL += '?page=' + (page-1) + '&limit=' + limit;
+            requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
                 headers: {
@@ -43,7 +43,7 @@ export default {
     getQuizzes(page, limit) {
         let requestURL = config.baseurl + 'quiz/';
         if (page !== undefined && limit !== undefined) {
-            requestURL += '?page=' + (page-1) + '&limit=' + limit;
+            requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
                 headers: {
@@ -57,7 +57,7 @@ export default {
     getParticipants(page, limit) {
         let requestURL = config.baseurl + 'person/';
         if (page !== undefined && limit !== undefined) {
-            requestURL += '?page=' + (page-1) + '&limit=' + limit;
+            requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
                 headers: {
@@ -86,8 +86,6 @@ export default {
             }
         }).catch(err => console.error('Error:', err));
     },
-
-
 
     prepareTeacherData(data) {
         return {

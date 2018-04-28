@@ -1,5 +1,6 @@
 let config = {
-    baseurl: "/api/"
+    baseurl: "/api/",
+    domain: window.location.hostname
 };
 
 if (process.env.NODE_ENV === 'development') {

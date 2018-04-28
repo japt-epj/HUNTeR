@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 import cookie from 'react-cookie';
+=======
+import Cookies from 'js-cookie';
+
+import config from '../config/config';
+>>>>>>> Stashed changes
 import APIHandler from './APIHandler';
 
 
@@ -59,18 +65,11 @@ export default {
     },
 
     handleLoginSubmit() {
-        let res = this.postLoginData({
-            email: this.state.email,
-            password: this.state.password
-        });
+        let res = this.postLoginData(this.state, 'login');
         res.then(resData => {
-            console.log(resData);
-            if (resData.status === 200) {
-                cookie.save('HUNTeR', resData.data, {
-                    maxAge: 864000
-                });
-            }
-        });
+            Cookies.set('HUNTeR', resData.data.token, {expires: 2, domain: config.domain});
+            console.log(Cookies.get('HUNTeR'));
+        })
     },
 
     handleNewParticipantSubmit() {
