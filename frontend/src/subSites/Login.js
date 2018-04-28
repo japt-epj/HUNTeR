@@ -18,7 +18,7 @@ export default class Login extends React.Component {
         this.getLoginHeader = StructureHandler.getLoginHeader.bind(this);
         this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
-        this.postData = APIHandler.postData.bind(this);
+        this.postLoginData = APIHandler.postLoginData.bind(this);
     }
 
     render() {

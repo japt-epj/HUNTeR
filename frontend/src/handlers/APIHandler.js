@@ -79,6 +79,16 @@ export default {
         });
     },
 
+    postLoginData(data) {
+        return axios.post(config.baseurl + 'auth/login/', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).catch(err => console.error('Error:', err));
+    },
+
+
+
     prepareTeacherData(data) {
         return {
             name: data.name,
