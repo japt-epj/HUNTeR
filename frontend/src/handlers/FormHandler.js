@@ -1,3 +1,4 @@
+import cookie from 'react-cookie';
 import APIHandler from './APIHandler';
 
 
@@ -58,7 +59,18 @@ export default {
     },
 
     handleLoginSubmit() {
-        this.postData(this.state, 'login');
+        let res = this.postLoginData({
+            email: this.state.email,
+            password: this.state.password
+        });
+        res.then(resData => {
+            console.log(resData);
+            if (resData.status === 200) {
+                cookie.save('HUNTeR', resData.data, {
+                    maxAge: 864000
+                });
+            }
+        });
     },
 
     handleNewParticipantSubmit() {
