@@ -1,15 +1,21 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import fileDownload from 'js-file-download';
 
 import config from '../config/config';
 
 export default {
+    getJSONHeader() {
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': JSON.parse(Cookies.get('HUNTeR')).token
+        }
+    },
+
     getExerciseData(exerciseID) {
         return axios.get(config.baseurl + 'exercise/' + exerciseID, {
-                headers: {
-                    "Accept": "application/json",
-                    'Content-Type': 'application/json'
-                }
+                headers: {}
             }
         ).catch(err => console.warn(err));
     },
@@ -17,8 +23,9 @@ export default {
     downloadQRCode(exerciseID) {
         return axios.get(config.baseurl + 'qrCode/' + exerciseID, {
                 headers: {
-                    "Accept": "image/png",
-                    'Content-Type': 'image/png'
+                    'Accept': 'image/png',
+                    'Content-Type': 'image/png',
+                    'X-CSRF-TOKEN': this.getCSRFToken()
                 },
                 responseType: 'arraybuffer'
             }
@@ -32,10 +39,7 @@ export default {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
-                headers: {
-                    "Accept": "application/json",
-                    'Content-Type': 'application/json'
-                }
+                headers: this.getJSONHeader()
             }
         ).catch(err => console.warn(err));
     },
@@ -47,8 +51,7 @@ export default {
         }
         return axios.get(requestURL, {
                 headers: {
-                    "Accept": "application/json",
-                    'Content-Type': 'application/json'
+                    headers: this.getJSONHeader()
                 }
             }
         ).catch(err => console.warn(err));
@@ -61,8 +64,7 @@ export default {
         }
         return axios.get(requestURL, {
                 headers: {
-                    "Accept": "application/json",
-                    'Content-Type': 'application/json'
+                    headers: this.getJSONHeader()
                 }
             }
         ).catch(err => console.warn(err));
@@ -71,7 +73,7 @@ export default {
     postData(data, path) {
         axios.post(config.baseurl + path + '/', data, {
             headers: {
-                'Content-Type': 'application/json',
+                headers: this.getJSONHeader()
             }
         }).catch(err => console.error('Error:', err)
         ).then(() => {
@@ -82,7 +84,7 @@ export default {
     postLoginData(data) {
         return axios.post(config.baseurl + 'auth/login/', data, {
             headers: {
-                'Content-Type': 'application/json',
+                headers: this.getJSONHeader()
             }
         }).catch(err => console.error('Error:', err));
     },

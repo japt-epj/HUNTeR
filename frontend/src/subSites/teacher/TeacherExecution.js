@@ -46,6 +46,7 @@ export default class TeacherExecution extends React.Component {
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = ParticipantHandler.handleSelection.bind(this);
         this.getQRCode = APIHandler.downloadQRCode;
+        this.getJSONHeader = APIHandler.getJSONHeader;
         this.handlePageChangeQuizzes = this.handlePageChangeQuizzes.bind(this);
         this.handlePageChangeParticipants = this.handlePageChangeParticipants.bind(this);
         this.resetPageNumber = this.resetPageNumber.bind(this);
@@ -58,6 +59,7 @@ export default class TeacherExecution extends React.Component {
         this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
+        this.getJSONHeader = APIHandler.getJSONHeader;
     }
 
     componentDidMount() {

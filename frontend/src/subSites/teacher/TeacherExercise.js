@@ -29,6 +29,7 @@ export default class TeacherExercise extends React.Component {
         this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
+        this.getJSONHeader = APIHandler.getJSONHeader;
     }
 
     render() {

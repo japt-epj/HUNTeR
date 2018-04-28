@@ -3,57 +3,52 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Dimmer, Loader} from 'semantic-ui-react';
 
-import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 
 
-export default class TeacherExercisesOverview extends React.Component {
+export default class TeacherExerciseOverview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             exercises: [],
-            exerciseTable: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
                     <Loader size="large">Loading</Loader>
                 </Dimmer>
             )],
-            loadingExercises: true,
+            loading: true,
             pageNumber: 1,
             minPage: 1,
-            maxPageExercise: '',
+            maxPage: '',
             limit: 5,
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
-        this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
-        this.getQRCode = APIHandler.getQRCode;
-        this.handlePageChangeParticipants = this.handlePageChangeParticipants.bind(this);
+        this.getQRCode = APIHandler.downloadQRCode;
+        this.getJSONHeader = APIHandler.getJSONHeader;
+        this.handlePageChangeExercises = this.handlePageChangeExercises.bind(this);
+        this.getExercises = this.getExercises.bind(this);
     }
 
-    handlePageChangeParticipants(event, element) {
-        this.setState({
-            pageNumber: element.index,
-            loadingParticipants: true,
-        });
-        APIHandler.getExercises(element.index, this.state.limit).then(resData => {
-            if (resData.status === 200) {
-                this.setState({
-                    exercises: resData.data.content,
-                    maxPageParticipant: resData.data.totalPages,
-                    loadingParticipants: false
-                })
-            }
-        });
-    }
 
     componentDidMount() {
-        APIHandler.getExercises(this.state.pageNumber, this.state.limit).then(resData => {
+        this.getExercises(this.state.pageNumber, this.state.limit);
+    }
+
+    handlePageChangeExercises(event, element) {
+        this.setState({
+            pageNumber: element.activePage
+        });
+        this.getExercises(element.activePage, this.state.limit);
+    }
+
+    getExercises(page, limit) {
+        APIHandler.getExercises(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,
-                    maxPageExercise: resData.data.totalPages,
-                    loadingExercises: false
+                    maxPage: resData.data.totalPages,
+                    loading: false
                 })
             }
         });
@@ -62,10 +57,10 @@ export default class TeacherExercisesOverview extends React.Component {
     render() {
         return (
             <div>
-                {this.state.loadingExercises && this.state.loadingScreen}
-                {!this.state.loadingExercises && this.getExerciseTable(false)}
+                {this.state.loading && this.state.loadingScreen}
+                {!this.state.loading && this.getExerciseTable(false)}
                 <NavLink to="/exercise">
-                    <Button icocolor="green" icon="add square" positive labelPosition="right"
+                    <Button color="green" icon="add square" positive labelPosition="right"
                             label="Aufgabe hinzufügen"/>
                 </NavLink>
             </div>
