@@ -10,12 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import ch.japt.epj.model.data.Execution;
-import org.springframework.format.datetime.joda.DateTimeParser;
 import org.springframework.stereotype.Component;
 import java.lang.reflect.Type;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Component
