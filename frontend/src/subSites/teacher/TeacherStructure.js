@@ -24,9 +24,11 @@ export default class TeacherStructure extends React.Component {
             visible: false,
             iconName: 'bars'
         };
-        this.hideSidebar = StructureHandler.hideSidebar.bind(this);
         this.getHeader = StructureHandler.getHeader.bind(this);
         this.getSideBar = StructureHandler.getSideBar.bind(this);
+        this.hideSidebar = StructureHandler.hideSidebar.bind(this);
+        this.toggleVisibility = StructureHandler.toggleVisibility.bind(this);
+        this.getStructurePaths = StructureHandler.getStructurePaths.bind(this);
     }
 
     render() {

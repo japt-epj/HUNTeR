@@ -24,11 +24,9 @@ export default class ParticipantScanExercise extends React.Component {
                 longitude: ''
             }
         };
-        this.handleScan = this.handleScan.bind(this);
-        this.handleError = this.handleError.bind(this);
     }
 
-    handleScan(data) {
+    handleScan = data => {
         if (data) {
             APIHandler.getExerciseArray(data, 'exercise').then(resData => {
                 if (resData.status === 200) {
@@ -53,11 +51,11 @@ export default class ParticipantScanExercise extends React.Component {
                 }
             });
         }
-    }
+    };
 
-    handleError(err) {
+    handleError = err => {
         console.error(err);
-    }
+    };
 
     render() {
         return (
