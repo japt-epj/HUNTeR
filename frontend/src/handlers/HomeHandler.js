@@ -10,7 +10,7 @@ export default function getHome(paths) {
             <Menu fluid vertical>
                 {paths.map((element) => <NavLink key={'NavLink' + element.path}
                                                  to={'/' + element.path}>
-                    <Menu.Item key={'menuItem' + element.path}>{element.title}</Menu.Item></NavLink>
+                    <Menu.Item key={'menuItem' + element.path}>{element.name}</Menu.Item></NavLink>
                 )}
             </Menu>
             <div className="content">

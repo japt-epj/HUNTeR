@@ -2,13 +2,13 @@ import React from 'react';
 import {Redirect} from 'react-router';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Form, Grid, Message} from 'semantic-ui-react';
+import { Form, Grid, Message} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 
 
-export default class StudentExercise extends React.Component {
+export default class ParticipantExercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,7 +46,7 @@ export default class StudentExercise extends React.Component {
                         })}
                     </Grid.Row>
                     <Grid.Row>
-                        <Button>Submit</Button>
+                        <Form.Button content="Submit"/>
                     </Grid.Row>
                     {this.state.fireRedirect && (<Redirect to="/"/>)}
                 </Form>

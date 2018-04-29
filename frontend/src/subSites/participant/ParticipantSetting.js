@@ -13,7 +13,7 @@ export default function getSetting() {
                 <Form.Input label="Neues Passwort" type="password"/>
                 <Form.Input label="Neues Passwort erneut eingeben" type="password"/>
 
-                <Modal style={{marginTop: 0}} size="fullscreen" trigger={<Form.Button>Daten ändern</Form.Button>}
+                <Modal style={{marginTop: 0}} size="fullscreen" trigger={<Button content="Daten ändern"/>}
                        closeIcon>
                     <Header icon="key" content="Daten ändern?"/>
                     <Modal.Content>

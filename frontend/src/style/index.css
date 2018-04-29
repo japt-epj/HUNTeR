@@ -2,12 +2,25 @@ html {
     font-size: 16px !important;
 }
 
+#mapContainer{
+    height: 60vh;
+}
+
+#dateTimePickerContainer{
+    height: 40vh;
+}
+
+.leaflet-container{
+    height: 100%;
+    width: 100%;
+}
+
 .siteGrid {
     height: 100vh;
 }
 
 .left.aligned.column, a, .logoImage, .right.aligned.column, .ui.button {
-    height: calc(100%*1.2) !important;
+    height: calc(100% * 1.2) !important;
     min-height: 30px !important;
     max-height: 55px !important;
 }
@@ -44,10 +57,6 @@ html {
     margin: 0.5em !important;
 }
 
-.ui.fullscreen.modal.transition.visible.active {
-    margin-top: 0 !important;
-}
-
 .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.visible.sidebar.menu, .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.animating.sidebar.menu {
     background: rgba(32, 192, 40, 0.7);
 }
@@ -64,6 +73,6 @@ html {
     color: #cc8e34;
 }
 
-.errorBackground{
+.errorBackground {
     background: #36c22f;
 }
