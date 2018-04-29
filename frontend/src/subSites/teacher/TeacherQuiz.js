@@ -45,10 +45,6 @@ export default class TeacherQuiz extends React.Component {
         this.handleChange = FormHandler.handleChange.bind(this);
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
 
-        this.handlePageChangeExercises = this.handlePageChangeExercises.bind(this);
-        this.resetPageNumber = this.resetPageNumber.bind(this);
-        this.getExercises = this.getExercises.bind(this);
-
         this.mapref = React.createRef();
     }
 
@@ -57,9 +53,26 @@ export default class TeacherQuiz extends React.Component {
         this.mapref.current.leafletElement.locate();
     }
 
-    handleClick = e => {
+    getExercises = (page, limit) => {
+        APIHandler.getExercises(page, limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    exercises: resData.data.content,
+                    maxPage: resData.data.totalPages,
+                    loading: false
+                })
+            }
+        });
+    };
+
+    resetPageNumber = event => {
+        event.preventDefault();
+        this.setState({pageNumber: 1});
+    };
+
+    handleClick = event => {
         let map = {...this.state.map};
-        map.location = e.latlng;
+        map.location = event.latlng;
         map.zoom = this.mapref.current.leafletElement.getZoom();
         map.clicked = true;
         let newPositions = this.state.selectedPositions;
@@ -70,43 +83,26 @@ export default class TeacherQuiz extends React.Component {
         });
     };
 
-    handleZoom = e => {
+    handleZoom = event => {
         let map = {...this.state.map};
         map.zoom = this.mapref.current.leafletElement.getZoom();
         this.setState({map});
     };
 
-    handleLocation = e => {
+    handleLocation = event => {
         let map = {...this.state.map};
         map.zoom = this.mapref.current.leafletElement.getZoom();
-        map.location = e.latlng;
+        map.location = event.latlng;
         map.clicked = false;
         this.setState({map});
     };
 
-    handlePageChangeExercises(event, element) {
+    handlePageChangeExercises = (event, element) => {
         this.setState({
             pageNumber: element.activePage
         });
         this.getExercises(element.activePage, this.state.limit);
-    }
-
-    getExercises(page, limit) {
-        APIHandler.getExercises(page, limit).then(resData => {
-            if (resData.status === 200) {
-                this.setState({
-                    exercises: resData.data.content,
-                    maxPage: resData.data.totalPages,
-                    loading: false
-                })
-            }
-        });
-    }
-
-    resetPageNumber(event) {
-        event.preventDefault();
-        this.setState({pageNumber: 1});
-    }
+    };
 
     render() {
         const image = L.icon({

@@ -26,9 +26,11 @@ export default class TeacherExercisesOverview extends React.Component {
             limit: 5,
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
-        this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
-        this.getQRCode = APIHandler.getQRCode;
         this.handlePageChangeParticipants = this.handlePageChangeParticipants.bind(this);
+    }
+
+    componentDidMount() {
+        this.getExercises(this.state.pageNumber, this.state.limit);
     }
 
     handlePageChangeParticipants(event, element) {
@@ -36,7 +38,11 @@ export default class TeacherExercisesOverview extends React.Component {
             pageNumber: element.index,
             loadingParticipants: true,
         });
-        APIHandler.getExercises(element.index, this.state.limit).then(resData => {
+        this.getExercises(element.index, this.state.limit);
+    }
+
+    getExercises = (page, limit) => {
+        APIHandler.getExercises(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,
@@ -44,20 +50,8 @@ export default class TeacherExercisesOverview extends React.Component {
                     loadingParticipants: false
                 })
             }
-        });
-    }
-
-    componentDidMount() {
-        APIHandler.getExercises(this.state.pageNumber, this.state.limit).then(resData => {
-            if (resData.status === 200) {
-                this.setState({
-                    exercises: resData.data.content,
-                    maxPageExercise: resData.data.totalPages,
-                    loadingExercises: false
-                })
-            }
-        });
-    }
+        })
+    };
 
     render() {
         return (

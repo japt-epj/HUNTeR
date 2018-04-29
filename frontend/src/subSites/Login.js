@@ -15,7 +15,6 @@ export default class Login extends React.Component {
             email: '',
             password: ''
         };
-        this.getLoginHeader = StructureHandler.getLoginHeader.bind(this);
         this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
@@ -24,7 +23,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <Grid className="siteGrid" padded>
-                {this.getLoginHeader()}
+                {StructureHandler.getLoginHeader()}
                 <Grid.Row className="gridContent" centered>
                     <div>
                         <Form onSubmit={this.handleSubmit}>
