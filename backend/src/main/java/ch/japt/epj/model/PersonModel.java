@@ -37,6 +37,10 @@ public class PersonModel {
         }
     }
 
+    public List<PersonDto> getPeople(List<Integer> ids) {
+        return null;
+    }
+
     public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
         return persons.findAll(new PageRequest(page, limit, sort))
                 .map(person -> mapper.map(person, PersonDto.class));
