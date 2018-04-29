@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,11 +62,15 @@ public class ExerciseModel {
     }
 
     public List<ExerciseDto> getExercises(List<Integer> ids) {
-        return null;
-//        return exercises.findByExerciseId(ids)
-//                .stream()
-//                .map(t -> mapper.map(t, ExerciseDto.class))
-//                .collect(Collectors.toList());
+        List<Long> longs = ids
+                .stream()
+                .map(Integer::longValue)
+                .collect(Collectors.toList());
+
+        ArrayList<ExerciseDto> list = new ArrayList<>();
+        exercises.findAll(longs)
+                .forEach(e -> list.add(mapper.map(e, ExerciseDto.class)));
+        return list;
     }
 
     public Optional<ExerciseDto> getExercise(Long id) {
