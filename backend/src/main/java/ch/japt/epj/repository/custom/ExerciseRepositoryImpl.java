@@ -1,4 +1,4 @@
-package ch.japt.epj.repository;
+package ch.japt.epj.repository.custom;
 
 import ch.japt.epj.model.data.Exercise;
 import org.hibernate.MultiIdentifierLoadAccess;
