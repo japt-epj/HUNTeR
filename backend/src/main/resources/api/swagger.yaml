@@ -156,6 +156,31 @@ paths:
         404:
           description: "QRCode not found"
 
+  /people/{id}:
+    get:
+      tags:
+      - "person"
+      summary: "Get people by ids"
+      description: "Get one or more people by their id"
+      operationId: "getPersonById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        type: "array"
+        items:
+          type: "integer"
+        description: "exercise id, or multiple comma separated ids"
+      responses:
+        200:
+          description: "People found"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Person"
+
   /person/{email}:
     get:
       tags:
