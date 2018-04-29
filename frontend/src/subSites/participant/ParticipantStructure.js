@@ -5,17 +5,17 @@ import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
 import Home from '../../handlers/HomeHandler';
-import StudentScanExercise from './StudentScanExercise';
-import Settings from './StudentSetting';
-import StudentScore from './StudentScore';
-import StudentExercise from './StudentExercise';
+import ParticipantScanExercise from './ParticipantScanExercise';
+import Settings from './ParticipantSetting';
+import ParticipantScore from './ParticipantScore';
+import ParticipantExercise from './ParticipantExercise';
 
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from "../NotFound";
 
 
-export default class StudentStructure extends React.Component {
+export default class ParticipantStructure extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,20 +29,20 @@ export default class StudentStructure extends React.Component {
 
     render() {
         return (
-            <BrowserRouter basename="/student">
+            <BrowserRouter basename="/participant">
                 <Grid className="siteGrid" padded>
                     {this.getHeader(true)}
                     <Grid.Row className="gridContent">
                         <Grid.Column>
                             <Sidebar.Pushable as={Segment}>
-                                {this.getSideBar(Data.getPathsStudent())}
+                                {this.getSideBar(Data.getPathsParticipant())}
                                 <Sidebar.Pusher onClick={this.hideSidebar}>
                                     <Switch>
-                                        <Route exact path="/" render={props => Home(Data.getPathsStudent())}/>
+                                        <Route exact path="/" render={props => Home(Data.getPathsParticipant())}/>
                                         <Route path="/settings" component={Settings}/>
-                                        <Route path="/scan" component={StudentScanExercise}/>
-                                        <Route path="/score" component={StudentScore}/>
-                                        <Route path="/exercise" component={StudentExercise}/>
+                                        <Route path="/scan" component={ParticipantScanExercise}/>
+                                        <Route path="/score" component={ParticipantScore}/>
+                                        <Route path="/exercise" component={ParticipantExercise}/>
                                         <Route component={NotFound}/>
                                     </Switch>
                                 </Sidebar.Pusher>

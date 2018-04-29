@@ -1,63 +1,45 @@
-export default class Data {
-    static getPathsTeacher() {
+export default {
+    getPathsTeacher() {
         return [
-            {path: 'exercise', title: 'Aufgabe erstellen', component: 'StudentExercise', icon: 'tasks'},
+            {path: 'exercise', name: 'Aufgabe erstellen', component: 'ParticipantExercise', icon: 'tasks'},
             {
                 path: 'exerciseOverview',
-                title: 'Übersicht der Aufgaben',
-                component: 'TeacherExercisesOverview',
+                name: 'Übersicht der Aufgaben',
+                component: 'TeacherExerciseOverview',
                 icon: 'stack exchange'
             },
-            {path: 'quiz', title: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
+            {path: 'quiz', name: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
             {
-                path: 'quizOverview', title: 'Übersicht der Quizzes',
+                path: 'quizOverview', name: 'Übersicht der Quizzes',
                 component: 'TeacherQuizOverview', icon: 'stack exchange'
             },
-            {path: 'newUser', title: 'Schüler erstellen', component: 'TeacherNewStudent', icon: 'add user'},
-
+            {path: 'execution', name: 'Ausführung erstellen', component: 'TeacherExecution', icon: 'calendar'},
+            {path: 'newUser', name: 'Schüler erstellen', component: 'TeacherNewParticipant', icon: 'add user'},
         ];
-    }
+    },
 
-    static getPathsStudent() {
+    getPathsParticipant() {
         return [
-            {path: 'settings', title: 'Persönliches', component: 'Settings', icon: 'setting'},
-            {path: 'scan', title: 'Aufgabe scannen', component: 'StudentScanExercise', icon: 'camera retro'},
-            {path: 'score', title: 'Aktueller StudentScore', component: 'StudentScore', icon: 'trophy'}
+            {path: 'settings', name: 'Persönliches', component: 'Settings', icon: 'setting'},
+            {path: 'scan', name: 'Aufgabe scannen', component: 'ParticipantScanExercise', icon: 'camera retro'},
+            {path: 'score', name: 'Aktueller ParticipantScore', component: 'ParticipantScore', icon: 'trophy'}
         ];
-    }
+    },
 
-    static getQuiz(quizString) {
+    getQuiz(quizString) {
         let quizMap = new Map();
         quizMap.set('quiz1', {text: 'Quiz 1', exercises: 4, solvedExercises: 3, points: 10});
         quizMap.set('quiz2', {text: 'Quiz 2', exercises: 4, solvedExercises: 2, points: 6});
         quizMap.set('quiz3', {text: 'Quiz 3', exercises: 4, solvedExercises: 3, points: 9});
         quizMap.set('quiz4', {text: 'Quiz 4', exercises: 4, solvedExercises: 4, points: 12});
         return quizMap.get(quizString);
-    }
+    },
 
-    static getQuizzes() {
-        return [
-            {key: 'quiz1', value: 'quiz1', text: 'Quiz 1', title: 'IP-Adressen', score: '60%'},
-            {key: 'quiz2', value: 'quiz2', text: 'Quiz 2', title: 'Transportmedien', score: '30%'},
-            {key: 'quiz3', value: 'quiz3', text: 'Quiz 3', title: 'Wirtschaftsinformatik', score: '10%'},
-            {key: 'quiz4', value: 'quiz4', text: 'Quiz 4', title: 'Business und Recht 2', score: '30%'}
-        ]
-    }
-
-    static getProgress(quizString) {
+    getProgress(quizString) {
         return {value: this.getQuiz(quizString).solvedExercises, total: this.getQuiz(quizString).exercises};
-    }
+    },
 
-    static getStudents(quizString){
-        return [
-            {
-                key: 'student1',
-                email: 'schlaubi.schlumpf@gmail.com'
-            }
-        ]
-    }
-
-    static getResults(quizString) {
+    getResults(quizString) {
         let quizMapping = new Map();
         quizMapping.set('quiz1',
             [
@@ -88,9 +70,9 @@ export default class Data {
             ]
         );
         return quizMapping.get(quizString);
-    }
+    },
 
-    static getLeaderBoard() {
+    getLeaderBoard() {
         return [
             {key: 'goldenUser', name: 'Andi Hörler', score: '99%', trophyColor: 'golden'},
             {key: 'silverUser', name: 'Jonas Kugler', score: '90%', trophyColor: 'silver'},

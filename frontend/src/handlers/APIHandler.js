@@ -14,7 +14,7 @@ export default {
         ).catch(err => console.warn(err));
     },
 
-    getQRCode(exerciseID) {
+    downloadQRCode(exerciseID) {
         return axios.get(config.baseurl + 'qrCode/' + exerciseID, {
                 headers: {
                     "Accept": "image/png",
@@ -40,8 +40,26 @@ export default {
         ).catch(err => console.warn(err));
     },
 
-    getStudents() {
-        return axios.get(config.baseurl + 'person/', {
+    getQuizzes(page, limit) {
+        let requestURL = config.baseurl + 'quiz/';
+        if (page !== undefined && limit !== undefined) {
+            requestURL += '?page=' + (page-1) + '&limit=' + limit;
+        }
+        return axios.get(requestURL, {
+                headers: {
+                    "Accept": "application/json",
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).catch(err => console.warn(err));
+    },
+
+    getParticipants(page, limit) {
+        let requestURL = config.baseurl + 'person/';
+        if (page !== undefined && limit !== undefined) {
+            requestURL += '?page=' + (page-1) + '&limit=' + limit;
+        }
+        return axios.get(requestURL, {
                 headers: {
                     "Accept": "application/json",
                     'Content-Type': 'application/json'
@@ -56,14 +74,14 @@ export default {
                 'Content-Type': 'application/json',
             }
         }).catch(err => console.error('Error:', err)
-        ).then(res => {
+        ).then(() => {
             this.setState({fireRedirect: true});
         });
     },
 
     prepareTeacherData(data) {
         return {
-            title: data.title,
+            name: data.name,
             question: data.question,
             answers: [
                 {text: data.answer0, checked: data.checked0},
@@ -73,7 +91,7 @@ export default {
         }
     },
 
-    prepareStudentData(data) {
+    prepareParticipantData(data) {
         return {
             exerciseID: data.exerciseID,
             answers: [data.checked0, data.checked1, data.checked2, data.checked3]

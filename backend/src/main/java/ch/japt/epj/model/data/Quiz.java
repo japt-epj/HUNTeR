@@ -47,4 +47,8 @@ public class Quiz {
     public long getQuizId() {
         return quizId;
     }
+
+    public Collection<Execution> getExecutions(){return executions; }
+
+    public Collection<Exercise> getExercises() {return exercises;}
 }

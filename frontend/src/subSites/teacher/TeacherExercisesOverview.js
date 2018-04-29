@@ -6,7 +6,6 @@ import {Button, Dimmer, Loader} from 'semantic-ui-react';
 import TableHandler from '../../handlers/TableHandler';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
-// import FormHandler from "../../handlers/FormHandler";
 
 
 export default class TeacherExercisesOverview extends React.Component {
@@ -29,20 +28,20 @@ export default class TeacherExercisesOverview extends React.Component {
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.getTablePageButtons = TableHandler.getTablePageButtons.bind(this);
         this.getQRCode = APIHandler.getQRCode;
-        this.handlePageChange = this.handlePageChange.bind(this);
+        this.handlePageChangeParticipants = this.handlePageChangeParticipants.bind(this);
     }
 
-    handlePageChange(event, element) {
+    handlePageChangeParticipants(event, element) {
         this.setState({
             pageNumber: element.index,
-            loadingStudents: true,
+            loadingParticipants: true,
         });
         APIHandler.getExercises(element.index, this.state.limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     exercises: resData.data.content,
-                    maxPageStudent: resData.data.totalPages,
-                    loadingStudents: false
+                    maxPageParticipant: resData.data.totalPages,
+                    loadingParticipants: false
                 })
             }
         });

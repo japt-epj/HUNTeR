@@ -14,7 +14,7 @@ export default class TeacherExercise extends React.Component {
         this.state = {
             fireRedirect: false,
             id: '',
-            title: '',
+            name: '',
             question: '',
             answer0: '',
             checked0: false,
@@ -34,9 +34,9 @@ export default class TeacherExercise extends React.Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                <Form.Input fluid label="Titel" name="title" value={this.state.title}
+                <Form.Input fluid label="Name" name="name" value={this.state.name}
                             onChange={this.handleChange}
-                            placeholder="Bitte geben Sie einen Titel ein" required/>
+                            placeholder="Bitte geben Sie einen Name ein" required/>
                 <Form.TextArea label="Aufgabenfrage" name="question" value={this.state.question}
                                onChange={this.handleChange}
                                placeholder="Bitte geben Sie eine Frage ein..." required/>

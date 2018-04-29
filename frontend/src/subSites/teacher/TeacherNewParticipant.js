@@ -7,7 +7,7 @@ import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 
 
-export default class TeacherNewStudent extends React.Component {
+export default class TeacherNewParticipant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +16,7 @@ export default class TeacherNewStudent extends React.Component {
             lastName: '',
             email: '',
         };
-        this.handleSubmit = FormHandler.handleNewStudentSubmit.bind(this);
+        this.handleSubmit = FormHandler.handleNewParticipantSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
     }
