@@ -172,7 +172,7 @@ paths:
         type: "array"
         items:
           type: "integer"
-        description: "exercise id, or multiple comma separated ids"
+        description: "Person id, or multiple comma separated ids"
       responses:
         200:
           description: "People found"
@@ -366,16 +366,20 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - in: "path"
-          name: "id"
-          required: true
+      - in: "path"
+        name: "id"
+        required: true
+        type: "array"
+        items:
           type: "integer"
-          description: "quiz id"
+        description: "Quiz id, or multiple comma separated ids"
       responses:
         200:
           description: "Quizzes found"
           schema:
-            $ref: "#/definitions/NewQuiz"
+            type: array
+            items:
+              $ref: "#/definitions/NewQuiz"
     post:
       tags:
       - "quiz"
