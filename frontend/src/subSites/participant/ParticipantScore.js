@@ -1,42 +1,67 @@
 import React from 'react';
 
-import {Button, Card, Dropdown, Grid, Icon, Menu, Modal, Progress, Segment, Statistic, Tab} from 'semantic-ui-react';
+import {Button, Card, Dropdown, Grid, Icon, Menu, Modal, Progress, Statistic} from 'semantic-ui-react';
 
 import Data from '../../data/Data';
+import APIHandler from "../../handlers/APIHandler";
 
 
 export default class ParticipantScore extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {quiz: 'quiz1'};
-        this.changeQuizState = this.changeQuizState.bind(this);
+        this.state = {
+            quizzes: [],
+            quiz: 'quiz1'
+        };
     }
 
-    static getColor(element, index) {
+    componentDidMount() {
+        this.getQuizzes(this.state.pageNumber, this.state.limit);
+    }
+
+    getQuizzes = () => {
+        APIHandler.getQuizzes(1, 200).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    quizzes: resData.data.content.map(element => {
+                        element.key = element.id;
+                        element.value = element.id;
+                        element.text = element.name;
+                        return element;
+                    }),
+                    maxPageQuizzes:
+                    resData.data.totalPages,
+                    loadingQuizzes: false
+                })
+            }
+        });
+    };
+
+    getColor = (element, index) => {
         if (element.correctAnswers[index]) {
             return 'green';
         } else {
             return 'red';
         }
-    }
+    };
 
-    static getUserAnswer(element, index) {
+    getUserAnswer = (element, index) => {
         if (element.userAnswers[index]) {
             return <Icon name="checkmark box" size="large"/>;
         } else {
             return <Icon name=""/>;
         }
-    }
+    };
 
-    static buildScoreOverview(quizProgress) {
+    buildScoreOverview = quizProgress => {
         return [
             {key: 'exercise', label: 'Aufgaben insgesammt', value: quizProgress.exercises},
             {key: 'solvedExercises', label: 'Aufgaben gelöst', value: quizProgress.solvedExercises},
             {key: 'points', label: 'Punkte insgesammt', value: quizProgress.points}
         ];
-    }
+    };
 
-    static getScore(element) {
+    getScore = element => {
         let points = 0;
         element.correctAnswers.forEach(function (answer, index) {
             if (answer === element.userAnswers[index]) {
@@ -46,34 +71,15 @@ export default class ParticipantScore extends React.Component {
             }
         });
         return ((points < 0) ? 0 : points) + '/4';
-    }
+    };
 
-    changeQuizState(value) {
+    changeQuizState = value => {
         this.setState({quiz: value});
     };
 
-    getTabs() {
-        return (
-            <Tab panes={Data.getResults(this.state.quiz).map((element, index) =>
-                <Tab.Pane attached={false} key={'tab' + element.key}>
-                    Lösungen Aufgabe {index + 1} | Punkte: {ParticipantScore.getScore(element)}
-                    <Segment.Group horizontal>
-                        {Array.apply(null, Array(element.correctAnswers.length)).map(function (item, i) {
-                            return (
-                                <Segment inverted color={ParticipantScore.getColor(element, i)}
-                                         key={element.key + 'Answer' + i}>{
-                                    ParticipantScore.getUserAnswer(element, i)}</Segment>
-                            );
-                        })}
-                    </Segment.Group>
-                </Tab.Pane>
-            )}/>
-        );
-    }
-
     render() {
         return (
-            <Grid>
+            <Grid padded>
                 <Grid.Row centered>
                     <Card.Group centered>
                         {Data.getLeaderBoard().map(element =>
@@ -97,9 +103,7 @@ export default class ParticipantScore extends React.Component {
                 <Grid.Row>
                     <Dropdown
                         fluid selection closeOnBlur scrolling upward={/Mobi/.test(navigator.userAgent)}
-                        options={Data.getQuizzes()}
-                        onChange={(e, {value}) => this.changeQuizState(value)}
-                        defaultValue={this.state.quiz}
+                        options={this.state.quizzes}
                     />
                 </Grid.Row>
                 <Grid.Row>
@@ -109,13 +113,13 @@ export default class ParticipantScore extends React.Component {
                         <Modal.Header>{'Andi Hörler - ' + Data.getQuiz(this.state.quiz).text}</Modal.Header>
                         <Modal.Content>
                             <Modal.Description>
-                                <Statistic.Group items={ParticipantScore.buildScoreOverview(Data.getQuiz(this.state.quiz))}
-                                                 size="mini"
-                                                 horizontal/>
+                                <Statistic.Group
+                                    items={this.buildScoreOverview(Data.getQuiz(this.state.quiz))}
+                                    size="mini"
+                                    horizontal/>
                                 <Progress value={Data.getProgress(this.state.quiz).value}
                                           total={Data.getProgress(this.state.quiz).total}
                                           progress="ratio"/>
-                                {this.getTabs()}
                             </Modal.Description>
                         </Modal.Content>
                     </Modal>
