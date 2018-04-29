@@ -18,6 +18,8 @@ import java.util.List;
 
 @Component
 public class QuizModel {
+    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {}.getType();
+
     private final QuizRepository quizzes;
     private final ModelMapper mapper = new ModelMapper();
 
@@ -27,9 +29,8 @@ public class QuizModel {
 
     @Deprecated
     public List<NewQuizDto> allQuizzes() {
-        Type type = new TypeToken<List<NewQuizDto>>() {}.getType();
         Iterable<Quiz> all = quizzes.findAll();
-        return mapper.map(all, type);
+        return mapper.map(all, QUIZ_DTO_LIST);
     }
 
     public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
@@ -49,9 +50,6 @@ public class QuizModel {
 
     public List<NewQuizDto> getQuizzes(List<Integer> ids) {
         List<Long> longs = ListConverter.toLong(ids);
-        ArrayList<NewQuizDto> dtos = new ArrayList<>();
-        quizzes.findAll(longs)
-                .forEach(q -> dtos.add(mapper.map(q, NewQuizDto.class)));
-        return dtos;
+        return mapper.map(quizzes.findAll(longs), QUIZ_DTO_LIST);
     }
 }

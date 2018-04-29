@@ -6,6 +6,7 @@ import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,10 +42,8 @@ public class PersonModel {
 
     public List<PersonDto> getPeople(List<Integer> ids) {
         List<Long> longs = ListConverter.toLong(ids);
-        ArrayList<PersonDto> dtos = new ArrayList<>();
-        persons.findAll(longs)
-                .forEach(p -> dtos.add(mapper.map(p, PersonDto.class)));
-        return dtos;
+        Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
+        return mapper.map(persons.findAll(longs), dtoList);
     }
 
     public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
