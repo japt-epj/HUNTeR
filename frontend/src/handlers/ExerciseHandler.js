@@ -1,13 +1,14 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Checkbox, Pagination, Table} from 'semantic-ui-react';
+import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
 import TableHandler from "./TableHandler";
+import APIHandler from "./APIHandler";
 
 
 export default {
     handleSelection(event, checkbox) {
-        let newState = this.state.selectedExercises;
+        let newState = this.state.selected;
         let newPositions = this.state.selectedPositions;
         if (checkbox.checked) {
             newState.push(checkbox.id);
@@ -17,13 +18,21 @@ export default {
             newPositions.delete(checkbox.id);
         }
         this.setState({
-            selectedExercises: newState.sort((a, b) => a > b),
+            selected: newState.sort((a, b) => a > b),
             selectedPositions: newPositions
         });
+        APIHandler.getExerciseArray(this.state.selected.toString()).then(resData => {
+            if (resData.status === 200) {
+                this.setState({selectedExercises: resData.data})
+            } else {
+                console.log('Error:' + resData);
+            }
+        })
+        ;
     },
 
     getSelectedExerciseTable() {
-        let headerElements = ['Name', 'Standort setzen'];
+        let headerElements = ['Name', 'Standort gesetzt', 'Standort setzen'];
         return (
             <Table>
                 <Table.Header>
@@ -33,8 +42,12 @@ export default {
                 </Table.Header>
                 <Table.Body>
                     {this.state.selectedExercises.map(element =>
-                        <Table.Row key={'TableRow' + element}>
-                            <Table.Cell content={element}/>
+                        <Table.Row key={'TableRow' + element.id}>
+                            <Table.Cell content={element.name}/>
+                            <Table.Cell collapsing>
+                                {this.state.selectedPositions.get(element.id) !== undefined &&
+                                <Icon color="green" name="check"/>}
+                            </Table.Cell>
                             <Table.Cell collapsing>
                                 <Button color="green" basic icon="point" onClick={(event) => {
                                     event.preventDefault();
@@ -44,13 +57,14 @@ export default {
                                         this.setState({selectedPositions: newPositions});
                                     }
                                     let map = {...this.state.map};
-                                    map.currentExercise = element;
-                                    map.popupText = element;
-                                    if (this.state.selectedPositions.get(element) === undefined) {
+                                    map.currentExercise = element.id;
+                                    map.popupText = element.name;
+                                    if (this.state.selectedPositions.get(element.id) === undefined) {
                                         map.location = this.state.map.location
                                     } else {
-                                        map.location = this.state.selectedPositions.get(element);
+                                        map.location = this.state.selectedPositions.get(element.id);
                                     }
+                                    console.log(map);
                                     this.setState({map: map});
                                 }
                                 }/>
@@ -80,7 +94,7 @@ export default {
                         <Table.Row key={'TableRow' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
                                 <Checkbox id={element.id} name={element.name} onChange={this.handleSelection}
-                                          checked={this.state.selectedExercises.indexOf(element.id) !== -1}/>
+                                          checked={this.state.selected.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
                             <Table.Cell content={element.name}/>
                             <Table.Cell content={element.id} collapsing/>
@@ -91,7 +105,7 @@ export default {
                             </Table.Cell>
                             <Table.Cell collapsing>
                                 <Button color="orange" basic icon="qrcode"
-                                        onClick={() => this.downloadQRCode(element.id)}/>
+                                        onClick={() => APIHandler.downloadQRCode(element.id)}/>
                             </Table.Cell>
                         </Table.Row>
                     )}
