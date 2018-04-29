@@ -16,7 +16,7 @@ public class ExerciseRepositoryImpl implements ExerciseRepositoryCustom {
 
     @Transactional
     @Override
-    public List<Exercise> weirdAssFunctionName(List<Integer> ids) {
+    public List<Exercise> findByIds(List<Integer> ids) {
         Session session = manager.unwrap(Session.class);
         MultiIdentifierLoadAccess<Exercise> access = session.byMultipleIds(Exercise.class);
         return access.multiLoad(ids);
