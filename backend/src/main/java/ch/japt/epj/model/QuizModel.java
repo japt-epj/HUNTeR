@@ -1,5 +1,6 @@
 package ch.japt.epj.model;
 
+import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.NewQuizDto;
 import ch.japt.epj.repository.QuizRepository;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -45,5 +47,11 @@ public class QuizModel {
         quizzes.save(quiz);
     }
 
-
+    public List<NewQuizDto> getQuizzes(List<Integer> ids) {
+        List<Long> longs = ListConverter.toLong(ids);
+        ArrayList<NewQuizDto> dtos = new ArrayList<>();
+        quizzes.findAll(longs)
+                .forEach(q -> dtos.add(mapper.map(q, NewQuizDto.class)));
+        return dtos;
+    }
 }
