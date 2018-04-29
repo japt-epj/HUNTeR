@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public class ArrayRepositoryAccessImpl implements ArrayRepositoryAccessCustom {
+public class ExerciseRepositoryImpl implements ExerciseRepositoryCustom {
 
     @PersistenceContext
     EntityManager manager;
