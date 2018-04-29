@@ -1,5 +1,6 @@
 package ch.japt.epj.model;
 
+import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.dto.ExerciseDto;
@@ -62,11 +63,7 @@ public class ExerciseModel {
     }
 
     public List<ExerciseDto> getExercises(List<Integer> ids) {
-        List<Long> longs = ids
-                .stream()
-                .map(Integer::longValue)
-                .collect(Collectors.toList());
-
+        List<Long> longs = ListConverter.toLong(ids);
         ArrayList<ExerciseDto> list = new ArrayList<>();
         exercises.findAll(longs)
                 .forEach(e -> list.add(mapper.map(e, ExerciseDto.class)));
