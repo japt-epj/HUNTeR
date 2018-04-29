@@ -9,7 +9,7 @@ export default {
         return {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': JSON.parse(Cookies.get('HUNTeR')).token
+            'X-CSRF-TOKEN': 'Baerer ' + JSON.parse(Cookies.get('HUNTeR')).token
         }
     },
 
@@ -84,7 +84,8 @@ export default {
     postLoginData(data) {
         return axios.post(config.baseurl + 'auth/login/', data, {
             headers: {
-                headers: this.getJSONHeader()
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
         }).catch(err => console.error('Error:', err));
     },
