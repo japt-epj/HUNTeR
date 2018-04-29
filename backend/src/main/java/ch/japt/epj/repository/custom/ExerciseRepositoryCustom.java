@@ -5,5 +5,5 @@ import ch.japt.epj.model.data.Exercise;
 import java.util.List;
 
 public interface ExerciseRepositoryCustom {
-    List<Exercise> weirdAssFunctionName(List<Integer> ids);
+    List<Exercise> findByIds(List<Integer> ids);
 }
