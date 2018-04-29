@@ -9,14 +9,15 @@ import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,10 +65,8 @@ public class ExerciseModel {
 
     public List<ExerciseDto> getExercises(List<Integer> ids) {
         List<Long> longs = ListConverter.toLong(ids);
-        ArrayList<ExerciseDto> list = new ArrayList<>();
-        exercises.findAll(longs)
-                .forEach(e -> list.add(mapper.map(e, ExerciseDto.class)));
-        return list;
+        Type dtoList = new TypeToken<List<ExerciseDto>>() {}.getType();
+        return mapper.map(exercises.findAll(longs), dtoList);
     }
 
     public Optional<ExerciseDto> getExercise(Long id) {
