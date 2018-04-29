@@ -69,10 +69,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         };
 
         http
-//                .cors()
-//                    .and()
+//      .cors()
+//      .and()
                 .csrf()
-                    .disable()
+                .disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(unauthorizedHandler)
                 .and()
