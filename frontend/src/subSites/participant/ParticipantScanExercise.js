@@ -24,25 +24,24 @@ export default class ParticipantScanExercise extends React.Component {
                 longitude: ''
             }
         };
-        this.handleScan = this.handleScan.bind(this);
-        this.handleError = this.handleError.bind(this);
     }
 
-    handleScan(data) {
+    handleScan = data => {
         if (data) {
-            APIHandler.getExerciseData(data, 'exercise').then(resData => {
+            APIHandler.getExerciseArray(data, 'exercise').then(resData => {
                 if (resData.status === 200) {
-                    resData.data.answers.forEach(
+                    let exercise = resData.data[0];
+                    exercise.answers.forEach(
                         function (element, index, arrayObject) {
                             arrayObject[index] = {text: element, checked: false};
                         }
                     );
                     this.setState({
                         exercise: {
-                            id: resData.data.id,
-                            name: resData.data.name,
-                            question: resData.data.question,
-                            answers: resData.data.answers,
+                            id: exercise.id,
+                            name: exercise.name,
+                            question: exercise.question,
+                            answers: exercise.answers,
                         }
                     });
                     this.setState({fireRedirect: true});
@@ -52,11 +51,11 @@ export default class ParticipantScanExercise extends React.Component {
                 }
             });
         }
-    }
+    };
 
-    handleError(err) {
+    handleError = err => {
         console.error(err);
-    }
+    };
 
     render() {
         return (
