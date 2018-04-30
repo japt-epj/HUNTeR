@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/SBI-/epj-prototype.svg?token=KYkpx1fhK2TYuVsyAFZV&branch=master)](https://travis-ci.com/SBI-/epj-prototype)
+[![Code Metrics](https://sonarcloud.io/api/project_badges/measure?project=HUNTeR&metric=alert_status)](https://sonarcloud.io/dashboard?id=HUNTeR)
 
 # HUNTeR
 App for creating and playing a scavenger hunt. 
