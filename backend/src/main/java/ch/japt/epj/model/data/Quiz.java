@@ -28,19 +28,19 @@ public class Quiz {
         this.name = name;
     }
 
-    public void addExecution(Execution execution){
+    public void addExecution(Execution execution) {
         executions.add(execution);
     }
 
-    public void removeExecution(Execution execution){
+    public void removeExecution(Execution execution) {
         executions.remove(execution);
     }
 
-    public void addTask(Exercise exercise){
+    public void addTask(Exercise exercise) {
         exercises.add(exercise);
     }
 
-    public void removeTask(Exercise exercise){
+    public void removeTask(Exercise exercise) {
         exercises.remove(exercise);
     }
 
@@ -48,7 +48,11 @@ public class Quiz {
         return quizId;
     }
 
-    public Collection<Execution> getExecutions(){return executions; }
+    public Collection<Execution> getExecutions() {
+        return executions;
+    }
 
-    public Collection<Exercise> getExercises() {return exercises;}
+    public Collection<Exercise> getExercises() {
+        return exercises;
+    }
 }

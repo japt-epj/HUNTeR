@@ -20,15 +20,15 @@ public interface PaginatedExercise {
             nickname = "exerciseGet",
             notes = "",
             response = ExerciseDto.class,
-            responseContainer = "List", tags={ "exercise", })
+            responseContainer = "List", tags = {"exercise",})
     @ApiResponses(value = {
             @ApiResponse(
                     code = 200,
                     message = "All exercises",
                     response = ExerciseDto.class,
-                    responseContainer = "List") })
+                    responseContainer = "List")})
     @RequestMapping(value = "/exercise",
-            produces = { "application/json" },
+            produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<Page<ExerciseDto>> exerciseGet(
             @ApiParam(value = "Page index from where to start pagination") int page,

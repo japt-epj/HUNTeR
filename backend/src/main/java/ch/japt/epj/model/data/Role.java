@@ -12,7 +12,7 @@ public class Role {
     private long roleId;
 
     @Enumerated(EnumType.STRING)
-    @Column(length=60)
+    @Column(length = 60)
     private RoleName name;
 
     @ManyToMany(mappedBy = "roles")
