@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/SBI-/epj-prototype.svg?token=KYkpx1fhK2TYuVsyAFZV&branch=master)](https://travis-ci.com/SBI-/epj-prototype)
+[![Build Status](https://travis-ci.org/SBI-/HUNTeR.svg?branch=master)](https://travis-ci.org/SBI-/HUNTeR)
 [![Code Metrics](https://sonarcloud.io/api/project_badges/measure?project=HUNTeR&metric=alert_status)](https://sonarcloud.io/dashboard?id=HUNTeR)
 
 # HUNTeR
