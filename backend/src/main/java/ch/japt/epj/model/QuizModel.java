@@ -28,12 +28,6 @@ public class QuizModel {
         this.quizzes = quizzes;
     }
 
-    @Deprecated
-    public List<NewQuizDto> allQuizzes() {
-        Iterable<Quiz> all = quizzes.findAll();
-        return mapper.map(all, QUIZ_DTO_LIST);
-    }
-
     public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
         return quizzes.findAll(new PageRequest(page, limit, sort))
                 .map(quiz -> mapper.map(quiz, NewQuizDto.class));
