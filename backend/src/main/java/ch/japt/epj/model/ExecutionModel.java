@@ -1,4 +1,5 @@
 package ch.japt.epj.model;
+
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
@@ -11,6 +12,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import ch.japt.epj.model.data.Execution;
 import org.springframework.stereotype.Component;
+
 import java.lang.reflect.Type;
 import java.time.*;
 import java.util.List;
@@ -34,7 +36,8 @@ public class ExecutionModel {
     }
 
     public List<ExecutionDto> allExecutions() {
-        Type type = new TypeToken<List<ExecutionDto>>() {}.getType();
+        Type type = new TypeToken<List<ExecutionDto>>() {
+        }.getType();
         Iterable<Execution> all = executions.findAll();
         return mapper.map(all, type);
     }

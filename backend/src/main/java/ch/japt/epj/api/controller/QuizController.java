@@ -24,7 +24,9 @@ import java.util.List;
 public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
     private final QuizModel quizModel;
 
-    public QuizController(@Autowired QuizModel quizModel) { this.quizModel = quizModel; }
+    public QuizController(@Autowired QuizModel quizModel) {
+        this.quizModel = quizModel;
+    }
 
     @Override
     public ResponseEntity<Void> addQuiz(NewQuizDto body) {

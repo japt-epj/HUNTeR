@@ -1,4 +1,5 @@
 package ch.japt.epj.api.controller;
+
 import ch.japt.epj.api.ExerciseApi;
 import ch.japt.epj.api.PaginatedExercise;
 import ch.japt.epj.library.SortParameterHandler;
@@ -26,7 +27,7 @@ import java.util.List;
 public class ExerciseController implements ExerciseApi, PaginatedExercise {
     private final ExerciseModel exerciseModel;
 
-    public ExerciseController(@Autowired ExerciseModel exerciseModel){
+    public ExerciseController(@Autowired ExerciseModel exerciseModel) {
         this.exerciseModel = exerciseModel;
     }
 

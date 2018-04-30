@@ -1,4 +1,5 @@
 package ch.japt.epj.api.controller;
+
 import ch.japt.epj.api.PaginatedPerson;
 import ch.japt.epj.api.PeopleApi;
 import ch.japt.epj.api.PersonApi;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.validation.Valid;
 import java.util.List;
 

@@ -65,7 +65,8 @@ public class ExerciseModel {
 
     public List<ExerciseDto> getExercises(List<Integer> ids) {
         List<Long> longs = ListConverter.toLong(ids);
-        Type dtoList = new TypeToken<List<ExerciseDto>>() {}.getType();
+        Type dtoList = new TypeToken<List<ExerciseDto>>() {
+        }.getType();
         return mapper.map(exercises.findAll(longs), dtoList);
     }
 
