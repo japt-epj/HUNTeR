@@ -30,16 +30,6 @@ public class PersonModel {
         mapper.createTypeMap(Person.class, PersonDto.class);
     }
 
-    @Deprecated
-    @Transactional(readOnly = true)
-    public List<PersonDto> allPersons() {
-        try (Stream<Person> personsStream = persons.getAll()) {
-            return personsStream
-                    .map(p -> mapper.map(p, PersonDto.class))
-                    .collect(Collectors.toList());
-        }
-    }
-
     public List<PersonDto> getPeople(List<Integer> ids) {
         List<Long> longs = ListConverter.toLong(ids);
         Type dtoList = new TypeToken<List<PersonDto>>() {
