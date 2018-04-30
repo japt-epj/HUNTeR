@@ -48,16 +48,6 @@ public class ExerciseModel {
                 .addMapping(NewExerciseDto::getName, Exercise::setName);
     }
 
-    @Deprecated
-    @Transactional(readOnly = true)
-    public List<ExerciseDto> allExercises() {
-        try (Stream<Exercise> exercisesStream = exercises.getAll()) {
-            return exercisesStream
-                    .map(t -> mapper.map(t, ExerciseDto.class))
-                    .collect(Collectors.toList());
-        }
-    }
-
     public Page<ExerciseDto> pageExercise(int page, int limit, Sort sort) {
         return exercises.findAll(new PageRequest(page, limit, sort))
                 .map(exercise -> mapper.map(exercise, ExerciseDto.class));
