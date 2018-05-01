@@ -11,6 +11,8 @@ export default {
     handleSelection(event, checkbox) {
         let newState = this.state.selected;
         let newPositions = this.state.selectedPositions;
+        let currentPage = this.state.pageNumberSelected;
+        let limit = this.state.limit;
         if (checkbox.checked) {
             newState.push(checkbox.id);
             newPositions.set(checkbox.id, undefined);
@@ -22,14 +24,13 @@ export default {
             selected: newState.sort((a, b) => a > b),
             selectedPositions: newPositions
         });
-        APIHandler.getExerciseArray(this.state.selected.toString()).then(resData => {
+        APIHandler.getExerciseArray(newState.slice((currentPage - 1) * limit, currentPage * limit)).then(resData => {
             if (resData.status === 200) {
                 this.setState({selectedExercises: resData.data})
             } else {
                 console.log('Error:' + resData);
             }
-        })
-        ;
+        });
     },
 
     getSelectedExerciseTable() {
@@ -65,7 +66,6 @@ export default {
                                     } else {
                                         map.location = this.state.selectedPositions.get(element.id);
                                     }
-                                    console.log(map);
                                     this.setState({map: map});
                                 }
                                 }/>
@@ -73,6 +73,15 @@ export default {
                         </Table.Row>
                     )}
                 </Table.Body>
+                <Table.Footer>
+                    <Table.Row>
+                        <Table.HeaderCell colSpan={headerElements.length}>
+                            <Pagination totalPages={parseInt(this.state.selected.length / 5, 10) + 1}
+                                        activePage={this.state.pageNumberSelected}
+                                        onPageChange={this.handlePageChangeSelected}/>
+                        </Table.HeaderCell>
+                    </Table.Row>
+                </Table.Footer>
             </Table>
         );
     },
