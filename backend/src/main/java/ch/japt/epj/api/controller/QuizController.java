@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,12 +24,19 @@ import java.util.List;
 public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
     private final QuizModel quizModel;
 
-    public QuizController(@Autowired QuizModel quizModel) { this.quizModel = quizModel; }
+    public QuizController(@Autowired QuizModel quizModel) {
+        this.quizModel = quizModel;
+    }
 
     @Override
     public ResponseEntity<Void> addQuiz(NewQuizDto body) {
         quizModel.addQuiz(body);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<List<NewQuizDto>> quizIdGet(@Valid @PathVariable("id") List<Integer> id) {
+        return new ResponseEntity<>(quizModel.getQuizzes(id), HttpStatus.OK);
     }
 
     @Override
@@ -41,7 +49,7 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
                 HttpStatus.OK);
     }
 
-    @Override
+    @Deprecated
     public ResponseEntity<NewQuizDto> quizIdGet(Integer id) {
         return new ResponseEntity<>(quizModel.getQuiz(id.longValue()), HttpStatus.OK);
     }

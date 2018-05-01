@@ -25,15 +25,15 @@ public class Execution {
     private Collection<Person> participants = new ArrayList<>();
 
 
-    public void addParticipant(Person person){
+    public void addParticipant(Person person) {
         participants.add(person);
     }
 
-    public void removeParticipant(Person person){
+    public void removeParticipant(Person person) {
         participants.remove(person);
     }
 
-    public Collection<Person> getParticipants(){
+    public Collection<Person> getParticipants() {
         return participants;
     }
 

@@ -21,18 +21,19 @@ public class Person {
 
     private String password;
 
-    @ManyToMany(mappedBy="persons", fetch=FetchType.EAGER)
+    @ManyToMany(mappedBy = "persons", fetch = FetchType.EAGER)
     private Collection<School> schools = new ArrayList<>();
     @OneToMany
     private Collection<Quiz> quizzes = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "PersonRole", joinColumns = { @JoinColumn(name = "personId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })
+    @JoinTable(name = "PersonRole", joinColumns = {@JoinColumn(name = "personId")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private Collection<Role> roles = new ArrayList<>();
 
-    public Person(){}
+    public Person() {
+    }
 
-    public Person (String firstName, String lastName, String email, String password) {
+    public Person(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -81,27 +82,35 @@ public class Person {
         isCreator = creator;
     }
 
-    public void addSchool(School school){
+    public void addSchool(School school) {
         schools.add(school);
     }
 
-    public void removeSchool(School school){
+    public void removeSchool(School school) {
         schools.remove(school);
     }
 
-    public void addQuiz(Quiz quiz){
+    public void addQuiz(Quiz quiz) {
         quizzes.add(quiz);
     }
 
-    public void removeQuiz(Quiz quiz){
+    public void removeQuiz(Quiz quiz) {
         quizzes.remove(quiz);
     }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public Collection<Role> getRoles() { return roles; }
+    public Collection<Role> getRoles() {
+        return roles;
+    }
 
-    public void setRoles(Collection<Role> roles) { this.roles = roles; }
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
 }

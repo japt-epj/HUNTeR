@@ -25,13 +25,11 @@ public class Exercise {
     private String question;
 
 
-
-
-    public void addAnswerTemplate(Answer answerTemplate){
+    public void addAnswerTemplate(Answer answerTemplate) {
         answerTemplates.add(answerTemplate);
     }
 
-    public void removeAnswerTemplate(Answer answerTemplate){
+    public void removeAnswerTemplate(Answer answerTemplate) {
         answerTemplates.remove(answerTemplate);
     }
 

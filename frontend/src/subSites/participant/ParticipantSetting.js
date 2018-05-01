@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, Header, Modal} from 'semantic-ui-react';
 
 
-export default function getSetting() {
+export default function () {
     return (
         <div>
             <Form>

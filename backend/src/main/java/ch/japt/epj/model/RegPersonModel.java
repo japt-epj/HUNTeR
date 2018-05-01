@@ -25,14 +25,14 @@ public class RegPersonModel {
             @Autowired PersonRepository persons,
             @Autowired RoleRepository roles,
             @Autowired PasswordEncoder passwordEncoder
-    ){
+    ) {
         this.persons = persons;
         this.roles = roles;
         this.passwordEncoder = passwordEncoder;
         mapper.createTypeMap(Person.class, RegPersonDto.class);
     }
 
-    public void addPerson(RegPersonDto regPersonDto){
+    public void addPerson(RegPersonDto regPersonDto) {
         Person person = mapper.map(regPersonDto, Person.class);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         Role personRole = roles.findByName(RoleName.ROLE_TEACHER).orElseThrow(() -> new IllegalArgumentException("Unable to assign teacher role to person."));
