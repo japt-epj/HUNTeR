@@ -26,6 +26,7 @@ export default class TeacherQuiz extends React.Component {
             loading: true,
             limit: 5,
             pageNumber: 1,
+            pageNumberSelected: 1,
             minPage: 1,
             maxPage: '',
             fireRedirect: false,
@@ -103,6 +104,22 @@ export default class TeacherQuiz extends React.Component {
         });
         this.getExercises(element.activePage, this.state.limit);
     };
+
+    handlePageChangeSelected = (event, element) => {
+        let currentPage = element.activePage;
+        let limit = this.state.limit;
+        this.setState({
+            pageNumberSelected: element.activePage
+        });
+        APIHandler.getExerciseArray(this.state.selected.slice((currentPage - 1) * limit, currentPage * limit)).then(resData => {
+            if (resData.status === 200) {
+                this.setState({selectedExercises: resData.data})
+            } else {
+                console.log('Error:' + resData);
+            }
+        });
+    };
+
 
     render() {
         const image = L.icon({
