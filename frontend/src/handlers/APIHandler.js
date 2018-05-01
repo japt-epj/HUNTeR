@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import fileDownload from 'js-file-download';
 
 import config from '../config/config';
@@ -9,7 +8,7 @@ export default {
         return {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Baerer ' + JSON.parse(Cookies.get('HUNTeR')).token
+            'Authorization': window.localStorage.getItem('HUNTeR')
         }
     },
 
@@ -25,7 +24,7 @@ export default {
                 headers: {
                     'Accept': 'image/png',
                     'Content-Type': 'image/png',
-                    'Authorization': 'Baerer ' + JSON.parse(Cookies.get('HUNTeR')).token
+                    'Authorization': window.localStorage.getItem('HUNTeR')
                 },
                 responseType: 'arraybuffer'
             }

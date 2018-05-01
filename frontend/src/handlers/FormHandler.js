@@ -61,15 +61,8 @@ export default {
 
     handleLoginSubmit() {
         let res = this.postLoginData(this.state);
-        res.then(resData => {
-            Cookies.set('HUNTeR', {
-                email: this.state.email, token: resData.data.token
-            }, {
-                expires: 2,
-                domain: config.domain
-            });
-            console.log(Cookies.get('HUNTeR'));
-        })
+        res.then(resData => window.localStorage.setItem('HUNTeR', resData.data.tokenType + ' ' + resData.data.token));
+        console.log(Cookies.get('HUNTeR'));
     },
 
     handleNewParticipantSubmit() {
