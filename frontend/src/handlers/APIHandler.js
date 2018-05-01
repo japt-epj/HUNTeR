@@ -9,7 +9,7 @@ export default {
         return {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': 'Baerer ' + JSON.parse(Cookies.get('HUNTeR')).token
+            'Authorization': 'Baerer ' + JSON.parse(Cookies.get('HUNTeR')).token
         }
     },
 
@@ -25,7 +25,7 @@ export default {
                 headers: {
                     'Accept': 'image/png',
                     'Content-Type': 'image/png',
-                    'X-CSRF-TOKEN': this.getCSRFToken()
+                    'Authorization': 'Baerer ' + JSON.parse(Cookies.get('HUNTeR')).token
                 },
                 responseType: 'arraybuffer'
             }

@@ -60,7 +60,7 @@ export default {
     },
 
     handleLoginSubmit() {
-        let res = this.postLoginData(this.state, 'login');
+        let res = this.postLoginData(this.state);
         res.then(resData => {
             Cookies.set('HUNTeR', {
                 email: this.state.email, token: resData.data.token
