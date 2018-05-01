@@ -65,7 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/",
                 "/*",
                 "/**",
-                "/static/**/*"
+                "/static/**/*",
+                "/api/auth/**"
         };
 
         http
@@ -74,21 +75,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-                .and()
+                    .authenticationEntryPoint(unauthorizedHandler)
+                    .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
                 .authorizeRequests()
-                .antMatchers(allowed)
-                .permitAll()
-                .antMatchers("/api/auth/**")
-                .permitAll()
+                    .antMatchers(allowed)
+                        .permitAll()
+//                    .antMatchers("/api/auth/**")
+//                        .permitAll()
 //                .antMatchers("/api/**")
 //                    .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
+                    .authenticated()
+                    .and()
 //                .formLogin()
 //                    // uncommenting this should enable a default login form
 //                    // we need to replace this with a custom one
@@ -96,7 +97,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .permitAll()
 //                    .and()
                 .logout()
-                .permitAll();
+                    .permitAll();
 //
 //        // This is key for exposing csrf tokens in apis that are outside
 //        // of the browser. We will need these headers in react and for
