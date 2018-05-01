@@ -2,7 +2,7 @@ import React from 'react';
 import {Redirect} from 'react-router';
 import {NavLink} from 'react-router-dom';
 
-import { Form, Grid, Message} from 'semantic-ui-react';
+import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
@@ -12,7 +12,8 @@ export default class ParticipantExercise extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.location.state.id,
+            id: this.props.location.state.exercise.id,
+            name: this.props.location.state.exercise.name,
             question: this.props.location.state.exercise.question,
             checked0: false,
             answer0: this.props.location.state.exercise.answers[0].text,
@@ -35,6 +36,7 @@ export default class ParticipantExercise extends React.Component {
             return (
                 <Form onSubmit={this.handleSubmit}>
                     <Grid.Row>
+                        <Header content={this.state.name}/>
                         {this.state.question}
                     </Grid.Row>
                     <Grid.Row>

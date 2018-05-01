@@ -24,25 +24,20 @@ export default class TeacherExerciseOverview extends React.Component {
             limit: 5,
         };
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
-        this.getQRCode = APIHandler.downloadQRCode;
-        this.getJSONHeader = APIHandler.getJSONHeader;
-        this.handlePageChangeExercises = this.handlePageChangeExercises.bind(this);
-        this.getExercises = this.getExercises.bind(this);
     }
-
 
     componentDidMount() {
         this.getExercises(this.state.pageNumber, this.state.limit);
     }
 
-    handlePageChangeExercises(event, element) {
+    handlePageChangeExercises = (event, element) => {
         this.setState({
             pageNumber: element.activePage
         });
         this.getExercises(element.activePage, this.state.limit);
-    }
+    };
 
-    getExercises(page, limit) {
+    getExercises = (page, limit) => {
         APIHandler.getExercises(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
@@ -52,7 +47,7 @@ export default class TeacherExerciseOverview extends React.Component {
                 })
             }
         });
-    }
+    };
 
     render() {
         return (

@@ -43,18 +43,8 @@ export default class TeacherExecution extends React.Component {
             endDate: moment().add(1, "hour")
         };
         this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(this);
-        this.getQuizTable = QuizHandler.getQuizTable.bind(this);
         this.handleSelection = ParticipantHandler.handleSelection.bind(this);
-        this.getQRCode = APIHandler.downloadQRCode;
-        this.getJSONHeader = APIHandler.getJSONHeader;
-        this.handlePageChangeQuizzes = this.handlePageChangeQuizzes.bind(this);
-        this.handlePageChangeParticipants = this.handlePageChangeParticipants.bind(this);
-        this.resetPageNumber = this.resetPageNumber.bind(this);
-        this.handleStartMomentChange = this.handleStartMomentChange.bind(this);
-        this.handleEndMomentChange = this.handleEndMomentChange.bind(this);
-        this.getParticipants = this.getParticipants.bind(this);
-        this.isStartDateValid = this.isStartDateValid.bind(this);
-        this.isEndDateValid = this.isEndDateValid.bind(this);
+        this.getQuizTable = QuizHandler.getQuizTable.bind(this);
 
         this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
@@ -67,21 +57,7 @@ export default class TeacherExecution extends React.Component {
         this.getQuizzes(this.state.pageNumber, this.state.limit);
     }
 
-    handlePageChangeParticipants(event, element) {
-        this.setState({
-            pageNumber: element.activePage
-        });
-        this.getParticipants(element.activePage, this.state.limit);
-    }
-
-    handlePageChangeQuizzes(event, element) {
-        this.setState({
-            pageNumber: element.activePage
-        });
-        this.getQuizzes(element.activePage, this.state.limit);
-    }
-
-    getParticipants(page, limit) {
+    getParticipants = (page, limit) => {
         APIHandler.getParticipants(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
@@ -91,9 +67,9 @@ export default class TeacherExecution extends React.Component {
                 })
             }
         });
-    }
+    };
 
-    getQuizzes(page, limit) {
+    getQuizzes = (page, limit) => {
         APIHandler.getQuizzes(page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
@@ -103,33 +79,47 @@ export default class TeacherExecution extends React.Component {
                 })
             }
         });
-    }
+    };
 
-    resetPageNumber(event) {
+    handlePageChangeParticipants = (event, element) => {
+        this.setState({
+            pageNumber: element.activePage
+        });
+        this.getParticipants(element.activePage, this.state.limit);
+    };
+
+    handlePageChangeQuizzes = (event, element) => {
+        this.setState({
+            pageNumber: element.activePage
+        });
+        this.getQuizzes(element.activePage, this.state.limit);
+    };
+
+    resetPageNumber = event => {
         event.preventDefault();
         this.setState({pageNumber: 1});
-    }
+    };
 
-    handleStartMomentChange(event) {
+    handleStartMomentChange = event => {
         if (event._d >= this.state.endDate) {
             this.setState({endDate: moment(event._d).add(1, "hour")});
         }
         this.setState({startDate: moment(event._d)});
-    }
+    };
 
-    handleEndMomentChange(event) {
+    handleEndMomentChange = event => {
         this.setState({endDate: moment(event._d)});
-    }
+    };
 
     handleSelectChange = (e, {value}) => {
         this.setState({selectedQuizId: value});
     };
 
-    isStartDateValid(current) {
+    isStartDateValid = current => {
         return current.isAfter(moment().add(-1, "day"));
     };
 
-    isEndDateValid(current) {
+    isEndDateValid = current => {
         return current.isAfter(this.state.startDate);
     };
 

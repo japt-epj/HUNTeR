@@ -6,21 +6,20 @@ import {Button, Grid, Header, Icon, Image, Menu, Sidebar} from 'semantic-ui-reac
 import Logo from '../images/icons/e.jpg';
 
 
-export default class StructureHandler {
-    static iconNames = new Map([["bars", "close"], ["close", "bars"]]);
-    static pathRegex = /.*\/(.*)$/;
-
-    static toggleVisibility() {
+export default {
+    toggleVisibility() {
+        let iconNames = new Map([["bars", "close"], ["close", "bars"]]);
         this.setState({visible: !this.state.visible});
-        this.setState({iconName: StructureHandler.iconNames.get(this.state.iconName)});
-    }
+        this.setState({iconName: iconNames.get(this.state.iconName)});
+    },
 
-    static hideSidebar() {
+    hideSidebar() {
+        let iconNames = new Map([["bars", "close"], ["close", "bars"]]);
         this.setState({visible: false});
-        this.setState({iconName: StructureHandler.iconNames.get('close')});
-    }
+        this.setState({iconName: iconNames.get('close')});
+    },
 
-    static getHeader() {
+    getHeader() {
         return (
             <Grid.Row columns="equal" verticalAlign="middle" className="gridHeader">
                 <Grid.Column textAlign="left">
@@ -33,14 +32,14 @@ export default class StructureHandler {
                     <Header size="medium" color="green" content={'Pathname'}/>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <Button onClick={StructureHandler.toggleVisibility.bind(this)} icon={this.state.iconName}
+                    <Button onClick={this.toggleVisibility} icon={this.state.iconName}
                             color="green"/>
                 </Grid.Column>
             </Grid.Row>
         )
-    }
+    },
 
-    static getLoginHeader() {
+    getLoginHeader() {
         return (
             <Grid.Row columns="equal" verticalAlign="middle" className="gridHeader">
                 <Grid.Column textAlign="left">
@@ -51,20 +50,20 @@ export default class StructureHandler {
                 </Grid.Column>
             </Grid.Row>
         )
-    }
+    },
 
-    static getSideBar(paths) {
+    getSideBar(paths) {
         return (
             <Sidebar as={Menu} animation="overlay"
                      width="thin" direction="right"
                      visible={this.state.visible} icon="labeled"
                      vertical inverted>
-                {StructureHandler.getStructurePaths(paths)}
+                {this.getStructurePaths(paths)}
             </Sidebar>
         );
-    }
+    },
 
-    static getStructurePaths(elements) {
+    getStructurePaths(elements) {
         return elements.map((element) =>
             <NavLink key={'navLink' + element.path} to={'/' + element.path}>
                 <Menu.Item name={element.path}><Icon name={element.icon} size="mini"/>
