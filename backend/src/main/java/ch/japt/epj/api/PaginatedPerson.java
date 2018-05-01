@@ -16,14 +16,14 @@ public interface PaginatedPerson {
             notes = "",
             response = PersonDto.class,
             responseContainer = "List",
-            tags={ "person", })
+            tags = {"person",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "All persons",
                     response = PersonDto.class,
-                    responseContainer = "List") })
+                    responseContainer = "List")})
     @RequestMapping(value = "/person",
-            produces = { "application/json" },
+            produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<Page<PersonDto>> personGet(
             @ApiParam(value = "Page index from where to start pagination") int page,

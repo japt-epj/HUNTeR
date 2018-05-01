@@ -13,9 +13,9 @@ export default {
         }
     },
 
-    getExerciseData(exerciseID) {
-        return axios.get(config.baseurl + 'exercise/' + exerciseID, {
-                headers: {}
+    getExerciseArray(exerciseIDs) {
+        return axios.get(config.baseurl + 'exercise/' + exerciseIDs, {
+                headers: this.getJSONHeader()
             }
         ).catch(err => console.warn(err));
     },

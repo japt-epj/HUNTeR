@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @Controller
 @Api(tags = "Auth API")
 @RequestMapping("/api")
-public class AuthController implements ch.japt.epj.api.AuthApi{
+public class AuthController implements ch.japt.epj.api.AuthApi {
 
     private final RegPersonModel regPersonModel;
     private final AuthenticationManager authenticationManager;
@@ -61,7 +61,7 @@ public class AuthController implements ch.japt.epj.api.AuthApi{
     public ResponseEntity<Void> registerPerson(@Valid @RequestBody RegPersonDto body) {
 
         if (personRepository.existsByEmail(body.getEmail())) {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         regPersonModel.addPerson(body);

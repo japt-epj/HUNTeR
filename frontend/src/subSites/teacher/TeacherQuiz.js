@@ -16,6 +16,7 @@ export default class TeacherQuiz extends React.Component {
         this.state = {
             name: '',
             exercises: [],
+            selected: [],
             selectedExercises: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
@@ -25,6 +26,7 @@ export default class TeacherQuiz extends React.Component {
             loading: true,
             limit: 5,
             pageNumber: 1,
+            pageNumberSelected: 1,
             minPage: 1,
             maxPage: '',
             fireRedirect: false,
@@ -50,6 +52,7 @@ export default class TeacherQuiz extends React.Component {
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
         this.getJSONHeader = APIHandler.getJSONHeader;
+
         this.mapref = React.createRef();
     }
 
@@ -58,10 +61,26 @@ export default class TeacherQuiz extends React.Component {
         this.mapref.current.leafletElement.locate();
     }
 
-    // these functions are defined as lambdas to keep the this scope on Component.
-    handleClick = e => {
+    getExercises = (page, limit) => {
+        APIHandler.getExercises(page, limit).then(resData => {
+            if (resData.status === 200) {
+                this.setState({
+                    exercises: resData.data.content,
+                    maxPage: resData.data.totalPages,
+                    loading: false
+                })
+            }
+        });
+    };
+
+    resetPageNumber = event => {
+        event.preventDefault();
+        this.setState({pageNumber: 1});
+    };
+
+    handleClick = event => {
         let map = {...this.state.map};
-        map.location = e.latlng;
+        map.location = event.latlng;
         map.zoom = this.mapref.current.leafletElement.getZoom();
         map.clicked = true;
         let newPositions = this.state.selectedPositions;
@@ -72,43 +91,42 @@ export default class TeacherQuiz extends React.Component {
         });
     };
 
-    handleZoom = e => {
+    handleZoom = event => {
         let map = {...this.state.map};
         map.zoom = this.mapref.current.leafletElement.getZoom();
         this.setState({map});
     };
 
-    handleLocation = e => {
+    handleLocation = event => {
         let map = {...this.state.map};
         map.zoom = this.mapref.current.leafletElement.getZoom();
-        map.location = e.latlng;
+        map.location = event.latlng;
         map.clicked = false;
         this.setState({map});
     };
 
-    handlePageChangeExercises(event, element) {
+    handlePageChangeExercises = (event, element) => {
         this.setState({
             pageNumber: element.activePage
         });
         this.getExercises(element.activePage, this.state.limit);
-    }
+    };
 
-    getExercises(page, limit) {
-        APIHandler.getExercises(page, limit).then(resData => {
+    handlePageChangeSelected = (event, element) => {
+        let currentPage = element.activePage;
+        let limit = this.state.limit;
+        this.setState({
+            pageNumberSelected: element.activePage
+        });
+        APIHandler.getExerciseArray(this.state.selected.slice((currentPage - 1) * limit, currentPage * limit)).then(resData => {
             if (resData.status === 200) {
-                this.setState({
-                    exercises: resData.data.content,
-                    maxPage: resData.data.totalPages,
-                    loading: false
-                })
+                this.setState({selectedExercises: resData.data})
+            } else {
+                console.log('Error:' + resData);
             }
         });
-    }
+    };
 
-    resetPageNumber(event) {
-        event.preventDefault();
-        this.setState({pageNumber: 1});
-    }
 
     render() {
         const image = L.icon({
@@ -139,7 +157,7 @@ export default class TeacherQuiz extends React.Component {
                         </Grid.Row>
                         <Grid.Row columns="equal" id="mapContainer">
                             <Grid.Column width={4}>
-                                {!this.state.loading && this.state.selectedExercises.length !== 0 && this.getSelectedExerciseTable()}
+                                {!this.state.loading && this.state.selected.length !== 0 && this.getSelectedExerciseTable()}
                             </Grid.Column>
                             <Grid.Column>
                                 <LeafletMap

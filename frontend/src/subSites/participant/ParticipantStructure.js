@@ -25,6 +25,8 @@ export default class ParticipantStructure extends React.Component {
         this.hideSidebar = StructureHandler.hideSidebar.bind(this);
         this.getHeader = StructureHandler.getHeader.bind(this);
         this.getSideBar = StructureHandler.getSideBar.bind(this);
+        this.toggleVisibility = StructureHandler.toggleVisibility.bind(this);
+        this.getStructurePaths = StructureHandler.getStructurePaths.bind(this);
     }
 
     render() {
