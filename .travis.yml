@@ -7,6 +7,10 @@ cache:
         - $HOME/.m2
         - backend/target
 
+addons:
+    sonarcloud:
+        organization: sbi-github
+
 jobs:
     include:
         - stage: prepare cache
@@ -15,6 +19,9 @@ jobs:
         - stage: test
           script:
               - ./mvnw test verify
+        - stage: sonar
+          script:
+              - sonar-scanner
         - stage: publish
           if: branch = master
           script:

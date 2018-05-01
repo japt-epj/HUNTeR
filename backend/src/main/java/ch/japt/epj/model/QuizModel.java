@@ -1,5 +1,6 @@
 package ch.japt.epj.model;
 
+import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.NewQuizDto;
 import ch.japt.epj.repository.QuizRepository;
@@ -12,10 +13,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class QuizModel {
+    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {
+    }.getType();
+
     private final QuizRepository quizzes;
     private final ModelMapper mapper = new ModelMapper();
 
@@ -25,9 +30,8 @@ public class QuizModel {
 
     @Deprecated
     public List<NewQuizDto> allQuizzes() {
-        Type type = new TypeToken<List<NewQuizDto>>() {}.getType();
         Iterable<Quiz> all = quizzes.findAll();
-        return mapper.map(all, type);
+        return mapper.map(all, QUIZ_DTO_LIST);
     }
 
     public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
@@ -45,5 +49,8 @@ public class QuizModel {
         quizzes.save(quiz);
     }
 
-
+    public List<NewQuizDto> getQuizzes(List<Integer> ids) {
+        List<Long> longs = ListConverter.toLong(ids);
+        return mapper.map(quizzes.findAll(longs), QUIZ_DTO_LIST);
+    }
 }

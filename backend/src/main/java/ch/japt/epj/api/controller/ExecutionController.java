@@ -1,4 +1,5 @@
 package ch.japt.epj.api.controller;
+
 import ch.japt.epj.model.ExecutionModel;
 import ch.japt.epj.model.ExerciseModel;
 import ch.japt.epj.model.PersonModel;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.validation.Valid;
 import java.util.List;
 

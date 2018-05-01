@@ -6,7 +6,7 @@ import '../../style/index.css';
 
 import Home from '../../handlers/HomeHandler';
 import TeacherExercise from './TeacherExercise';
-import ExerciseOverview from './TeacherExerciseOverview';
+import ExercisesOverview from './TeacherExercisesOverview';
 import TeacherNewParticipant from './TeacherNewParticipant';
 import Quiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
@@ -24,9 +24,11 @@ export default class TeacherStructure extends React.Component {
             visible: false,
             iconName: 'bars'
         };
-        this.hideSidebar = StructureHandler.hideSidebar.bind(this);
         this.getHeader = StructureHandler.getHeader.bind(this);
         this.getSideBar = StructureHandler.getSideBar.bind(this);
+        this.hideSidebar = StructureHandler.hideSidebar.bind(this);
+        this.toggleVisibility = StructureHandler.toggleVisibility.bind(this);
+        this.getStructurePaths = StructureHandler.getStructurePaths.bind(this);
     }
 
     render() {
@@ -42,7 +44,7 @@ export default class TeacherStructure extends React.Component {
                                     <Switch>
                                         <Route exact path="/" render={props => Home(Data.getPathsTeacher())}/>
                                         <Route path="/exercise" component={TeacherExercise}/>
-                                        <Route path="/exerciseOverview" component={ExerciseOverview}/>
+                                        <Route path="/exerciseOverview" component={ExercisesOverview}/>
                                         <Route path="/quiz" component={Quiz}/>
                                         <Route path="/quizOverview" component={TeacherQuizOverview}/>
                                         <Route path="/execution" component={TeacherExecution}/>

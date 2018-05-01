@@ -4,8 +4,8 @@ import fileDownload from 'js-file-download';
 import config from '../config/config';
 
 export default {
-    getExerciseData(exerciseID) {
-        return axios.get(config.baseurl + 'exercise/' + exerciseID, {
+    getExerciseArray(exerciseIDs) {
+        return axios.get(config.baseurl + 'exercise/' + exerciseIDs, {
                 headers: {
                     "Accept": "application/json",
                     'Content-Type': 'application/json'

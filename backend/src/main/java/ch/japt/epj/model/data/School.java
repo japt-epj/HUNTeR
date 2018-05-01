@@ -21,9 +21,8 @@ public class School {
 
 
     @ManyToMany
-    @JoinTable(name = "PersonSchool", joinColumns = { @JoinColumn(name = "SchoolId") }, inverseJoinColumns = { @JoinColumn(name = "PersonId") })
+    @JoinTable(name = "PersonSchool", joinColumns = {@JoinColumn(name = "SchoolId")}, inverseJoinColumns = {@JoinColumn(name = "PersonId")})
     private Collection<Person> persons = new ArrayList<>();
-
 
 
     public String getDomain() {
@@ -51,11 +50,11 @@ public class School {
         return locations;
     }
 
-    public void addLocation(Location location){
+    public void addLocation(Location location) {
         locations.add(location);
     }
 
-    public void removeLocation(Location location){
+    public void removeLocation(Location location) {
         locations.remove(location);
     }
 

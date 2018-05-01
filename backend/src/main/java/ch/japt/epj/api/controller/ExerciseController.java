@@ -1,4 +1,6 @@
 package ch.japt.epj.api.controller;
+
+import ch.japt.epj.api.ExerciseApi;
 import ch.japt.epj.api.PaginatedExercise;
 import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.ExerciseModel;
@@ -17,14 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Api(tags = "Exercise API")
 @RequestMapping("/api")
-public class ExerciseController implements ch.japt.epj.api.ExerciseApi, PaginatedExercise {
+public class ExerciseController implements ExerciseApi, PaginatedExercise {
     private final ExerciseModel exerciseModel;
 
-    public ExerciseController(@Autowired ExerciseModel exerciseModel){
+    public ExerciseController(@Autowired ExerciseModel exerciseModel) {
         this.exerciseModel = exerciseModel;
     }
 
@@ -35,6 +38,11 @@ public class ExerciseController implements ch.japt.epj.api.ExerciseApi, Paginate
     }
 
     @Override
+    public ResponseEntity<List<ExerciseDto>> exerciseIdGet(@PathVariable("id") List<Integer> id) {
+        return new ResponseEntity<>(exerciseModel.getExercises(id), HttpStatus.OK);
+    }
+
+    @Deprecated
     public ResponseEntity<ExerciseDto> exerciseIdGet(@PathVariable("id") Integer id) {
         return exerciseModel.getExercise(id.longValue())
                 .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
