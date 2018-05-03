@@ -50,10 +50,7 @@ paths:
       responses:
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:exercises"
-        - "read:exercises"
+
     put:
       tags:
       - "exercise"
@@ -78,10 +75,7 @@ paths:
           description: "Exercise not found"
         405:
           description: "Validation exception"
-      security:
-      - auth:
-        - "write:exercises"
-        - "read:exercises"
+
   /exercise/{id}:
     get:
       tags:
@@ -127,10 +121,6 @@ paths:
           description: "Success"
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:exercises"
-        - "read:exercises"
 
   /qrCode/{id}:
     get:
@@ -147,6 +137,18 @@ paths:
         required: true
         type: "integer"
         description: "Get QR Code image"
+      - in: "query"
+        name: "scale"
+        required: false
+        type: "integer"
+        description: "Scaling of generated qr code"
+        default: 20
+      - in: "query"
+        name: "border"
+        required: false
+        type: "integer"
+        description: "Border size relative to qr image"
+        default: 2
       responses:
         200:
           description: "QRCode in PNG format"
@@ -156,7 +158,7 @@ paths:
         404:
           description: "QRCode not found"
 
-  /people/{id}:
+  /person/{id}:
     get:
       tags:
       - "person"
@@ -173,6 +175,8 @@ paths:
         items:
           type: "integer"
         description: "Person id, or multiple comma separated ids"
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: "People found"
@@ -181,77 +185,6 @@ paths:
             items:
               $ref: "#/definitions/Person"
 
-  /person/{email}:
-    get:
-      tags:
-      - "person"
-      summary: "Get person by person email"
-      description: ""
-      operationId: "getPersonByEmail"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "email"
-        in: "path"
-        description: "The name that needs to be fetched. Use person1 for testing. "
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Person"
-        400:
-          description: "Invalid email supplied"
-        404:
-          description: "person not found"
-    put:
-      tags:
-      - "person"
-      summary: "Updated person"
-      description: "This can only be done by the logged in person."
-      operationId: "updatePerson"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "email"
-        in: "path"
-        description: "The email of the person that needs to be updated"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "body"
-        description: "Updated person object"
-        required: true
-        schema:
-          $ref: "#/definitions/Person"
-      responses:
-        400:
-          description: "Invalid person supplied"
-        404:
-          description: "person not found"
-#    delete:
-#      tags:
-#      - "person"
-#      summary: "Delete person"
-#      description: "This can only be done by the logged in person."
-#      operationId: "deletePerson"
-#      produces:
-#      - "application/xml"
-#      - "application/json"
-#      parameters:
-#      - name: "email"
-#        in: "path"
-#        description: "The email of the person that needs to be deleted"
-#        required: true
-#        type: "string"
-#      responses:
-#        400:
-#          description: "Invalid email supplied"
-#        404:
-#          description: "email not found"
 
   /auth/register:
     post:
@@ -294,11 +227,6 @@ paths:
           description: "Login succesful"
           schema:
             $ref: "#/definitions/JWT"
-          headers:
-            X-Expires-After:
-              type: "string"
-              format: "date-time"
-              description: "date in UTC when token expires"
         400:
           description: "Invalid email/password supplied"
 
@@ -324,10 +252,7 @@ paths:
       responses:
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:quizzes"
-        - "read:quizzes"
+
     put:
       tags:
       - "quiz"
@@ -352,10 +277,6 @@ paths:
           description: "Execution not found"
         405:
           description: "Validation exception"
-      security:
-      - auth:
-        - "write:quizzes"
-        - "read:quizzes"
 
   /quiz/{id}:
     get:
@@ -402,10 +323,6 @@ paths:
           description: "Success"
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:quizzes"
-        - "read:quizzes"
 
   /execution:
     post:
@@ -428,10 +345,7 @@ paths:
       responses:
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:executions"
-        - "read:executions"
+
     put:
       tags:
       - "execution"
@@ -456,10 +370,7 @@ paths:
           description: "Execution not found"
         405:
           description: "Validation exception"
-      security:
-      - auth:
-        - "write:executions"
-        - "read:executions"
+
     get:
       tags:
       - "execution"
@@ -515,24 +426,14 @@ paths:
           description: "Success"
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:executions"
-        - "read:executions"
+
 
 
 securityDefinitions:
-  auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:exercises: "modify exercises in your account"
-      read:exercises: "read your exercises"
-      write:executions: "modify executions in quiz"
-      read:executions: "read your executions from a quiz"
-      write:quizzes: "modify quizzes in db"
-      read:quizzes: "read your quizzes from db"
+  bearerAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
 
   api_key:
     type: "apiKey"
@@ -708,6 +609,7 @@ definitions:
         type: "string"
       password:
         type: "string"
+
 
 
 externalDocs:

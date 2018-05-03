@@ -13,25 +13,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class QuizModel {
-    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {
-    }.getType();
+    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {}.getType();
 
     private final QuizRepository quizzes;
     private final ModelMapper mapper = new ModelMapper();
 
     public QuizModel(@Autowired QuizRepository quizzes) {
         this.quizzes = quizzes;
-    }
-
-    @Deprecated
-    public List<NewQuizDto> allQuizzes() {
-        Iterable<Quiz> all = quizzes.findAll();
-        return mapper.map(all, QUIZ_DTO_LIST);
     }
 
     public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
