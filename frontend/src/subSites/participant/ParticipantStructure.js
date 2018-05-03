@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
-import Home from '../../handlers/getHome';
+import getHome from '../../handlers/getHome';
 import ParticipantScanExercise from './ParticipantScanExercise';
 import Settings from './ParticipantSetting';
 import ParticipantScore from './ParticipantScore';
@@ -40,7 +40,7 @@ export default class ParticipantStructure extends React.Component {
                                 {this.getSideBar(Data.getPathsParticipant())}
                                 <Sidebar.Pusher onClick={this.hideSidebar}>
                                     <Switch>
-                                        <Route exact path="/" render={props => Home(Data.getPathsParticipant())}/>
+                                        <Route exact path="/" render={props => getHome(Data.getPathsParticipant())}/>
                                         <Route path="/settings" component={Settings}/>
                                         <Route path="/scan" component={ParticipantScanExercise}/>
                                         <Route path="/score" component={ParticipantScore}/>
