@@ -2,7 +2,6 @@ package ch.japt.epj.repository;
 
 import ch.japt.epj.model.data.Person;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

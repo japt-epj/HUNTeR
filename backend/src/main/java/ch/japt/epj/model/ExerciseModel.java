@@ -15,14 +15,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class ExerciseModel {
@@ -46,16 +42,6 @@ public class ExerciseModel {
 
         mapper.createTypeMap(NewExerciseDto.class, Exercise.class)
                 .addMapping(NewExerciseDto::getName, Exercise::setName);
-    }
-
-    @Deprecated
-    @Transactional(readOnly = true)
-    public List<ExerciseDto> allExercises() {
-        try (Stream<Exercise> exercisesStream = exercises.getAll()) {
-            return exercisesStream
-                    .map(t -> mapper.map(t, ExerciseDto.class))
-                    .collect(Collectors.toList());
-        }
     }
 
     public Page<ExerciseDto> pageExercise(int page, int limit, Sort sort) {

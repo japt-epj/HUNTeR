@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -24,7 +26,8 @@ public class ExerciseModelTests {
 
     @Test
     public void shouldContainTasks() {
-        assertThat(model.allExercises().size()).isEqualTo(10);
+        assertThat(model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId")))
+                .isNotEmpty();
     }
 
     @Test
@@ -34,17 +37,27 @@ public class ExerciseModelTests {
 
     @Test
     public void shouldAddNewTask() {
-        int size = model.allExercises().size();
+        Page<ExerciseDto> before =
+                model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId"));
+
+        long size = before.getTotalElements();
         model.addExercise(makeTestDto());
+
+        Page<ExerciseDto> after =
+                model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId"));
+
         assertThat(model.getExercise(size + 1L)).isNotEmpty();
-        assertThat(model.allExercises().size()).isEqualTo(size + 1);
+        assertThat(after.getTotalElements()).isEqualTo(size + 1);
     }
 
     @Test
     public void newTaskReturned() {
         NewExerciseDto testDto = makeTestDto();
         model.addExercise(testDto);
-        ExerciseDto returnDto = model.allExercises().get(model.allExercises().size() - 1);
+        ExerciseDto returnDto = model
+                .pageExercise(0, 1, new Sort(Sort.Direction.DESC, "exerciseId"))
+                .getContent().get(0);
+
         assertThat(returnDto)
                 .hasFieldOrPropertyWithValue("name", "Unit Test Question")
                 .hasFieldOrPropertyWithValue("question", "Is this a unit test?");

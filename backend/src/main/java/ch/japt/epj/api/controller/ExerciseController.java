@@ -42,13 +42,6 @@ public class ExerciseController implements ExerciseApi, PaginatedExercise {
         return new ResponseEntity<>(exerciseModel.getExercises(id), HttpStatus.OK);
     }
 
-    @Deprecated
-    public ResponseEntity<ExerciseDto> exerciseIdGet(@PathVariable("id") Integer id) {
-        return exerciseModel.getExercise(id.longValue())
-                .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
     @Override
     public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
         return null;
