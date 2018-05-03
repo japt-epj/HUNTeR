@@ -62,7 +62,7 @@ public class ExerciseModelTests {
                 .hasFieldOrPropertyWithValue("name", "Unit Test Question")
                 .hasFieldOrPropertyWithValue("question", "Is this a unit test?");
 
-        assertThat(returnDto.getAnswers()).isEqualTo(Arrays.asList(new String[]{"Yes", "No"}));
+        assertThat(returnDto.getAnswers()).isEqualTo(Arrays.asList("Yes", "No"));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class ExerciseModelTests {
         return new NewExerciseDto()
                 .name("Unit Test Question")
                 .question("Is this a unit test?")
-                .answers(Arrays.asList(new NewAnswerDto[]{yes, no}));
+                .answers(Arrays.asList(yes, no));
     }
 }

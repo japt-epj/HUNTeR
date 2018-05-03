@@ -14,7 +14,6 @@ public interface PaginatedExercise {
     @ApiOperation(
             value = "Get all exercises",
             nickname = "exerciseGet",
-            notes = "",
             response = ExerciseDto.class,
             responseContainer = "List", tags = {"exercise",})
     @ApiResponses(value = {

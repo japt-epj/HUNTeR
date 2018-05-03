@@ -45,9 +45,9 @@ public class ExerciseModel {
     }
 
     public Optional<ExerciseDto> getExercise(Long id) {
-        return exercises.findByExerciseId(id)
-                .map(t -> Optional.of(mapper.map(t, ExerciseDto.class)))
-                .orElse(Optional.empty());
+        return exercises
+                .findByExerciseId(id)
+                .map(t -> mapper.map(t, ExerciseDto.class));
     }
 
     public void addExercise(NewExerciseDto exerciseDto) {
