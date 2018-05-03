@@ -36,7 +36,7 @@ export default {
                 name: this.state.name,
                 exercises: Array.from(this.state.selectedPositions.keys()).map(key => {
                     return {
-                        'exerciseID': key,
+                        'exerciseId': key,
                         'lat': this.state.selectedPositions.get(key).lat,
                         'lng': this.state.selectedPositions.get(key).lng
                     }
