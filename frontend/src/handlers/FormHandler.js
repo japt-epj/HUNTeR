@@ -25,7 +25,7 @@ export default {
                 this.postData(APIHandler.prepareParticipantData(this.state), 'exercise');
             }
         } else {
-            alert('Keine Antwort wurde als richtig markiert!');
+            this.setState({formOK: false});
         }
     },
 
@@ -45,7 +45,7 @@ export default {
                 creator: (Math.floor(Math.random() * 15) + 1),
             }, 'quiz');
         } else {
-            alert('Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.');
+            this.setState({formOK: false});
         }
     },
 
@@ -59,7 +59,7 @@ export default {
                 endDate: this.state.endDate
             }, 'execution');
         } else {
-            alert('Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet.');
+            this.setState({formOK: false});
         }
     },
 
