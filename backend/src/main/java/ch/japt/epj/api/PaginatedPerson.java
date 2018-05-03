@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface PaginatedPerson {
     @ApiOperation(value = "Get all persons",
             nickname = "personGet",
-            notes = "",
             response = PersonDto.class,
             responseContainer = "List",
             tags = {"person",})

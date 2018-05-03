@@ -11,9 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface PaginatedQuiz {
-    @ApiOperation(value = "Get all quizzes", nickname = "quizGet", notes = "", response = NewQuizDto.class, responseContainer = "List", tags = {"quiz",})
+    @ApiOperation(
+            value = "Get all quizzes",
+            nickname = "quizGet",
+            response = NewQuizDto.class,
+            responseContainer = "List",
+            tags = {"quiz",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "All quizzes", response = NewQuizDto.class, responseContainer = "List")})
+            @ApiResponse(
+                    code = 200,
+                    message = "All quizzes",
+                    response = NewQuizDto.class,
+                    responseContainer = "List")})
     @RequestMapping(value = "/quiz",
             produces = {"application/json"},
             method = RequestMethod.GET)
