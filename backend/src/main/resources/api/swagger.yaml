@@ -158,7 +158,7 @@ paths:
         404:
           description: "QRCode not found"
 
-  /people/{id}:
+  /person/{id}:
     get:
       tags:
       - "person"
@@ -185,80 +185,6 @@ paths:
             items:
               $ref: "#/definitions/Person"
 
-
-
-  /person/{email}:
-    get:
-      tags:
-      - "person"
-      summary: "Get person by person email"
-      description: ""
-      operationId: "getPersonByEmail"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "email"
-        in: "path"
-        description: "The name that needs to be fetched. Use person1 for testing. "
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Person"
-        400:
-          description: "Invalid email supplied"
-        404:
-          description: "person not found"
-      security:
-        - bearerAuth: []
-    put:
-      tags:
-      - "person"
-      summary: "Updated person"
-      description: "This can only be done by the logged in person."
-      operationId: "updatePerson"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "email"
-        in: "path"
-        description: "The email of the person that needs to be updated"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "body"
-        description: "Updated person object"
-        required: true
-        schema:
-          $ref: "#/definitions/Person"
-      responses:
-        400:
-          description: "Invalid person supplied"
-        404:
-          description: "person not found"
-#    delete:
-#      tags:
-#      - "person"
-#      summary: "Delete person"
-#      description: "This can only be done by the logged in person."
-#      operationId: "deletePerson"
-#      produces:
-#      - "application/xml"
-#      - "application/json"
-#      parameters:
-#      - name: "email"
-#        in: "path"
-#        description: "The email of the person that needs to be deleted"
-#        required: true
-#        type: "string"
-#      responses:
-#        400:
-#          description: "Invalid email supplied"
-#        404:
-#          description: "email not found"
 
   /auth/register:
     post:
