@@ -20,6 +20,7 @@ export default class TeacherExecution extends React.Component {
             name: '',
             participants: [],
             quizzes: [],
+            bulkCheckbox: '',
             selectedQuizId: undefined,
             selectedParticipants: [],
             loadingScreen: [(

@@ -17,6 +17,7 @@ export default class TeacherQuiz extends React.Component {
             name: '',
             exercises: [],
             selected: [],
+            bulkCheckbox: '',
             selectedExercises: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
