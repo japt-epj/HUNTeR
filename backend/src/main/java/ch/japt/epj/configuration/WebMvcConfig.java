@@ -9,8 +9,6 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"classpath:/public/"};
-
     @Override
     @Profile({"standalone", "test"})
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
