@@ -22,18 +22,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class ExecutionController implements ch.japt.epj.api.ExecutionApi {
     private final ExecutionModel executionModel;
-    private final QuizModel quizModel;
-    private final ExerciseModel exerciseModel;
-    private final PersonModel personModel;
 
-    public ExecutionController(@Autowired ExecutionModel executionModel,
-                               @Autowired QuizModel quizModel,
-                               @Autowired ExerciseModel exerciseModel,
-                               @Autowired PersonModel personModel) {
+    public ExecutionController(@Autowired ExecutionModel executionModel) {
         this.executionModel = executionModel;
-        this.quizModel = quizModel;
-        this.exerciseModel = exerciseModel;
-        this.personModel = personModel;
     }
 
     @Override
