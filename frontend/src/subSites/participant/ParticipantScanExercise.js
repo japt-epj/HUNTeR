@@ -1,10 +1,11 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Message, Modal} from 'semantic-ui-react';
+import {Message} from 'semantic-ui-react';
 
 import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';
+import ModalHandler from "../../handlers/ModalHandler";
 
 
 export default class ParticipantScanExercise extends React.Component {
@@ -16,7 +17,7 @@ export default class ParticipantScanExercise extends React.Component {
             displayText: 'Scanne QR-Code ein.',
             exercise: '',
             scanError: false,
-            loading: true,
+            showAgreement: true,
             fireRedirect: false,
             locationPermission: undefined,
             position: {
@@ -24,6 +25,7 @@ export default class ParticipantScanExercise extends React.Component {
                 longitude: ''
             }
         };
+        this.getAgreement = ModalHandler.getAgreement.bind(this);
     }
 
     handleScan = data => {
@@ -60,36 +62,20 @@ export default class ParticipantScanExercise extends React.Component {
     render() {
         return (
             <div>
-                {this.state.loading &&
-                <Modal open={this.state.loading} closeOnEscape={true} closeOnRootNodeClick={false}
-                       onClose={this.state.close}>
-                    <Modal.Header>
-                        Berechtigungen einfordern
-                    </Modal.Header>
-                    <Modal.Content>
-                        <p>Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup
-                            mit erlauben</p>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button positive labelPosition='right' icon='point' content='OK, ich habe verstanden'
-                                onClick={() => this.setState({loading: false})}/>
-                    </Modal.Actions>
-                </Modal>
-                }
-
-                {!this.state.loading && <div>
-                    {navigator.geolocation.getCurrentPosition(position => this.setState({
-                            position: {
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude
+                {this.state.showAgreement ? this.getAgreement() : (
+                    <div>
+                        {navigator.geolocation.getCurrentPosition(position => this.setState({
+                                position: {
+                                    latitude: position.coords.latitude,
+                                    longitude: position.coords.longitude
+                                }
                             }
-                        }
-                    ))}
-                    <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan}/>
-                    <Message icon="camera retro" size="mini" header={this.state.displayText}
-                             error={this.state.scanError}/>
-                </div>
-                }
+                        ))}
+                        <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan}/>
+                        <Message icon="camera retro" size="mini" header={this.state.displayText}
+                                 error={this.state.scanError}/>
+                    </div>
+                )}
 
                 {this.state.fireRedirect &&
                 <Redirect to={{pathname: 'exercise', state: {exercise: this.state.exercise}}}/>

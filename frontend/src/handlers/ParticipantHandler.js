@@ -8,22 +8,41 @@ export default {
     handleSelection(event, checkbox) {
         let newState = this.state.selectedParticipants;
         if (checkbox.checked) {
-            newState.push(checkbox.id);
+            if (checkbox.name.startsWith('Bulk')) {
+                this.state.participants.forEach(element => {
+                    if (newState.indexOf(element.id) === -1) {
+                        newState.push(element.id);
+                    }
+                });
+                this.setState({bulkCheckbox: checkbox.id});
+            } else {
+                newState.push(checkbox.id);
+            }
         } else {
-            newState.splice(newState.lastIndexOf(checkbox.id), 1);
+            if (checkbox.name.startsWith('Bulk')) {
+                this.state.participants.forEach(element => {
+                    if (newState.indexOf(element.id) !== -1) {
+                        newState.splice(newState.indexOf(element.id), 1);
+                    }
+                });
+                this.setState({bulkCheckbox: ''});
+            } else {
+                newState.splice(newState.lastIndexOf(checkbox.id), 1);
+            }
         }
         this.setState({selectedParticipants: newState});
     },
     getParticipantTable(checkboxNeeded) {
         let headerElements = ['Vorname', 'Nachname', 'E-Mail'];
-        if (checkboxNeeded) {
-            headerElements.unshift('');
-        }
-
         return (
             <Table>
                 <Table.Header>
                     <Table.Row>
+                        {checkboxNeeded && <Table.HeaderCell><Checkbox id={'Bulk' + this.state.pageNumber}
+                                                                       name={'Bulk' + this.state.pageNumber}
+                                                                       onChange={this.handleSelection}
+                                                                       checked={this.state.bulkCheckbox === 'Bulk' + this.state.pageNumber}/>
+                        </Table.HeaderCell>}
                         {TableHandler.getTableHeader(headerElements)}
                     </Table.Row>
                 </Table.Header>

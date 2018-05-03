@@ -3,7 +3,6 @@ package ch.japt.epj.model;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
-import ch.japt.epj.model.dto.NewQuizDto;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
@@ -27,17 +26,14 @@ public class ExecutionModel {
     public ExecutionModel(
             @Autowired ExecutionRepository executions,
             @Autowired QuizRepository quizzes,
-            @Autowired PersonRepository users
-
-    ) {
+            @Autowired PersonRepository users) {
         this.executions = executions;
         this.users = users;
         this.quizzes = quizzes;
     }
 
     public List<ExecutionDto> allExecutions() {
-        Type type = new TypeToken<List<ExecutionDto>>() {
-        }.getType();
+        Type type = new TypeToken<List<ExecutionDto>>() {}.getType();
         Iterable<Execution> all = executions.findAll();
         return mapper.map(all, type);
     }
@@ -52,6 +48,7 @@ public class ExecutionModel {
         executionDto.getParticipants().forEach(personId ->
                 execution.addParticipant(users.findByPersonId(personId).get())
         );
+        // TODO: Use modelmapper for this!
         execution.setStartDate(LocalDateTime.ofInstant(Instant.parse(executionDto.getStartDate()), ZoneId.of(ZoneOffset.UTC.getId())));
         execution.setEndDate(LocalDateTime.ofInstant(Instant.parse(executionDto.getEndDate()), ZoneId.of(ZoneOffset.UTC.getId())));
         execution.setName(executionDto.getName());

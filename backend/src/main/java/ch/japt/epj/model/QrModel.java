@@ -2,6 +2,8 @@ package ch.japt.epj.model;
 
 import ch.japt.epj.repository.ExerciseRepository;
 import io.nayuki.qrcodegen.QrCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,29 +15,30 @@ import java.util.Optional;
 
 @Component
 public class QrModel {
+    private static final String OUTPUT_TYPE = "png";
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final ExerciseRepository exercises;
 
     public QrModel(@Autowired ExerciseRepository exercises) {
         this.exercises = exercises;
     }
 
-    public Optional<byte[]> generateCode(Integer id) {
-        return exercises.findByExerciseId(id.longValue())
-                .map(t -> makeQr(t.getExerciseId()))
-                .orElse(Optional.empty());
+    public Optional<byte[]> generateCode(Integer id, Integer scale, Integer border) {
+        return exercises
+                .findByExerciseId(id.longValue())
+                .flatMap(t -> makeQr(t.getExerciseId(), scale, border));
     }
 
-    private static Optional<byte[]> makeQr(Long id) {
+    private Optional<byte[]> makeQr(Long id, Integer scale, Integer border) {
         try {
-            // TODO: extract this configuration, maybe parameterize url call or something
-            // TODO: For testing, it might be a good idea to put the format in a parameter as well
             QrCode code = QrCode.encodeText(String.valueOf(id), QrCode.Ecc.MEDIUM);
-            BufferedImage image = code.toImage(20, 2);
+            BufferedImage image = code.toImage(scale, border);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", stream);
+            ImageIO.write(image, OUTPUT_TYPE, stream);
             return Optional.of(stream.toByteArray());
         } catch (IOException e) {
-            // TODO: Log qr creation somewhere
+            log.error("Creating qr code failed", e);
             return Optional.empty();
         }
     }
