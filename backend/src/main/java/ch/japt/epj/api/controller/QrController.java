@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +30,6 @@ public class QrController implements QrCodeApi {
             @Valid @RequestParam(value = "border", defaultValue = "2") Integer border) {
         return model.generateCode(id, scale, border)
                 .map(b -> new ResponseEntity<>(b, HttpStatus.OK))
-                .orElse(new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
