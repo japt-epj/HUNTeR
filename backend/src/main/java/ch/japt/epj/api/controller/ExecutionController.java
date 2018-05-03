@@ -6,7 +6,6 @@ import ch.japt.epj.model.PersonModel;
 import ch.japt.epj.model.QuizModel;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
-import ch.japt.epj.model.dto.NewQuizDto;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
