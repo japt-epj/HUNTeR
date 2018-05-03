@@ -32,8 +32,8 @@ public class PersonController implements PersonApi, PeopleApi, PaginatedPerson {
     }
 
     @Override
-    public ResponseEntity<PersonDto> getPersonByEmail(String email) {
-        return null;
+    public ResponseEntity<PersonDto> getPersonByEmail(@Valid @PathVariable("email") String email) {
+        return new ResponseEntity<>(personModel.getPersonByEmail(email), HttpStatus.OK);
     }
 
     @Override

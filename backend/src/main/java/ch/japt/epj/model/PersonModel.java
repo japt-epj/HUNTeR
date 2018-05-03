@@ -51,5 +51,10 @@ public class PersonModel {
         return persons.findAll(new PageRequest(page, limit, sort))
                 .map(person -> mapper.map(person, PersonDto.class));
     }
+
+    public PersonDto getPersonByEmail(String email){
+        Person person = persons.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Unable to find person with email:" + email));
+        return mapper.map(person, PersonDto.class);
+    }
 }
 
