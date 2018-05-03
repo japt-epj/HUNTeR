@@ -8,15 +8,18 @@ import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from "../../handlers/FormHandler";
+import ModalHandler from "../../handlers/ModalHandler";
 
 
 export default class TeacherQuiz extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            formOK: true,
             name: '',
             exercises: [],
             selected: [],
+            bulkCheckbox: '',
             selectedExercises: [],
             loadingScreen: [(
                 <Dimmer active inverted key={'dimmer'}>
@@ -45,6 +48,7 @@ export default class TeacherQuiz extends React.Component {
         this.postData = APIHandler.postData.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
+        this.getFormError = ModalHandler.getFormError.bind(this);
 
         this.mapref = React.createRef();
     }
@@ -139,6 +143,7 @@ export default class TeacherQuiz extends React.Component {
 
         return (
             <div>
+                {!this.state.formOK && this.getFormError('Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.')}
                 <Form onSubmit={this.handleSubmit}>
                     <Grid>
                         <Grid.Row>
