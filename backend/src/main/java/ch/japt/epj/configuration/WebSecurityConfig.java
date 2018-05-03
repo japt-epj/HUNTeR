@@ -7,6 +7,7 @@ import ch.japt.epj.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,9 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
-
-//    private final CustomUserDetailsService customUserDetailsService;
-
 
     public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler, @Autowired CustomUserDetailsService customUserDetailsService) {
         this.unauthorizedHandler = unauthorizedHandler;
@@ -63,9 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // these paths are allowed free access
         String[] allowed = {
                 "/",
-                "/*",
-                "/**",
-                "/static/**/*",
+//                "/*",
+//                "/**",
+//                "/static/**/*",
                 "/api/auth/**"
         };
 
@@ -73,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //      .cors()
 //      .and()
                 .csrf()
-                .disable()
+                    .disable()
                 .exceptionHandling()
                     .authenticationEntryPoint(unauthorizedHandler)
                     .and()
@@ -83,10 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers(allowed)
                         .permitAll()
-//                    .antMatchers("/api/auth/**")
+//                    .antMatchers(HttpMethod.GET, "/api/**")
 //                        .permitAll()
-//                .antMatchers("/api/**")
-//                    .permitAll()
                 .anyRequest()
                     .authenticated()
                     .and()
