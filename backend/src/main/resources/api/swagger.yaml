@@ -147,6 +147,18 @@ paths:
         required: true
         type: "integer"
         description: "Get QR Code image"
+      - in: "query"
+        name: "scale"
+        required: false
+        type: "integer"
+        description: "Scaling of generated qr code"
+        default: 20
+      - in: "query"
+        name: "border"
+        required: false
+        type: "integer"
+        description: "Border size relative to qr image"
+        default: 2
       responses:
         200:
           description: "QRCode in PNG format"
