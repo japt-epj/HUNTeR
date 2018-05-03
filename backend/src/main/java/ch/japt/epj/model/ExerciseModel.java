@@ -39,7 +39,6 @@ public class ExerciseModel {
                 .addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers);
         mapper.createTypeMap(NewAnswerDto.class, Answer.class)
                 .addMapping(NewAnswerDto::getText, Answer::setAnswer);
-
         mapper.createTypeMap(NewExerciseDto.class, Exercise.class)
                 .addMapping(NewExerciseDto::getName, Exercise::setName);
     }
