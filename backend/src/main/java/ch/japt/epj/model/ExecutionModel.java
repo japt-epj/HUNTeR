@@ -3,7 +3,6 @@ package ch.japt.epj.model;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
-import ch.japt.epj.model.dto.NewQuizDto;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
