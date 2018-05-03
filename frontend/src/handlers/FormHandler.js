@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie';
-import config from '../config/config';
 import APIHandler from './APIHandler';
 
 
@@ -61,8 +59,10 @@ export default {
 
     handleLoginSubmit() {
         let res = this.postLoginData(this.state);
-        res.then(resData => window.localStorage.setItem('HUNTeR', resData.data.tokenType + ' ' + resData.data.token));
-        console.log(Cookies.get('HUNTeR'));
+        res.then(resData => {
+            console.log(resData);
+            window.localStorage.setItem('HUNTeR', resData.data.tokenType + ' ' + resData.data.token)
+        });
     },
 
     handleNewParticipantSubmit() {

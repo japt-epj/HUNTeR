@@ -3,29 +3,20 @@ import fileDownload from 'js-file-download';
 
 import config from '../config/config';
 
-export default {
-    getJSONHeader() {
-        return {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': window.localStorage.getItem('HUNTeR')
-        }
-    },
+import getHeader from './getHeader';
 
+
+export default {
     getExerciseArray(exerciseIDs) {
         return axios.get(config.baseurl + 'exercise/' + exerciseIDs, {
-                headers: this.getJSONHeader()
+                headers: getHeader('application/json')
             }
         ).catch(err => console.warn(err));
     },
 
     downloadQRCode(exerciseID) {
         return axios.get(config.baseurl + 'qrCode/' + exerciseID, {
-                headers: {
-                    'Accept': 'image/png',
-                    'Content-Type': 'image/png',
-                    'Authorization': window.localStorage.getItem('HUNTeR')
-                },
+                headers: getHeader('image/png'),
                 responseType: 'arraybuffer'
             }
         ).then(res => fileDownload(res.data, 'qrCode' + exerciseID + '.png')
@@ -38,7 +29,7 @@ export default {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
-                headers: this.getJSONHeader()
+                headers: getHeader('application/json')
             }
         ).catch(err => console.warn(err));
     },
@@ -49,9 +40,7 @@ export default {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
-                headers: {
-                    headers: this.getJSONHeader()
-                }
+                headers: getHeader('application/json')
             }
         ).catch(err => console.warn(err));
     },
@@ -62,18 +51,14 @@ export default {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
         return axios.get(requestURL, {
-                headers: {
-                    headers: this.getJSONHeader()
-                }
+                headers: getHeader('application/json')
             }
         ).catch(err => console.warn(err));
     },
 
     postData(data, path) {
         axios.post(config.baseurl + path + '/', data, {
-            headers: {
-                headers: this.getJSONHeader()
-            }
+            headers: getHeader('application/json')
         }).catch(err => console.error('Error:', err)
         ).then(() => {
             this.setState({fireRedirect: true});
