@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,7 +30,7 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
     }
 
     @Override
-    public ResponseEntity<Void> addQuiz(NewQuizDto body) {
+    public ResponseEntity<Void> addQuiz(@Valid @RequestBody NewQuizDto body) {
         quizModel.addQuiz(body);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
