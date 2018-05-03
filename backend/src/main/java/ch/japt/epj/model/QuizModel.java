@@ -1,8 +1,15 @@
 package ch.japt.epj.model;
 
 import ch.japt.epj.library.ListConverter;
+import ch.japt.epj.model.data.Exercise;
+import ch.japt.epj.model.data.Location;
+import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
+import ch.japt.epj.model.dto.LocationDto;
 import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.repository.ExerciseRepository;
+import ch.japt.epj.repository.LocationRepository;
+import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -17,13 +24,24 @@ import java.util.List;
 
 @Component
 public class QuizModel {
-    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {}.getType();
+    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {
+    }.getType();
 
     private final QuizRepository quizzes;
+    private final ExerciseRepository exercises;
+    private final PersonRepository persons;
+    private final LocationRepository locations;
     private final ModelMapper mapper = new ModelMapper();
 
-    public QuizModel(@Autowired QuizRepository quizzes) {
+    public QuizModel(
+            @Autowired QuizRepository quizzes,
+            @Autowired ExerciseRepository exercises,
+            @Autowired PersonRepository persons,
+            @Autowired LocationRepository locations) {
         this.quizzes = quizzes;
+        this.exercises = exercises;
+        this.persons = persons;
+        this.locations = locations;
     }
 
     public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
@@ -38,8 +56,20 @@ public class QuizModel {
 
     public void addQuiz(NewQuizDto quizDto) {
         Quiz quiz = mapper.map(quizDto, Quiz.class);
-
+        quiz.setName(quizDto.getName());
+        for (LocationDto entry : quizDto.getExercises()) {
+            Exercise exercise = exercises.findByExerciseId(entry.getExerciseId()).get();
+            Location location = new Location();
+            location.setCoordinates(entry.getLat(), entry.getLng());
+            locations.save(location);
+            exercise.setLocation(location);
+            exercises.save(exercise);
+            quiz.addTask(exercise);
+        }
         quizzes.save(quiz);
+        Person creator = persons.findOne(quizDto.getCreator());
+        creator.addQuiz(quiz);
+        persons.save(creator);
     }
 
     public List<NewQuizDto> getQuizzes(List<Integer> ids) {
