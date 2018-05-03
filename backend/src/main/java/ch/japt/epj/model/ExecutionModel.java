@@ -19,16 +19,16 @@ import java.util.List;
 @Component
 public class ExecutionModel {
     private final ExecutionRepository executions;
-    private final PersonRepository users;
+    private final PersonRepository persons;
     private final QuizRepository quizzes;
     private final ModelMapper mapper = new ModelMapper();
 
     public ExecutionModel(
             @Autowired ExecutionRepository executions,
             @Autowired QuizRepository quizzes,
-            @Autowired PersonRepository users) {
+            @Autowired PersonRepository persons) {
         this.executions = executions;
-        this.users = users;
+        this.persons = persons;
         this.quizzes = quizzes;
     }
 
@@ -46,14 +46,14 @@ public class ExecutionModel {
     public void addExecution(NewExecutionDto executionDto) {
         Execution execution = mapper.map(executionDto, Execution.class);
         executionDto.getParticipants().forEach(personId ->
-                execution.addParticipant(users.findByPersonId(personId).get())
+                execution.addParticipant(persons.findByPersonId(personId).get())
         );
         // TODO: Use modelmapper for this!
         execution.setStartDate(LocalDateTime.ofInstant(Instant.parse(executionDto.getStartDate()), ZoneId.of(ZoneOffset.UTC.getId())));
         execution.setEndDate(LocalDateTime.ofInstant(Instant.parse(executionDto.getEndDate()), ZoneId.of(ZoneOffset.UTC.getId())));
         execution.setName(executionDto.getName());
         Quiz quiz = quizzes.findOne(executionDto.getQuizId());
-        users.save(execution.getParticipants());
+        persons.save(execution.getParticipants());
         quiz.addExecution(execution);
         executions.save(quiz.getExecutions());
         quizzes.save(quiz);

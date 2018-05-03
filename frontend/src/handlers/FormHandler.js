@@ -35,7 +35,11 @@ export default {
             this.postData({
                 name: this.state.name,
                 exercises: Array.from(this.state.selectedPositions.keys()).map(key => {
-                    return {'exerciseID': key, 'location': this.state.selectedPositions.get(key)}
+                    return {
+                        'exerciseID': key,
+                        'lat': this.state.selectedPositions.get(key).lat,
+                        'lng': this.state.selectedPositions.get(key).lng
+                    }
                 }),
                 //TODO: Get currentPersonId and post
                 creator: (Math.floor(Math.random() * 15) + 1),
