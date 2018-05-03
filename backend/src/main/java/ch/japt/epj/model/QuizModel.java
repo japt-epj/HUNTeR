@@ -38,6 +38,7 @@ public class QuizModel {
 
     public void addQuiz(NewQuizDto quizDto) {
         Quiz quiz = mapper.map(quizDto, Quiz.class);
+
         quizzes.save(quiz);
     }
 
