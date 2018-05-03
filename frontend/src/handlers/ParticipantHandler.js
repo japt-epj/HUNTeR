@@ -8,7 +8,7 @@ export default {
     handleSelection(event, checkbox) {
         let newState = this.state.selectedParticipants;
         if (checkbox.checked) {
-            if (checkbox.id.startsWith('Bulk')) {
+            if (checkbox.name.startsWith('Bulk')) {
                 this.state.participants.forEach(element => {
                     if (newState.indexOf(element.id) === -1) {
                         newState.push(element.id);
@@ -19,7 +19,7 @@ export default {
                 newState.push(checkbox.id);
             }
         } else {
-            if (checkbox.id.startsWith('Bulk')) {
+            if (checkbox.name.startsWith('Bulk')) {
                 this.state.participants.forEach(element => {
                     if (newState.indexOf(element.id) !== -1) {
                         newState.splice(newState.indexOf(element.id), 1);
