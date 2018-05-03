@@ -1,7 +1,6 @@
 package ch.japt.epj.api.controller;
 
 import ch.japt.epj.api.PaginatedPerson;
-import ch.japt.epj.api.PeopleApi;
 import ch.japt.epj.api.PersonApi;
 import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.PersonModel;
@@ -23,22 +22,12 @@ import java.util.List;
 @Controller
 @Api(tags = "Person API")
 @RequestMapping("/api")
-public class PersonController implements PersonApi, PeopleApi, PaginatedPerson {
+public class PersonController implements PersonApi, PaginatedPerson {
 
     private final PersonModel personModel;
 
     public PersonController(@Autowired PersonModel personModel) {
         this.personModel = personModel;
-    }
-
-    @Override
-    public ResponseEntity<PersonDto> getPersonByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Void> updatePerson(String personname, PersonDto body) {
-        return null;
     }
 
     @Override
