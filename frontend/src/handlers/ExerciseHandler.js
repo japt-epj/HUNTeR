@@ -14,7 +14,7 @@ export default {
         let newPositions = this.state.selectedPositions;
         let limit = this.state.limit;
         if (checkbox.checked) {
-            if (checkbox.id.startsWith('Bulk')) {
+            if (checkbox.name.startsWith('Bulk')) {
                 this.state.exercises.forEach(element => {
                     if (newState.indexOf(element.id) === -1) {
                         newState.push(element.id);
@@ -27,7 +27,7 @@ export default {
                 newState.push(checkbox.id);
             }
         } else {
-            if (checkbox.id.startsWith('Bulk')) {
+            if (checkbox.name.startsWith('Bulk')) {
                 this.state.exercises.forEach(element => {
                     if (newState.indexOf(element.id) !== -1) {
                         newState.splice(newState.indexOf(element.id), 1);
