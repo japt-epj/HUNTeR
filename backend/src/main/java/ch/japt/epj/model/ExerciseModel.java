@@ -4,8 +4,8 @@ import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.dto.ExerciseDto;
-import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
+import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import org.modelmapper.ModelMapper;
@@ -24,23 +24,13 @@ import java.util.Optional;
 public class ExerciseModel {
     private final ExerciseRepository exercises;
     private final AnswerRepository answers;
-    private final ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = Mappings.exerciseMapper();
 
     public ExerciseModel(
             @Autowired ExerciseRepository exercises,
-            @Autowired AnswerRepository answers
-    ) {
+            @Autowired AnswerRepository answers) {
         this.exercises = exercises;
         this.answers = answers;
-
-        // TODO: These should probably be pulled out because we need them in more than one place.
-        mapper.createTypeMap(Exercise.class, ExerciseDto.class)
-                .addMapping(Exercise::getName, ExerciseDto::setName)
-                .addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers);
-        mapper.createTypeMap(NewAnswerDto.class, Answer.class)
-                .addMapping(NewAnswerDto::getText, Answer::setAnswer);
-        mapper.createTypeMap(NewExerciseDto.class, Exercise.class)
-                .addMapping(NewExerciseDto::getName, Exercise::setName);
     }
 
     public Page<ExerciseDto> pageExercise(int page, int limit, Sort sort) {
@@ -50,8 +40,7 @@ public class ExerciseModel {
 
     public List<ExerciseDto> getExercises(List<Integer> ids) {
         List<Long> longs = ListConverter.toLong(ids);
-        Type dtoList = new TypeToken<List<ExerciseDto>>() {
-        }.getType();
+        Type dtoList = new TypeToken<List<ExerciseDto>>() {}.getType();
         return mapper.map(exercises.findAll(longs), dtoList);
     }
 
