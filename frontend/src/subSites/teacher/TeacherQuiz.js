@@ -88,7 +88,9 @@ export default class TeacherQuiz extends React.Component {
         map.zoom = this.mapref.current.leafletElement.getZoom();
         map.clicked = true;
         let newPositions = this.state.selectedPositions;
-        newPositions.set(this.state.map.currentExercise, this.state.map.location);
+        if (this.state.map.currentExercise !== undefined) {
+            newPositions.set(this.state.map.currentExercise, this.state.map.location);
+        }
         this.setState({
             selectedPositions: newPositions,
             map: map

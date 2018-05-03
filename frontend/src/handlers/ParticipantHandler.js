@@ -50,7 +50,7 @@ export default {
                     {!this.state.loadingParticipants && this.state.participants.map(element =>
                         <Table.Row key={'ParticipantRows' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
-                                <Checkbox id={element.id} onChange={this.handleSelection}
+                                <Checkbox id={element.id} name={element.email} onChange={this.handleSelection}
                                           checked={this.state.selectedParticipants.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
                             <Table.Cell content={element.firstName}/>
