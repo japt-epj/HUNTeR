@@ -22,9 +22,9 @@ public class QrModel {
     }
 
     public Optional<byte[]> generateCode(Integer id, Integer scale, Integer border) {
-        return exercises.findByExerciseId(id.longValue())
-                .map(t -> makeQr(t.getExerciseId(), scale, border))
-                .orElse(Optional.empty());
+        return exercises
+                .findByExerciseId(id.longValue())
+                .flatMap(t -> makeQr(t.getExerciseId(), scale, border));
     }
 
     private static Optional<byte[]> makeQr(Long id, Integer scale, Integer border) {
