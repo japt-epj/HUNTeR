@@ -36,7 +36,9 @@ export default {
                 name: this.state.name,
                 locations: Array.from(this.state.selectedPositions.keys()).map(key => {
                     return {'exerciseID': key, 'location': this.state.selectedPositions.get(key)}
-                })
+                }),
+                //TODO: Get currentPersonId and post
+                creator: (Math.floor(Math.random() * 15) + 1),
             }, 'quiz');
         } else {
             alert('Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.');
