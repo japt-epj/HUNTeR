@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Controller
 @Api(tags = "QR API")
@@ -21,8 +24,11 @@ public class QrController implements QrCodeApi {
     }
 
     @Override
-    public ResponseEntity<byte[]> getQRCode(@PathVariable("id") Integer id) {
-        return model.generateCode(id)
+    public ResponseEntity<byte[]> getQRCode(
+            @Valid @PathVariable("id") Integer id,
+            @Valid @RequestParam(value = "scale", defaultValue = "20") Integer scale,
+            @Valid @RequestParam(value = "border", defaultValue = "2") Integer border) {
+        return model.generateCode(id, scale, border)
                 .map(b -> new ResponseEntity<>(b, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

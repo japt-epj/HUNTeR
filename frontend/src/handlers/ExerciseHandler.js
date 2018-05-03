@@ -10,26 +10,50 @@ import APIHandler from "./APIHandler";
 export default {
     handleSelection(event, checkbox) {
         let newState = this.state.selected;
+        let currentPage = this.state.pageNumberSelected;
         let newPositions = this.state.selectedPositions;
+        let limit = this.state.limit;
         if (checkbox.checked) {
-            newState.push(checkbox.id);
-            newPositions.set(checkbox.id, undefined);
+            if (checkbox.name.startsWith('Bulk')) {
+                this.state.exercises.forEach(element => {
+                    if (newState.indexOf(element.id) === -1) {
+                        newState.push(element.id);
+                        newPositions.set(element.id, undefined);
+                    }
+                });
+                this.setState({bulkCheckbox: checkbox.id});
+            } else {
+                newPositions.set(checkbox.id, undefined);
+                newState.push(checkbox.id);
+            }
         } else {
-            newState.splice(newState.lastIndexOf(checkbox.id), 1);
-            newPositions.delete(checkbox.id);
+            if (checkbox.name.startsWith('Bulk')) {
+                this.state.exercises.forEach(element => {
+                    if (newState.indexOf(element.id) !== -1) {
+                        newState.splice(newState.indexOf(element.id), 1);
+                        newPositions.delete(element.id);
+                    }
+                });
+                this.setState({bulkCheckbox: ''});
+            }
+            else {
+                newPositions.delete(checkbox.id);
+                newState.splice(newState.lastIndexOf(checkbox.id), 1);
+            }
         }
         this.setState({
             selected: newState.sort((a, b) => a > b),
             selectedPositions: newPositions
         });
-        APIHandler.getExerciseArray(this.state.selected.toString()).then(resData => {
-            if (resData.status === 200) {
-                this.setState({selectedExercises: resData.data})
-            } else {
-                console.log('Error:' + resData);
+        APIHandler.getExerciseArray(newState.slice((currentPage - 1) * limit, currentPage * limit)).then(resData => {
+                if (resData.status === 200) {
+                    this.setState({selectedExercises: newState.length !== 0 ? resData.data : []});
+                }
+                else {
+                    console.log('Error:' + resData);
+                }
             }
-        })
-        ;
+        );
     },
 
     getSelectedExerciseTable() {
@@ -65,7 +89,6 @@ export default {
                                     } else {
                                         map.location = this.state.selectedPositions.get(element.id);
                                     }
-                                    console.log(map);
                                     this.setState({map: map});
                                 }
                                 }/>
@@ -73,20 +96,32 @@ export default {
                         </Table.Row>
                     )}
                 </Table.Body>
+                <Table.Footer>
+                    <Table.Row>
+                        <Table.HeaderCell colSpan={headerElements.length}>
+                            <Pagination
+                                totalPages={(this.state.selected.length % 5 === 0) ? this.state.selected.length / 5 : parseInt(this.state.selected.length / 5, 10) + 1}
+                                activePage={this.state.pageNumberSelected}
+                                onPageChange={this.handlePageChangeSelected}/>
+                        </Table.HeaderCell>
+                    </Table.Row>
+                </Table.Footer>
             </Table>
         );
-    },
+    }
+    ,
 
     getExerciseTable(checkboxNeeded) {
         let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Code'];
-        if (checkboxNeeded) {
-            headerElements.unshift('');
-        }
-
         return (
             <Table>
                 <Table.Header>
                     <Table.Row>
+                        {checkboxNeeded && <Table.HeaderCell><Checkbox id={'Bulk' + this.state.pageNumber}
+                                                                       name={'Bulk' + this.state.pageNumber}
+                                                                       onChange={this.handleSelection}
+                                                                       checked={this.state.bulkCheckbox === 'Bulk' + this.state.pageNumber}/>
+                        </Table.HeaderCell>}
                         {TableHandler.getTableHeader(headerElements)}
                     </Table.Row>
                 </Table.Header>
@@ -122,4 +157,5 @@ export default {
             </Table>
         );
     }
-};
+}
+;

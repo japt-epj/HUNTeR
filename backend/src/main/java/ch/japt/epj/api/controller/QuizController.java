@@ -49,11 +49,6 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
                 HttpStatus.OK);
     }
 
-    @Deprecated
-    public ResponseEntity<NewQuizDto> quizIdGet(Integer id) {
-        return new ResponseEntity<>(quizModel.getQuiz(id.longValue()), HttpStatus.OK);
-    }
-
     @Override
     public ResponseEntity<Void> updateQuiz(NewQuizDto body) {
         return null;

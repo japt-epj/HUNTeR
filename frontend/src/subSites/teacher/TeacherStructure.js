@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
-import Home from '../../handlers/HomeHandler';
+import getHome from '../../handlers/getHome';
 import TeacherExercise from './TeacherExercise';
 import ExercisesOverview from './TeacherExercisesOverview';
 import TeacherNewParticipant from './TeacherNewParticipant';
@@ -42,7 +42,7 @@ export default class TeacherStructure extends React.Component {
                                 {this.getSideBar(Data.getPathsTeacher())}
                                 <Sidebar.Pusher onClick={this.hideSidebar}>
                                     <Switch>
-                                        <Route exact path="/" render={props => Home(Data.getPathsTeacher())}/>
+                                        <Route exact path="/" render={props => getHome(Data.getPathsTeacher())}/>
                                         <Route path="/exercise" component={TeacherExercise}/>
                                         <Route path="/exerciseOverview" component={ExercisesOverview}/>
                                         <Route path="/quiz" component={Quiz}/>
