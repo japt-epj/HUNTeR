@@ -27,8 +27,7 @@ public class PersonModel {
 
     public List<PersonDto> getPeople(List<Integer> ids) {
         List<Long> longs = ListConverter.toLong(ids);
-        Type dtoList = new TypeToken<List<PersonDto>>() {
-        }.getType();
+        Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
         return mapper.map(persons.findAll(longs), dtoList);
     }
 

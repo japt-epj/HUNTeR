@@ -17,8 +17,7 @@ import java.util.List;
 
 @Component
 public class QuizModel {
-    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {
-    }.getType();
+    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {}.getType();
 
     private final QuizRepository quizzes;
     private final ModelMapper mapper = new ModelMapper();
