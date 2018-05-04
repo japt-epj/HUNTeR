@@ -69,5 +69,9 @@ export default {
 
     handleNewParticipantSubmit() {
         this.postData(this.state, 'participant');
+    },
+
+    handleEditParticipant() {
+        this.putData(this.state, 'participant');
     }
 }
