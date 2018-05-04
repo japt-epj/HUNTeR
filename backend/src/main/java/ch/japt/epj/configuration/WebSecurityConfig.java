@@ -4,7 +4,6 @@ import ch.japt.epj.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,12 +27,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
-    private final CustomAuthenticationSuccessHandler successHandler;
 
-    public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler, @Autowired CustomUserDetailsService customUserDetailsService, @Autowired CustomAuthenticationSuccessHandler successHandler) {
+    public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler, @Autowired CustomUserDetailsService customUserDetailsService) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.customUserDetailsService = customUserDetailsService;
-        this.successHandler = successHandler;
     }
 
     @Bean
@@ -59,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // these paths are allowed free access
         String[] allowed = {
-                "/",
+//                "/",
 //              "/*",
 //              "/**",
 //              "/static/**/*",
@@ -88,10 +85,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
 //                uncommenting this should enable a default login form
 //                we need to replace this with a custom one
-                .loginPage("/")
-                .successHandler(successHandler)
-                .permitAll()
-                .and()
+                    .loginPage("/")
+                    .permitAll()
+//                    .successHandler(successHandler)
+                    .and()
                 .logout()
                 .permitAll();
 //
