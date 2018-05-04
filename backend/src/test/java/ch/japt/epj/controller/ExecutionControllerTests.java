@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -17,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc
 public class ExecutionControllerTests {
     @Autowired
@@ -30,7 +32,7 @@ public class ExecutionControllerTests {
 
         mvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().string(""));
+                .andExpect(content().string("{\"id\":1,\"name\":\"Testy McTestface\",\"startDate\":\"2018-05-04T12:09:49.052\",\"endDate\":\"2018-05-06T13:09:49.052\",\"participants\":[\"Dolores Abernathy\",\"Robert Ford\",\"Samantha Grove\"]}"));
     }
 
     @Test
