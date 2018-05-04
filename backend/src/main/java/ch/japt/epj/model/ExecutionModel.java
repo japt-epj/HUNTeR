@@ -1,5 +1,6 @@
 package ch.japt.epj.model;
 
+import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
@@ -9,11 +10,13 @@ import ch.japt.epj.repository.QuizRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import ch.japt.epj.model.data.Execution;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Component

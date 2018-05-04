@@ -2,7 +2,8 @@ package ch.japt.epj.model.data;
 
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class Exercise {

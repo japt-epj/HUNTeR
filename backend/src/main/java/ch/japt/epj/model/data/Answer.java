@@ -15,13 +15,12 @@ public class Answer {
 
     private boolean checked;
 
+    public String getAnswer() {
+        return answer;
+    }
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public String getAnswer() {
-        return answer;
     }
 
     public boolean isChecked() {

@@ -1,4 +1,5 @@
 package ch.japt.epj.repository;
+
 import ch.japt.epj.model.data.Location;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
