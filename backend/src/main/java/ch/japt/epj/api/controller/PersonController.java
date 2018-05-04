@@ -5,6 +5,7 @@ import ch.japt.epj.api.PersonApi;
 import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.PersonModel;
 import ch.japt.epj.model.dto.PersonDto;
+import ch.japt.epj.model.dto.RegPersonDto;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,5 +45,12 @@ public class PersonController implements PersonApi, PaginatedPerson {
     @Override
     public ResponseEntity<List<PersonDto>> getPersonById(@Valid @PathVariable("id") List<Integer> id) {
         return new ResponseEntity<>(personModel.getPeople(id), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> updatePerson( @Valid @RequestBody RegPersonDto body) {
+        personModel.updatePerson(body);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }
