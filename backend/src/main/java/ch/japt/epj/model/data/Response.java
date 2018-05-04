@@ -12,7 +12,6 @@ public class Response {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long responseId;
 
-
     @OneToOne
     private Person person;
 
