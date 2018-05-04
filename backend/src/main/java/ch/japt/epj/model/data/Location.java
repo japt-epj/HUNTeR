@@ -5,43 +5,40 @@ import javax.persistence.*;
 @Entity
 public class Location {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long locationId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long locationId;
 
-    @OneToOne
-    private Quiz quiz;
+  @OneToOne private Quiz quiz;
 
-    private double lat;
-    private double ing;
+  private double lat;
+  private double ing;
 
-    public Location() {
+  public Location() {}
 
-    }
+  public void setCoordinates(double lat, double ing) {
 
-    public void setCoordinates(double lat, double ing) {
+    this.lat = lat;
+    this.ing = ing;
+  }
 
-        this.lat = lat;
-        this.ing = ing;
-    }
+  public double getLat() {
+    return lat;
+  }
 
-    public double getLat() {
-        return lat;
-    }
+  public double getIng() {
+    return ing;
+  }
 
-    public double getIng() {
-        return ing;
-    }
+  public long getLocationId() {
+    return locationId;
+  }
 
-    public long getLocationId() {
-        return locationId;
-    }
+  public Quiz getQuiz() {
+    return quiz;
+  }
 
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
-    }
+  public void setQuiz(Quiz quiz) {
+    this.quiz = quiz;
+  }
 }
