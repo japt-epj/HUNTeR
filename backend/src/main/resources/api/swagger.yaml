@@ -230,6 +230,19 @@ paths:
         400:
           description: "Invalid email/password supplied"
 
+  /auth/entryPoint:
+    get:
+      tags:
+      - "auth"
+      summary: "Get destionation based on role"
+      description: ""
+      operationId: "getEntryPoint"
+      produces:
+      - "application/json"
+      responses:
+        302:
+          description: "Entry point provided"
+
 
   /quiz:
     post:
