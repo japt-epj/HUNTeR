@@ -6,9 +6,9 @@ import '../../style/index.css';
 
 import getHome from '../../handlers/getHome';
 import TeacherExercise from './TeacherExercise';
-import ExercisesOverview from './TeacherExercisesOverview';
+import TeacherExerciseOverview from './TeacherExerciseOverview';
 import TeacherNewParticipant from './TeacherNewParticipant';
-import Quiz from './TeacherQuiz';
+import TeacherQuiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
 
 import Data from '../../data/Data';
@@ -44,8 +44,8 @@ export default class TeacherStructure extends React.Component {
                                     <Switch>
                                         <Route exact path="/" render={props => getHome(Data.getPathsTeacher())}/>
                                         <Route path="/exercise" component={TeacherExercise}/>
-                                        <Route path="/exerciseOverview" component={ExercisesOverview}/>
-                                        <Route path="/quiz" component={Quiz}/>
+                                        <Route path="/exerciseOverview" component={TeacherExerciseOverview}/>
+                                        <Route path="/quiz" component={TeacherQuiz}/>
                                         <Route path="/quizOverview" component={TeacherQuizOverview}/>
                                         <Route path="/execution" component={TeacherExecution}/>
                                         <Route path="/newUser" component={TeacherNewParticipant}/>

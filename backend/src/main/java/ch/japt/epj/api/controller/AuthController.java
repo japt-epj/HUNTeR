@@ -65,7 +65,7 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
 //        } else {
 //            headers.add("Location", "/participants");
 //        }
-//        return new ResponseEntity<>(dto, headers, HttpStatus.SEE_OTHER);
+//        return new ResponseEntity<>(dto, headers, HttpStatus.OK);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
