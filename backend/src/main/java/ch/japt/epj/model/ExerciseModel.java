@@ -22,41 +22,42 @@ import java.util.Optional;
 
 @Component
 public class ExerciseModel {
-    private final ExerciseRepository exercises;
-    private final AnswerRepository answers;
-    private final ModelMapper mapper = Mappings.exerciseMapper();
+  private final ExerciseRepository exercises;
+  private final AnswerRepository answers;
+  private final ModelMapper mapper = Mappings.exerciseMapper();
 
-    public ExerciseModel(
-            @Autowired ExerciseRepository exercises,
-            @Autowired AnswerRepository answers) {
-        this.exercises = exercises;
-        this.answers = answers;
-    }
+  public ExerciseModel(
+      @Autowired ExerciseRepository exercises, @Autowired AnswerRepository answers) {
+    this.exercises = exercises;
+    this.answers = answers;
+  }
 
-    public Page<ExerciseDto> pageExercise(int page, int limit, Sort sort) {
-        return exercises.findAll(new PageRequest(page, limit, sort))
-                .map(exercise -> mapper.map(exercise, ExerciseDto.class));
-    }
+  public Page<ExerciseDto> pageExercise(int page, int limit, Sort sort) {
+    return exercises
+        .findAll(new PageRequest(page, limit, sort))
+        .map(exercise -> mapper.map(exercise, ExerciseDto.class));
+  }
 
-    public List<ExerciseDto> getExercises(List<Integer> ids) {
-        List<Long> longs = ListConverter.toLong(ids);
-        Type dtoList = new TypeToken<List<ExerciseDto>>() {}.getType();
-        return mapper.map(exercises.findAll(longs), dtoList);
-    }
+  public List<ExerciseDto> getExercises(List<Integer> ids) {
+    List<Long> longs = ListConverter.toLong(ids);
+    Type dtoList = new TypeToken<List<ExerciseDto>>() {}.getType();
+    return mapper.map(exercises.findAll(longs), dtoList);
+  }
 
-    public Optional<ExerciseDto> getExercise(Long id) {
-        return exercises
-                .findByExerciseId(id)
-                .map(t -> mapper.map(t, ExerciseDto.class));
-    }
+  public Optional<ExerciseDto> getExercise(Long id) {
+    return exercises.findByExerciseId(id).map(t -> mapper.map(t, ExerciseDto.class));
+  }
 
-    public void addExercise(NewExerciseDto exerciseDto) {
-        Exercise exercise = mapper.map(exerciseDto, Exercise.class);
-        exerciseDto.getAnswers().forEach(newAnswerDto -> {
-            Answer answer = mapper.map(newAnswerDto, Answer.class);
-            exercise.addAnswerTemplate(answer);
-        });
-        answers.save(exercise.getAnswerTemplates());
-        exercises.save(exercise);
-    }
+  public void addExercise(NewExerciseDto exerciseDto) {
+    Exercise exercise = mapper.map(exerciseDto, Exercise.class);
+    exerciseDto
+        .getAnswers()
+        .forEach(
+            newAnswerDto -> {
+              Answer answer = mapper.map(newAnswerDto, Answer.class);
+              exercise.addAnswerTemplate(answer);
+            });
+    answers.save(exercise.getAnswerTemplates());
+    exercises.save(exercise);
+  }
 }

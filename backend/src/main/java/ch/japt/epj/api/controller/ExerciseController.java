@@ -25,40 +25,40 @@ import java.util.List;
 @Api(tags = "Exercise API")
 @RequestMapping("/api")
 public class ExerciseController implements ExerciseApi, PaginatedExercise {
-    private final ExerciseModel exerciseModel;
+  private final ExerciseModel exerciseModel;
 
-    public ExerciseController(@Autowired ExerciseModel exerciseModel) {
-        this.exerciseModel = exerciseModel;
-    }
+  public ExerciseController(@Autowired ExerciseModel exerciseModel) {
+    this.exerciseModel = exerciseModel;
+  }
 
-    @Override
-    public ResponseEntity<Void> addExercise(@Validated @RequestBody NewExerciseDto body) {
-        exerciseModel.addExercise(body);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+  @Override
+  public ResponseEntity<Void> addExercise(@Validated @RequestBody NewExerciseDto body) {
+    exerciseModel.addExercise(body);
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
 
-    @Override
-    public ResponseEntity<List<ExerciseDto>> exerciseIdGet(@PathVariable("id") List<Integer> id) {
-        return new ResponseEntity<>(exerciseModel.getExercises(id), HttpStatus.OK);
-    }
+  @Override
+  public ResponseEntity<List<ExerciseDto>> exerciseIdGet(@PathVariable("id") List<Integer> id) {
+    return new ResponseEntity<>(exerciseModel.getExercises(id), HttpStatus.OK);
+  }
 
-    @Override
-    public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
-        return null;
-    }
+  @Override
+  public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
+    return null;
+  }
 
-    @Override
-    public ResponseEntity<Void> updateExerciseWithForm(@Valid @PathVariable("id") Long id) {
-        return null;
-    }
+  @Override
+  public ResponseEntity<Void> updateExerciseWithForm(@Valid @PathVariable("id") Long id) {
+    return null;
+  }
 
-    @Override
-    public ResponseEntity<Page<ExerciseDto>> exerciseGet(
-            @Valid @RequestParam(value = "page", defaultValue = "0") int page,
-            @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
-            @Valid @RequestParam(value = "sort", defaultValue = "name") String sortOptions) {
-        return new ResponseEntity<>(
-                exerciseModel.pageExercise(page, limit, SortParameterHandler.makeSort(sortOptions)),
-                HttpStatus.OK);
-    }
+  @Override
+  public ResponseEntity<Page<ExerciseDto>> exerciseGet(
+      @Valid @RequestParam(value = "page", defaultValue = "0") int page,
+      @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
+      @Valid @RequestParam(value = "sort", defaultValue = "name") String sortOptions) {
+    return new ResponseEntity<>(
+        exerciseModel.pageExercise(page, limit, SortParameterHandler.makeSort(sortOptions)),
+        HttpStatus.OK);
+  }
 }

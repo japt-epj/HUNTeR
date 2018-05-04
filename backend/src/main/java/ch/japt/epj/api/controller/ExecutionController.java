@@ -19,35 +19,35 @@ import java.util.List;
 @Api(tags = "Execution API")
 @RequestMapping("/api")
 public class ExecutionController implements ch.japt.epj.api.ExecutionApi {
-    private final ExecutionModel executionModel;
+  private final ExecutionModel executionModel;
 
-    public ExecutionController(@Autowired ExecutionModel executionModel) {
-        this.executionModel = executionModel;
-    }
+  public ExecutionController(@Autowired ExecutionModel executionModel) {
+    this.executionModel = executionModel;
+  }
 
-    @Override
-    public ResponseEntity<Void> addExecution(@Valid @RequestBody NewExecutionDto body) {
-        executionModel.addExecution(body);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+  @Override
+  public ResponseEntity<Void> addExecution(@Valid @RequestBody NewExecutionDto body) {
+    executionModel.addExecution(body);
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
 
-    @Override
-    public ResponseEntity<List<ExecutionDto>> executionGet() {
-        return new ResponseEntity<>(executionModel.allExecutions(), HttpStatus.OK);
-    }
+  @Override
+  public ResponseEntity<List<ExecutionDto>> executionGet() {
+    return new ResponseEntity<>(executionModel.allExecutions(), HttpStatus.OK);
+  }
 
-    @Override
-    public ResponseEntity<ExecutionDto> executionIdGet(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(executionModel.getExecution(id.longValue()), HttpStatus.OK);
-    }
+  @Override
+  public ResponseEntity<ExecutionDto> executionIdGet(@PathVariable("id") Integer id) {
+    return new ResponseEntity<>(executionModel.getExecution(id.longValue()), HttpStatus.OK);
+  }
 
-    @Override
-    public ResponseEntity<Void> updateExecution(NewExecutionDto body) {
-        return null;
-    }
+  @Override
+  public ResponseEntity<Void> updateExecution(NewExecutionDto body) {
+    return null;
+  }
 
-    @Override
-    public ResponseEntity<Void> updateExecutionWithForm(Long id) {
-        return null;
-    }
+  @Override
+  public ResponseEntity<Void> updateExecutionWithForm(Long id) {
+    return null;
+  }
 }

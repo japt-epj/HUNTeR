@@ -25,63 +25,63 @@ import java.util.Optional;
 
 @Component
 public class QuizModel {
-    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {
-    }.getType();
+  private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {}.getType();
 
-    private final QuizRepository quizzes;
-    private final ExerciseRepository exercises;
-    private final PersonRepository persons;
-    private final LocationRepository locations;
-    private final ModelMapper mapper = new ModelMapper();
+  private final QuizRepository quizzes;
+  private final ExerciseRepository exercises;
+  private final PersonRepository persons;
+  private final LocationRepository locations;
+  private final ModelMapper mapper = new ModelMapper();
 
-    public QuizModel(
-            @Autowired QuizRepository quizzes,
-            @Autowired ExerciseRepository exercises,
-            @Autowired PersonRepository persons,
-            @Autowired LocationRepository locations) {
-        this.quizzes = quizzes;
-        this.exercises = exercises;
-        this.persons = persons;
-        this.locations = locations;
+  public QuizModel(
+      @Autowired QuizRepository quizzes,
+      @Autowired ExerciseRepository exercises,
+      @Autowired PersonRepository persons,
+      @Autowired LocationRepository locations) {
+    this.quizzes = quizzes;
+    this.exercises = exercises;
+    this.persons = persons;
+    this.locations = locations;
+  }
+
+  public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
+    return quizzes
+        .findAll(new PageRequest(page, limit, sort))
+        .map(quiz -> mapper.map(quiz, NewQuizDto.class));
+  }
+
+  public NewQuizDto getQuiz(long id) {
+    Quiz quiz = quizzes.findOne(id);
+    return mapper.map(quiz, NewQuizDto.class);
+  }
+
+  public void addQuiz(NewQuizDto quizDto) {
+    Quiz quiz = mapper.map(quizDto, Quiz.class);
+    quiz.setName(quizDto.getName());
+    quizzes.save(quiz);
+    for (LocationDto entry : quizDto.getExercises()) {
+      Exercise exercise;
+      Optional exerciseOptional = exercises.findByExerciseId(entry.getExerciseId());
+      if (!exerciseOptional.isPresent()) {
+        break;
+      }
+      exercise = (Exercise) exerciseOptional.get();
+      Location location = new Location();
+      location.setQuiz(quiz);
+      location.setCoordinates(entry.getLat(), entry.getLng());
+      locations.save(location);
+      exercise.addLocation(location);
+      exercises.save(exercise);
+      quiz.addTask(exercise);
     }
+    quizzes.save(quiz);
+    Person creator = persons.findOne(quizDto.getCreator());
+    creator.addQuiz(quiz);
+    persons.save(creator);
+  }
 
-    public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
-        return quizzes.findAll(new PageRequest(page, limit, sort))
-                .map(quiz -> mapper.map(quiz, NewQuizDto.class));
-    }
-
-    public NewQuizDto getQuiz(long id) {
-        Quiz quiz = quizzes.findOne(id);
-        return mapper.map(quiz, NewQuizDto.class);
-    }
-
-    public void addQuiz(NewQuizDto quizDto) {
-        Quiz quiz = mapper.map(quizDto, Quiz.class);
-        quiz.setName(quizDto.getName());
-        quizzes.save(quiz);
-        for (LocationDto entry : quizDto.getExercises()) {
-            Exercise exercise;
-            Optional exerciseOptional = exercises.findByExerciseId(entry.getExerciseId());
-            if (!exerciseOptional.isPresent()) {
-                break;
-            }
-            exercise = (Exercise)exerciseOptional.get();
-            Location location = new Location();
-            location.setQuiz(quiz);
-            location.setCoordinates(entry.getLat(), entry.getLng());
-            locations.save(location);
-            exercise.addLocation(location);
-            exercises.save(exercise);
-            quiz.addTask(exercise);
-        }
-        quizzes.save(quiz);
-        Person creator = persons.findOne(quizDto.getCreator());
-        creator.addQuiz(quiz);
-        persons.save(creator);
-    }
-
-    public List<NewQuizDto> getQuizzes(List<Integer> ids) {
-        List<Long> longs = ListConverter.toLong(ids);
-        return mapper.map(quizzes.findAll(longs), QUIZ_DTO_LIST);
-    }
+  public List<NewQuizDto> getQuizzes(List<Integer> ids) {
+    List<Long> longs = ListConverter.toLong(ids);
+    return mapper.map(quizzes.findAll(longs), QUIZ_DTO_LIST);
+  }
 }

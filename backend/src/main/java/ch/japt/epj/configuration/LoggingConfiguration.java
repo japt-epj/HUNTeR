@@ -16,57 +16,60 @@ import java.util.stream.Collectors;
 @Configuration
 @Profile({"dev", "test"})
 public class LoggingConfiguration extends WebMvcConfigurerAdapter {
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new LoggingInterceptor()).addPathPatterns("/**");
+  }
+
+  class LoggingInterceptor implements HandlerInterceptor {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoggingInterceptor())
-                .addPathPatterns("/**");
+    public boolean preHandle(
+        HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+      String headers =
+          response
+              .getHeaderNames()
+              .stream()
+              .map(s -> s + ": " + request.getHeader(s))
+              .collect(Collectors.joining("\n"));
+
+      String message =
+          String.format(
+              "Method: %s, URL: %s, \nHeaders: %s",
+              request.getMethod(), request.getRequestURL().toString(), headers);
+
+      log.info(message);
+      return true;
     }
 
-    class LoggingInterceptor implements HandlerInterceptor {
-        private final Logger log = LoggerFactory.getLogger(this.getClass());
+    @Override
+    public void postHandle(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Object handler,
+        ModelAndView modelAndView)
+        throws Exception {
+      String headers =
+          response
+              .getHeaderNames()
+              .stream()
+              .map(s -> s + ": " + response.getHeader(s))
+              .collect(Collectors.joining("\n"));
 
-        @Override
-        public boolean preHandle(
-                HttpServletRequest request,
-                HttpServletResponse response,
-                Object handler) throws Exception {
-            String headers = response.getHeaderNames()
-                    .stream()
-                    .map(s -> s + ": " + request.getHeader(s))
-                    .collect(Collectors.joining("\n"));
+      String message = String.format("Status: %s, \nHeaders: %s", response.getStatus(), headers);
 
-            String message = String.format("Method: %s, URL: %s, \nHeaders: %s",
-                    request.getMethod(),
-                    request.getRequestURL().toString(),
-                    headers);
-
-            log.info(message);
-            return true;
-        }
-
-        @Override
-        public void postHandle(HttpServletRequest request,
-                               HttpServletResponse response,
-                               Object handler,
-                               ModelAndView modelAndView) throws Exception {
-            String headers = response.getHeaderNames()
-                    .stream()
-                    .map(s -> s + ": " + response.getHeader(s))
-                    .collect(Collectors.joining("\n"));
-
-            String message = String.format("Status: %s, \nHeaders: %s",
-                    response.getStatus(),
-                    headers);
-
-            log.info(message);
-        }
-
-        @Override
-        public void afterCompletion(HttpServletRequest httpServletRequest,
-                                    HttpServletResponse httpServletResponse,
-                                    Object handler,
-                                    Exception e) throws Exception {
-            // currently unlogged
-        }
+      log.info(message);
     }
+
+    @Override
+    public void afterCompletion(
+        HttpServletRequest httpServletRequest,
+        HttpServletResponse httpServletResponse,
+        Object handler,
+        Exception e)
+        throws Exception {
+      // currently unlogged
+    }
+  }
 }

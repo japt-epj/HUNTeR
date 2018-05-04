@@ -15,12 +15,12 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Profile("!unittest")
 public class SwaggerDocumentation {
 
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(regex("/api.*"))
-                .build();
-    }
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(regex("/api.*"))
+        .build();
+  }
 }
