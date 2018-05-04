@@ -1,6 +1,9 @@
 package ch.japt.epj.api.controller;
 
 import ch.japt.epj.model.RegPersonModel;
+import ch.japt.epj.model.data.Person;
+import ch.japt.epj.model.data.Role;
+import ch.japt.epj.model.data.RoleName;
 import ch.japt.epj.model.dto.AuthPersonDto;
 import ch.japt.epj.model.dto.JWTDto;
 import ch.japt.epj.model.dto.RegPersonDto;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 @Api(tags = "Auth API")
@@ -56,8 +60,12 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
         dto.setToken(jwt);
         dto.setTokenType("Bearer");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Redirect", "/teacher");
-        return new ResponseEntity<>(dto, headers,HttpStatus.PERMANENT_REDIRECT);
+        if (authentication.getAuthorities().contains("ROLE_TEACHER")){
+            headers.add("Location", "/teacher");
+        } else {
+            headers.add("Location", "/participants");
+        }
+        return new ResponseEntity<>(dto, headers, HttpStatus.SEE_OTHER);
     }
 
     @Override
