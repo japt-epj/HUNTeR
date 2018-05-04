@@ -21,10 +21,12 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class QuizModel {
-    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {}.getType();
+    private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {
+    }.getType();
 
     private final QuizRepository quizzes;
     private final ExerciseRepository exercises;
@@ -57,7 +59,12 @@ public class QuizModel {
         Quiz quiz = mapper.map(quizDto, Quiz.class);
         quiz.setName(quizDto.getName());
         for (LocationDto entry : quizDto.getExercises()) {
-            Exercise exercise = exercises.findByExerciseId(entry.getExerciseId()).get();
+            Exercise exercise;
+            Optional exerciseOptional = exercises.findByExerciseId(entry.getExerciseId());
+            if (!exerciseOptional.isPresent()) {
+                break;
+            }
+            exercise = (Exercise)exerciseOptional.get();
             Location location = new Location();
             location.setCoordinates(entry.getLat(), entry.getLng());
             locations.save(location);
