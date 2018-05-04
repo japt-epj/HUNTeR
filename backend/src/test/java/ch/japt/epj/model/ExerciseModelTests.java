@@ -1,10 +1,15 @@
 package ch.japt.epj.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.ExerciseRepository;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Component.class))

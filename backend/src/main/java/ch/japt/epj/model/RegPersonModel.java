@@ -6,12 +6,11 @@ import ch.japt.epj.model.data.RoleName;
 import ch.japt.epj.model.dto.RegPersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.RoleRepository;
+import java.util.Collections;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.Collections;
 
 @Component
 public class RegPersonModel {
