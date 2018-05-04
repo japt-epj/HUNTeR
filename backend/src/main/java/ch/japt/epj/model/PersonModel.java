@@ -3,6 +3,7 @@ package ch.japt.epj.model;
 import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.PersonDto;
+import ch.japt.epj.model.dto.RegPersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonModel {
@@ -34,6 +36,25 @@ public class PersonModel {
     public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
         return persons.findAll(new PageRequest(page, limit, sort))
                 .map(person -> mapper.map(person, PersonDto.class));
+    }
+
+    public void updatePerson(RegPersonDto personDto) {
+        Optional personOptional =  persons.findByPersonId(personDto.getId());
+        if (!personOptional.isPresent()){
+            return;
+        }
+        Person person = (Person)personOptional.get();
+        if (!person.getFirstName().equals(personDto.getFirstName())){
+            person.setFirstName(personDto.getFirstName());
+        }
+        if (!person.getLastName().equals(personDto.getLastName())){
+            person.setLastName(personDto.getLastName());
+        }
+        if (!person.getEmail().equals(personDto.getEmail())){
+            person.setEmail(personDto.getEmail());
+        }
+        persons.save(person);
+
     }
 }
 

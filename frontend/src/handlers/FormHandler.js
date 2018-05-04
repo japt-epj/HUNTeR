@@ -72,6 +72,6 @@ export default {
     },
 
     handleEditParticipant() {
-        this.putData(this.state, 'participant');
+        this.putData(this.state, 'person');
     }
 }
