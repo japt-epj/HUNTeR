@@ -1,64 +1,62 @@
 package ch.japt.epj.model.data;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.*;
 
 @Entity
 public class Execution {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long executionId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long executionId;
 
-    private String name;
+  private String name;
 
-    private LocalDateTime startDate;
+  private LocalDateTime startDate;
 
-    private LocalDateTime endDate;
+  private LocalDateTime endDate;
 
-    @OneToMany
-    private Collection<Person> participants = new ArrayList<>();
+  @OneToMany private Collection<Person> participants = new ArrayList<>();
 
+  public void addParticipant(Person person) {
+    participants.add(person);
+  }
 
-    public void addParticipant(Person person) {
-        participants.add(person);
-    }
+  public void removeParticipant(Person person) {
+    participants.remove(person);
+  }
 
-    public void removeParticipant(Person person) {
-        participants.remove(person);
-    }
+  public Collection<Person> getParticipants() {
+    return participants;
+  }
 
-    public Collection<Person> getParticipants() {
-        return participants;
-    }
+  public LocalDateTime getEndDate() {
+    return endDate;
+  }
 
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
+  public void setEndDate(LocalDateTime endDate) {
+    this.endDate = endDate;
+  }
 
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
+  public LocalDateTime getStartDate() {
+    return startDate;
+  }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
+  }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
+  public long getExecutionId() {
+    return executionId;
+  }
 
-    public long getExecutionId() {
-        return executionId;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 }
