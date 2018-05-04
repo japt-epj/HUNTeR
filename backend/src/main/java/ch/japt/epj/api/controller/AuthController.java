@@ -8,6 +8,7 @@ import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.security.JwtTokenProvider;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,7 +55,9 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
         JWTDto dto = new JWTDto();
         dto.setToken(jwt);
         dto.setTokenType("Bearer");
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Redirect", "/teacher");
+        return new ResponseEntity<>(dto, headers,HttpStatus.PERMANENT_REDIRECT);
     }
 
     @Override
