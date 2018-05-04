@@ -21,6 +21,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
@@ -76,17 +77,25 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     }
 
     @Override
-    public ResponseEntity<Void> getEntryPoint(){
-
-
+    public ResponseEntity<Void> getEntryPoint(@RequestHeader("X-HUNTeR-Frontend") Boolean hunter){
         HttpHeaders headers = new HttpHeaders();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         if (authentication.getAuthorities().contains("ROLE_TEACHER")){
-            headers.add("Location", "/teacher");
+            if (hunter) {
+                headers.add("X-HUNTeR-Redirect", "/teacher");
+                return new ResponseEntity<>(headers, HttpStatus.OK);
+            } else {
+                headers.add("Location", "/teacher");
+                return new ResponseEntity<>(headers, HttpStatus.FOUND);
+            }
         } else {
-            headers.add("Location", "/participant");
+            if (hunter) {
+                headers.add("X-HUNTeR-Redirect", "/participant");
+                return new ResponseEntity<>(headers, HttpStatus.OK);
+            } else {
+                headers.add("Location", "/participant");
+                return new ResponseEntity<>(headers, HttpStatus.FOUND);
+            }
         }
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 }

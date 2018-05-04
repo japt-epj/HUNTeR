@@ -239,9 +239,20 @@ paths:
       operationId: "getEntryPoint"
       produces:
       - "application/json"
+      parameters:
+      - in: "header"
+        name: "X-HUNTeR-Frontend"
+        type: "boolean"
+
       responses:
+        200:
+          description: "Entry point for HUNTer client provided"
+          headers:
+            X-HUNTeR-Redirect:
+              type: "string"
+              description: "Location to redirect to"
         302:
-          description: "Entry point provided"
+          description: "Entry point for non HUNTeR client provided"
 
 
   /quiz:
