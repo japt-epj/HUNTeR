@@ -2,7 +2,6 @@ import React from 'react';
 import {Button, Form, Header, Modal} from 'semantic-ui-react';
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from "../../handlers/APIHandler";
-import ParticipantHandler from "../../handlers/ParticipantHandler";
 
 export default class ParticipantSetting extends React.Component {
 
