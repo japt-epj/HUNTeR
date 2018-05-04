@@ -64,11 +64,14 @@ export default {
     },
 
     handleLoginSubmit() {
-        let res = this.postLoginData(this.state);
-        res.then(resData => {
-            console.log(resData);
-            window.localStorage.setItem('HUNTeR', resData.data.tokenType + ' ' + resData.data.token)
-        });
+        this.postLoginData(this.state)
+            .then(resData => {
+                window.localStorage.setItem('HUNTeR', resData.data.tokenType + ' ' + resData.data.token);
+                this.setState({
+                    fireRedirect: false,
+                    redirectRoute: resData.headers.Redirect
+                });
+            });
     },
 
     handleNewParticipantSubmit() {

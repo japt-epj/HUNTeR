@@ -1,14 +1,14 @@
 export default {
     getPathsTeacher() {
         return [
-            {path: 'exercise', name: 'Aufgabe erstellen', component: 'ParticipantExercise', icon: 'tasks'},
+            {path: 'exercise', name: 'Aufgabe erstellen', component: 'TeacherExercise', icon: 'tasks'},
             {
                 path: 'exerciseOverview',
                 name: 'Übersicht der Aufgaben',
-                component: 'TeacherExercisesOverview',
+                component: 'TeacherExerciseOverview',
                 icon: 'stack exchange'
             },
-            {path: 'quiz', name: 'Quiz erstellen', component: 'Quiz', icon: 'tasks'},
+            {path: 'quiz', name: 'Quiz erstellen', component: 'TeacherQuiz', icon: 'tasks'},
             {
                 path: 'quizOverview', name: 'Übersicht der Quizzes',
                 component: 'TeacherQuizOverview', icon: 'stack exchange'
