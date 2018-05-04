@@ -1,8 +1,7 @@
 package ch.japt.epj.library;
 
-import org.springframework.data.domain.Sort;
-
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Sort;
 
 public class SortParameterHandler {
   private SortParameterHandler() {}

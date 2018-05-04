@@ -1,12 +1,11 @@
 package ch.japt.epj.repository;
 
 import ch.japt.epj.model.data.Person;
+import java.util.Optional;
+import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Repository
 public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {

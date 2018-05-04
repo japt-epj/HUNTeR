@@ -8,6 +8,9 @@ import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ExerciseModel {
