@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 
 @Repository
 public interface QuizRepository extends PagingAndSortingRepository<Quiz, Long> {
-    Optional<Quiz> findQuizByQuizId(Long quizId);
+  Optional<Quiz> findQuizByQuizId(Long quizId);
 
-    @Query("select q from Quiz q")
-    Stream<Quiz> getAll();
+  @Query("select q from Quiz q")
+  Stream<Quiz> getAll();
 }

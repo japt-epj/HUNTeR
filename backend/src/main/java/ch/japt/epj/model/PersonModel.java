@@ -17,23 +17,23 @@ import java.util.List;
 
 @Component
 public class PersonModel {
-    private final PersonRepository persons;
-    private final ModelMapper mapper = new ModelMapper();
+  private final PersonRepository persons;
+  private final ModelMapper mapper = new ModelMapper();
 
-    public PersonModel(@Autowired PersonRepository persons) {
-        this.persons = persons;
-        mapper.createTypeMap(Person.class, PersonDto.class);
-    }
+  public PersonModel(@Autowired PersonRepository persons) {
+    this.persons = persons;
+    mapper.createTypeMap(Person.class, PersonDto.class);
+  }
 
-    public List<PersonDto> getPeople(List<Integer> ids) {
-        List<Long> longs = ListConverter.toLong(ids);
-        Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
-        return mapper.map(persons.findAll(longs), dtoList);
-    }
+  public List<PersonDto> getPeople(List<Integer> ids) {
+    List<Long> longs = ListConverter.toLong(ids);
+    Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
+    return mapper.map(persons.findAll(longs), dtoList);
+  }
 
-    public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
-        return persons.findAll(new PageRequest(page, limit, sort))
-                .map(person -> mapper.map(person, PersonDto.class));
-    }
+  public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
+    return persons
+        .findAll(new PageRequest(page, limit, sort))
+        .map(person -> mapper.map(person, PersonDto.class));
+  }
 }
-

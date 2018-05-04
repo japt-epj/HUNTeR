@@ -16,27 +16,30 @@ import java.util.Collections;
 @Component
 public class RegPersonModel {
 
-    private final PersonRepository persons;
-    private final RoleRepository roles;
-    private final PasswordEncoder passwordEncoder;
-    private final ModelMapper mapper = new ModelMapper();
+  private final PersonRepository persons;
+  private final RoleRepository roles;
+  private final PasswordEncoder passwordEncoder;
+  private final ModelMapper mapper = new ModelMapper();
 
-    public RegPersonModel(
-            @Autowired PersonRepository persons,
-            @Autowired RoleRepository roles,
-            @Autowired PasswordEncoder passwordEncoder
-    ) {
-        this.persons = persons;
-        this.roles = roles;
-        this.passwordEncoder = passwordEncoder;
-        mapper.createTypeMap(Person.class, RegPersonDto.class);
-    }
+  public RegPersonModel(
+      @Autowired PersonRepository persons,
+      @Autowired RoleRepository roles,
+      @Autowired PasswordEncoder passwordEncoder) {
+    this.persons = persons;
+    this.roles = roles;
+    this.passwordEncoder = passwordEncoder;
+    mapper.createTypeMap(Person.class, RegPersonDto.class);
+  }
 
-    public void addPerson(RegPersonDto regPersonDto) {
-        Person person = mapper.map(regPersonDto, Person.class);
-        person.setPassword(passwordEncoder.encode(person.getPassword()));
-        Role personRole = roles.findByName(RoleName.ROLE_TEACHER).orElseThrow(() -> new IllegalArgumentException("Unable to assign teacher role to person."));
-        person.setRoles(Collections.singleton(personRole));
-        persons.save(person);
-    }
+  public void addPerson(RegPersonDto regPersonDto) {
+    Person person = mapper.map(regPersonDto, Person.class);
+    person.setPassword(passwordEncoder.encode(person.getPassword()));
+    Role personRole =
+        roles
+            .findByName(RoleName.ROLE_TEACHER)
+            .orElseThrow(
+                () -> new IllegalArgumentException("Unable to assign teacher role to person."));
+    person.setRoles(Collections.singleton(personRole));
+    persons.save(person);
+  }
 }

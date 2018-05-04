@@ -17,19 +17,20 @@ import javax.validation.Valid;
 @Api(tags = "QR API")
 @RequestMapping("/api")
 public class QrController implements QrCodeApi {
-    private final QrModel model;
+  private final QrModel model;
 
-    public QrController(@Autowired QrModel model) {
-        this.model = model;
-    }
+  public QrController(@Autowired QrModel model) {
+    this.model = model;
+  }
 
-    @Override
-    public ResponseEntity<byte[]> getQRCode(
-            @Valid @PathVariable("id") Integer id,
-            @Valid @RequestParam(value = "scale", defaultValue = "20") Integer scale,
-            @Valid @RequestParam(value = "border", defaultValue = "2") Integer border) {
-        return model.generateCode(id, scale, border)
-                .map(b -> new ResponseEntity<>(b, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+  @Override
+  public ResponseEntity<byte[]> getQRCode(
+      @Valid @PathVariable("id") Integer id,
+      @Valid @RequestParam(value = "scale", defaultValue = "20") Integer scale,
+      @Valid @RequestParam(value = "border", defaultValue = "2") Integer border) {
+    return model
+        .generateCode(id, scale, border)
+        .map(b -> new ResponseEntity<>(b, HttpStatus.OK))
+        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+  }
 }
