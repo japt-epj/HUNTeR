@@ -14,8 +14,8 @@ public class Exercise {
 
     private String name;
 
-    @OneToOne
-    private Location location;
+    @OneToMany
+    private Collection<Location> locations = new ArrayList<>();
 
     @OneToMany
     private Collection<Answer> answerTemplates = new ArrayList<>();
@@ -46,12 +46,10 @@ public class Exercise {
         this.name = name;
     }
 
-    public Location getLocation() {
-        return location;
-    }
+    public Collection<Location> getLocations(){return locations;}
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void addLocation(Location location) {
+        this.locations.add(location);
     }
 
     public long getExerciseId() {
