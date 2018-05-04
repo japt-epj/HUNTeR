@@ -66,12 +66,16 @@ export default {
     },
 
     postLoginData(data) {
-        return axios.post(config.baseurl + 'auth/login/', data, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).catch(err => console.error('Error:', err));
+        return axios.post(config.baseurl + 'auth/login/',
+            {
+                email: data.email,
+                password: data.password
+            }, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            }).catch(err => console.error('Error:', err));
     },
 
     prepareTeacherData(data) {

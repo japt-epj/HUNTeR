@@ -63,9 +63,9 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
         if (authentication.getAuthorities().contains("ROLE_TEACHER")){
             headers.add("Location", "/teacher");
         } else {
-            headers.add("Location", "/participants");
+            headers.add("Location", "/participant");
         }
-        return new ResponseEntity<>(dto, headers, HttpStatus.SEE_OTHER);
+        return new ResponseEntity<>(dto, headers, HttpStatus.OK);
     }
 
     @Override
