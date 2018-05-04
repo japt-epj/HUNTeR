@@ -1,9 +1,6 @@
 package ch.japt.epj.configuration;
 
-import ch.japt.epj.security.CustomUserDetailsService;
-import ch.japt.epj.security.JwtAuthenticationEntryPoint;
-import ch.japt.epj.security.JwtAuthenticationFilter;
-import ch.japt.epj.security.JwtTokenProvider;
+import ch.japt.epj.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,10 +28,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
+    private final CustomAuthenticationSuccessHandler successHandler;
 
-    public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler, @Autowired CustomUserDetailsService customUserDetailsService) {
+    public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler, @Autowired CustomUserDetailsService customUserDetailsService, @Autowired CustomAuthenticationSuccessHandler successHandler) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.customUserDetailsService = customUserDetailsService;
+        this.successHandler = successHandler;
     }
 
     @Bean
@@ -68,31 +67,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         };
 
         http
-                    .cors()
+                .cors()
                 .and()
-                    .csrf()
+                .csrf()
                 .disable()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(unauthorizedHandler)
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
                 .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .authorizeRequests()
-                    .antMatchers(allowed)
+                .authorizeRequests()
+                .antMatchers(allowed)
                 .permitAll()
 //                  .antMatchers(HttpMethod.GET, "/api/**")
 //              .permitAll()
-                    .anyRequest()
-                    .authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
-//                  .formLogin()
-                    //uncommenting this should enable a default login form
-                    //we need to replace this with a custom one
-//              .loginPage("login")
-//              .permitAll()
-//              .and()
-                    .logout()
+                .formLogin()
+//                uncommenting this should enable a default login form
+//                we need to replace this with a custom one
+                .loginPage("/")
+                .successHandler(successHandler)
+                .permitAll()
+                .and()
+                .logout()
                 .permitAll();
 //
 //        // This is key for exposing csrf tokens in apis that are outside

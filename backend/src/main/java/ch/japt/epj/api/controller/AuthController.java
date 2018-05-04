@@ -59,13 +59,14 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
         JWTDto dto = new JWTDto();
         dto.setToken(jwt);
         dto.setTokenType("Bearer");
-        HttpHeaders headers = new HttpHeaders();
-        if (authentication.getAuthorities().contains("ROLE_TEACHER")){
-            headers.add("Location", "/teacher");
-        } else {
-            headers.add("Location", "/participants");
-        }
-        return new ResponseEntity<>(dto, headers, HttpStatus.SEE_OTHER);
+//        HttpHeaders headers = new HttpHeaders();
+//        if (authentication.getAuthorities().contains("ROLE_TEACHER")){
+//            headers.add("Location", "/teacher");
+//        } else {
+//            headers.add("Location", "/participants");
+//        }
+//        return new ResponseEntity<>(dto, headers, HttpStatus.SEE_OTHER);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @Override
