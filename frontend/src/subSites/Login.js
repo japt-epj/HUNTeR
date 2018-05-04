@@ -28,8 +28,9 @@ export default class Login extends React.Component {
             <div>
                 <Grid className="siteGrid" padded>
                     {StructureHandler.getLoginHeader()}
-                    <Grid.Row className="gridContent" centered>
-                        <div>
+                    <Grid.Row className="gridContent" columns="equal">
+                        <Grid.Column/>
+                        <Grid.Column width={6}>
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Input label="E-Mail-Adresse" type="email" name="email"
                                             value={this.state.email}
@@ -40,10 +41,13 @@ export default class Login extends React.Component {
                             </Form>
                             <NavLink to={'/participant'}>Participant</NavLink>
                             <NavLink to={'/teacher'}>Teacher</NavLink>
-                        </div>
+                        </Grid.Column>
+                        <Grid.Column/>
                     </Grid.Row>
                 </Grid>
-                {this.state.fireRedirect && <Redirect to={'/teacher'}/>}
+                {
+                    this.state.fireRedirect && <Redirect to={'/teacher'}/>
+                }
             </div>
         )
     }
