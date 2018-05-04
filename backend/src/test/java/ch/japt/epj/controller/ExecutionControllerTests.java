@@ -58,17 +58,6 @@ public class ExecutionControllerTests {
     }
 
     @Test
-    public void getCreatedExecution() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get("/api/execution/1")
-                .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
     public void getAllExecutions() throws Exception {
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/api/execution")
