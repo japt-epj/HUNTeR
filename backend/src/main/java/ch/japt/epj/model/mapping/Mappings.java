@@ -3,13 +3,13 @@ package ch.japt.epj.model.mapping;
 import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.dto.ExerciseDto;
-import ch.japt.epj.model.dto.LocationDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import org.modelmapper.ModelMapper;
 
 public class Mappings {
-    private Mappings() {}
+    private Mappings() {
+    }
 
     public static ModelMapper exerciseMapper() {
         ModelMapper mapper = new ModelMapper();
