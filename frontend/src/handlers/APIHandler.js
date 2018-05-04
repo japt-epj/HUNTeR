@@ -14,6 +14,15 @@ export default {
         ).catch(err => console.warn(err));
     },
 
+    getParticipant(participantId) {
+        return axios.get(config.baseurl + 'person/' + participantId, {
+            headers: {
+                "Accept": "application/json",
+                'Content-Type': 'application/json'
+            }
+        }).catch(err => console.warn(err));
+    },
+
     downloadQRCode(exerciseID) {
         return axios.get(config.baseurl + 'qrCode/' + exerciseID, {
                 headers: {
@@ -70,6 +79,17 @@ export default {
 
     postData(data, path) {
         axios.post(config.baseurl + path + '/', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).catch(err => console.error('Error:', err)
+        ).then(() => {
+            this.setState({fireRedirect: true});
+        });
+    },
+
+    putData(data, path) {
+        axios.put(config.baseurl + path + '/', data, {
             headers: {
                 'Content-Type': 'application/json',
             }
