@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "Formatting java code..."
+./mvnw com.coveo:fmt-maven-plugin:format 1> /dev/null
