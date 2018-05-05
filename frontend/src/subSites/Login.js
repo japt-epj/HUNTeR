@@ -14,8 +14,7 @@ export default class Login extends React.Component {
         this.state = {
             email: '',
             password: '',
-            fireRedirect: false,
-            redirectRoute: ''
+            fireRedirect: window.localStorage.getItem('HUNTeR-Redirect') !== null
         };
         this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
@@ -47,7 +46,7 @@ export default class Login extends React.Component {
                     </Grid.Row>
                 </Grid>
                 {
-                    this.state.fireRedirect && <Redirect to={this.state.redirectRoute}/>
+                    this.state.fireRedirect && <Redirect to={window.localStorage.getItem('HUNTeR-Redirect')}/>
                 }
             </div>
         )

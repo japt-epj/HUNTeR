@@ -3,6 +3,6 @@ export default function getHeader(contentType) {
         'Accept': contentType,
         'Content-Type': contentType,
         'X-HUNTeR-Frontend': true,
-        'Authorization': window.localStorage.getItem('HUNTeR')
+        'Authorization': window.localStorage.getItem('HUNTeR-Token')
     }
 }

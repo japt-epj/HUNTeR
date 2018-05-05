@@ -3,7 +3,7 @@ import fileDownload from 'js-file-download';
 
 import config from '../config/config';
 
-import getHeader from './getHeader';
+import getHeader from './getAxiosHeader';
 
 
 export default {
