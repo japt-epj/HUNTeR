@@ -8,14 +8,14 @@ import getHeader from './getAxiosHeader';
 
 export default {
     getExerciseArray(exerciseIDs) {
-        return axios.get(config.baseurl + 'exercise/' + exerciseIDs, {
+        return axios.get(config.apiURL + 'exercise/' + exerciseIDs, {
                 headers: getHeader('application/json')
             }
         ).catch(err => console.warn(err));
     },
 
     downloadQRCode(exerciseID) {
-        return axios.get(config.baseurl + 'qrCode/' + exerciseID, {
+        return axios.get(config.apiURL + 'qrCode/' + exerciseID, {
                 headers: getHeader('image/png'),
                 responseType: 'arraybuffer'
             }
@@ -24,7 +24,7 @@ export default {
     },
 
     getExercises(page, limit) {
-        let requestURL = config.baseurl + 'exercise/';
+        let requestURL = config.apiURL + 'exercise/';
         if (page !== undefined && limit !== undefined) {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
@@ -35,7 +35,7 @@ export default {
     },
 
     getQuizzes(page, limit) {
-        let requestURL = config.baseurl + 'quiz/';
+        let requestURL = config.apiURL + 'quiz/';
         if (page !== undefined && limit !== undefined) {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
@@ -46,7 +46,7 @@ export default {
     },
 
     getParticipants(page, limit) {
-        let requestURL = config.baseurl + 'person/';
+        let requestURL = config.apiURL + 'person/';
         if (page !== undefined && limit !== undefined) {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
@@ -57,7 +57,7 @@ export default {
     },
 
     postData(data, path) {
-        axios.post(config.baseurl + path + '/', data, {
+        axios.post(config.apiURL + path + '/', data, {
             headers: getHeader('application/json')
         }).catch(err => console.error('Error:', err)
         ).then(() => {
@@ -66,7 +66,7 @@ export default {
     },
 
     postLoginData(data) {
-        return axios.post(config.baseurl + 'auth/login/',
+        return axios.post(config.apiURL + 'auth/login/',
             {
                 email: data.email,
                 password: data.password
@@ -98,7 +98,7 @@ export default {
     },
 
     getRedirect() {
-        return axios.get(config.baseurl + 'auth/entryPoint', {
+        return axios.get(config.apiURL + 'auth/entryPoint', {
             headers: getHeader('application/json')
         }).catch(err => console.error(err));
     }
