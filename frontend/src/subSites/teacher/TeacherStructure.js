@@ -11,6 +11,7 @@ import TeacherNewParticipant from './TeacherNewParticipant';
 import TeacherQuiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
 
+import config from '../../config/config';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from "../NotFound";
@@ -49,11 +50,11 @@ export default class TeacherStructure extends React.Component {
                                         <Route path="/quizOverview" component={TeacherQuizOverview}/>
                                         <Route path="/execution" component={TeacherExecution}/>
                                         <Route path="/newUser" component={TeacherNewParticipant}/>
-                                        <Route path="/logout" render={props => {
+                                        <Route path="/logout" render={() => {
                                             return (
                                                 <div>
                                                     {window.localStorage.removeItem('HUNTeR-Redirect')}
-                                                    <Redirect to="/../../"/>
+                                                    {window.location.replace(config.mainURL)}
                                                 </div>
                                             )
                                         }}/>
