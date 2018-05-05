@@ -54,6 +54,7 @@ export default class TeacherStructure extends React.Component {
                                             return (
                                                 <div>
                                                     {window.localStorage.removeItem('HUNTeR-Redirect')}
+                                                    {window.localStorage.removeItem('HUNTeR-Token')}
                                                     {window.location.replace(config.mainURL)}
                                                 </div>
                                             )
