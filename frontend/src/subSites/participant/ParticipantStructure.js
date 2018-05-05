@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
@@ -45,6 +45,14 @@ export default class ParticipantStructure extends React.Component {
                                         <Route path="/scan" component={ParticipantScanExercise}/>
                                         <Route path="/score" component={ParticipantScore}/>
                                         <Route path="/exercise" component={ParticipantExercise}/>
+                                        <Route path="/logout" render={props => {
+                                            return (
+                                                <div>
+                                                    {window.localStorage.removeItem('HUNTeR-Redirect')}
+                                                    <Redirect to="/../../"/>
+                                                </div>
+                                            )
+                                        }}/>
                                         <Route component={NotFound}/>
                                     </Switch>
                                 </Sidebar.Pusher>
