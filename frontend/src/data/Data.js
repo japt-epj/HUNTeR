@@ -1,28 +1,22 @@
 export default {
     getPathsTeacher() {
         return [
-            {path: 'exercise', name: 'Aufgabe erstellen', component: 'TeacherExercise', icon: 'tasks'},
-            {
-                path: 'exerciseOverview',
-                name: 'Übersicht der Aufgaben',
-                component: 'TeacherExerciseOverview',
-                icon: 'stack exchange'
-            },
-            {path: 'quiz', name: 'Quiz erstellen', component: 'TeacherQuiz', icon: 'tasks'},
-            {
-                path: 'quizOverview', name: 'Übersicht der Quizzes',
-                component: 'TeacherQuizOverview', icon: 'stack exchange'
-            },
-            {path: 'execution', name: 'Ausführung erstellen', component: 'TeacherExecution', icon: 'calendar'},
-            {path: 'newUser', name: 'Schüler erstellen', component: 'TeacherNewParticipant', icon: 'add user'},
+            {path: 'exercise', name: 'Aufgabe erstellen', icon: 'tasks'},
+            {path: 'exerciseOverview', name: 'Übersicht der Aufgaben', icon: 'stack exchange'},
+            {path: 'quiz', name: 'Quiz erstellen', icon: 'tasks'},
+            {path: 'quizOverview', name: 'Übersicht der Quizzes', icon: 'stack exchange'},
+            {path: 'execution', name: 'Ausführung erstellen', icon: 'calendar'},
+            {path: 'newUser', name: 'Schüler erstellen', icon: 'add user'},
+            {path: 'logout', name: 'Ausloggen', icon: 'log out'}
         ];
     },
 
     getPathsParticipant() {
         return [
-            {path: 'settings', name: 'Persönliches', component: 'Settings', icon: 'setting'},
-            {path: 'scan', name: 'Aufgabe scannen', component: 'ParticipantScanExercise', icon: 'camera retro'},
-            {path: 'score', name: 'Aktueller ParticipantScore', component: 'ParticipantScore', icon: 'trophy'}
+            {path: 'settings', name: 'Persönliches', icon: 'setting'},
+            {path: 'scan', name: 'Aufgabe scannen', icon: 'camera retro'},
+            {path: 'score', name: 'Aktueller ParticipantScore', icon: 'trophy'},
+            {path: 'logout', name: 'Ausloggen', icon: 'log out'}
         ];
     },
 
