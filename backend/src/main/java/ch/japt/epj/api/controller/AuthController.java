@@ -23,7 +23,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collection;
 
@@ -77,25 +79,23 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     }
 
     @Override
-    public ResponseEntity<Void> getEntryPoint(@RequestHeader("X-HUNTeR-Frontend") Boolean hunter){
+    public ResponseEntity<Void> getEntryPoint(@RequestHeader("X-HUNTeR-Frontend") Boolean hunter) {
         HttpHeaders headers = new HttpHeaders();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getAuthorities().contains("ROLE_TEACHER")){
-            if (hunter) {
+        if (hunter) {
+            if (authentication.getAuthorities().contains("ROLE_TEACHER")) {
                 headers.add("X-HUNTeR-Redirect", "/teacher");
-                return new ResponseEntity<>(headers, HttpStatus.OK);
             } else {
-                headers.add("Location", "/teacher");
-                return new ResponseEntity<>(headers, HttpStatus.FOUND);
-            }
-        } else {
-            if (hunter) {
                 headers.add("X-HUNTeR-Redirect", "/participant");
-                return new ResponseEntity<>(headers, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(headers, HttpStatus.OK);
+        } else {
+            if (authentication.getAuthorities().contains("ROLE_TEACHER")) {
+                headers.add("Location", "/teacher");
             } else {
                 headers.add("Location", "/participant");
-                return new ResponseEntity<>(headers, HttpStatus.FOUND);
             }
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);
         }
     }
 }

@@ -46,7 +46,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedHeaders("Accept", "Authorization", "Content-Type")
+                        .allowedHeaders("*")
+                        .exposedHeaders("X-HUNTeR-Redirect")
                         .allowedOrigins("*");
             }
         };

@@ -67,10 +67,10 @@ export default {
         this.postLoginData(this.state)
             .then(resData => {
                 window.localStorage.setItem('HUNTeR', resData.data.tokenType + ' ' + resData.data.token);
-                this.setState({
-                    fireRedirect: false,
-                    redirectRoute: resData.headers.Redirect
-                });
+                this.getRedirect().then(redirectData => this.setState({
+                    redirectRoute: redirectData.headers['x-hunter-redirect'],
+                    fireRedirect: true
+                }));
             });
     },
 

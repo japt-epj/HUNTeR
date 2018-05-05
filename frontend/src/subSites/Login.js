@@ -20,6 +20,7 @@ export default class Login extends React.Component {
         this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postLoginData = APIHandler.postLoginData.bind(this);
+        this.getRedirect = APIHandler.getRedirect.bind(this);
         this.getJSONHeader = APIHandler.getJSONHeader;
     }
 
@@ -46,7 +47,7 @@ export default class Login extends React.Component {
                     </Grid.Row>
                 </Grid>
                 {
-                    this.state.fireRedirect && <Redirect to={'/teacher'}/>
+                    this.state.fireRedirect && <Redirect to={this.state.redirectRoute}/>
                 }
             </div>
         )
