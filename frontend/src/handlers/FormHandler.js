@@ -66,11 +66,11 @@ export default {
     handleLoginSubmit() {
         this.postLoginData(this.state)
             .then(resData => {
-                window.localStorage.setItem('HUNTeR', resData.data.tokenType + ' ' + resData.data.token);
-                this.getRedirect().then(redirectData => this.setState({
-                    redirectRoute: redirectData.headers['x-hunter-redirect'],
-                    fireRedirect: true
-                }));
+                window.localStorage.setItem('HUNTeR-Token', resData.data.tokenType + ' ' + resData.data.token);
+                this.getRedirect().then(redirectData => {
+                    window.localStorage.setItem('HUNTeR-Redirect', redirectData.headers['x-hunter-redirect']);
+                    this.setState({fireRedirect: true})
+                });
             });
     },
 
