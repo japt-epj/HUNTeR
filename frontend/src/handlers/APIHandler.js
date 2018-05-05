@@ -95,5 +95,11 @@ export default {
             exerciseID: data.exerciseID,
             answers: [data.checked0, data.checked1, data.checked2, data.checked3]
         }
+    },
+
+    getRedirect() {
+        return axios.get(config.baseurl + 'auth/entryPoint', {
+            headers: getHeader('application/json')
+        }).catch(err => console.error(err));
     }
 }
