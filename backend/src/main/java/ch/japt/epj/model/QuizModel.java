@@ -12,6 +12,7 @@ import ch.japt.epj.repository.LocationRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
@@ -80,7 +81,7 @@ public class QuizModel {
   }
 
   public List<NewQuizDto> getQuizzes(List<Integer> ids) {
-    List<Long> longs = ListConverter.toLong(ids);
+    Collection<Long> longs = ListConverter.toLong(ids);
     return mapper.map(quizzes.findAll(longs), QUIZ_DTO_LIST);
   }
 }

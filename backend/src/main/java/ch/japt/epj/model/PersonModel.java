@@ -5,6 +5,7 @@ import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -25,7 +26,7 @@ public class PersonModel {
   }
 
   public List<PersonDto> getPeople(List<Integer> ids) {
-    List<Long> longs = ListConverter.toLong(ids);
+    Collection<Long> longs = ListConverter.toLong(ids);
     Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
     return mapper.map(persons.findAll(longs), dtoList);
   }
