@@ -20,8 +20,8 @@ export default function () {
                         Daten wirklich ändern
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button color="red" inverted content="Nein" icon="cancel"/>
-                        <Button color="green" inverted content="Ja" icon="checkmark"/>
+                        <Button negative content="Nein" icon="cancel"/>
+                        <Button positive content="Ja" icon="checkmark"/>
                     </Modal.Actions>
                 </Modal>
             </Form>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Dimmer, Form, Loader} from 'semantic-ui-react';
+import {Button, Form} from 'semantic-ui-react';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from "../../handlers/APIHandler";
 import viewHandler from "../../handlers/viewHandler";
@@ -53,7 +53,7 @@ export default class TeacherQuizOverview extends React.Component {
             <Form>
                 {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : this.getQuizTable(false)}
                 <NavLink to={'/quiz'}>
-                    <Button basic positive content="Neues Quiz eröffnen"/>
+                    <Button color="green" content="Neues Quiz eröffnen"/>
                 </NavLink>
             </Form>
         );

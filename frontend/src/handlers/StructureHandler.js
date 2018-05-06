@@ -32,7 +32,7 @@ export default {
                     <Header size="medium" color="green" content={'Pathname'}/>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <Button onClick={this.toggleVisibility} icon={this.state.iconName} color="green"/>
+                    <Button color="green" icon={this.state.iconName} onClick={this.toggleVisibility}/>
                 </Grid.Column>
             </Grid.Row>
         )

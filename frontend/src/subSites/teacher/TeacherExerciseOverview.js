@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Dimmer, Loader} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
@@ -51,7 +51,7 @@ export default class TeacherExerciseOverview extends React.Component {
             <div>
                 {this.state.loading ? viewHandler.getLoadingScreen() : this.getExerciseTable(false)}
                 <NavLink to="/exercise">
-                    <Button color="green" icon="add square" positive labelPosition="right"
+                    <Button color="green" icon="add square" labelPosition="right"
                             label="Aufgabe hinzufügen"/>
                 </NavLink>
             </div>

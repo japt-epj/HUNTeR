@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Dimmer, Form, Grid, Header, Loader, Modal} from 'semantic-ui-react';
+import {Button, Form, Grid, Header, Modal} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 import 'moment/locale/de-ch';
@@ -140,9 +140,8 @@ export default class TeacherExecution extends React.Component {
                         <Grid.Row columns="equal">
                             <Grid.Column>
                                 <Modal size="fullscreen"
-                                       trigger={<Button color="green" icon="add square" positive labelPosition="right"
+                                       trigger={<Button color="green" icon="add square" labelPosition="right"
                                                         label="Quiz für die Durchführung auswählen"
-
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
                                     <Modal.Header content="Quiz auswählen"/>
@@ -153,7 +152,7 @@ export default class TeacherExecution extends React.Component {
                             </Grid.Column>
                             <Grid.Column>
                                 <Modal size="fullscreen"
-                                       trigger={<Button color="green" icon="add square" positive labelPosition="right"
+                                       trigger={<Button color="green" icon="add square" labelPosition="right"
                                                         label="Benutzer zur Durchführung hinzufügen"
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
