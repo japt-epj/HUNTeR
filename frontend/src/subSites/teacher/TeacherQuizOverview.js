@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button, Dimmer, Form, Loader} from 'semantic-ui-react';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from "../../handlers/APIHandler";
+import viewHandler from "../../handlers/viewHandler";
 
 
 export default class TeacherQuizOverview extends React.Component {
@@ -12,17 +13,13 @@ export default class TeacherQuizOverview extends React.Component {
         this.state = {
             checkBox: '',
             quizzes: [],
-            loadingScreen: [(
-                <Dimmer active inverted key={'dimmer'}>
-                    <Loader size="large">Loading</Loader>
-                </Dimmer>
-            )],
             loadingQuiz: true,
             pageNumber: 1,
             minPage: 1,
             maxPageQuiz: '',
             limit: 5,
         };
+
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
     }
 
@@ -54,8 +51,7 @@ export default class TeacherQuizOverview extends React.Component {
     render() {
         return (
             <Form>
-                {this.state.loadingQuiz && this.state.loadingScreen}
-                {!this.state.loadingQuiz && this.getQuizTable(false)}
+                {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : this.getQuizTable(false)}
                 <NavLink to={'/quiz'}>
                     <Button basic positive content="Neues Quiz eröffnen"/>
                 </NavLink>
