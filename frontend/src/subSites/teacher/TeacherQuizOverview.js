@@ -38,7 +38,7 @@ export default class TeacherQuizOverview extends React.Component {
     };
 
     getQuizzes = (page, limit) => {
-        APIHandler.getQuizzes(page, limit).then(resData => {
+        APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     quizzes: resData.data.content,

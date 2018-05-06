@@ -23,8 +23,8 @@ export default {
         ).catch(err => console.warn(err));
     },
 
-    getExercises(page, limit) {
-        let requestURL = config.apiURL + 'exercise/';
+    getPaginatedElements(path, page, limit) {
+        let requestURL = config.apiURL + path + '/';
         if (page !== undefined && limit !== undefined) {
             requestURL += '?page=' + (page - 1) + '&limit=' + limit;
         }
@@ -33,29 +33,7 @@ export default {
             }
         ).catch(err => console.warn(err));
     },
-
-    getQuizzes(page, limit) {
-        let requestURL = config.apiURL + 'quiz/';
-        if (page !== undefined && limit !== undefined) {
-            requestURL += '?page=' + (page - 1) + '&limit=' + limit;
-        }
-        return axios.get(requestURL, {
-                headers: getHeader('application/json')
-            }
-        ).catch(err => console.warn(err));
-    },
-
-    getParticipants(page, limit) {
-        let requestURL = config.apiURL + 'person/';
-        if (page !== undefined && limit !== undefined) {
-            requestURL += '?page=' + (page - 1) + '&limit=' + limit;
-        }
-        return axios.get(requestURL, {
-                headers: getHeader('application/json')
-            }
-        ).catch(err => console.warn(err));
-    },
-
+    
     postData(data, path) {
         axios.post(config.apiURL + path + '/', data, {
             headers: getHeader('application/json')
