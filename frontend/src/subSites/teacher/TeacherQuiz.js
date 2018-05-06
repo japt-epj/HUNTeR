@@ -183,14 +183,10 @@ export default class TeacherQuiz extends React.Component {
                                                         labelPosition="right"
                                                         label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loading ? viewHandler.getLoadingScreen() : (
-                                        <div>
-                                            <Modal.Header content="Aufgaben hinzufügen"/>
-                                            <Modal.Content scrolling>
-                                                {this.getExerciseTable(true)}
-                                            </Modal.Content>
-                                        </div>
-                                    )}
+                                    <Modal.Header content="Aufgaben hinzufügen"/>
+                                    <Modal.Content scrolling>
+                                        {this.state.loading ? viewHandler.getLoadingScreen() : this.getExerciseTable(true)}
+                                    </Modal.Content>
                                 </Modal>
                             </Grid.Column>
                             <Grid.Column>
@@ -198,7 +194,7 @@ export default class TeacherQuiz extends React.Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    {this.state.fireRedirect && (<Redirect to="/"/>)}
+                    {this.state.fireRedirect && <Redirect to="/"/>}
                 </Form>
             </div>
         );

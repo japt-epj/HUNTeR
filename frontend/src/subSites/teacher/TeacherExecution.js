@@ -145,13 +145,10 @@ export default class TeacherExecution extends React.Component {
 
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : (
-                                        <div>
-                                            <Modal.Header content="Quiz auswählen"/>
-                                            <Modal.Content scrolling>
-                                                {this.getQuizTable(true)}
-                                            </Modal.Content>
-                                        </div>)}
+                                    <Modal.Header content="Quiz auswählen"/>
+                                    <Modal.Content scrolling>
+                                        {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : this.getQuizTable(true)}
+                                    </Modal.Content>
                                 </Modal>
                             </Grid.Column>
                             <Grid.Column>
@@ -160,13 +157,10 @@ export default class TeacherExecution extends React.Component {
                                                         label="Benutzer zur Durchführung hinzufügen"
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loadingUser ? viewHandler.getLoadingScreen() : (
-                                        <div>
-                                            <Modal.Header content="Benutzer hinzufügen"/>
-                                            <Modal.Content scrolling>
-                                                {this.getParticipantTable(true)}
-                                            </Modal.Content>
-                                        </div>)}
+                                    <Modal.Header content="Benutzer hinzufügen"/>
+                                    <Modal.Content scrolling>
+                                        {this.state.loadingUser ? viewHandler.getLoadingScreen() : this.getParticipantTable(true)}
+                                    </Modal.Content>
                                 </Modal>
                             </Grid.Column>
                         </Grid.Row>
@@ -188,7 +182,7 @@ export default class TeacherExecution extends React.Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    {this.state.fireRedirect && (<Redirect to="/"/>)}
+                    {this.state.fireRedirect && <Redirect to="/"/>}
                 </Form>
             </div>
         );
