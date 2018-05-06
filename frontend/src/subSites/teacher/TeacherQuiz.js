@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
+import {Button, Form, Grid, Modal} from 'semantic-ui-react';
 import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
@@ -179,7 +179,7 @@ export default class TeacherQuiz extends React.Component {
                         <Grid.Row columns="equal">
                             <Grid.Column>
                                 <Modal size="fullscreen"
-                                       trigger={<Button color="green" icon="add square" positive
+                                       trigger={<Button color="green" icon="add square"
                                                         labelPosition="right"
                                                         label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
                                        closeIcon>

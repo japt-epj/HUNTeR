@@ -74,7 +74,7 @@ export default {
                                 <Icon color="green" name="check"/>}
                             </Table.Cell>
                             <Table.Cell collapsing>
-                                <Button color="green" basic icon="point" onClick={(event) => {
+                                <Button color="green" icon="point" onClick={(event) => {
                                     event.preventDefault();
                                     if (this.state.map.currentExercise !== undefined) {
                                         let newPositions = this.state.selectedPositions;
@@ -132,11 +132,11 @@ export default {
                             <Table.Cell content={element.id} collapsing/>
                             <Table.Cell collapsing>
                                 <NavLink to={'/exercise?id=' + element.id}>
-                                    <Button type="button" basic icon="edit" color="green"/>
+                                    <Button color="green" icon="edit" basic/>
                                 </NavLink>
                             </Table.Cell>
                             <Table.Cell collapsing>
-                                <Button color="orange" basic icon="qrcode"
+                                <Button color="orange" icon="qrcode" basic
                                         onClick={() => APIHandler.downloadQRCode(element.id)}/>
                             </Table.Cell>
                         </Table.Row>
