@@ -62,7 +62,7 @@ export default class TeacherExecution extends React.Component {
     }
 
     getParticipants = (page, limit) => {
-        APIHandler.getParticipants(page, limit).then(resData => {
+        APIHandler.getPaginatedElements('person', page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     participants: resData.data.content,
@@ -74,7 +74,7 @@ export default class TeacherExecution extends React.Component {
     };
 
     getQuizzes = (page, limit) => {
-        APIHandler.getQuizzes(page, limit).then(resData => {
+        APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     quizzes: resData.data.content,
