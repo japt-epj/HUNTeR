@@ -5,6 +5,7 @@ import {Button, Dimmer, Loader} from 'semantic-ui-react';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
+import viewHandler from "../../handlers/viewHandler";
 
 
 export default class TeacherExerciseOverview extends React.Component {
@@ -12,17 +13,13 @@ export default class TeacherExerciseOverview extends React.Component {
         super(props);
         this.state = {
             exercises: [],
-            loadingScreen: [(
-                <Dimmer active inverted key={'dimmer'}>
-                    <Loader size="large">Loading</Loader>
-                </Dimmer>
-            )],
             loading: true,
             pageNumber: 1,
             minPage: 1,
             maxPage: '',
             limit: 5,
         };
+
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
     }
 
@@ -52,8 +49,7 @@ export default class TeacherExerciseOverview extends React.Component {
     render() {
         return (
             <div>
-                {this.state.loading && this.state.loadingScreen}
-                {!this.state.loading && this.getExerciseTable(false)}
+                {this.state.loading ? viewHandler.getLoadingScreen() : this.getExerciseTable(false)}
                 <NavLink to="/exercise">
                     <Button color="green" icon="add square" positive labelPosition="right"
                             label="Aufgabe hinzufügen"/>

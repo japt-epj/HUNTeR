@@ -12,6 +12,7 @@ import ParticipantHandler from "../../handlers/ParticipantHandler";
 import QuizHandler from "../../handlers/QuizHandler";
 import FormHandler from "../../handlers/FormHandler";
 import ModalHandler from "../../handlers/ModalHandler";
+import viewHandler from "../../handlers/viewHandler";
 
 
 export default class TeacherExecution extends React.Component {
@@ -25,11 +26,6 @@ export default class TeacherExecution extends React.Component {
             bulkCheckbox: '',
             selectedQuizId: undefined,
             selectedParticipants: [],
-            loadingScreen: [(
-                <Dimmer active inverted key={'dimmer'}>
-                    <Loader size="large">Loading</Loader>
-                </Dimmer>
-            )],
             loadingUser: true,
             loadingQuiz: true,
             limit: 5,
@@ -45,6 +41,7 @@ export default class TeacherExecution extends React.Component {
             startDate: moment(),
             endDate: moment().add(1, "hour")
         };
+
         this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(this);
         this.handleSelection = ParticipantHandler.handleSelection.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
@@ -148,11 +145,13 @@ export default class TeacherExecution extends React.Component {
 
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loadingQuiz && this.state.loadingScreen}
-                                    <Modal.Header content="Quiz auswählen"/>
-                                    <Modal.Content scrolling>
-                                        {!this.state.loadingQuiz && this.getQuizTable(true)}
-                                    </Modal.Content>
+                                    {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : (
+                                        <div>
+                                            <Modal.Header content="Quiz auswählen"/>
+                                            <Modal.Content scrolling>
+                                                {this.getQuizTable(true)}
+                                            </Modal.Content>
+                                        </div>)}
                                 </Modal>
                             </Grid.Column>
                             <Grid.Column>
@@ -161,11 +160,13 @@ export default class TeacherExecution extends React.Component {
                                                         label="Benutzer zur Durchführung hinzufügen"
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loadingUser && this.state.loadingScreen}
-                                    <Modal.Header content="Benutzer hinzufügen"/>
-                                    <Modal.Content scrolling>
-                                        {!this.state.loadingUser && this.getParticipantTable(true)}
-                                    </Modal.Content>
+                                    {this.state.loadingUser ? viewHandler.getLoadingScreen() : (
+                                        <div>
+                                            <Modal.Header content="Benutzer hinzufügen"/>
+                                            <Modal.Content scrolling>
+                                                {this.getParticipantTable(true)}
+                                            </Modal.Content>
+                                        </div>)}
                                 </Modal>
                             </Grid.Column>
                         </Grid.Row>

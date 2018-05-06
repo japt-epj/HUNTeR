@@ -9,6 +9,7 @@ import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from "../../handlers/FormHandler";
 import ModalHandler from "../../handlers/ModalHandler";
+import viewHandler from "../../handlers/viewHandler";
 
 
 export default class TeacherQuiz extends React.Component {
@@ -21,11 +22,6 @@ export default class TeacherQuiz extends React.Component {
             selected: [],
             bulkCheckbox: '',
             selectedExercises: [],
-            loadingScreen: [(
-                <Dimmer active inverted key={'dimmer'}>
-                    <Loader size="large">Loading</Loader>
-                </Dimmer>
-            )],
             loading: true,
             limit: 5,
             pageNumber: 1,
@@ -42,6 +38,7 @@ export default class TeacherQuiz extends React.Component {
                 popupText: undefined
             }
         };
+
         this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
         this.getSelectedExerciseTable = ExerciseHandler.getSelectedExerciseTable.bind(this);
         this.handleSelection = ExerciseHandler.handleSelection.bind(this);
@@ -186,11 +183,14 @@ export default class TeacherQuiz extends React.Component {
                                                         labelPosition="right"
                                                         label="Aufgabe hinzufügen" onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loading && this.state.loadingScreen}
-                                    <Modal.Header content="Aufgaben hinzufügen"/>
-                                    <Modal.Content scrolling>
-                                        {!this.state.loading && this.getExerciseTable(true)}
-                                    </Modal.Content>
+                                    {this.state.loading ? viewHandler.getLoadingScreen() : (
+                                        <div>
+                                            <Modal.Header content="Aufgaben hinzufügen"/>
+                                            <Modal.Content scrolling>
+                                                {this.getExerciseTable(true)}
+                                            </Modal.Content>
+                                        </div>
+                                    )}
                                 </Modal>
                             </Grid.Column>
                             <Grid.Column>
