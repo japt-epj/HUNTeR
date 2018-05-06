@@ -35,11 +35,7 @@ export default class TeacherNewParticipant extends React.Component {
                             onChange={this.handleChange}
                             placeholder="Bitte geben Sie den Nachnamen des Schülers ein" required/>
                 <Form.Button content="Submit"/>
-                {
-                    this.state.fireRedirect && (
-                        <Redirect to={{pathname: '/', state: {person: this.state}}}/>
-                    )
-                }
+                {this.state.fireRedirect && <Redirect to={{pathname: '/', state: {person: this.state}}}/>}
             </Form>
         );
     }
