@@ -54,43 +54,28 @@ export default function register() {
 
 function registerValidSW(swUrl) {
   navigator.serviceWorker
-  .register(swUrl)
+    .register(swUrl)
   .then(registration => {
-    registration.onupdatefound = () => {
+     registration.onupdatefound = () => {
       const installingWorker = registration.installing;
       installingWorker.onstatechange = () => {
-        if (installingWorker.state === "installed") {
-          if (navigator.serviceWorker.controller) {
-            // At this point, the old content will have been purged and
-            // the fresh content will have been added to the cache.
-            // It's the perfect time to display a "New content is
-            // available; please refresh." message in your web app.
-            console.log("New content is available; please refresh.");
-          } else {
-            // At this point, everything has been precached.
-            // It's the perfect time to display a
-            // "Content is cached for offline use." message.
-            console.log("Content is cached for offline use.");
-          }
-        }
-      };
-    };
-  })
-  .catch(error => {
-    console.error("Error during service worker registration:", error);
-  });
+          if (installingWorker.state === "installed") {
+            if (navigator.serviceWorker.control// At this point, the old content will have been purged fresh content will have been added    // It's the perfect time to display a "New // available; please refresh." message in     console.log("New content is available; please refresh.");
+           // At this point, everything has been precached.
+perfect time // "Content is cached for offline use." message.
+           console.log("Content is cached for offline use.");
+     })
+    .catch(error => {
+      console.error("Error during service worker registration:", error);
+    });
 }
 
 function checkValidServiceWorker(swUrl) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
     .then(response => {
-      // Ensure service worker exists, and that we really are getting a JS file.
-      if (
-        response.status === 404 ||
-        response.headers.get("content-type").indexOf("javascript") === -1
-      ) {
-        // No service worker found. Probably a different app. Reload the page.
+      // Ensure service worker exists, and that we really are gettin    response.status === 404 ||
+        response.headers.get("content-type").indexOf("javascript")   // No service worker found. Probably a different app. Reload the page.
         navigator.serviceWorker.ready.then(registration => {
           registration.unregister().then(() => {
             window.location.reload();
