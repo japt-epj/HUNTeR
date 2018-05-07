@@ -5,4 +5,4 @@ echo "Formatting js code..."
 npm --prefix frontend/ run precise-commits 1> /dev/null
 
 # read files that could potentially have been reformatted
-git diff --cached --name-status | cut -c3- | xargs git add
+git diff --cached --name-status | sed 's/^.*[[:space:]]//' | xargs git add
