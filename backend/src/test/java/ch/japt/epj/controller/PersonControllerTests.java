@@ -24,15 +24,15 @@ public class PersonControllerTests {
   @Test
   public void getExistingPersonById() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/person/2").contentType(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/person/1").contentType(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$[0]").exists())
-        .andExpect(jsonPath("$[0].firstName").value("Pascal"))
-        .andExpect(jsonPath("$[0].lastName").value("Hürlimann"))
-        .andExpect(jsonPath("$[0].email").value("pascal.huerlimann@hsr.ch"));
+        .andExpect(jsonPath("$[0].firstName").value("Tobias"))
+        .andExpect(jsonPath("$[0].lastName").value("Saladin"))
+        .andExpect(jsonPath("$[0].email").value("tobias.saladin@hsr.ch"));
     // this needs to be uncommented, we really shouldn't be sending passwords!
     //                .andExpect(jsonPath("$[0].password").doesNotExist());
 
