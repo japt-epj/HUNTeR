@@ -26,7 +26,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "copy": "cpx \"build/**/\" \"target/classes/META-INF/resources/webjars/frontend/\"",
-    "precise-commits": "./node_modules/.bin/precise-commits"
+    "precise-commits": "./node_modules/.bin/precise-commits src",
+    "prettier": "find src -name '*.js' -exec ./node_modules/.bin/prettier --write {} \\;"
   },
   "devDependencies": {
     "precise-commits": "^1.0.2",
