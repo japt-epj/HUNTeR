@@ -25,6 +25,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "copy": "cpx \"build/**/\" \"target/classes/META-INF/resources/webjars/frontend/\""
+    "copy": "cpx \"build/**/\" \"target/classes/META-INF/resources/webjars/frontend/\"",
+    "precise-commits": "./node_modules/.bin/precise-commits"
+  },
+  "devDependencies": {
+    "precise-commits": "^1.0.2",
+    "prettier": "^1.12.1"
   }
 }
