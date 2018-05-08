@@ -20,7 +20,7 @@ export default class ParticipantScore extends React.Component {
     }
 
     getQuizzes = () => {
-        APIHandler.getQuizzes(1, 200).then(resData => {
+        APIHandler.getPaginatedElements('quiz', 1, 200).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     quizzes: resData.data.content.map(element => {

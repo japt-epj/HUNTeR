@@ -34,9 +34,15 @@ export default {
             .every(key => this.state.selectedPositions.get(key) !== undefined)) {
             this.postData({
                 name: this.state.name,
-                locations: Array.from(this.state.selectedPositions.keys()).map(key => {
-                    return {'exerciseID': key, 'location': this.state.selectedPositions.get(key)}
-                })
+                exercises: Array.from(this.state.selectedPositions.keys()).map(key => {
+                    return {
+                        'exerciseId': key,
+                        'lat': this.state.selectedPositions.get(key).lat,
+                        'lng': this.state.selectedPositions.get(key).lng
+                    }
+                }),
+                //TODO: Get currentPersonId and post
+                creator: (Math.floor(Math.random() * 15) + 1),
             }, 'quiz');
         } else {
             this.setState({formOK: false});
@@ -58,7 +64,14 @@ export default {
     },
 
     handleLoginSubmit() {
-        this.postData(this.state, 'login');
+        this.postLoginData(this.state)
+            .then(resData => {
+                window.localStorage.setItem('HUNTeR-Token', resData.data.tokenType + ' ' + resData.data.token);
+                this.getRedirect().then(redirectData => {
+                    window.localStorage.setItem('HUNTeR-Redirect', redirectData.headers['x-hunter-redirect']);
+                    this.setState({fireRedirect: true})
+                });
+            });
     },
 
     handleNewParticipantSubmit() {
