@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink, Redirect} from 'react-router-dom';
 
-import {Form, Grid} from 'semantic-ui-react';
+import {Form, Grid, Message} from 'semantic-ui-react';
 
 import StructureHandler from '../handlers/StructureHandler';
 import FormHandler from '../handlers/FormHandler';
@@ -16,6 +16,7 @@ export default class Login extends React.Component {
             email: '',
             password: '',
             showSuccess: false,
+            showLoginError: false,
             fireRedirect: window.localStorage.getItem('HUNTeR-Redirect') !== null
         };
         this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
@@ -34,6 +35,9 @@ export default class Login extends React.Component {
                     <Grid.Row className="gridContent" columns="equal">
                         <Grid.Column/>
                         <Grid.Column width={6}>
+                            {this.state.showLoginError &&
+                            <Message icon="sign in" size="mini" header="Username oder Passwort falsch eingegeben"
+                                     error/>}
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Input label="E-Mail-Adresse" type="email" name="email"
                                             value={this.state.email}

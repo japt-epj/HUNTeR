@@ -33,7 +33,7 @@ export default {
             }
         ).catch(err => console.warn(err));
     },
-    
+
     postData(data, path) {
         axios.post(config.apiURL + path + '/', data, {
             headers: getHeader('application/json')
@@ -52,6 +52,9 @@ export default {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                },
+                validateStatus: function (status) {
+                    return status === 401 || (status >= 200 && status < 300);
                 }
             }).catch(err => console.error('Error:', err));
     },
