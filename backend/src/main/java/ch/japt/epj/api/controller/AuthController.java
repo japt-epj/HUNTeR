@@ -70,12 +70,12 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     public ResponseEntity<Void> registerPerson(@Valid @RequestBody RegPersonDto body) {
 
         if (personRepository.existsByEmail(body.getEmail())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         regPersonModel.addPerson(body);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
