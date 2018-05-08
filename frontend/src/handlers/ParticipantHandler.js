@@ -38,11 +38,7 @@ export default {
             <Table>
                 <Table.Header>
                     <Table.Row>
-                        {checkboxNeeded && <Table.HeaderCell><Checkbox id={'Bulk' + this.state.pageNumber}
-                                                                       name={'Bulk' + this.state.pageNumber}
-                                                                       onChange={this.handleSelection}
-                                                                       checked={this.state.bulkCheckbox === 'Bulk' + this.state.pageNumber}/>
-                        </Table.HeaderCell>}
+                        {checkboxNeeded && TableHandler.getBulkCheckbox(this.state.pageNumber, this.state.bulkCheckbox, this.handleSelection)}
                         {TableHandler.getTableHeader(headerElements)}
                     </Table.Row>
                 </Table.Header>
@@ -50,7 +46,7 @@ export default {
                     {!this.state.loadingParticipants && this.state.participants.map(element =>
                         <Table.Row key={'ParticipantRows' + element.id}>
                             {checkboxNeeded && <Table.Cell collapsing>
-                                <Checkbox id={element.id} onChange={this.handleSelection}
+                                <Checkbox id={element.id} name={element.email} onChange={this.handleSelection}
                                           checked={this.state.selectedParticipants.indexOf(element.id) !== -1}/>
                             </Table.Cell>}
                             <Table.Cell content={element.firstName}/>

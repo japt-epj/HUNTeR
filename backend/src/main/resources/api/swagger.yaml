@@ -230,6 +230,30 @@ paths:
         400:
           description: "Invalid email/password supplied"
 
+  /auth/entryPoint:
+    get:
+      tags:
+      - "auth"
+      summary: "Get destionation based on role"
+      description: ""
+      operationId: "getEntryPoint"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "X-HUNTeR-Frontend"
+        type: "boolean"
+
+      responses:
+        200:
+          description: "Entry point for HUNTer client provided"
+          headers:
+            X-HUNTeR-Redirect:
+              type: "string"
+              description: "Location to redirect to"
+        302:
+          description: "Entry point for non HUNTeR client provided"
+
 
   /quiz:
     post:
@@ -568,6 +592,9 @@ definitions:
         format: "int64"
       name:
         type: "string"
+      creator:
+        type: "integer"
+        format: "int64"
       executions:
         type: "array"
         items:
@@ -575,7 +602,32 @@ definitions:
       exercises:
         type: "array"
         items:
-          $ref: "#/definitions/NewExercise"
+          $ref: "#/definitions/Location"
+
+
+  Location:
+    type: "object"
+    required:
+    - "exerciseId"
+    - "lat"
+    - "lng"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      exerciseId:
+        type: "integer"
+        format: "int64"
+        example: 1
+      lat:
+        type: "number"
+        format: "double"
+        example: 47.2232274
+      lng:
+        type: "number"
+        format: "double"
+        example: 8.8176142
+
 
   JWT:
     type: "object"
@@ -615,4 +667,3 @@ definitions:
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
-

@@ -1,6 +1,9 @@
 package ch.japt.epj.api.controller;
 
 import ch.japt.epj.model.RegPersonModel;
+import ch.japt.epj.model.data.Person;
+import ch.japt.epj.model.data.Role;
+import ch.japt.epj.model.data.RoleName;
 import ch.japt.epj.model.dto.AuthPersonDto;
 import ch.japt.epj.model.dto.JWTDto;
 import ch.japt.epj.model.dto.RegPersonDto;
@@ -8,17 +11,23 @@ import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.security.JwtTokenProvider;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 @Api(tags = "Auth API")
@@ -67,5 +76,26 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
         regPersonModel.addPerson(body);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> getEntryPoint(@RequestHeader("X-HUNTeR-Frontend") Boolean hunter) {
+        HttpHeaders headers = new HttpHeaders();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (hunter) {
+            if (authentication.getAuthorities().contains("ROLE_TEACHER")) {
+                headers.add("X-HUNTeR-Redirect", "/teacher");
+            } else {
+                headers.add("X-HUNTeR-Redirect", "/participant");
+            }
+            return new ResponseEntity<>(headers, HttpStatus.OK);
+        } else {
+            if (authentication.getAuthorities().contains("ROLE_TEACHER")) {
+                headers.add("Location", "/teacher");
+            } else {
+                headers.add("Location", "/participant");
+            }
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        }
     }
 }

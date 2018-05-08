@@ -3,6 +3,8 @@ package ch.japt.epj.model;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
+import ch.japt.epj.model.mapping.Mappings;
+import ch.japt.epj.repository.ExerciseRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,6 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ExerciseModelTests {
     @Autowired
     private ExerciseModel model;
+
+    @Autowired
+    private ExerciseRepository repository;
 
     @Test
     public void shouldContainTasks() {
@@ -71,6 +78,42 @@ public class ExerciseModelTests {
         Assertions
                 .assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> model.addExercise(fail));
+    }
+
+    @Test
+    public void getFirstPageDescending() {
+        List<ExerciseDto> expected = repository.getAll()
+                .sorted((x, y) -> Long.compare(y.getExerciseId(), x.getExerciseId()))
+                .limit(5)
+                .map(e -> Mappings.exerciseMapper().map(e, ExerciseDto.class))
+                .collect(Collectors.toList());
+
+        Page<ExerciseDto> actual =
+                model.pageExercise(0, 5, new Sort(Sort.Direction.DESC, "exerciseId"));
+
+
+        assertThat(actual.getContent())
+                .isNotEmpty()
+                .isEqualTo(expected);
+    }
+
+    @Test
+    public void getEmptyPage() {
+        Page<ExerciseDto> page =
+                model.pageExercise(10_000_000, 1, new Sort(Sort.Direction.ASC, "exerciseId"));
+        assertThat(page).isEmpty();
+    }
+
+    @Test
+    public void getExercisesByList() {
+        List<Integer> ids = Arrays.asList(1, 2, 3, 300);
+        List<ExerciseDto> exercises = model.getExercises(ids);
+
+        assertThat(exercises)
+                .isNotEmpty()
+                .hasSize(3)
+                .extracting(e -> e.getId())
+                .isEqualTo(Arrays.asList(1L, 2L, 3L));
     }
 
     private NewExerciseDto makeTestDto() {

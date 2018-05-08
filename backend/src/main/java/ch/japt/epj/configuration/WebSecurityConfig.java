@@ -1,13 +1,9 @@
 package ch.japt.epj.configuration;
 
-import ch.japt.epj.security.CustomUserDetailsService;
-import ch.japt.epj.security.JwtAuthenticationEntryPoint;
-import ch.japt.epj.security.JwtAuthenticationFilter;
-import ch.japt.epj.security.JwtTokenProvider;
+import ch.japt.epj.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -60,40 +56,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // these paths are allowed free access
         String[] allowed = {
-                "/",
-//                "/*",
-//                "/**",
-//                "/static/**/*",
+//                "/",
+//              "/*",
+//              "/**",
+//              "/static/**/*",
                 "/api/auth/**"
         };
 
         http
-//                .cors()
-//                    .and()
+                .cors()
+                .and()
                 .csrf()
-                    .disable()
+                .disable()
                 .exceptionHandling()
-                    .authenticationEntryPoint(unauthorizedHandler)
-                    .and()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .and()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
-                    .antMatchers(allowed)
-                        .permitAll()
-//                    .antMatchers(HttpMethod.GET, "/api/**")
-//                        .permitAll()
+                .antMatchers(allowed)
+                .permitAll()
+//                  .antMatchers(HttpMethod.GET, "/api/**")
+//              .permitAll()
                 .anyRequest()
-                    .authenticated()
+                .authenticated()
+                .and()
+                .formLogin()
+//                uncommenting this should enable a default login form
+//                we need to replace this with a custom one
+                    .loginPage("/")
+                    .permitAll()
+//                    .successHandler(successHandler)
                     .and()
-//                .formLogin()
-//                    // uncommenting this should enable a default login form
-//                    // we need to replace this with a custom one
-//                    //.loginPage("login")
-//                    .permitAll()
-//                    .and()
                 .logout()
-                    .permitAll();
+                .permitAll();
 //
 //        // This is key for exposing csrf tokens in apis that are outside
 //        // of the browser. We will need these headers in react and for

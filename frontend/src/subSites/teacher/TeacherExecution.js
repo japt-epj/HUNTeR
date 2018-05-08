@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Dimmer, Form, Grid, Header, Loader, Modal} from 'semantic-ui-react';
+import {Button, Form, Grid, Header, Modal} from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 import 'moment/locale/de-ch';
@@ -12,6 +12,7 @@ import ParticipantHandler from "../../handlers/ParticipantHandler";
 import QuizHandler from "../../handlers/QuizHandler";
 import FormHandler from "../../handlers/FormHandler";
 import ModalHandler from "../../handlers/ModalHandler";
+import viewHandler from "../../handlers/viewHandler";
 
 
 export default class TeacherExecution extends React.Component {
@@ -25,11 +26,6 @@ export default class TeacherExecution extends React.Component {
             bulkCheckbox: '',
             selectedQuizId: undefined,
             selectedParticipants: [],
-            loadingScreen: [(
-                <Dimmer active inverted key={'dimmer'}>
-                    <Loader size="large">Loading</Loader>
-                </Dimmer>
-            )],
             loadingUser: true,
             loadingQuiz: true,
             limit: 5,
@@ -45,6 +41,7 @@ export default class TeacherExecution extends React.Component {
             startDate: moment(),
             endDate: moment().add(1, "hour")
         };
+
         this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(this);
         this.handleSelection = ParticipantHandler.handleSelection.bind(this);
         this.getQuizTable = QuizHandler.getQuizTable.bind(this);
@@ -52,6 +49,7 @@ export default class TeacherExecution extends React.Component {
         this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
+        this.getJSONHeader = APIHandler.getJSONHeader;
         this.getFormError = ModalHandler.getFormError.bind(this);
     }
 
@@ -61,7 +59,7 @@ export default class TeacherExecution extends React.Component {
     }
 
     getParticipants = (page, limit) => {
-        APIHandler.getParticipants(page, limit).then(resData => {
+        APIHandler.getPaginatedElements('person', page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     participants: resData.data.content,
@@ -73,7 +71,7 @@ export default class TeacherExecution extends React.Component {
     };
 
     getQuizzes = (page, limit) => {
-        APIHandler.getQuizzes(page, limit).then(resData => {
+        APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
             if (resData.status === 200) {
                 this.setState({
                     quizzes: resData.data.content,
@@ -142,28 +140,25 @@ export default class TeacherExecution extends React.Component {
                         <Grid.Row columns="equal">
                             <Grid.Column>
                                 <Modal size="fullscreen"
-                                       trigger={<Button color="green" icon="add square" positive labelPosition="right"
+                                       trigger={<Button color="green" icon="add square" labelPosition="right"
                                                         label="Quiz für die Durchführung auswählen"
-
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loadingQuiz && this.state.loadingScreen}
                                     <Modal.Header content="Quiz auswählen"/>
                                     <Modal.Content scrolling>
-                                        {!this.state.loadingQuiz && this.getQuizTable(true)}
+                                        {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : this.getQuizTable(true)}
                                     </Modal.Content>
                                 </Modal>
                             </Grid.Column>
                             <Grid.Column>
                                 <Modal size="fullscreen"
-                                       trigger={<Button color="green" icon="add square" positive labelPosition="right"
+                                       trigger={<Button color="green" icon="add square" labelPosition="right"
                                                         label="Benutzer zur Durchführung hinzufügen"
                                                         onClick={this.resetPageNumber}/>}
                                        closeIcon>
-                                    {this.state.loadingUser && this.state.loadingScreen}
                                     <Modal.Header content="Benutzer hinzufügen"/>
                                     <Modal.Content scrolling>
-                                        {!this.state.loadingUser && this.getParticipantTable(true)}
+                                        {this.state.loadingUser ? viewHandler.getLoadingScreen() : this.getParticipantTable(true)}
                                     </Modal.Content>
                                 </Modal>
                             </Grid.Column>
@@ -186,7 +181,7 @@ export default class TeacherExecution extends React.Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    {this.state.fireRedirect && (<Redirect to="/"/>)}
+                    {this.state.fireRedirect && <Redirect to="/"/>}
                 </Form>
             </div>
         );

@@ -32,6 +32,7 @@ export default class TeacherExercise extends React.Component {
         this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postData = APIHandler.postData.bind(this);
+        this.getJSONHeader = APIHandler.getJSONHeader;
         this.getFormError = ModalHandler.getFormError.bind(this);
     }
 
@@ -76,7 +77,7 @@ export default class TeacherExercise extends React.Component {
                         </Table.Body>
                     </Table>
                     <Form.Button content="Submit"/>
-                    {this.state.fireRedirect && (<Redirect to="/"/>)}
+                    {this.state.fireRedirect && <Redirect to="/"/>}
                 </Form>
             </div>
         );
