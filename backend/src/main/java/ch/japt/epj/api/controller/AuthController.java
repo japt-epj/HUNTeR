@@ -82,18 +82,34 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     public ResponseEntity<Void> getEntryPoint(@RequestHeader("X-HUNTeR-Frontend") Boolean hunter) {
         HttpHeaders headers = new HttpHeaders();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        boolean isStudent = false;
+        boolean isTeacher = false;
+
+        for (GrantedAuthority grantedAuthority : authorities){
+            if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
+                isTeacher = true;
+            }else if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
+                isStudent = true;
+            }
+        }
+
         if (hunter) {
-            if (authentication.getAuthorities().contains("ROLE_TEACHER")) {
+            if (isTeacher) {
                 headers.add("X-HUNTeR-Redirect", "/teacher");
-            } else {
+            } else if(isStudent) {
                 headers.add("X-HUNTeR-Redirect", "/participant");
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
-            if (authentication.getAuthorities().contains("ROLE_TEACHER")) {
+            if (isTeacher) {
                 headers.add("Location", "/teacher");
-            } else {
+            } else if(isStudent) {
                 headers.add("Location", "/participant");
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
             return new ResponseEntity<>(headers, HttpStatus.FOUND);
         }
