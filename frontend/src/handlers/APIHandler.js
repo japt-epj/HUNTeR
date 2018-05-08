@@ -75,7 +75,7 @@ export default {
         }
     },
 
-    getRedirect() {
+    redirectAfterLogin() {
         return axios.get(config.apiURL + 'auth/entryPoint', {
             headers: getHeader('application/json')
         }).catch(err => console.error(err));
