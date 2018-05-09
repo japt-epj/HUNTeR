@@ -66,17 +66,17 @@ export default {
     handleLoginSubmit() {
         this.postLoginData(this.state)
             .then(resData => {
-                if (resData.status === 401) {
-                    this.setState({showLoginError: true});
-                } else {
+                if (resData.status >= 200 && resData.status < 300) {
                     window.localStorage.setItem('HUNTeR-Token', resData.data.tokenType + ' ' + resData.data.token);
-                    this.setState({showSuccess: true});
                     setTimeout(() => {
+                        this.setState({showSuccess: true});
                         this.redirectAfterLogin().then(redirectData => {
                             window.localStorage.setItem('HUNTeR-Redirect', redirectData.headers['x-hunter-redirect']);
                             this.setState({fireRedirect: true, showSuccess: false})
                         })
                     }, 1500);
+                } else {
+                    this.setState({showLoginError: true});
                 }
             });
     },
