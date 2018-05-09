@@ -50,12 +50,12 @@ export default class TeacherQuizOverview extends React.Component {
 
     render() {
         return (
-            <Form>
+            <div>
                 {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : this.getQuizTable(false)}
                 <NavLink to={'/quiz'}>
                     <Button color="green" content="Neues Quiz eröffnen"/>
                 </NavLink>
-            </Form>
+            </div>
         );
     }
 }
