@@ -19,7 +19,7 @@ export default class Login extends React.Component {
             showLoginError: false,
             fireRedirect: window.localStorage.getItem('HUNTeR-Redirect') !== null
         };
-        this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
+        this.handleLoginSubmit = FormHandler.handleLoginSubmit.bind(this);
         this.handleChange = FormHandler.handleChange.bind(this);
         this.postLoginData = APIHandler.postLoginData.bind(this);
         this.redirectAfterLogin = APIHandler.redirectAfterLogin.bind(this);
@@ -34,11 +34,11 @@ export default class Login extends React.Component {
                     {StructureHandler.getLoginHeader()}
                     <Grid.Row className="gridContent" columns="equal">
                         <Grid.Column/>
-                        <Grid.Column width={6}>
+                        <Grid.Column width={/Mobi/.test(navigator.userAgent) ? 12 : 6}>
                             {this.state.showLoginError &&
                             <Message icon="sign in" size="mini" header="Username oder Passwort falsch eingegeben"
                                      error/>}
-                            <Form onSubmit={this.handleSubmit}>
+                            <Form onSubmit={this.handleLoginSubmit}>
                                 <Form.Input label="E-Mail-Adresse" type="email" name="email"
                                             value={this.state.email}
                                             onChange={this.handleChange} required/>
