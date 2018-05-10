@@ -1,25 +1,25 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import { Grid, Segment, Sidebar } from "semantic-ui-react";
-import "../../style/index.css";
+import {Grid, Segment, Sidebar} from 'semantic-ui-react';
+import '../../style/index.css';
 
-import getHome from "../../handlers/getHome";
-import ParticipantScanExercise from "./ParticipantScanExercise";
-import Settings from "./ParticipantSetting";
-import ParticipantScore from "./ParticipantScore";
-import ParticipantExercise from "./ParticipantExercise";
+import getHome from '../../handlers/getHome';
+import ParticipantScanExercise from './ParticipantScanExercise';
+import Settings from './ParticipantSetting';
+import ParticipantScore from './ParticipantScore';
+import ParticipantExercise from './ParticipantExercise';
 
-import Data from "../../data/Data";
-import StructureHandler from "../../handlers/StructureHandler";
-import NotFound from "../NotFound";
+import Data from '../../data/Data';
+import StructureHandler from '../../handlers/StructureHandler';
+import NotFound from '../NotFound';
 
 export default class ParticipantStructure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      iconName: "bars"
+      iconName: 'bars'
     };
     this.hideSidebar = StructureHandler.hideSidebar.bind(this);
     this.getHeader = StructureHandler.getHeader.bind(this);

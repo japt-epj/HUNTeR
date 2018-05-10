@@ -1,27 +1,27 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import { Grid, Segment, Sidebar } from "semantic-ui-react";
-import "../../style/index.css";
+import {Grid, Segment, Sidebar} from 'semantic-ui-react';
+import '../../style/index.css';
 
-import getHome from "../../handlers/getHome";
-import TeacherExercise from "./TeacherExercise";
-import ExercisesOverview from "./TeacherExercisesOverview";
-import TeacherNewParticipant from "./TeacherNewParticipant";
-import Quiz from "./TeacherQuiz";
-import TeacherQuizOverview from "./TeacherQuizOverview";
+import getHome from '../../handlers/getHome';
+import TeacherExercise from './TeacherExercise';
+import ExercisesOverview from './TeacherExercisesOverview';
+import TeacherNewParticipant from './TeacherNewParticipant';
+import Quiz from './TeacherQuiz';
+import TeacherQuizOverview from './TeacherQuizOverview';
 
-import Data from "../../data/Data";
-import StructureHandler from "../../handlers/StructureHandler";
-import NotFound from "../NotFound";
-import TeacherExecution from "./TeacherExecution";
+import Data from '../../data/Data';
+import StructureHandler from '../../handlers/StructureHandler';
+import NotFound from '../NotFound';
+import TeacherExecution from './TeacherExecution';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      iconName: "bars"
+      iconName: 'bars'
     };
     this.getHeader = StructureHandler.getHeader.bind(this);
     this.getSideBar = StructureHandler.getSideBar.bind(this);
