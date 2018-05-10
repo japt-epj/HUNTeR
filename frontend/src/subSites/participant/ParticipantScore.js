@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Button,
@@ -10,17 +10,17 @@ import {
   Modal,
   Progress,
   Statistic
-} from "semantic-ui-react";
+} from 'semantic-ui-react';
 
-import Data from "../../data/Data";
-import APIHandler from "../../handlers/APIHandler";
+import Data from '../../data/Data';
+import APIHandler from '../../handlers/APIHandler';
 
 export default class ParticipantScore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       quizzes: [],
-      quiz: "quiz1"
+      quiz: 'quiz1'
     };
   }
 
@@ -47,9 +47,9 @@ export default class ParticipantScore extends React.Component {
 
   getColor = (element, index) => {
     if (element.correctAnswers[index]) {
-      return "green";
+      return 'green';
     } else {
-      return "red";
+      return 'red';
     }
   };
 
@@ -64,16 +64,16 @@ export default class ParticipantScore extends React.Component {
   buildScoreOverview = quizProgress => {
     return [
       {
-        key: "exercise",
-        label: "Aufgaben insgesammt",
+        key: 'exercise',
+        label: 'Aufgaben insgesammt',
         value: quizProgress.exercises
       },
       {
-        key: "solvedExercises",
-        label: "Aufgaben gelöst",
+        key: 'solvedExercises',
+        label: 'Aufgaben gelöst',
         value: quizProgress.solvedExercises
       },
-      { key: "points", label: "Punkte insgesammt", value: quizProgress.points }
+      {key: 'points', label: 'Punkte insgesammt', value: quizProgress.points}
     ];
   };
 
@@ -86,11 +86,11 @@ export default class ParticipantScore extends React.Component {
         points -= 1;
       }
     });
-    return (points < 0 ? 0 : points) + "/4";
+    return (points < 0 ? 0 : points) + '/4';
   };
 
   changeQuizState = value => {
-    this.setState({ quiz: value });
+    this.setState({quiz: value});
   };
 
   render() {
@@ -99,7 +99,7 @@ export default class ParticipantScore extends React.Component {
         <Grid.Row centered>
           <Card.Group centered>
             {Data.getLeaderBoard().map(element => (
-              <Card key={"scoreCard" + element.name}>
+              <Card key={'scoreCard' + element.name}>
                 <Card.Content>
                   <Card.Header>
                     <Menu text>
@@ -107,7 +107,7 @@ export default class ParticipantScore extends React.Component {
                       <Menu.Item>
                         <Icon
                           name="trophy"
-                          className={element.trophyColor + "Trophy"}
+                          className={element.trophyColor + 'Trophy'}
                         />
                       </Menu.Item>
                     </Menu>
@@ -130,13 +130,13 @@ export default class ParticipantScore extends React.Component {
         </Grid.Row>
         <Grid.Row>
           <Modal
-            style={{ marginTop: 0 }}
+            style={{marginTop: 0}}
             size="fullscreen"
             trigger={<Button content="Resultate einsehen" />}
             closeIcon
           >
             <Modal.Header>
-              {"Andi Hörler - " + Data.getQuiz(this.state.quiz).text}
+              {'Andi Hörler - ' + Data.getQuiz(this.state.quiz).text}
             </Modal.Header>
             <Modal.Content>
               <Modal.Description>

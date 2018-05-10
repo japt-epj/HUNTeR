@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 
-import { Button, Checkbox, Icon, Pagination, Table } from "semantic-ui-react";
+import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
 
-import TableHandler from "./TableHandler";
-import APIHandler from "./APIHandler";
+import TableHandler from './TableHandler';
+import APIHandler from './APIHandler';
 
 export default {
   handleSelection(event, checkbox) {
@@ -13,27 +13,27 @@ export default {
     let newPositions = this.state.selectedPositions;
     let limit = this.state.limit;
     if (checkbox.checked) {
-      if (checkbox.name.startsWith("Bulk")) {
+      if (checkbox.name.startsWith('Bulk')) {
         this.state.exercises.forEach(element => {
           if (newState.indexOf(element.id) === -1) {
             newState.push(element.id);
             newPositions.set(element.id, undefined);
           }
         });
-        this.setState({ bulkCheckbox: checkbox.id });
+        this.setState({bulkCheckbox: checkbox.id});
       } else {
         newPositions.set(checkbox.id, undefined);
         newState.push(checkbox.id);
       }
     } else {
-      if (checkbox.name.startsWith("Bulk")) {
+      if (checkbox.name.startsWith('Bulk')) {
         this.state.exercises.forEach(element => {
           if (newState.indexOf(element.id) !== -1) {
             newState.splice(newState.indexOf(element.id), 1);
             newPositions.delete(element.id);
           }
         });
-        this.setState({ bulkCheckbox: "" });
+        this.setState({bulkCheckbox: ''});
       } else {
         newPositions.delete(checkbox.id);
         newState.splice(newState.lastIndexOf(checkbox.id), 1);
@@ -51,13 +51,13 @@ export default {
           selectedExercises: newState.length !== 0 ? resData.data : []
         });
       } else {
-        console.log("Error:" + resData);
+        console.log('Error:' + resData);
       }
     });
   },
 
   getSelectedExerciseTable() {
-    let headerElements = ["Name", "Standort gesetzt", "Standort setzen"];
+    let headerElements = ['Name', 'Standort gesetzt', 'Standort setzen'];
     return (
       <Table>
         <Table.Header>
@@ -65,7 +65,7 @@ export default {
         </Table.Header>
         <Table.Body>
           {this.state.selectedExercises.map(element => (
-            <Table.Row key={"TableRow" + element.id}>
+            <Table.Row key={'TableRow' + element.id}>
               <Table.Cell content={element.name} />
               <Table.Cell collapsing>
                 {this.state.selectedPositions.get(element.id) !== undefined && (
@@ -85,9 +85,9 @@ export default {
                         this.state.map.currentExercise,
                         this.state.map.location
                       );
-                      this.setState({ selectedPositions: newPositions });
+                      this.setState({selectedPositions: newPositions});
                     }
-                    let map = { ...this.state.map };
+                    let map = {...this.state.map};
                     map.currentExercise = element.id;
                     map.popupText = element.name;
                     if (
@@ -99,7 +99,7 @@ export default {
                         element.id
                       );
                     }
-                    this.setState({ map: map });
+                    this.setState({map: map});
                   }}
                 />
               </Table.Cell>
@@ -125,7 +125,7 @@ export default {
     );
   },
   getExerciseTable(checkboxNeeded) {
-    let headerElements = ["Name", "ID", "Bearbeiten", "QR-Code"];
+    let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Code'];
     return (
       <Table>
         <Table.Header>
@@ -133,11 +133,11 @@ export default {
             {checkboxNeeded && (
               <Table.HeaderCell>
                 <Checkbox
-                  id={"Bulk" + this.state.pageNumber}
-                  name={"Bulk" + this.state.pageNumber}
+                  id={'Bulk' + this.state.pageNumber}
+                  name={'Bulk' + this.state.pageNumber}
                   onChange={this.handleSelection}
                   checked={
-                    this.state.bulkCheckbox === "Bulk" + this.state.pageNumber
+                    this.state.bulkCheckbox === 'Bulk' + this.state.pageNumber
                   }
                 />
               </Table.HeaderCell>
@@ -148,7 +148,7 @@ export default {
         <Table.Body>
           {!this.state.loadingExercises &&
             this.state.exercises.map(element => (
-              <Table.Row key={"TableRow" + element.id}>
+              <Table.Row key={'TableRow' + element.id}>
                 {checkboxNeeded && (
                   <Table.Cell collapsing>
                     <Checkbox
@@ -162,7 +162,7 @@ export default {
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing>
-                  <NavLink to={"/exercise?id=" + element.id}>
+                  <NavLink to={'/exercise?id=' + element.id}>
                     <Button type="button" basic icon="edit" color="green" />
                   </NavLink>
                 </Table.Cell>

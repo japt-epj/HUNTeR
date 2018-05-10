@@ -1,16 +1,16 @@
-import React from "react";
-import { Button, Form, Header, Modal } from "semantic-ui-react";
-import FormHandler from "../../handlers/FormHandler";
-import APIHandler from "../../handlers/APIHandler";
+import React from 'react';
+import {Button, Form, Header, Modal} from 'semantic-ui-react';
+import FormHandler from '../../handlers/FormHandler';
+import APIHandler from '../../handlers/APIHandler';
 
 export default class ParticipantSetting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fireRedirect: false,
-      firstName: "",
-      lastName: "",
-      email: ""
+      firstName: '',
+      lastName: '',
+      email: ''
     };
     this.handleSubmit = FormHandler.handleEditParticipant.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
@@ -61,14 +61,14 @@ export default class ParticipantSetting extends React.Component {
           <Form.Input
             label="Lehranstalt"
             type="text"
-            defaultValue={"HSR"}
+            defaultValue={'HSR'}
             required
           />
           <Form.Input label="Neues Passwort" type="password" />
           <Form.Input label="Neues Passwort erneut eingeben" type="password" />
 
           <Modal
-            style={{ marginTop: 0 }}
+            style={{marginTop: 0}}
             size="fullscreen"
             trigger={<Button content="Daten ändern" />}
             closeIcon

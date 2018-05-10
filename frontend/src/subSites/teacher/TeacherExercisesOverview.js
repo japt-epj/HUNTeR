@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 
-import { Button, Dimmer, Loader } from "semantic-ui-react";
+import {Button, Dimmer, Loader} from 'semantic-ui-react';
 
-import ExerciseHandler from "../../handlers/ExerciseHandler";
-import APIHandler from "../../handlers/APIHandler";
+import ExerciseHandler from '../../handlers/ExerciseHandler';
+import APIHandler from '../../handlers/APIHandler';
 
 export default class TeacherExercisesOverview extends React.Component {
   constructor(props) {
@@ -12,14 +12,14 @@ export default class TeacherExercisesOverview extends React.Component {
     this.state = {
       exercises: [],
       loadingScreen: [
-        <Dimmer active inverted key={"dimmer"}>
+        <Dimmer active inverted key={'dimmer'}>
           <Loader size="large">Loading</Loader>
         </Dimmer>
       ],
       loading: true,
       pageNumber: 1,
       minPage: 1,
-      maxPage: "",
+      maxPage: '',
       limit: 5
     };
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);

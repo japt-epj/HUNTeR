@@ -1,19 +1,19 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React from 'react';
+import {Redirect} from 'react-router-dom';
 
-import { Form } from "semantic-ui-react";
+import {Form} from 'semantic-ui-react';
 
-import FormHandler from "../../handlers/FormHandler";
-import APIHandler from "../../handlers/APIHandler";
+import FormHandler from '../../handlers/FormHandler';
+import APIHandler from '../../handlers/APIHandler';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fireRedirect: false,
-      firstName: "",
-      lastName: "",
-      email: ""
+      firstName: '',
+      lastName: '',
+      email: ''
     };
     this.handleSubmit = FormHandler.handleNewParticipantSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
@@ -52,7 +52,7 @@ export default class TeacherNewParticipant extends React.Component {
         />
         <Form.Button content="Submit" />
         {this.state.fireRedirect && (
-          <Redirect to={{ pathname: "/", state: { person: this.state } }} />
+          <Redirect to={{pathname: '/', state: {person: this.state}}} />
         )}
       </Form>
     );

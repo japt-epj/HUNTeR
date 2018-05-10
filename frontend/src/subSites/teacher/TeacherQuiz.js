@@ -1,27 +1,27 @@
-import React from "react";
-import { Redirect } from "react-router";
+import React from 'react';
+import {Redirect} from 'react-router';
 
-import { Button, Dimmer, Form, Grid, Loader, Modal } from "semantic-ui-react";
-import L from "leaflet";
-import { Map as LeafletMap, Marker, Tooltip, TileLayer } from "react-leaflet";
+import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
+import L from 'leaflet';
+import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
-import ExerciseHandler from "../../handlers/ExerciseHandler";
-import APIHandler from "../../handlers/APIHandler";
-import FormHandler from "../../handlers/FormHandler";
-import ModalHandler from "../../handlers/ModalHandler";
+import ExerciseHandler from '../../handlers/ExerciseHandler';
+import APIHandler from '../../handlers/APIHandler';
+import FormHandler from '../../handlers/FormHandler';
+import ModalHandler from '../../handlers/ModalHandler';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       formOK: true,
-      name: "",
+      name: '',
       exercises: [],
       selected: [],
-      bulkCheckbox: "",
+      bulkCheckbox: '',
       selectedExercises: [],
       loadingScreen: [
-        <Dimmer active inverted key={"dimmer"}>
+        <Dimmer active inverted key={'dimmer'}>
           <Loader size="large">Loading</Loader>
         </Dimmer>
       ],
@@ -30,7 +30,7 @@ export default class TeacherQuiz extends React.Component {
       pageNumber: 1,
       pageNumberSelected: 1,
       minPage: 1,
-      maxPage: "",
+      maxPage: '',
       fireRedirect: false,
       selectedPositions: new Map(),
       map: {
@@ -73,11 +73,11 @@ export default class TeacherQuiz extends React.Component {
 
   resetPageNumber = event => {
     event.preventDefault();
-    this.setState({ pageNumber: 1 });
+    this.setState({pageNumber: 1});
   };
 
   handleClick = event => {
-    let map = { ...this.state.map };
+    let map = {...this.state.map};
     map.location = event.latlng;
     map.zoom = this.mapref.current.leafletElement.getZoom();
     map.clicked = true;
@@ -92,17 +92,17 @@ export default class TeacherQuiz extends React.Component {
   };
 
   handleZoom = event => {
-    let map = { ...this.state.map };
+    let map = {...this.state.map};
     map.zoom = this.mapref.current.leafletElement.getZoom();
-    this.setState({ map });
+    this.setState({map});
   };
 
   handleLocation = event => {
-    let map = { ...this.state.map };
+    let map = {...this.state.map};
     map.zoom = this.mapref.current.leafletElement.getZoom();
     map.location = event.latlng;
     map.clicked = false;
-    this.setState({ map });
+    this.setState({map});
   };
 
   handlePageChangeExercises = (event, element) => {
@@ -122,16 +122,16 @@ export default class TeacherQuiz extends React.Component {
       this.state.selected.slice((currentPage - 1) * limit, currentPage * limit)
     ).then(resData => {
       if (resData.status === 200) {
-        this.setState({ selectedExercises: resData.data });
+        this.setState({selectedExercises: resData.data});
       } else {
-        console.log("Error:" + resData);
+        console.log('Error:' + resData);
       }
     });
   };
 
   render() {
     const image = L.icon({
-      iconUrl: require("../../images/icons/e-map.png"),
+      iconUrl: require('../../images/icons/e-map.png'),
       iconSize: [50, 94],
       iconAnchor: [50, 0]
     });
@@ -156,7 +156,7 @@ export default class TeacherQuiz extends React.Component {
       <div>
         {!this.state.formOK &&
           this.getFormError(
-            "Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen."
+            'Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.'
           )}
         <Form onSubmit={this.handleSubmit}>
           <Grid>

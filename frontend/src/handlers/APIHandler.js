@@ -1,15 +1,15 @@
-import axios from "axios";
-import fileDownload from "js-file-download";
+import axios from 'axios';
+import fileDownload from 'js-file-download';
 
-import config from "../config/config";
+import config from '../config/config';
 
 export default {
   getExerciseArray(exerciseIDs) {
     return axios
-      .get(config.baseurl + "exercise/" + exerciseIDs, {
+      .get(config.baseurl + 'exercise/' + exerciseIDs, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
       })
       .catch(err => console.warn(err));
@@ -17,10 +17,10 @@ export default {
 
   getParticipant(participantId) {
     return axios
-      .get(config.baseurl + "person/" + participantId, {
+      .get(config.baseurl + 'person/' + participantId, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
       })
       .catch(err => console.warn(err));
@@ -28,57 +28,57 @@ export default {
 
   downloadQRCode(exerciseID) {
     return axios
-      .get(config.baseurl + "qrCode/" + exerciseID, {
+      .get(config.baseurl + 'qrCode/' + exerciseID, {
         headers: {
-          Accept: "image/png",
-          "Content-Type": "image/png"
+          Accept: 'image/png',
+          'Content-Type': 'image/png'
         },
-        responseType: "arraybuffer"
+        responseType: 'arraybuffer'
       })
-      .then(res => fileDownload(res.data, "qrCode" + exerciseID + ".png"))
+      .then(res => fileDownload(res.data, 'qrCode' + exerciseID + '.png'))
       .catch(err => console.warn(err));
   },
 
   getExercises(page, limit) {
-    let requestURL = config.baseurl + "exercise/";
+    let requestURL = config.baseurl + 'exercise/';
     if (page !== undefined && limit !== undefined) {
-      requestURL += "?page=" + (page - 1) + "&limit=" + limit;
+      requestURL += '?page=' + (page - 1) + '&limit=' + limit;
     }
     return axios
       .get(requestURL, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
       })
       .catch(err => console.warn(err));
   },
 
   getQuizzes(page, limit) {
-    let requestURL = config.baseurl + "quiz/";
+    let requestURL = config.baseurl + 'quiz/';
     if (page !== undefined && limit !== undefined) {
-      requestURL += "?page=" + (page - 1) + "&limit=" + limit;
+      requestURL += '?page=' + (page - 1) + '&limit=' + limit;
     }
     return axios
       .get(requestURL, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
       })
       .catch(err => console.warn(err));
   },
 
   getParticipants(page, limit) {
-    let requestURL = config.baseurl + "person/";
+    let requestURL = config.baseurl + 'person/';
     if (page !== undefined && limit !== undefined) {
-      requestURL += "?page=" + (page - 1) + "&limit=" + limit;
+      requestURL += '?page=' + (page - 1) + '&limit=' + limit;
     }
     return axios
       .get(requestURL, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
       })
       .catch(err => console.warn(err));
@@ -86,27 +86,27 @@ export default {
 
   postData(data, path) {
     axios
-      .post(config.baseurl + path + "/", data, {
+      .post(config.baseurl + path + '/', data, {
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       })
-      .catch(err => console.error("Error:", err))
+      .catch(err => console.error('Error:', err))
       .then(() => {
-        this.setState({ fireRedirect: true });
+        this.setState({fireRedirect: true});
       });
   },
 
   putData(data, path) {
     axios
-      .put(config.baseurl + path + "/", data, {
+      .put(config.baseurl + path + '/', data, {
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       })
-      .catch(err => console.error("Error:", err))
+      .catch(err => console.error('Error:', err))
       .then(() => {
-        this.setState({ fireRedirect: true });
+        this.setState({fireRedirect: true});
       });
   },
 
@@ -115,10 +115,10 @@ export default {
       name: data.name,
       question: data.question,
       answers: [
-        { text: data.answer0, checked: data.checked0 },
-        { text: data.answer1, checked: data.checked1 },
-        { text: data.answer2, checked: data.checked2 },
-        { text: data.answer3, checked: data.checked3 }
+        {text: data.answer0, checked: data.checked0},
+        {text: data.answer1, checked: data.checked1},
+        {text: data.answer2, checked: data.checked2},
+        {text: data.answer3, checked: data.checked3}
       ]
     };
   },
