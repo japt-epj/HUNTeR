@@ -1,5 +1,5 @@
-import React from "react";
-import { Redirect } from "react-router";
+import React from 'react';
+import {Redirect} from 'react-router';
 
 import {
   Button,
@@ -9,31 +9,31 @@ import {
   Header,
   Loader,
   Modal
-} from "semantic-ui-react";
-import DateTime from "react-datetime";
-import moment from "moment";
-import "moment/locale/de-ch";
-import "../../style/react-datetime.css";
+} from 'semantic-ui-react';
+import DateTime from 'react-datetime';
+import moment from 'moment';
+import 'moment/locale/de-ch';
+import '../../style/react-datetime.css';
 
-import APIHandler from "../../handlers/APIHandler";
-import ParticipantHandler from "../../handlers/ParticipantHandler";
-import QuizHandler from "../../handlers/QuizHandler";
-import FormHandler from "../../handlers/FormHandler";
-import ModalHandler from "../../handlers/ModalHandler";
+import APIHandler from '../../handlers/APIHandler';
+import ParticipantHandler from '../../handlers/ParticipantHandler';
+import QuizHandler from '../../handlers/QuizHandler';
+import FormHandler from '../../handlers/FormHandler';
+import ModalHandler from '../../handlers/ModalHandler';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       formOK: true,
-      name: "",
+      name: '',
       participants: [],
       quizzes: [],
-      bulkCheckbox: "",
+      bulkCheckbox: '',
       selectedQuizId: undefined,
       selectedParticipants: [],
       loadingScreen: [
-        <Dimmer active inverted key={"dimmer"}>
+        <Dimmer active inverted key={'dimmer'}>
           <Loader size="large">Loading</Loader>
         </Dimmer>
       ],
@@ -42,15 +42,15 @@ export default class TeacherExecution extends React.Component {
       limit: 5,
       pageNumber: 1,
       minPage: 1,
-      maxPageQuiz: "",
-      maxPageParticipant: "",
+      maxPageQuiz: '',
+      maxPageParticipant: '',
       modifiers: {
         highlighted: new Date(),
         after: new Date().getDate() + 1
       },
       fireRedirect: false,
       startDate: moment(),
-      endDate: moment().add(1, "hour")
+      endDate: moment().add(1, 'hour')
     };
     this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(
       this
@@ -109,26 +109,26 @@ export default class TeacherExecution extends React.Component {
 
   resetPageNumber = event => {
     event.preventDefault();
-    this.setState({ pageNumber: 1 });
+    this.setState({pageNumber: 1});
   };
 
   handleStartMomentChange = event => {
     if (event._d >= this.state.endDate) {
-      this.setState({ endDate: moment(event._d).add(1, "hour") });
+      this.setState({endDate: moment(event._d).add(1, 'hour')});
     }
-    this.setState({ startDate: moment(event._d) });
+    this.setState({startDate: moment(event._d)});
   };
 
   handleEndMomentChange = event => {
-    this.setState({ endDate: moment(event._d) });
+    this.setState({endDate: moment(event._d)});
   };
 
-  handleSelectChange = (e, { value }) => {
-    this.setState({ selectedQuizId: value });
+  handleSelectChange = (e, {value}) => {
+    this.setState({selectedQuizId: value});
   };
 
   isStartDateValid = current => {
-    return current.isAfter(moment().add(-1, "day"));
+    return current.isAfter(moment().add(-1, 'day'));
   };
 
   isEndDateValid = current => {
@@ -140,7 +140,7 @@ export default class TeacherExecution extends React.Component {
       <div>
         {!this.state.formOK &&
           this.getFormError(
-            "Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet."
+            'Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet.'
           )}
         <Form onSubmit={this.handleSubmit}>
           <Grid>

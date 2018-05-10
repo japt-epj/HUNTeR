@@ -1,11 +1,11 @@
-import React from "react";
-import { Redirect } from "react-router";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import {Redirect} from 'react-router';
+import {NavLink} from 'react-router-dom';
 
-import { Form, Grid, Header, Message } from "semantic-ui-react";
+import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
-import FormHandler from "../../handlers/FormHandler";
-import APIHandler from "../../handlers/APIHandler";
+import FormHandler from '../../handlers/FormHandler';
+import APIHandler from '../../handlers/APIHandler';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
@@ -44,14 +44,14 @@ export default class ParticipantExercise extends React.Component {
                   control="input"
                   type="checkbox"
                   label={
-                    "Antwort " +
+                    'Antwort ' +
                     (index + 1) +
-                    " : " +
-                    this.state["answer" + index]
+                    ' : ' +
+                    this.state['answer' + index]
                   }
-                  name={"checked" + index}
+                  name={'checked' + index}
                   onChange={this.handleChange}
-                  checked={this.state["checked" + index]}
+                  checked={this.state['checked' + index]}
                 />
               );
             })}

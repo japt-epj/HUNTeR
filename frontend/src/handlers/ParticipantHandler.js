@@ -1,38 +1,38 @@
-import React from "react";
+import React from 'react';
 
-import { Checkbox, Pagination, Table } from "semantic-ui-react";
-import TableHandler from "./TableHandler";
+import {Checkbox, Pagination, Table} from 'semantic-ui-react';
+import TableHandler from './TableHandler';
 
 export default {
   handleSelection(event, checkbox) {
     let newState = this.state.selectedParticipants;
     if (checkbox.checked) {
-      if (checkbox.name.startsWith("Bulk")) {
+      if (checkbox.name.startsWith('Bulk')) {
         this.state.participants.forEach(element => {
           if (newState.indexOf(element.id) === -1) {
             newState.push(element.id);
           }
         });
-        this.setState({ bulkCheckbox: checkbox.id });
+        this.setState({bulkCheckbox: checkbox.id});
       } else {
         newState.push(checkbox.id);
       }
     } else {
-      if (checkbox.name.startsWith("Bulk")) {
+      if (checkbox.name.startsWith('Bulk')) {
         this.state.participants.forEach(element => {
           if (newState.indexOf(element.id) !== -1) {
             newState.splice(newState.indexOf(element.id), 1);
           }
         });
-        this.setState({ bulkCheckbox: "" });
+        this.setState({bulkCheckbox: ''});
       } else {
         newState.splice(newState.lastIndexOf(checkbox.id), 1);
       }
     }
-    this.setState({ selectedParticipants: newState });
+    this.setState({selectedParticipants: newState});
   },
   getParticipantTable(checkboxNeeded) {
-    let headerElements = ["Vorname", "Nachname", "E-Mail"];
+    let headerElements = ['Vorname', 'Nachname', 'E-Mail'];
     return (
       <Table>
         <Table.Header>
@@ -40,11 +40,11 @@ export default {
             {checkboxNeeded && (
               <Table.HeaderCell>
                 <Checkbox
-                  id={"Bulk" + this.state.pageNumber}
-                  name={"Bulk" + this.state.pageNumber}
+                  id={'Bulk' + this.state.pageNumber}
+                  name={'Bulk' + this.state.pageNumber}
                   onChange={this.handleSelection}
                   checked={
-                    this.state.bulkCheckbox === "Bulk" + this.state.pageNumber
+                    this.state.bulkCheckbox === 'Bulk' + this.state.pageNumber
                   }
                 />
               </Table.HeaderCell>
@@ -55,7 +55,7 @@ export default {
         <Table.Body>
           {!this.state.loadingParticipants &&
             this.state.participants.map(element => (
-              <Table.Row key={"ParticipantRows" + element.id}>
+              <Table.Row key={'ParticipantRows' + element.id}>
                 {checkboxNeeded && (
                   <Table.Cell collapsing>
                     <Checkbox
