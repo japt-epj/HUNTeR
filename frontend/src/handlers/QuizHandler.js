@@ -1,12 +1,12 @@
-import React from "react";
-import TableHandler from "./TableHandler";
-import { Form, Pagination, Table } from "semantic-ui-react";
+import React from 'react';
+import TableHandler from './TableHandler';
+import {Form, Pagination, Table} from 'semantic-ui-react';
 
 export default {
   getQuizTable(checkboxNeeded) {
-    let headerElements = ["Name"];
+    let headerElements = ['Name'];
     if (checkboxNeeded) {
-      headerElements.unshift("");
+      headerElements.unshift('');
     }
     return (
       <Table>
@@ -16,7 +16,7 @@ export default {
         <Table.Body>
           {!this.state.loadingQuizzes &&
             this.state.quizzes.map(element => (
-              <Table.Row key={"TableRow" + element.id}>
+              <Table.Row key={'TableRow' + element.id}>
                 {checkboxNeeded && (
                   <Table.Cell collapsing>
                     <Form.Radio

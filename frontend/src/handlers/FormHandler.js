@@ -1,9 +1,9 @@
-import APIHandler from "./APIHandler";
+import APIHandler from './APIHandler';
 
 export default {
   handleChange(event) {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [target.name]: value
     });
@@ -21,17 +21,17 @@ export default {
       isACheckboxSet = isACheckboxSet || checkedAnswers[element];
     });
     if (isACheckboxSet) {
-      let userType = window.location.pathname.split("/")[1];
-      if (userType === "teacher") {
-        this.postData(APIHandler.prepareTeacherData(this.state), "exercise");
+      let userType = window.location.pathname.split('/')[1];
+      if (userType === 'teacher') {
+        this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
       } else {
         this.postData(
           APIHandler.prepareParticipantData(this.state),
-          "exercise"
+          'exercise'
         );
       }
     } else {
-      this.setState({ formOK: false });
+      this.setState({formOK: false});
     }
   },
 
@@ -57,10 +57,10 @@ export default {
           //TODO: Get currentPersonId and post
           creator: Math.floor(Math.random() * 15) + 1
         },
-        "quiz"
+        'quiz'
       );
     } else {
-      this.setState({ formOK: false });
+      this.setState({formOK: false});
     }
   },
 
@@ -77,22 +77,22 @@ export default {
           startDate: this.state.startDate,
           endDate: this.state.endDate
         },
-        "execution"
+        'execution'
       );
     } else {
-      this.setState({ formOK: false });
+      this.setState({formOK: false});
     }
   },
 
   handleLoginSubmit() {
-    this.postData(this.state, "login");
+    this.postData(this.state, 'login');
   },
 
   handleNewParticipantSubmit() {
-    this.postData(this.state, "participant");
+    this.postData(this.state, 'participant');
   },
 
   handleEditParticipant() {
-    this.putData(this.state, "participant");
+    this.putData(this.state, 'participant');
   }
 };

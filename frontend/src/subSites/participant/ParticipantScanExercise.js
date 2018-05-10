@@ -1,27 +1,27 @@
-import React from "react";
-import { Redirect } from "react-router";
+import React from 'react';
+import {Redirect} from 'react-router';
 
-import { Message } from "semantic-ui-react";
+import {Message} from 'semantic-ui-react';
 
-import APIHandler from "../../handlers/APIHandler";
-import QrReader from "react-qr-reader";
-import ModalHandler from "../../handlers/ModalHandler";
+import APIHandler from '../../handlers/APIHandler';
+import QrReader from 'react-qr-reader';
+import ModalHandler from '../../handlers/ModalHandler';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       delay: 300,
-      result: "",
-      displayText: "Scanne QR-Code ein.",
-      exercise: "",
+      result: '',
+      displayText: 'Scanne QR-Code ein.',
+      exercise: '',
       scanError: false,
       showAgreement: true,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
-        latitude: "",
-        longitude: ""
+        latitude: '',
+        longitude: ''
       }
     };
     this.getAgreement = ModalHandler.getAgreement.bind(this);
@@ -29,11 +29,11 @@ export default class ParticipantScanExercise extends React.Component {
 
   handleScan = data => {
     if (data) {
-      APIHandler.getExerciseArray(data, "exercise").then(resData => {
+      APIHandler.getExerciseArray(data, 'exercise').then(resData => {
         if (resData.status === 200) {
           let exercise = resData.data[0];
           exercise.answers.forEach(function(element, index, arrayObject) {
-            arrayObject[index] = { text: element, checked: false };
+            arrayObject[index] = {text: element, checked: false};
           });
           this.setState({
             exercise: {
@@ -43,12 +43,12 @@ export default class ParticipantScanExercise extends React.Component {
               answers: exercise.answers
             }
           });
-          this.setState({ fireRedirect: true });
+          this.setState({fireRedirect: true});
         } else {
-          this.setState({ scanError: true });
+          this.setState({scanError: true});
           this.setState({
             displayText:
-              "Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein."
+              'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
           });
         }
       });
@@ -91,8 +91,8 @@ export default class ParticipantScanExercise extends React.Component {
         {this.state.fireRedirect && (
           <Redirect
             to={{
-              pathname: "exercise",
-              state: { exercise: this.state.exercise }
+              pathname: 'exercise',
+              state: {exercise: this.state.exercise}
             }}
           />
         )}

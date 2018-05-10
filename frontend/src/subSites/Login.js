@@ -1,18 +1,18 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 
-import { Form, Grid } from "semantic-ui-react";
+import {Form, Grid} from 'semantic-ui-react';
 
-import StructureHandler from "../handlers/StructureHandler";
-import FormHandler from "../handlers/FormHandler";
-import APIHandler from "../handlers/APIHandler";
+import StructureHandler from '../handlers/StructureHandler';
+import FormHandler from '../handlers/FormHandler';
+import APIHandler from '../handlers/APIHandler';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
     this.handleSubmit = FormHandler.handleLoginSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
@@ -44,8 +44,8 @@ export default class Login extends React.Component {
               />
               <Form.Button content="Submit" />
             </Form>
-            <NavLink to={"/participant"}>Participant</NavLink>
-            <NavLink to={"/teacher"}>Teacher</NavLink>
+            <NavLink to={'/participant'}>Participant</NavLink>
+            <NavLink to={'/teacher'}>Teacher</NavLink>
           </div>
         </Grid.Row>
       </Grid>
