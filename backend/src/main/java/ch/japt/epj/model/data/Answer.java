@@ -7,32 +7,32 @@ import javax.persistence.Id;
 
 @Entity
 public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long answerId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long answerId;
 
-    private String answer;
+  private String answer;
 
-    private boolean checked;
+  private boolean checked;
 
-    public String getAnswer() {
-        return answer;
-    }
+  public String getAnswer() {
+    return answer;
+  }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
+  public void setAnswer(String answer) {
+    this.answer = answer;
+  }
 
-    public boolean isChecked() {
-        return checked;
-    }
+  public boolean isChecked() {
+    return checked;
+  }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
+  public void setChecked(boolean checked) {
+    this.checked = checked;
+  }
 
-    @Override
-    public String toString() {
-        return answer;
-    }
+  @Override
+  public String toString() {
+    return answer;
+  }
 }

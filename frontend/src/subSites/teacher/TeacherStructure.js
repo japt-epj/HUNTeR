@@ -13,50 +13,59 @@ import TeacherQuizOverview from './TeacherQuizOverview';
 
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
-import NotFound from "../NotFound";
-import TeacherExecution from "./TeacherExecution";
-
+import NotFound from '../NotFound';
+import TeacherExecution from './TeacherExecution';
 
 export default class TeacherStructure extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visible: false,
-            iconName: 'bars'
-        };
-        this.getHeader = StructureHandler.getHeader.bind(this);
-        this.getSideBar = StructureHandler.getSideBar.bind(this);
-        this.hideSidebar = StructureHandler.hideSidebar.bind(this);
-        this.toggleVisibility = StructureHandler.toggleVisibility.bind(this);
-        this.getStructurePaths = StructureHandler.getStructurePaths.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      iconName: 'bars'
+    };
+    this.getHeader = StructureHandler.getHeader.bind(this);
+    this.getSideBar = StructureHandler.getSideBar.bind(this);
+    this.hideSidebar = StructureHandler.hideSidebar.bind(this);
+    this.toggleVisibility = StructureHandler.toggleVisibility.bind(this);
+    this.getStructurePaths = StructureHandler.getStructurePaths.bind(this);
+  }
 
-    render() {
-        return (
-            <BrowserRouter basename="/teacher">
-                <Grid className="siteGrid" padded>
-                    {this.getHeader(true)}
-                    <Grid.Row className="gridContent">
-                        <Grid.Column>
-                            <Sidebar.Pushable as={Segment}>
-                                {this.getSideBar(Data.getPathsTeacher())}
-                                <Sidebar.Pusher onClick={this.hideSidebar}>
-                                    <Switch>
-                                        <Route exact path="/" render={props => getHome(Data.getPathsTeacher())}/>
-                                        <Route path="/exercise" component={TeacherExercise}/>
-                                        <Route path="/exerciseOverview" component={ExercisesOverview}/>
-                                        <Route path="/quiz" component={Quiz}/>
-                                        <Route path="/quizOverview" component={TeacherQuizOverview}/>
-                                        <Route path="/execution" component={TeacherExecution}/>
-                                        <Route path="/newUser" component={TeacherNewParticipant}/>
-                                        <Route component={NotFound}/>
-                                    </Switch>
-                                </Sidebar.Pusher>
-                            </Sidebar.Pushable>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </BrowserRouter>
-        );
-    }
+  render() {
+    return (
+      <BrowserRouter basename="/teacher">
+        <Grid className="siteGrid" padded>
+          {this.getHeader(true)}
+          <Grid.Row className="gridContent">
+            <Grid.Column>
+              <Sidebar.Pushable as={Segment}>
+                {this.getSideBar(Data.getPathsTeacher())}
+                <Sidebar.Pusher onClick={this.hideSidebar}>
+                  <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      render={props => getHome(Data.getPathsTeacher())}
+                    />
+                    <Route path="/exercise" component={TeacherExercise} />
+                    <Route
+                      path="/exerciseOverview"
+                      component={ExercisesOverview}
+                    />
+                    <Route path="/quiz" component={Quiz} />
+                    <Route
+                      path="/quizOverview"
+                      component={TeacherQuizOverview}
+                    />
+                    <Route path="/execution" component={TeacherExecution} />
+                    <Route path="/newUser" component={TeacherNewParticipant} />
+                    <Route component={NotFound} />
+                  </Switch>
+                </Sidebar.Pusher>
+              </Sidebar.Pushable>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </BrowserRouter>
+    );
+  }
 }

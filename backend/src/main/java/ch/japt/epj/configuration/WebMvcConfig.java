@@ -9,47 +9,46 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    @Override
-    @Profile({"standalone", "test"})
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        super.addResourceHandlers(registry);
+  @Override
+  @Profile({"standalone", "test"})
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    super.addResourceHandlers(registry);
 
-        registry.setOrder(Ordered.LOWEST_PRECEDENCE);
+    registry.setOrder(Ordered.LOWEST_PRECEDENCE);
 
-        if (!registry.hasMappingForPattern("/")) {
-            registry.addResourceHandler("/")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/");
-        }
-
-        if (!registry.hasMappingForPattern("/index.html")) {
-            registry.addResourceHandler("/index.html")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/index.html");
-        }
-
-        if (!registry.hasMappingForPattern("/static/**")) {
-            registry.addResourceHandler("/static/**")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/static/");
-        }
+    if (!registry.hasMappingForPattern("/")) {
+      registry
+          .addResourceHandler("/")
+          .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/");
     }
 
-    @Override
-    @Profile({"standalone", "test"})
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/")
-                .setViewName("forward:/index.html");
+    if (!registry.hasMappingForPattern("/index.html")) {
+      registry
+          .addResourceHandler("/index.html")
+          .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/index.html");
     }
 
-    @Bean
-    @Profile({"dev"})
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedHeaders("Accept", "Authorization", "Content-Type")
-                        .allowedOrigins("*")
-                        .allowedMethods("GET", "PUT", "POST");
-            }
-        };
+    if (!registry.hasMappingForPattern("/static/**")) {
+      registry
+          .addResourceHandler("/static/**")
+          .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/static/");
     }
+  }
+
+  @Override
+  @Profile({"standalone", "test"})
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/").setViewName("forward:/index.html");
+  }
+
+  @Bean
+  @Profile({"dev"})
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurerAdapter() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**").allowedOrigins("*");
+      }
+    };
+  }
 }

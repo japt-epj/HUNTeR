@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Profile("dev")
 public class NotificationController {
 
-    @RequestMapping("/")
-    public String index() {
-        return "Running Local configuration. Run react separately!";
-    }
+  @RequestMapping("/")
+  public String index() {
+    return "Running Local configuration. Run react separately!";
+  }
 }

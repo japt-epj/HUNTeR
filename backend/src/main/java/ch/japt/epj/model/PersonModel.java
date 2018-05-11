@@ -3,8 +3,10 @@ package ch.japt.epj.model;
 import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.PersonDto;
-import ch.japt.epj.model.dto.RegPersonDto;
 import ch.japt.epj.repository.PersonRepository;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,48 +15,25 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Optional;
-
 @Component
 public class PersonModel {
-    private final PersonRepository persons;
-    private final ModelMapper mapper = new ModelMapper();
+  private final PersonRepository persons;
+  private final ModelMapper mapper = new ModelMapper();
 
-    public PersonModel(@Autowired PersonRepository persons) {
-        this.persons = persons;
-        mapper.createTypeMap(Person.class, PersonDto.class);
-    }
+  public PersonModel(@Autowired PersonRepository persons) {
+    this.persons = persons;
+    mapper.createTypeMap(Person.class, PersonDto.class);
+  }
 
-    public List<PersonDto> getPeople(List<Integer> ids) {
-        List<Long> longs = ListConverter.toLong(ids);
-        Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
-        return mapper.map(persons.findAll(longs), dtoList);
-    }
+  public List<PersonDto> getPeople(List<Integer> ids) {
+    Collection<Long> longs = ListConverter.toLong(ids);
+    Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
+    return mapper.map(persons.findAll(longs), dtoList);
+  }
 
-    public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
-        return persons.findAll(new PageRequest(page, limit, sort))
-                .map(person -> mapper.map(person, PersonDto.class));
-    }
-
-    public void updatePerson(RegPersonDto personDto) {
-        Optional personOptional =  persons.findByPersonId(personDto.getId());
-        if (!personOptional.isPresent()){
-            return;
-        }
-        Person person = (Person)personOptional.get();
-        if (!person.getFirstName().equals(personDto.getFirstName())){
-            person.setFirstName(personDto.getFirstName());
-        }
-        if (!person.getLastName().equals(personDto.getLastName())){
-            person.setLastName(personDto.getLastName());
-        }
-        if (!person.getEmail().equals(personDto.getEmail())){
-            person.setEmail(personDto.getEmail());
-        }
-        persons.save(person);
-
-    }
+  public Page<PersonDto> pagePeople(int page, int limit, Sort sort) {
+    return persons
+        .findAll(new PageRequest(page, limit, sort))
+        .map(person -> mapper.map(person, PersonDto.class));
+  }
 }
-
