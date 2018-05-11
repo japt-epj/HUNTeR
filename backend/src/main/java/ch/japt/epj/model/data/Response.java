@@ -15,6 +15,8 @@ public class Response {
 
   @OneToMany private Collection<Answer> answersFromPerson = new ArrayList<>();
 
+  public Response() {}
+
   public Person getPerson() {
     return person;
   }

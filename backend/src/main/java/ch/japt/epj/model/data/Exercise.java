@@ -60,4 +60,12 @@ public class Exercise {
   public void setQuestion(String question) {
     this.question = question;
   }
+
+  public Collection<Response> getResponses() {
+    return responses;
+  }
+
+  public void addResponse(Response response) {
+    responses.add(response);
+  }
 }
