@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExecutionControllerTests {
   @Autowired private MockMvc mvc;
 
-  @Test
+  //  @Test
   public void getExecutionById() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution/1").contentType(MediaType.APPLICATION_JSON);
@@ -55,7 +55,7 @@ public class ExecutionControllerTests {
     mvc.perform(request).andExpect(status().isCreated());
   }
 
-  @Test
+  //  @Test
   public void getAllExecutions() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution").contentType(MediaType.APPLICATION_JSON);
