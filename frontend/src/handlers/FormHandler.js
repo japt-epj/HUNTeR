@@ -93,7 +93,6 @@ export default {
   },
 
   handleEditParticipant() {
-    console.log(this.state.id);
     this.putData(
       {
         id: this.state.id,
