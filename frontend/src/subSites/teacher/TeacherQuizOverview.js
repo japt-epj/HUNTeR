@@ -3,59 +3,60 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Form} from 'semantic-ui-react';
 import QuizHandler from '../../handlers/QuizHandler';
-import APIHandler from "../../handlers/APIHandler";
-import viewHandler from "../../handlers/viewHandler";
-
+import APIHandler from '../../handlers/APIHandler';
+import viewHandler from '../../handlers/viewHandler';
 
 export default class TeacherQuizOverview extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checkBox: '',
-            quizzes: [],
-            loadingQuiz: true,
-            pageNumber: 1,
-            minPage: 1,
-            maxPageQuiz: '',
-            limit: 5,
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkBox: '',
+      quizzes: [],
+      loadingQuiz: true,
+      pageNumber: 1,
+      minPage: 1,
+      maxPageQuiz: '',
+      limit: 5
+    };
 
-        this.getQuizTable = QuizHandler.getQuizTable.bind(this);
-    }
+    this.getQuizTable = QuizHandler.getQuizTable.bind(this);
+  }
 
-    componentDidMount() {
-        this.getQuizzes(this.state.pageNumber, this.state.limit);
-    }
+  componentDidMount() {
+    this.getQuizzes(this.state.pageNumber, this.state.limit);
+  }
 
-    handlePageChangeQuizzes = (event, element) => {
+  handlePageChangeQuizzes = (event, element) => {
+    this.setState({
+      pageNumber: element.activePage
+    });
+    this.getQuizzes(element.activePage, this.state.limit);
+  };
+
+  getQuizzes = (page, limit) => {
+    APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
+      if (resData.status === 200) {
         this.setState({
-            pageNumber: element.activePage
+          quizzes: resData.data.content,
+          maxPageQuiz: resData.data.totalPages,
+          loadingQuiz: false
         });
-        this.getQuizzes(element.activePage, this.state.limit);
-    };
+      }
+    });
+  };
 
-    getQuizzes = (page, limit) => {
-        APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
-            if (resData.status === 200) {
-                this.setState({
-                    quizzes: resData.data.content,
-                    maxPageQuiz: resData.data.totalPages,
-                    loadingQuiz: false
-                })
-            }
-        });
-    };
+  handleSelectChange = (event, {value}) => this.setState({checkBox: value});
 
-    handleSelectChange = (event, {value}) => this.setState({checkBox: value});
-
-    render() {
-        return (
-            <Form>
-                {this.state.loadingQuiz ? viewHandler.getLoadingScreen() : this.getQuizTable(false)}
-                <NavLink to={'/quiz'}>
-                    <Button color="green" content="Neues Quiz eröffnen"/>
-                </NavLink>
-            </Form>
-        );
-    }
+  render() {
+    return (
+      <div>
+        {this.state.loadingQuiz
+          ? viewHandler.getLoadingScreen()
+          : this.getQuizTable(false)}
+        <NavLink to={'/quiz'}>
+          <Button color="green" content="Neues Quiz eröffnen" />
+        </NavLink>
+      </div>
+    );
+  }
 }

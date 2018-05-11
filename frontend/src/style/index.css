@@ -2,15 +2,15 @@ html {
     font-size: 16px !important;
 }
 
-#mapContainer{
+#mapContainer {
     height: 60vh;
 }
 
-#dateTimePickerContainer{
+#dateTimePickerContainer {
     height: 40vh;
 }
 
-.leaflet-container{
+.leaflet-container {
     height: 100%;
     width: 100%;
 }
@@ -19,7 +19,7 @@ html {
     height: 100vh;
 }
 
-.left.aligned.column, a, .logoImage, .right.aligned.column, .ui.button {
+.left.aligned.column, a, .logoImage, .right.aligned.column {
     height: calc(100% * 1.2) !important;
     min-height: 30px !important;
     max-height: 55px !important;
