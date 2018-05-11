@@ -20,7 +20,9 @@ export default class ParticipantSetting extends React.Component {
 
   componentDidMount() {
     this.getParticipant(1).then(resData => {
+      console.log('Responds data: ' + resData);
       let participant = resData.data[0];
+      console.log(participant);
       this.setState({
         id: participant.id,
         firstName: participant.firstName,
