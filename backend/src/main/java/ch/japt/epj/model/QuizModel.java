@@ -7,6 +7,7 @@ import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.LocationDto;
 import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.ExerciseRepository;
 import ch.japt.epj.repository.LocationRepository;
 import ch.japt.epj.repository.PersonRepository;
@@ -31,7 +32,7 @@ public class QuizModel {
   private final ExerciseRepository exercises;
   private final PersonRepository persons;
   private final LocationRepository locations;
-  private final ModelMapper mapper = new ModelMapper();
+  private final ModelMapper mapper = Mappings.quizMapper();
 
   public QuizModel(
       @Autowired QuizRepository quizzes,
