@@ -98,7 +98,6 @@ export default {
   },
 
   putData(data, path) {
-    console.log('Putting data');
     axios
       .put(config.baseurl + path + '/', data, {
         headers: {
