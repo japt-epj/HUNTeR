@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Button, Modal } from "semantic-ui-react";
+import {Button, Modal} from 'semantic-ui-react';
 
 export default {
   getAgreement() {
@@ -18,7 +18,7 @@ export default {
             labelPosition="right"
             icon="point"
             content="OK, ich habe verstanden"
-            onClick={() => this.setState({ showAgreement: false })}
+            onClick={() => this.setState({showAgreement: false})}
           />
         </Modal.Actions>
       </Modal>
@@ -36,7 +36,7 @@ export default {
             labelPosition="right"
             icon="pencil"
             content="OK, ich habe verstanden"
-            onClick={() => this.setState({ formOK: true })}
+            onClick={() => this.setState({formOK: true})}
           />
         </Modal.Actions>
       </Modal>

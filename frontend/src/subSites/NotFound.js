@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 
-import { Grid, Image } from "semantic-ui-react";
+import {Grid, Image} from 'semantic-ui-react';
 
-import ErrorDesktop from "../images/404Desktop.png";
-import ErrorMobile from "../images/404Mobile.png";
+import ErrorDesktop from '../images/404Desktop.png';
+import ErrorMobile from '../images/404Mobile.png';
 
 export default function() {
   return (
