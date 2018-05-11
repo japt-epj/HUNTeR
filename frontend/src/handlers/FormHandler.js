@@ -89,10 +89,18 @@ export default {
   },
 
   handleNewParticipantSubmit() {
-    this.postData(this.state, 'participant');
+    this.postData(this.state, 'person');
   },
 
   handleEditParticipant() {
-    this.putData(this.state, 'participant');
+    this.putData(
+      {
+        id: this.state.id,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email
+      },
+      'person'
+    );
   }
 };

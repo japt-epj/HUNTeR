@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 
 import {
   Button,
@@ -9,21 +9,21 @@ import {
   Image,
   Menu,
   Sidebar
-} from "semantic-ui-react";
+} from 'semantic-ui-react';
 
-import Logo from "../images/icons/e.jpg";
+import Logo from '../images/icons/e.jpg';
 
 export default {
   toggleVisibility() {
-    let iconNames = new Map([["bars", "close"], ["close", "bars"]]);
-    this.setState({ visible: !this.state.visible });
-    this.setState({ iconName: iconNames.get(this.state.iconName) });
+    let iconNames = new Map([['bars', 'close'], ['close', 'bars']]);
+    this.setState({visible: !this.state.visible});
+    this.setState({iconName: iconNames.get(this.state.iconName)});
   },
 
   hideSidebar() {
-    let iconNames = new Map([["bars", "close"], ["close", "bars"]]);
-    this.setState({ visible: false });
-    this.setState({ iconName: iconNames.get("close") });
+    let iconNames = new Map([['bars', 'close'], ['close', 'bars']]);
+    this.setState({visible: false});
+    this.setState({iconName: iconNames.get('close')});
   },
 
   getHeader() {
@@ -40,7 +40,7 @@ export default {
           </NavLink>
         </Grid.Column>
         <Grid.Column textAlign="center" className="headerElement">
-          <Header size="medium" color="green" content={"Pathname"} />
+          <Header size="medium" color="green" content={'Pathname'} />
         </Grid.Column>
         <Grid.Column textAlign="right">
           <Button
@@ -89,7 +89,7 @@ export default {
 
   getStructurePaths(elements) {
     return elements.map(element => (
-      <NavLink key={"navLink" + element.path} to={"/" + element.path}>
+      <NavLink key={'navLink' + element.path} to={'/' + element.path}>
         <Menu.Item name={element.path}>
           <Icon name={element.icon} size="mini" />
           {element.name}
