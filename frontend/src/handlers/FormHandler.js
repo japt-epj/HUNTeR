@@ -93,7 +93,15 @@ export default {
   },
 
   handleEditParticipant() {
-    console.log('TestEdit');
-    this.putData(this.state, 'person');
+    console.log(this.state.id);
+    this.putData(
+      {
+        id: this.state.id,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email
+      },
+      'person'
+    );
   }
 };

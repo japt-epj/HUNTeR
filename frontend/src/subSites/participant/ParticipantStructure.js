@@ -42,7 +42,7 @@ export default class ParticipantStructure extends React.Component {
                     <Route
                       exact
                       path="/"
-                      render={props => getHome(Data.getPathsParticipant())}
+                      render={() => getHome(Data.getPathsParticipant())}
                     />
                     <Route path="/settings" component={Settings} />
                     <Route path="/scan" component={ParticipantScanExercise} />
