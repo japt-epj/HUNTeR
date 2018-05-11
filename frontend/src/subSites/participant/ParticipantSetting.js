@@ -68,18 +68,64 @@ export default class ParticipantSetting extends React.Component {
           <Form.Input label="Neues Passwort erneut eingeben" type="password" />
 
           <Modal
+            open={this.state.showModal}
             style={{marginTop: 0}}
             size="fullscreen"
-            trigger={<Button content="Daten ändern" />}
+            trigger={
+              <Button
+                content="Daten ändern"
+                onClick={event => {
+                  this.setState({
+                    showModal: true
+                  });
+                }}
+              />
+            }
             closeIcon
           >
             <Header icon="key" content="Daten ändern?" />
             <Modal.Content>Daten wirklich ändern</Modal.Content>
             <Modal.Actions>
-              <Button color="red" inverted content="Nein" icon="cancel" />
-              <Button color="green" inverted content="Ja" icon="checkmark" />
+              <Button
+                negative
+                labelPosition="right"
+                icon="cancel"
+                content="Nein"
+                onClick={() =>
+                  this.setState({
+                    formOK: false,
+                    showModal: false
+                  })
+                }
+              />
+              <Button
+                positive
+                labelPosition="right"
+                icon="checkmark"
+                content="Ja"
+                onClick={() =>
+                  this.setState({
+                    formOK: true,
+                    showModal: false
+                  })
+                }
+              />
             </Modal.Actions>
           </Modal>
+
+          {/*<Modal*/}
+          {/*style={{marginTop: 0}}*/}
+          {/*size="fullscreen"*/}
+          {/*trigger={<Button content="Daten ändern" />}*/}
+          {/*closeIcon*/}
+          {/*>*/}
+          {/*<Header icon="key" content="Daten ändern?" />*/}
+          {/*<Modal.Content>Daten wirklich ändern</Modal.Content>*/}
+          {/*<Modal.Actions>*/}
+          {/*<Button color="red" inverted content="Nein" icon="cancel" />*/}
+          {/*<Button color="green" inverted content="Ja" icon="checkmark" />*/}
+          {/*</Modal.Actions>*/}
+          {/*</Modal>*/}
         </Form>
       </div>
     );

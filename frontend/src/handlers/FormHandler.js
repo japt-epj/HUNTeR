@@ -89,10 +89,11 @@ export default {
   },
 
   handleNewParticipantSubmit() {
-    this.postData(this.state, 'participant');
+    this.postData(this.state, 'person');
   },
 
   handleEditParticipant() {
-    this.putData(this.state, 'participant');
+    console.log('TestEdit');
+    this.putData(this.state, 'person');
   }
 };
