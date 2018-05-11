@@ -134,13 +134,3 @@ INSERT INTO person_role (person_id, role_id) VALUES
   (2,1),
   (3,2),
   (4,2);
-
-INSERT INTO execution (execution_id, end_date, name, start_date)
-VALUES (1, 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770e05000007e205060d09310319750078', 'Testy McTestface', 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770e05000007e205040c09310319750078');
-INSERT INTO execution_participants (execution_execution_id, participants_person_id) VALUES (1, 5);
-INSERT INTO execution_participants (execution_execution_id, participants_person_id) VALUES (1, 9);
-INSERT INTO execution_participants (execution_execution_id, participants_person_id) VALUES (1, 10);
-INSERT INTO quiz_executions (quiz_quiz_id, executions_execution_id) VALUES (2, 1);
-
-
-
