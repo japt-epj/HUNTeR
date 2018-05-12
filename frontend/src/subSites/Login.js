@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink, Redirect} from 'react-router-dom';
 
 import {Form, Grid, Message} from 'semantic-ui-react';
+import {isMobile} from 'react-device-detect';
 
 import StructureHandler from '../handlers/StructureHandler';
 import FormHandler from '../handlers/FormHandler';
@@ -33,7 +34,7 @@ export default class Login extends React.Component {
           {StructureHandler.getLoginHeader()}
           <Grid.Row className="gridContent" columns="equal">
             <Grid.Column />
-            <Grid.Column width={/Mobi/.test(navigator.userAgent) ? 12 : 6}>
+            <Grid.Column width={isMobile ? 12 : 8}>
               {this.state.showLoginError && (
                 <Message
                   icon="sign in"
