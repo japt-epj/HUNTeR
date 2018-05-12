@@ -11,6 +11,7 @@ export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      personId: this.props.personId,
       id: this.props.location.state.exercise.id,
       name: this.props.location.state.exercise.name,
       question: this.props.location.state.exercise.question,

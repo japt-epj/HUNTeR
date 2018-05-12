@@ -23,11 +23,11 @@ export default {
     if (isACheckboxSet) {
       let userType = window.location.pathname.split('/')[1];
       if (userType === 'teacher') {
-        this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
+        this.postData(APIHandler.prepareTeacherData(this.state), 'response');
       } else {
         this.postData(
           APIHandler.prepareParticipantData(this.state),
-          'exercise'
+          'response'
         );
       }
     } else {
