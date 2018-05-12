@@ -49,6 +49,12 @@ export default {
         icon: 'setting'
       },
       {
+        path: 'nextLocation',
+        name: 'Nächste Standorte',
+        component: 'ParticipantNextLocation',
+        icon: 'point'
+      },
+      {
         path: 'scan',
         name: 'Aufgabe scannen',
         component: 'ParticipantScanExercise',
