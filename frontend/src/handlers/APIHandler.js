@@ -125,7 +125,8 @@ export default {
 
   prepareParticipantData(data) {
     return {
-      exerciseID: data.exerciseID,
+      personId: data.personId,
+      exerciseId: data.exerciseID,
       answers: [data.checked0, data.checked1, data.checked2, data.checked3]
     };
   }

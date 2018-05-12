@@ -372,6 +372,57 @@ paths:
         - "write:quizzes"
         - "read:quizzes"
 
+
+  /response:
+    post:
+      tags:
+      - "response"
+      summary: "Add a new response to an exercise"
+      description: ""
+      operationId: "addResponse"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Response object that will be added to an exercise"
+        required: true
+        schema:
+          $ref: "#/definitions/Response"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - auth:
+        - "write:responses"
+        - "read:responses"
+
+  /response/{id}:
+    get:
+      tags:
+      - "response"
+      summary: "Get response"
+      description: "Get response by id"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        type: "array"
+        items:
+          type: "integer"
+        description: "Response id, or multiple comma separated ids"
+      responses:
+        200:
+          description: "Responses found"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Response"
+
   /execution:
     post:
       tags:
@@ -498,6 +549,8 @@ securityDefinitions:
       read:executions: "read your executions from a quiz"
       write:quizzes: "modify quizzes in db"
       read:quizzes: "read your quizzes from db"
+      write:responses: "modify responses in db"
+      read:responses: "read your responses in db"
 
   api_key:
     type: "apiKey"
@@ -621,6 +674,26 @@ definitions:
         type: "array"
         items:
           type: "string"
+
+  Response:
+    type: "object"
+    required:
+    - "exerciseId"
+    - "personId"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      personId:
+        type: "integer"
+        format: "int64"
+      exerciseId:
+        type: "integer"
+        format: "int64"
+      answers:
+        type: "array"
+        items:
+          $ref: "#/definitions/NewAnswer"
 
   NewQuiz:
     type: "object"
