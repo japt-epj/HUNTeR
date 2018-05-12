@@ -1,10 +1,10 @@
 let config = {
-  apiURL: "/api/",
+  apiURL: '/api/',
   mainURL: `https://${window.location.hostname}`,
   domain: window.location.hostname
 };
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === 'development') {
   config.apiURL = `http://${window.location.hostname}:8080/api/`;
   config.mainURL = `http://${window.location.hostname}:3000`;
 }
