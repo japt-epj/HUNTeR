@@ -30,6 +30,11 @@ export default class ParticipantSetting extends React.Component {
     });
   }
 
+  onSubmit = event => {
+    event.preventDefault();
+    this.setState({showModal: true});
+  };
+
   render() {
     return (
       <div>
@@ -71,16 +76,7 @@ export default class ParticipantSetting extends React.Component {
             open={this.state.showModal}
             style={{marginTop: 0}}
             size="fullscreen"
-            trigger={
-              <Button
-                content="Daten ändern"
-                onClick={event => {
-                  this.setState({
-                    showModal: true
-                  });
-                }}
-              />
-            }
+            trigger={<Button content="Daten ändern" onClick={this.onSubmit} />}
             closeIcon
           >
             <Header icon="key" content="Daten ändern?" />
@@ -88,6 +84,7 @@ export default class ParticipantSetting extends React.Component {
             <Modal.Actions>
               <Button
                 negative
+                type="button"
                 labelPosition="right"
                 icon="cancel"
                 content="Nein"
@@ -100,15 +97,17 @@ export default class ParticipantSetting extends React.Component {
               />
               <Button
                 positive
+                type="submit"
                 labelPosition="right"
                 icon="checkmark"
                 content="Ja"
-                onClick={() =>
+                onClick={() => {
                   this.setState({
                     formOK: true,
                     showModal: false
-                  })
-                }
+                  });
+                  this.handleSubmit();
+                }}
               />
             </Modal.Actions>
           </Modal>
