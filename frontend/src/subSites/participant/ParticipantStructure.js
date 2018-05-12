@@ -13,6 +13,7 @@ import ParticipantExercise from './ParticipantExercise';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
+import ParticipantNextLocation from './ParticipantNextLocation';
 
 export default class ParticipantStructure extends React.Component {
   constructor(props) {
@@ -46,6 +47,10 @@ export default class ParticipantStructure extends React.Component {
                     />
                     <Route path="/settings" component={Settings} />
                     <Route path="/scan" component={ParticipantScanExercise} />
+                    <Route
+                      path="/nextLocation"
+                      component={ParticipantNextLocation}
+                    />
                     <Route path="/score" component={ParticipantScore} />
                     <Route path="/exercise" component={ParticipantExercise} />
                     <Route component={NotFound} />
