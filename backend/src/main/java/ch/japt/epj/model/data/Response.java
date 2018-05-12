@@ -32,4 +32,8 @@ public class Response {
   public void setAnswersFromPerson(Collection<Answer> answersFromPerson) {
     this.answersFromPerson = answersFromPerson;
   }
+
+  public long getResponseId() {
+    return responseId;
+  }
 }
