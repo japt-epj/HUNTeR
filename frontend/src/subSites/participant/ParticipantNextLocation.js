@@ -66,7 +66,7 @@ export default class ParticipantNextLocation extends React.Component {
 
   handleLocation = event => {
     let locations = [...this.state.locations];
-    if (locations[0].id === 'currentPosition') {
+    if (locations.length > 0 && locations[0].id === 'currentPosition') {
       locations[0] = {
         id: 'currentPosition',
         title: 'Aktuelle Position',
@@ -82,9 +82,17 @@ export default class ParticipantNextLocation extends React.Component {
 
     let map = {...this.state.map};
     map.zoom = this.mapref.current.leafletElement.getZoom();
-    map.location = event.latlng;
-    map.clicked = false;
     this.setState({map, locations});
+  };
+
+  bounds = () => {
+    if (this.state.locations.length === 0) {
+      return L.latLngBounds([[47.223361, 8.817363]]);
+    } else {
+      return L.latLngBounds([
+        ...this.state.locations.map(element => element.position)
+      ]);
+    }
   };
 
   render() {
@@ -105,6 +113,7 @@ export default class ParticipantNextLocation extends React.Component {
         <Grid.Row id="mapContainer">
           <LeafletMap
             center={this.state.map.location || [0, 0]}
+            bounds={this.bounds()}
             onLocationFound={this.handleLocation}
             zoom={this.state.map.zoom}
             onZoomEnd={this.handleZoom}
