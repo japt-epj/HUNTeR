@@ -11,11 +11,11 @@ export default class ParticipantNextLocation extends React.Component {
     this.state = {
       formOK: true,
       name: '',
-      quizzes: [],
+      locations: [],
       loading: true,
       map: {
         location: undefined,
-        zoom: 1
+        zoom: 19
       }
     };
 
@@ -25,21 +25,29 @@ export default class ParticipantNextLocation extends React.Component {
   }
 
   componentDidMount() {
-    this.getNextLocation();
     this.mapref.current.leafletElement.locate();
+    this.getNextLocation();
   }
 
   getNextLocation = () => {
     //APIHandler.getNextLocation().then(resData => {
     //if (resData.status === 200) {
+    const locations = [
+      {
+        title: 'Sächsilüteplatz',
+        position: [47.3657915787404, 8.546044569772025]
+      },
+      {
+        title: 'Stadelhofen',
+        position: [47.36655475763491, 8.54838211269385]
+      },
+      {title: 'Bellevue', position: [47.36708603093426, 8.545077518816951]},
+      {title: 'Bürkliplatz', position: [47.36651165640272, 8.541301747456341]}
+    ];
+
     this.setState({
-      //quizzes: resData.quizzes,
-      quizzes: [
-        {title: 'Hallo', position: [0, 0]},
-        {title: 'Hallo2', position: [20.0, 20.0]},
-        {title: 'Hallo3', position: [30, 30]},
-        {title: 'Hallo4', position: [40.0, 40.0]}
-      ],
+      //quizzes: resData.locations,
+      locations,
       loading: false
     });
     //});
@@ -52,37 +60,34 @@ export default class ParticipantNextLocation extends React.Component {
   };
 
   handleLocation = event => {
+    const locations = [
+      {
+        id: 'currentPosition',
+        title: 'Aktuelle Position',
+        position: [event.latlng.lat, event.latlng.lng]
+      },
+      ...this.state.locations
+    ];
+
     let map = {...this.state.map};
     map.zoom = this.mapref.current.leafletElement.getZoom();
     map.location = event.latlng;
+    console.log(event.latlng);
     map.clicked = false;
-    this.setState({map});
+    this.setState({map, locations});
   };
 
   render() {
-    const image = L.icon({
+    const pointer = L.icon({
       iconUrl: require('../../images/icons/e-map.png'),
       iconSize: [50, 94],
       iconAnchor: [50, 0]
     });
-
-    const marker =
-      this.state.map.location !== undefined
-        ? this.state.quizzes.map(element => (
-            <Marker position={element.position} icon={image}>
-              {element.title !== undefined && (
-                <Tooltip
-                  direction="left"
-                  offset={[-50, 75]}
-                  opacity={0.9}
-                  permanent
-                >
-                  <span>{element.title}</span>
-                </Tooltip>
-              )}
-            </Marker>
-          ))
-        : null;
+    const protagonist = L.icon({
+      iconUrl: require('../../images/icons/protagonist.png'),
+      iconSize: [33, 92],
+      iconAnchor: [16, 46]
+    });
 
     return (
       <div id="mapContainer">
@@ -94,7 +99,26 @@ export default class ParticipantNextLocation extends React.Component {
           ref={this.mapref}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {marker}
+          {this.state.locations.map(element => (
+            <Marker
+              position={element.position}
+              icon={element.id === 'currentPosition' ? protagonist : pointer}
+              key={element.title + JSON.stringify(element.position)}
+            >
+              {element.title !== undefined && (
+                <Tooltip
+                  direction="left"
+                  offset={
+                    element.id === 'currentPosition' ? [-16, 0] : [-50, 75]
+                  }
+                  opacity={0.9}
+                  permanent
+                >
+                  <span>{element.title}</span>
+                </Tooltip>
+              )}
+            </Marker>
+          ))}
         </LeafletMap>
       </div>
     );
