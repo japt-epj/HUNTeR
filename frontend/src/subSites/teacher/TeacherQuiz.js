@@ -87,7 +87,7 @@ export default class TeacherQuiz extends React.Component {
     }
     this.setState({
       selectedPositions: newPositions,
-      map: map
+      map
     });
   };
 
@@ -136,22 +136,6 @@ export default class TeacherQuiz extends React.Component {
       iconAnchor: [50, 0]
     });
 
-    const marker =
-      this.state.map.location !== undefined ? (
-        <Marker position={this.state.map.location} icon={image}>
-          {this.state.map.popupText !== undefined && (
-            <Tooltip
-              direction="left"
-              offset={[-50, 75]}
-              opacity={0.9}
-              permanent
-            >
-              <span>{this.state.map.popupText}</span>
-            </Tooltip>
-          )}
-        </Marker>
-      ) : null;
-
     return (
       <div>
         {!this.state.formOK &&
@@ -189,7 +173,20 @@ export default class TeacherQuiz extends React.Component {
                   ref={this.mapref}
                 >
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                  {marker}
+                  {this.state.map.location !== undefined && (
+                    <Marker position={this.state.map.location} icon={image}>
+                      {this.state.map.popupText !== undefined && (
+                        <Tooltip
+                          direction="left"
+                          offset={[-50, 75]}
+                          opacity={0.9}
+                          permanent
+                        >
+                          <span>{this.state.map.popupText}</span>
+                        </Tooltip>
+                      )}
+                    </Marker>
+                  )}
                 </LeafletMap>
               </Grid.Column>
             </Grid.Row>
