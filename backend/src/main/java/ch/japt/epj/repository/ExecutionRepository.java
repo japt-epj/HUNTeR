@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExecutionRepository extends CrudRepository<Execution, Long> {
-  Optional<Execution> findExecutionById(long id);
+  Optional<Execution> findByExecutionId(long executionId);
 }
