@@ -35,6 +35,11 @@ public class Mappings {
     return mapper;
   }
 
+  public static ModelMapper executionMapper() {
+    ModelMapper mapper = new ModelMapper();
+    return mapper;
+  }
+
   public static ModelMapper responseMapper() {
     ModelMapper mapper = new ModelMapper();
 

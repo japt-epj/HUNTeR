@@ -1,9 +1,9 @@
 package ch.japt.epj.model;
 
 import ch.japt.epj.model.data.Execution;
-import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
+import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
@@ -20,10 +20,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ExecutionModel {
+
   private final ExecutionRepository executions;
   private final PersonRepository persons;
   private final QuizRepository quizzes;
-  private final ModelMapper mapper = new ModelMapper();
+  private final ModelMapper mapper = Mappings.exerciseMapper();
 
   public ExecutionModel(
       @Autowired ExecutionRepository executions,
@@ -49,7 +50,8 @@ public class ExecutionModel {
     Execution execution = mapper.map(executionDto, Execution.class);
     executionDto
         .getParticipants()
-        .forEach(personId -> execution.addParticipant(persons.findByPersonId(personId).get()));
+        .forEach(personId -> persons.findByPersonId(personId).ifPresent(execution::addParticipant));
+    persons.save(execution.getParticipants());
     // TODO: Use modelmapper for this!
     execution.setStartDate(
         LocalDateTime.ofInstant(
@@ -58,9 +60,7 @@ public class ExecutionModel {
         LocalDateTime.ofInstant(
             Instant.parse(executionDto.getEndDate()), ZoneId.of(ZoneOffset.UTC.getId())));
     execution.setName(executionDto.getName());
-    Quiz quiz = quizzes.findOne(executionDto.getQuizId());
-    persons.save(execution.getParticipants());
-    execution.setQuiz(quiz);
+    quizzes.findQuizByQuizId(executionDto.getQuizId()).ifPresent(execution::setQuiz);
     executions.save(execution);
   }
 }
