@@ -11,7 +11,7 @@ import {
   Sidebar
 } from 'semantic-ui-react';
 
-import Logo from '../images/icons/e.jpg';
+import Logo from '../images/icons/e.png';
 
 export default {
   toggleVisibility() {
