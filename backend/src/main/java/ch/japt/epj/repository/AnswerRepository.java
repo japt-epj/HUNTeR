@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnswerRepository extends CrudRepository<Answer, Long> {
-  Optional<Answer> findAnswerById(Long answerId);
+  Optional<Answer> findByAnswerId(Long answerId);
 }
