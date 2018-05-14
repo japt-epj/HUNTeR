@@ -11,7 +11,6 @@ export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      personId: this.props.personId,
       id: this.props.location.state.exercise.id,
       name: this.props.location.state.exercise.name,
       question: this.props.location.state.exercise.question,
@@ -28,6 +27,16 @@ export default class ParticipantExercise extends React.Component {
     this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
+    this.getParticipant = APIHandler.getParticipant.bind(this);
+  }
+
+  componentDidMount() {
+    this.getParticipant(1).then(resData => {
+      let participant = resData.data[0];
+      this.setState({
+        participantId: participant.id
+      });
+    });
   }
 
   render() {
