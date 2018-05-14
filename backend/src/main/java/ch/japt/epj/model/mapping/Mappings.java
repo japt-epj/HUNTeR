@@ -4,12 +4,14 @@ import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Quiz;
+import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.model.dto.ResponseDto;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +35,23 @@ public class Mappings {
     mapper
         .createTypeMap(NewExerciseDto.class, Exercise.class)
         .addMapping(NewExerciseDto::getName, Exercise::setName);
+
+    return mapper;
+  }
+
+  public static ModelMapper responseMapper() {
+    ModelMapper mapper = new ModelMapper();
+
+    mapper
+        .createTypeMap(Response.class, ResponseDto.class)
+        .addMapping(Response::getAnswersFromPerson, ResponseDto::setAnswers);
+
+    mapper
+        .createTypeMap(ResponseDto.class, Response.class)
+        .addMapping(ResponseDto::getAnswers, Response::setAnswersFromPerson);
+    mapper
+        .createTypeMap(NewAnswerDto.class, Answer.class)
+        .addMapping(NewAnswerDto::getText, Answer::setAnswer);
 
     return mapper;
   }

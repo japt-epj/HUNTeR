@@ -20,6 +20,8 @@ public class Execution {
 
   @OneToMany private Collection<Person> participants = new ArrayList<>();
 
+  @OneToMany private Collection<Response> responses = new ArrayList<>();
+
   public void addParticipant(Person person) {
     participants.add(person);
   }
@@ -58,5 +60,13 @@ public class Execution {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Collection<Response> getResponses() {
+    return responses;
+  }
+
+  public void addResponse(Response response) {
+    this.responses.add(response);
   }
 }
