@@ -10,8 +10,6 @@ export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formOK: true,
-      name: '',
       locations: [],
       loading: true,
       map: {
