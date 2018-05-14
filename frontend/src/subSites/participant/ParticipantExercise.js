@@ -12,6 +12,8 @@ export default class ParticipantExercise extends React.Component {
     super(props);
     this.state = {
       id: this.props.location.state.exercise.id,
+      //TODO: Send the execution Id from server to send the response back to the correct execution
+      executionId: 1,
       name: this.props.location.state.exercise.name,
       question: this.props.location.state.exercise.question,
       checked0: false,
