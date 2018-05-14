@@ -690,6 +690,9 @@ definitions:
       exerciseId:
         type: "integer"
         format: "int64"
+      executionId:
+        type: "integer"
+        format: "int64"
       answers:
         type: "array"
         items:

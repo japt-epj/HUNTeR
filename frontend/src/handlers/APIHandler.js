@@ -130,10 +130,10 @@ export default {
       personId: data.participantId,
       exerciseId: data.id,
       answers: [
-        {text: data.answer0, checked: data.checked0},
-        {text: data.answer1, checked: data.checked1},
-        {text: data.answer2, checked: data.checked2},
-        {text: data.answer3, checked: data.checked3}
+        {answer: data.answer0, checked: data.checked0},
+        {answer: data.answer1, checked: data.checked1},
+        {answer: data.answer2, checked: data.checked2},
+        {answer: data.answer3, checked: data.checked3}
       ]
     };
   }
