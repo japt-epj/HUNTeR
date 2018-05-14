@@ -18,9 +18,10 @@ public class Execution {
 
   private LocalDateTime endDate;
 
-  @OneToMany private Collection<Person> participants = new ArrayList<>();
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Quiz quiz;
 
-  @OneToMany private Collection<Response> responses = new ArrayList<>();
+  @OneToMany private Collection<Person> participants = new ArrayList<>();
 
   public void addParticipant(Person person) {
     participants.add(person);
@@ -62,11 +63,11 @@ public class Execution {
     this.name = name;
   }
 
-  public Collection<Response> getResponses() {
-    return responses;
+  public Quiz getQuiz() {
+    return quiz;
   }
 
-  public void addResponse(Response response) {
-    this.responses.add(response);
+  public void setQuiz(Quiz quiz) {
+    this.quiz = quiz;
   }
 }

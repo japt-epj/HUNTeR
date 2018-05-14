@@ -13,11 +13,7 @@ public class Exercise {
 
   private String name;
 
-  @OneToMany private Collection<Location> locations = new ArrayList<>();
-
   @OneToMany private Collection<Answer> answerTemplates = new ArrayList<>();
-
-  @OneToMany private Collection<Response> responses = new ArrayList<>();
 
   private String question;
 
@@ -41,14 +37,6 @@ public class Exercise {
     this.name = name;
   }
 
-  public Collection<Location> getLocations() {
-    return locations;
-  }
-
-  public void addLocation(Location location) {
-    this.locations.add(location);
-  }
-
   public long getExerciseId() {
     return exerciseId;
   }
@@ -59,13 +47,5 @@ public class Exercise {
 
   public void setQuestion(String question) {
     this.question = question;
-  }
-
-  public Collection<Response> getResponses() {
-    return responses;
-  }
-
-  public void addResponse(Response response) {
-    responses.add(response);
   }
 }

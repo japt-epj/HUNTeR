@@ -1,7 +1,5 @@
 package ch.japt.epj.model.data;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
@@ -11,9 +9,14 @@ public class Response {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long responseId;
 
-  @OneToOne private Person person;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Person person;
 
-  @OneToMany private Collection<Answer> answersFromPerson = new ArrayList<>();
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Exercise exercise;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Answer answerFromPerson;
 
   public Response() {}
 
@@ -25,15 +28,23 @@ public class Response {
     this.person = person;
   }
 
-  public Collection<Answer> getAnswersFromPerson() {
-    return answersFromPerson;
-  }
-
-  public void setAnswersFromPerson(Collection<Answer> answersFromPerson) {
-    this.answersFromPerson = answersFromPerson;
-  }
-
   public long getResponseId() {
     return responseId;
+  }
+
+  public Exercise getExercise() {
+    return exercise;
+  }
+
+  public void setExercise(Exercise exercise) {
+    this.exercise = exercise;
+  }
+
+  public Answer getAnswerFromPerson() {
+    return answerFromPerson;
+  }
+
+  public void setAnswerFromPerson(Answer answerFromPerson) {
+    this.answerFromPerson = answerFromPerson;
   }
 }

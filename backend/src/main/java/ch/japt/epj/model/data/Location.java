@@ -9,7 +9,11 @@ public class Location {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long locationId;
 
-  @OneToOne private Quiz quiz;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Quiz quiz;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Exercise exercise;
 
   private double lat;
   private double ing;
@@ -40,5 +44,13 @@ public class Location {
 
   public void setQuiz(Quiz quiz) {
     this.quiz = quiz;
+  }
+
+  public Exercise getExercise() {
+    return exercise;
+  }
+
+  public void setExercise(Exercise exercise) {
+    this.exercise = exercise;
   }
 }
