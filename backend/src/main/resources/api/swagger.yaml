@@ -693,9 +693,7 @@ definitions:
       executionId:
         type: "integer"
         format: "int64"
-      answers:
-        type: "array"
-        items:
+      answer:
           $ref: "#/definitions/NewAnswer"
 
   NewQuiz:
@@ -711,17 +709,13 @@ definitions:
       creator:
         type: "integer"
         format: "int64"
-      executions:
-        type: "array"
-        items:
-          $ref: "#/definitions/NewExecution"
       exercises:
         type: "array"
         items:
-          $ref: "#/definitions/Location"
+          $ref: "#/definitions/ExerciseLocation"
 
 
-  Location:
+  ExerciseLocation:
     type: "object"
     required:
     - "exerciseId"
@@ -731,6 +725,10 @@ definitions:
       id:
         type: "integer"
         format: "int64"
+      quizId:
+        type: "integer"
+        format: "int64"
+        example: 1
       exerciseId:
         type: "integer"
         format: "int64"

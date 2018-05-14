@@ -1,11 +1,10 @@
 package ch.japt.epj.model;
 
 import ch.japt.epj.library.ListConverter;
-import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Location;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
-import ch.japt.epj.model.dto.LocationDto;
+import ch.japt.epj.model.dto.ExerciseLocationDto;
 import ch.japt.epj.model.dto.NewQuizDto;
 import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.ExerciseRepository;
@@ -15,7 +14,6 @@ import ch.japt.epj.repository.QuizRepository;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,20 +58,18 @@ public class QuizModel {
     Quiz quiz = mapper.map(quizDto, Quiz.class);
     quiz.setName(quizDto.getName());
     quizzes.save(quiz);
-    for (LocationDto entry : quizDto.getExercises()) {
-      Exercise exercise;
-      Optional exerciseOptional = exercises.findByExerciseId(entry.getExerciseId());
-      if (!exerciseOptional.isPresent()) {
-        break;
-      }
-      exercise = (Exercise) exerciseOptional.get();
-      Location location = new Location();
-      location.setQuiz(quiz);
-      location.setCoordinates(entry.getLat(), entry.getLng());
-      locations.save(location);
-      exercise.addLocation(location);
-      exercises.save(exercise);
-      quiz.addTask(exercise);
+    for (ExerciseLocationDto entry : quizDto.getExercises()) {
+      exercises
+          .findByExerciseId(entry.getExerciseId())
+          .ifPresent(
+              exercise -> {
+                quiz.addTask(exercise);
+                Location location = new Location();
+                location.setQuiz(quiz);
+                location.setCoordinates(entry.getLat(), entry.getLng());
+                location.setExercise(exercise);
+                locations.save(location);
+              });
     }
     quizzes.save(quiz);
     Person creator = persons.findOne(quizDto.getCreator());

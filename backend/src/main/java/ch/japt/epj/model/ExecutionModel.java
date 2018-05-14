@@ -60,8 +60,7 @@ public class ExecutionModel {
     execution.setName(executionDto.getName());
     Quiz quiz = quizzes.findOne(executionDto.getQuizId());
     persons.save(execution.getParticipants());
-    quiz.addExecution(execution);
-    executions.save(quiz.getExecutions());
-    quizzes.save(quiz);
+    execution.setQuiz(quiz);
+    executions.save(execution);
   }
 }
