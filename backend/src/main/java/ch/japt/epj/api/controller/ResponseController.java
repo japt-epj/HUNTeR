@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Api(tags = "Response API")
-@RequestMapping("/Api")
+@RequestMapping("/api")
 public class ResponseController implements ResponseApi {
   private final ResponseModel responseModel;
 
