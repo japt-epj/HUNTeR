@@ -39,7 +39,7 @@ public class ResponseModel {
     Response response = mapper.map(responseDto, Response.class);
     persons.findByPersonId(responseDto.getPersonId()).ifPresent(response::setPerson);
     exercises.findByExerciseId(responseDto.getExerciseId()).ifPresent(response::setExercise);
-    answers.findByAnswerId(responseDto.getExerciseId()).ifPresent(response::setAnswerFromPerson);
+    answers.findByAnswerId(responseDto.getAnswerId()).ifPresent(response::setAnswerFromPerson);
     responses.save(response);
     executions
         .findByExecutionId(responseDto.getExecutionId())
