@@ -680,6 +680,8 @@ definitions:
     required:
     - "exerciseId"
     - "personId"
+    - "executionId"
+    - "answerId"
     properties:
       id:
         type: "integer"
