@@ -23,6 +23,8 @@ public class Execution {
 
   @OneToMany private Collection<Person> participants = new ArrayList<>();
 
+  @OneToMany private Collection<Response> responses = new ArrayList<>();
+
   public void addParticipant(Person person) {
     participants.add(person);
   }
@@ -69,5 +71,13 @@ public class Execution {
 
   public void setQuiz(Quiz quiz) {
     this.quiz = quiz;
+  }
+
+  public Collection<Response> getResponses() {
+    return responses;
+  }
+
+  public void addResponse(Response response) {
+    this.responses.add(response);
   }
 }

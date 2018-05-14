@@ -1,5 +1,6 @@
 package ch.japt.epj.model;
 
+import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.ResponseDto;
 import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.AnswerRepository;
@@ -35,19 +36,17 @@ public class ResponseModel {
   }
 
   public void addResponse(ResponseDto responseDto) {
-    //    Response response = mapper.map(responseDto, Response.class);
-    //    persons.findByPersonId(responseDto.getPersonId()).ifPresent(response::setPerson);
-    //    answers.save(response.getAnswersFromPerson());
-    //    responses.save(response);
-    //    exercises
-    //        .findByExerciseId(responseDto.getExerciseId())
-    //        .ifPresent(
-    //            exercise -> {
-    //              exercise.addResponse(response);
-    //              exercises.save(exercise);
-    //            });
-    //    Execution execution = executions.findOne(responseDto.getExecutionId());
-    //    execution.addResponse(response);
-    //    executions.save(execution);
+    Response response = mapper.map(responseDto, Response.class);
+    persons.findByPersonId(responseDto.getPersonId()).ifPresent(response::setPerson);
+    exercises.findByExerciseId(responseDto.getExerciseId()).ifPresent(response::setExercise);
+    answers.findAnswerById(responseDto.getExerciseId()).ifPresent(response::setAnswerFromPerson);
+    responses.save(response);
+    executions
+        .findExecutionById(responseDto.getExecutionId())
+        .ifPresent(
+            execution -> {
+              execution.addResponse(response);
+              executions.save(execution);
+            });
   }
 }

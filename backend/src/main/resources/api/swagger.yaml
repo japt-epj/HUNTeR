@@ -693,8 +693,9 @@ definitions:
       executionId:
         type: "integer"
         format: "int64"
-      answer:
-          $ref: "#/definitions/NewAnswer"
+      answerId:
+        type: "integer"
+        format: "int64"
 
   NewQuiz:
     type: "object"
