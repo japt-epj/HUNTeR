@@ -1,19 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-<<<<<<< HEAD
 import {Button, Grid, Header, Image, Menu, Sidebar} from 'semantic-ui-react';
-=======
-import {
-  Button,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Menu,
-  Sidebar
-} from 'semantic-ui-react';
->>>>>>> master
 
 import Logo from '../images/icons/e.jpg';
 
@@ -48,15 +36,9 @@ export default {
         </Grid.Column>
         <Grid.Column textAlign="right">
           <Button
-<<<<<<< HEAD
             color="green"
             icon={this.state.iconName}
             onClick={this.toggleVisibility}
-=======
-            onClick={this.toggleVisibility}
-            icon={this.state.iconName}
-            color="green"
->>>>>>> master
           />
         </Grid.Column>
       </Grid.Row>
@@ -100,18 +82,11 @@ export default {
   getStructurePaths(elements) {
     return elements.map(element => (
       <NavLink key={'navLink' + element.path} to={'/' + element.path}>
-<<<<<<< HEAD
         <Menu.Item
           name={element.path}
           icon={element.icon}
           content={element.name}
         />
-=======
-        <Menu.Item name={element.path}>
-          <Icon name={element.icon} size="mini" />
-          {element.name}
-        </Menu.Item>
->>>>>>> master
       </NavLink>
     ));
   }
