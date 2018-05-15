@@ -111,7 +111,7 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
       } else {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
       }
-      return new ResponseEntity<>(headers, HttpStatus.FOUND);
+                      return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
   }
 }
