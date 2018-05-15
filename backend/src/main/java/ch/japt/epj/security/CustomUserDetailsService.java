@@ -7,10 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 import org.springframework.transaction.annotation.Transactional;
-=======
->>>>>>> master
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -22,10 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   }
 
   @Override
-<<<<<<< HEAD
   @Transactional
-=======
->>>>>>> master
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     Person person =
         repository
@@ -35,10 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     return CustomUserDetails.create(person);
   }
 
-<<<<<<< HEAD
   @Transactional
-=======
->>>>>>> master
   public UserDetails loadUserById(Long id) {
     Person person =
         repository
