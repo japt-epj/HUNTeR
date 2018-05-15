@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 public class ExerciseControllerTests {
 
-  private String token;
+  private String completeToken;
 
   @Autowired private MockMvc mvc;
 
@@ -44,17 +44,14 @@ public class ExerciseControllerTests {
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(validEmail, validPassword));
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    token = tokenProvider.generateToken(authentication);
+    completeToken = "Bearer " + tokenProvider.generateToken(authentication);
   }
-  //    @Test
-  //    public void emptyTest() throws Exception {
-  //    }
 
   @Test
   public void getExerciseSuccess() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise/2")
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -74,7 +71,7 @@ public class ExerciseControllerTests {
   public void checkPageInformationDefaultQuery() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise")
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -95,7 +92,7 @@ public class ExerciseControllerTests {
   public void checkPageInformationEmptyPage() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise?page=100&limit=2")
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -116,7 +113,7 @@ public class ExerciseControllerTests {
   public void checkInvalidPagination() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise/?sort=blabla")
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request).andExpect(status().isOk()).andExpect(content().string(""));
@@ -126,7 +123,7 @@ public class ExerciseControllerTests {
   public void getExerciseNotFound() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise/100000")
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -139,7 +136,7 @@ public class ExerciseControllerTests {
   public void makeExerciseSuccess() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/exercise")
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
                 "{ \"name\": \"This is a test question\", \"question\": \"What is 42?\", \"answers\": [ { \"text\": \"A number\", \"checked\": \"false\" }, { \"text\": \"The answer to everything\", \"checked\": \"true\" } ] }");
@@ -155,7 +152,7 @@ public class ExerciseControllerTests {
   public void makeExerciseFailure() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/exercise")
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content("{}");
 
