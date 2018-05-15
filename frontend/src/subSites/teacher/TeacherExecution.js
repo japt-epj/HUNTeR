@@ -155,6 +155,7 @@ export default class TeacherExecution extends React.Component {
                     <Button
                       color="green"
                       icon="add square"
+                      positive
                       labelPosition="right"
                       label="Quiz für die Durchführung auswählen"
                       onClick={this.resetPageNumber}
@@ -177,6 +178,7 @@ export default class TeacherExecution extends React.Component {
                     <Button
                       color="green"
                       icon="add square"
+                      positive
                       labelPosition="right"
                       label="Benutzer zur Durchführung hinzufügen"
                       onClick={this.resetPageNumber}

@@ -37,12 +37,27 @@ export default {
       <Table>
         <Table.Header>
           <Table.Row>
+<<<<<<< HEAD
             {checkboxNeeded &&
               TableHandler.getBulkCheckbox(
                 this.state.pageNumber,
                 this.state.bulkCheckbox,
                 this.handleSelection
               )}
+=======
+            {checkboxNeeded && (
+              <Table.HeaderCell>
+                <Checkbox
+                  id={'Bulk' + this.state.pageNumber}
+                  name={'Bulk' + this.state.pageNumber}
+                  onChange={this.handleSelection}
+                  checked={
+                    this.state.bulkCheckbox === 'Bulk' + this.state.pageNumber
+                  }
+                />
+              </Table.HeaderCell>
+            )}
+>>>>>>> master
             {TableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>

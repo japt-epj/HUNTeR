@@ -1,5 +1,6 @@
 import React from 'react';
 
+<<<<<<< HEAD
 import {Button, Header, Modal} from 'semantic-ui-react';
 
 export default {
@@ -12,6 +13,11 @@ export default {
     );
   },
 
+=======
+import {Button, Modal} from 'semantic-ui-react';
+
+export default {
+>>>>>>> master
   getAgreement() {
     return (
       <Modal

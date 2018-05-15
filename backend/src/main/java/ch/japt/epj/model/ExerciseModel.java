@@ -9,6 +9,7 @@ import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
@@ -38,7 +39,7 @@ public class ExerciseModel {
   }
 
   public List<ExerciseDto> getExercises(List<Integer> ids) {
-    List<Long> longs = ListConverter.toLong(ids);
+    Collection<Long> longs = ListConverter.toLong(ids);
     Type dtoList = new TypeToken<List<ExerciseDto>>() {}.getType();
     return mapper.map(exercises.findAll(longs), dtoList);
   }

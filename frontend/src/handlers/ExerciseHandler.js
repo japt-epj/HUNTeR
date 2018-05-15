@@ -75,6 +75,10 @@ export default {
               <Table.Cell collapsing>
                 <Button
                   color="green"
+<<<<<<< HEAD
+=======
+                  basic
+>>>>>>> master
                   icon="point"
                   onClick={event => {
                     event.preventDefault();
@@ -129,12 +133,27 @@ export default {
       <Table>
         <Table.Header>
           <Table.Row>
+<<<<<<< HEAD
             {checkboxNeeded &&
               TableHandler.getBulkCheckbox(
                 this.state.pageNumber,
                 this.state.bulkCheckbox,
                 this.handleSelection
               )}
+=======
+            {checkboxNeeded && (
+              <Table.HeaderCell>
+                <Checkbox
+                  id={'Bulk' + this.state.pageNumber}
+                  name={'Bulk' + this.state.pageNumber}
+                  onChange={this.handleSelection}
+                  checked={
+                    this.state.bulkCheckbox === 'Bulk' + this.state.pageNumber
+                  }
+                />
+              </Table.HeaderCell>
+            )}
+>>>>>>> master
             {TableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>
@@ -156,14 +175,23 @@ export default {
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing>
                   <NavLink to={'/exercise?id=' + element.id}>
+<<<<<<< HEAD
                     <Button color="green" icon="edit" basic />
+=======
+                    <Button type="button" basic icon="edit" color="green" />
+>>>>>>> master
                   </NavLink>
                 </Table.Cell>
                 <Table.Cell collapsing>
                   <Button
                     color="orange"
+<<<<<<< HEAD
                     icon="qrcode"
                     basic
+=======
+                    basic
+                    icon="qrcode"
+>>>>>>> master
                     onClick={() => APIHandler.downloadQRCode(element.id)}
                   />
                 </Table.Cell>

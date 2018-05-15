@@ -11,6 +11,7 @@ import {
   Progress,
   Statistic
 } from 'semantic-ui-react';
+import {isMobile} from 'react-device-detect';
 
 import Data from '../../data/Data';
 import APIHandler from '../../handlers/APIHandler';
@@ -124,7 +125,7 @@ export default class ParticipantScore extends React.Component {
             selection
             closeOnBlur
             scrolling
-            upward={/Mobi/.test(navigator.userAgent)}
+            upward={isMobile}
             options={this.state.quizzes}
           />
         </Grid.Row>

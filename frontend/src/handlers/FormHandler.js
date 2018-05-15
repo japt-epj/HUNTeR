@@ -34,6 +34,15 @@ export default {
       this.setState({formOK: false});
     }
   },
+<<<<<<< HEAD
+
+  handleQuizSumbit() {
+    if (
+      this.state.selectedPositions.size !== 0 &&
+      Array.from(this.state.selectedPositions.keys()).every(
+        key => this.state.selectedPositions.get(key) !== undefined
+      )
+=======
 
   handleQuizSumbit() {
     if (
@@ -64,6 +73,44 @@ export default {
     }
   },
 
+  handleExecutionSumbit() {
+    if (
+      this.state.selectedParticipants.length !== 0 &&
+      this.state.selectedQuizId !== undefined
+>>>>>>> master
+    ) {
+      this.postData(
+        {
+          name: this.state.name,
+<<<<<<< HEAD
+          exercises: Array.from(this.state.selectedPositions.keys()).map(
+            key => {
+              return {
+                exerciseId: key,
+                lat: this.state.selectedPositions.get(key).lat,
+                lng: this.state.selectedPositions.get(key).lng
+              };
+            }
+          ),
+          //TODO: Get currentPersonId and post
+          creator: Math.floor(Math.random() * 15) + 1
+        },
+        'quiz'
+=======
+          quizId: this.state.selectedQuizId,
+          participants: this.state.selectedParticipants,
+          startDate: this.state.startDate,
+          endDate: this.state.endDate
+        },
+        'execution'
+>>>>>>> master
+      );
+    } else {
+      this.setState({formOK: false});
+    }
+  },
+
+<<<<<<< HEAD
   handleExecutionSumbit() {
     if (
       this.state.selectedParticipants.length !== 0 &&
@@ -109,5 +156,25 @@ export default {
 
   handleNewParticipantSubmit() {
     this.postData(this.state, 'participant');
+=======
+  handleLoginSubmit() {
+    this.postData(this.state, 'login');
+  },
+
+  handleNewParticipantSubmit() {
+    this.postData(this.state, 'person');
+  },
+
+  handleEditParticipant() {
+    this.putData(
+      {
+        id: this.state.id,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email
+      },
+      'person'
+    );
+>>>>>>> master
   }
 };
