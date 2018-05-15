@@ -1,5 +1,6 @@
 package ch.japt.epj.security;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,52 +16,43 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class JwtTokenProviderTests {
 
-    private final String validEmail = "jonas.kugler@hsr.ch";
-    private final String validPassword = "jonas";
+  private final String validEmail = "jonas.kugler@hsr.ch";
+  private final String validPassword = "jonas";
 
-    private final String invalidEmail = "test@test.ch";
-    private final String invalidPassword = "testPW";
+  private final String invalidEmail = "test@test.ch";
+  private final String invalidPassword = "testPW";
 
+  @Autowired private MockMvc mvc;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired private JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+  @Autowired private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+  @Test
+  public void shouldNotAllowAccessToUnauthenticatedUsers() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/person").accept(MediaType.APPLICATION_JSON);
 
-    @Test
-    public void shouldNotAllowAccessToUnauthenticatedUsers() throws Exception {
-        MockHttpServletRequestBuilder request =
-                MockMvcRequestBuilders
-                        .get("/api/person")
-                        .accept(MediaType.APPLICATION_JSON);
+    mvc.perform(request).andExpect(status().isUnauthorized());
+  }
 
-        mvc.perform(request).andExpect(status().isUnauthorized());
+  @Test
+  public void shouldProvideJwtToken() throws Exception {
 
-    }
+    Authentication authentication =
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(validEmail, validPassword));
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    String token = tokenProvider.generateToken(authentication);
 
-    @Test
-    public void shouldProvideJwtToken() throws Exception {
-
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(validEmail, validPassword)
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = tokenProvider.generateToken(authentication);
-
-        mvc.perform(MockMvcRequestBuilders.get("/api/person").header("Authorization", "Bearer " + token)).andExpect(status().isOk());
-    }
-
-
+    mvc.perform(
+            MockMvcRequestBuilders.get("/api/person").header("Authorization", "Bearer " + token))
+        .andExpect(status().isOk());
+  }
 }

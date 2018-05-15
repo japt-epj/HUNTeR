@@ -1,5 +1,8 @@
 package ch.japt.epj.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import ch.japt.epj.security.JwtTokenProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,67 +20,63 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ExerciseControllerTests {
 
-    private String token;
+  private String token;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired private MockMvc mvc;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+  @Autowired private JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+  @Autowired private AuthenticationManager authenticationManager;
 
-    @Before
-    public void getToken() {
-        String validEmail = "jonas.kugler@hsr.ch";
-        String validPassword = "jonas";
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(validEmail, validPassword)
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        token = tokenProvider.generateToken(authentication);
-    }
-//    @Test
-//    public void emptyTest() throws Exception {
-//    }
+  @Before
+  public void getToken() {
+    String validEmail = "jonas.kugler@hsr.ch";
+    String validPassword = "jonas";
+    Authentication authentication =
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(validEmail, validPassword));
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    token = tokenProvider.generateToken(authentication);
+  }
+  //    @Test
+  //    public void emptyTest() throws Exception {
+  //    }
 
-    @Test
-    public void getExerciseSuccess() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get("/api/exercise/2")
-                .header("Authorization", "Bearer " + token)
-                .accept(MediaType.APPLICATION_JSON);
+  @Test
+  public void getExerciseSuccess() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/exercise/2")
+            .header("Authorization", "Bearer " + token)
+            .accept(MediaType.APPLICATION_JSON);
 
-        mvc.perform(request)
-//                .andExpect(status().is4xxClientError())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].name").value("Natur und Umwelt"))
-                .andExpect(jsonPath("$[0].question").value("Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und..."))
-                .andExpect(jsonPath("$[0].answers[0]").value("...einen draufmachen"))
-                .andExpect(jsonPath("$[0].answers[1]").value("...die Nacht durchzechen"))
-                .andExpect(jsonPath("$[0].answers[2]").value("...die Sau rauslassen"))
-                .andExpect(jsonPath("$[0].answers[3]").value("...auf die Kacke hauen"));
-    }
+    mvc.perform(request)
+        //                .andExpect(status().is4xxClientError())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$[0].name").value("Natur und Umwelt"))
+        .andExpect(
+            jsonPath("$[0].question")
+                .value(
+                    "Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und..."))
+        .andExpect(jsonPath("$[0].answers[0]").value("...einen draufmachen"))
+        .andExpect(jsonPath("$[0].answers[1]").value("...die Nacht durchzechen"))
+        .andExpect(jsonPath("$[0].answers[2]").value("...die Sau rauslassen"))
+        .andExpect(jsonPath("$[0].answers[3]").value("...auf die Kacke hauen"));
+  }
 
-    @Test
-    public void getExerciseNotFound() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get("/api/exercise/100000")
-                .header("Authorization", "Bearer " + token)
-                .accept(MediaType.APPLICATION_JSON);
+  @Test
+  public void getExerciseNotFound() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/exercise/100000")
+            .header("Authorization", "Bearer " + token)
+            .accept(MediaType.APPLICATION_JSON);
 
-        mvc.perform(request)
-//                .andExpect(status().is4xxClientError())
-                .andExpect(content().string("[]"));
-    }
+    mvc.perform(request)
+        //                .andExpect(status().is4xxClientError())
+        .andExpect(content().string("[]"));
+  }
 }

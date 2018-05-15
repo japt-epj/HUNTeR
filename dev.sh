@@ -1,4 +1,7 @@
 #!/bin/bash
+# devs will generally run this config file, so this is a fairly
+# safe place to do this.
+git config core.hooksPath .githooks
 
 SPRING_PROFILES_ACTIVE=dev; \
     ./mvnw -f backend/pom.xml \

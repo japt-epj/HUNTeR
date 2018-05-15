@@ -8,26 +8,30 @@ import javax.persistence.Id;
 @Entity
 public class Location {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long locationId;
-    private double lat;
-    private double ing;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long locationId;
 
-    public void setCoordinates(double lat, double ing) {
+  private double lat;
+  private double ing;
 
-        this.lat = lat;
-        this.ing = ing;
-    }
+  public void setCoordinates(double lat, double ing) {
 
-    public Location(){
+    this.lat = lat;
+    this.ing = ing;
+  }
 
-    }
+  public Location() {}
 
-    public double getLat(){ return lat;}
-    public double getIng(){ return ing;}
+  public double getLat() {
+    return lat;
+  }
 
-    public long getLocationId() {
-        return locationId;
-    }
+  public double getIng() {
+    return ing;
+  }
+
+  public long getLocationId() {
+    return locationId;
+  }
 }

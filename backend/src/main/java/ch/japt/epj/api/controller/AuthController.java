@@ -1,15 +1,14 @@
 package ch.japt.epj.api.controller;
 
 import ch.japt.epj.model.RegPersonModel;
-import ch.japt.epj.model.data.Person;
-import ch.japt.epj.model.data.Role;
-import ch.japt.epj.model.data.RoleName;
 import ch.japt.epj.model.dto.AuthPersonDto;
 import ch.japt.epj.model.dto.JWTDto;
 import ch.japt.epj.model.dto.RegPersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.security.JwtTokenProvider;
 import io.swagger.annotations.Api;
+import java.util.Collection;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,11 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.Collection;
 
 @Controller
 @Api(tags = "Auth API")
@@ -39,13 +33,11 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
   private final PersonRepository personRepository;
   private final JwtTokenProvider tokenProvider;
 
-
   public AuthController(
       @Autowired RegPersonModel regPersonModel,
       @Autowired AuthenticationManager authenticationManager,
       @Autowired PersonRepository personRepository,
-      @Autowired JwtTokenProvider tokenProvider
-  ) {
+      @Autowired JwtTokenProvider tokenProvider) {
     this.regPersonModel = regPersonModel;
     this.authenticationManager = authenticationManager;
     this.personRepository = personRepository;
@@ -54,9 +46,9 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
 
   @Override
   public ResponseEntity<JWTDto> loginPerson(@Valid @RequestBody AuthPersonDto body) {
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword())
-    );
+    Authentication authentication =
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     String jwt = tokenProvider.generateToken(authentication);
@@ -111,7 +103,7 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
       } else {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
       }
-                      return new ResponseEntity<>(headers, HttpStatus.FOUND);
+      return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
   }
 }

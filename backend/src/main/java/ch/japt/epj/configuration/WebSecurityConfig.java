@@ -14,21 +14,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-  @Autowired
-  JwtTokenProvider tokenProvider;
-  @Autowired
-  CustomUserDetailsService customUserDetailsService;
-
+  @Autowired JwtTokenProvider tokenProvider;
+  @Autowired CustomUserDetailsService customUserDetailsService;
 
   private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
-  public WebSecurityConfig(@Autowired JwtAuthenticationEntryPoint unauthorizedHandler,
+  public WebSecurityConfig(
+      @Autowired JwtAuthenticationEntryPoint unauthorizedHandler,
       @Autowired CustomUserDetailsService customUserDetailsService) {
     this.unauthorizedHandler = unauthorizedHandler;
     this.customUserDetailsService = customUserDetailsService;
@@ -38,7 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
 
   @Override
   public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
@@ -57,12 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // these paths are allowed free access
-    String[] allowed = {
-        "/api/auth/**"
-    };
+    String[] allowed = {"/api/auth/**"};
 
-    http
-        .cors()
+    http.cors()
         .and()
         .csrf()
         .disable()
@@ -79,18 +71,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authenticated()
         .and()
         .formLogin()
-//                uncommenting this should enable a default login form
-//                we need to replace this with a custom one
+        //                uncommenting this should enable a default login form
+        //                we need to replace this with a custom one
         .loginPage("/")
         .permitAll()
         .and()
         .logout()
         .permitAll();
-//
-//        // This is key for exposing csrf tokens in apis that are outside
-//        // of the browser. We will need these headers in react and for
-//        // testing with postman etc.
-    http.addFilterBefore(new JwtAuthenticationFilter(tokenProvider, customUserDetailsService),
+    //
+    //        // This is key for exposing csrf tokens in apis that are outside
+    //        // of the browser. We will need these headers in react and for
+    //        // testing with postman etc.
+    http.addFilterBefore(
+        new JwtAuthenticationFilter(tokenProvider, customUserDetailsService),
         UsernamePasswordAuthenticationFilter.class);
   }
 }
