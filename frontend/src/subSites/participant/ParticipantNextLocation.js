@@ -10,7 +10,10 @@ export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locations: [],
+      locations: new Map(),
+      selectedPositions: new Map(),
+      routing: false,
+      routingLocation: undefined,
       loading: true,
       map: {
         location: undefined,
@@ -33,27 +36,18 @@ export default class ParticipantNextLocation extends React.Component {
   };
 
   getNextLocation = () => {
-    //APIHandler.getNextLocation().then(resData => {
-    //if (resData.status === 200) {
-    const locations = [
-      {
-        title: 'Sächsilüteplatz',
-        position: [47.3657915787404, 8.546044569772025]
-      },
-      {
-        title: 'Stadelhofen',
-        position: [47.36655475763491, 8.54838211269385]
-      },
-      {title: 'Bellevue', position: [47.36708603093426, 8.545077518816951]},
-      {title: 'Bürkliplatz', position: [47.36651165640272, 8.541301747456341]}
-    ];
+    const locations = new Map([
+      ['Schwamendingerplatz', [47.4048799, 8.5714819]],
+      ['Heiden', [47.446416, 9.53677]],
+      ['Zürich HB', [47.377923, 8.5401898]],
+      ['HSR', [47.2233607, 8.8173627]]
+    ]);
 
     this.setState({
-      //quizzes: resData.locations,
       locations,
+      selectedPositions: new Map(locations),
       loading: false
     });
-    //});
   };
 
   handleZoom = event => {
@@ -63,34 +57,35 @@ export default class ParticipantNextLocation extends React.Component {
   };
 
   handleLocation = event => {
-    let locations = [...this.state.locations];
-    if (locations.length > 0 && locations[0].id === 'currentPosition') {
-      locations[0] = {
-        id: 'currentPosition',
-        title: 'Aktuelle Position',
-        position: [event.latlng.lat, event.latlng.lng]
-      };
-    } else {
-      locations.unshift({
-        id: 'currentPosition',
-        title: 'Aktuelle Position',
-        position: [event.latlng.lat, event.latlng.lng]
-      });
+    let locations = new Map(this.state.locations);
+    locations.set('currentPosition', [event.latlng.lat, event.latlng.lng]);
+    this.setState({locations, selectedPositions: new Map(locations)});
+  };
+
+  handleSelection = event => {
+    let locations = new Map(this.state.locations);
+    if (!this.state.routing && event.target.options.id !== undefined) {
+      locations = new Map([
+        ['currentPosition', this.state.locations.get('currentPosition')],
+        [
+          event.target.options.id,
+          this.state.locations.get(event.target.options.id)
+        ]
+      ]);
+
+      this.setState({routing: false});
     }
 
-    let map = {...this.state.map};
-    map.zoom = this.mapref.current.leafletElement.getZoom();
-    this.setState({map, locations});
+    this.setState({selectedPositions: locations});
   };
 
   bounds = () => {
-    if (this.state.locations.length === 0) {
-      return L.latLngBounds([[47.223361, 8.817363]]);
-    } else {
-      return L.latLngBounds([
-        ...this.state.locations.map(element => element.position)
-      ]);
-    }
+    const boundLocations =
+      Array.from(this.state.selectedPositions.values()).length !== 0
+        ? Array.from(this.state.selectedPositions.values())
+        : [[0, 0]];
+
+    return L.latLngBounds(boundLocations);
   };
 
   render() {
@@ -113,29 +108,28 @@ export default class ParticipantNextLocation extends React.Component {
             center={this.state.map.location || [0, 0]}
             bounds={this.bounds()}
             onLocationFound={this.handleLocation}
+            onClick={this.handleSelection}
             zoom={this.state.map.zoom}
             onZoomEnd={this.handleZoom}
             ref={this.mapref}
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {this.state.locations.map(element => (
+            {Array.from(this.state.selectedPositions.keys()).map(element => (
               <Marker
-                position={element.position}
-                icon={element.id === 'currentPosition' ? protagonist : pointer}
-                key={element.title + JSON.stringify(element.position)}
+                key={element}
+                id={element}
+                position={this.state.locations.get(element)}
+                icon={element === 'currentPosition' ? protagonist : pointer}
+                onClick={this.handleSelection}
               >
-                {element.title !== undefined && (
-                  <Tooltip
-                    direction="left"
-                    offset={
-                      element.id === 'currentPosition' ? [-16, 0] : [-50, 75]
-                    }
-                    opacity={0.9}
-                    permanent
-                  >
-                    <span>{element.title}</span>
-                  </Tooltip>
-                )}
+                <Tooltip
+                  direction="left"
+                  offset={element === 'currentPosition' ? [-16, 0] : [-50, 75]}
+                  opacity={0.9}
+                  permanent
+                >
+                  <span>{element}</span>
+                </Tooltip>
               </Marker>
             ))}
           </LeafletMap>
