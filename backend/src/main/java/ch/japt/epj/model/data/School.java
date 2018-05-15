@@ -1,64 +1,64 @@
 package ch.japt.epj.model.data;
 
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.*;
 
 @Entity
 public class School {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long schoolId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long schoolId;
 
-    private String name;
+  private String name;
 
-    private String domain;
+  private String domain;
 
-    @OneToMany
-    private Collection<Location> locations = new ArrayList<>();
+  @OneToMany private Collection<Location> locations = new ArrayList<>();
 
+  @ManyToMany
+  @JoinTable(
+    name = "PersonSchool",
+    joinColumns = {@JoinColumn(name = "SchoolId")},
+    inverseJoinColumns = {@JoinColumn(name = "PersonId")}
+  )
+  private Collection<Person> persons = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "PersonSchool", joinColumns = {@JoinColumn(name = "SchoolId")}, inverseJoinColumns = {@JoinColumn(name = "PersonId")})
-    private Collection<Person> persons = new ArrayList<>();
+  public String getDomain() {
+    return domain;
+  }
 
+  public void setDomain(String domain) {
+    this.domain = domain;
+  }
 
-    public String getDomain() {
-        return domain;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  @Override
+  public String toString() {
+    return name + " " + domain;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public Collection<Location> getLocations() {
+    return locations;
+  }
 
-    @Override
-    public String toString() {
-        return name + " " + domain;
-    }
+  public void addLocation(Location location) {
+    locations.add(location);
+  }
 
-    public Collection<Location> getLocations() {
-        return locations;
-    }
+  public void removeLocation(Location location) {
+    locations.remove(location);
+  }
 
-    public void addLocation(Location location) {
-        locations.add(location);
-    }
-
-    public void removeLocation(Location location) {
-        locations.remove(location);
-    }
-
-    public long getSchoolId() {
-        return schoolId;
-    }
+  public long getSchoolId() {
+    return schoolId;
+  }
 }

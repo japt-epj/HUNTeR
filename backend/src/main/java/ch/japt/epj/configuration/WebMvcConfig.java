@@ -17,17 +17,20 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     registry.setOrder(Ordered.LOWEST_PRECEDENCE);
 
     if (!registry.hasMappingForPattern("/")) {
-      registry.addResourceHandler("/")
+      registry
+          .addResourceHandler("/")
           .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/");
     }
 
     if (!registry.hasMappingForPattern("/index.html")) {
-      registry.addResourceHandler("/index.html")
+      registry
+          .addResourceHandler("/index.html")
           .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/index.html");
     }
 
     if (!registry.hasMappingForPattern("/static/**")) {
-      registry.addResourceHandler("/static/**")
+      registry
+          .addResourceHandler("/static/**")
           .addResourceLocations("classpath:/META-INF/resources/webjars/frontend/static/");
     }
   }
@@ -35,8 +38,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
   @Override
   @Profile({"standalone", "test"})
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/")
-        .setViewName("forward:/index.html");
+    registry.addViewController("/").setViewName("forward:/index.html");
   }
 
   @Bean
@@ -45,7 +47,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     return new WebMvcConfigurerAdapter() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
+        registry
+            .addMapping("/api/**")
             .allowedHeaders("*")
             .exposedHeaders("X-HUNTeR-Redirect")
             .allowedOrigins("*");

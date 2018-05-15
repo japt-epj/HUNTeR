@@ -1,14 +1,13 @@
 package ch.japt.epj.security;
 
 import ch.japt.epj.model.data.Person;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
@@ -20,7 +19,10 @@ public class CustomUserDetails implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public CustomUserDetails(Long personId, String email, String password,
+  public CustomUserDetails(
+      Long personId,
+      String email,
+      String password,
       Collection<? extends GrantedAuthority> authorities) {
     this.personId = personId;
     this.email = email;
@@ -29,16 +31,15 @@ public class CustomUserDetails implements UserDetails {
   }
 
   public static CustomUserDetails create(Person person) {
-    List<GrantedAuthority> authorities = person.getRoles().stream().map(role ->
-        new SimpleGrantedAuthority(role.getName().name())
-    ).collect(Collectors.toList());
+    List<GrantedAuthority> authorities =
+        person
+            .getRoles()
+            .stream()
+            .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+            .collect(Collectors.toList());
 
     return new CustomUserDetails(
-        person.getPersonId(),
-        person.getEmail(),
-        person.getPassword(),
-        authorities
-    );
+        person.getPersonId(), person.getEmail(), person.getPassword(), authorities);
   }
 
   @Override
@@ -86,12 +87,12 @@ public class CustomUserDetails implements UserDetails {
 
   @Override
   public boolean equals(Object o) {
-      if (this == o) {
-          return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-          return false;
-      }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     CustomUserDetails that = (CustomUserDetails) o;
     return Objects.equals(personId, that.personId);
   }

@@ -1,7 +1,6 @@
 package ch.japt.epj;
 
 import java.net.URL;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,23 +14,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class NotificationControllerITest {
 
-    @LocalServerPort
-    private int port;
+  @LocalServerPort private int port;
 
-    private URL base;
+  private URL base;
 
-    @Autowired
-    private TestRestTemplate template;
+  @Autowired private TestRestTemplate template;
 
-    @Before
-    public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
-    }
+  @Before
+  public void setUp() throws Exception {
+    this.base = new URL("http://localhost:" + port + "/");
+  }
 
-    @Test
-    public void getHello() throws Exception {
-        //ResponseEntity<String> response = template.getForEntity(base.toString(),
-                //String.class);
-        //assertThat(response.getBody(), equalTo("Greetings from Spring Boot!"));
-    }
+  @Test
+  public void getHello() throws Exception {
+    // ResponseEntity<String> response = template.getForEntity(base.toString(),
+    // String.class);
+    // assertThat(response.getBody(), equalTo("Greetings from Spring Boot!"));
+  }
 }
