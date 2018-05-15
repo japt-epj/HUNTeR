@@ -34,7 +34,7 @@ export default class TeacherQuizOverview extends React.Component {
   };
 
   getQuizzes = (page, limit) => {
-    APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
+    APIHandler.getQuizzes(page, limit).then(resData => {
       if (resData.status === 200) {
         this.setState({
           quizzes: resData.data.content,
@@ -49,14 +49,13 @@ export default class TeacherQuizOverview extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.loadingQuiz
-          ? viewHandler.getLoadingScreen()
-          : this.getQuizTable(false)}
+      <Form>
+        {this.state.loadingQuiz && this.state.loadingScreen}
+        {!this.state.loadingQuiz && this.getQuizTable(false)}
         <NavLink to={'/quiz'}>
-          <Button color="green" content="Neues Quiz eröffnen" />
+          <Button basic positive content="Neues Quiz eröffnen" />
         </NavLink>
-      </div>
+      </Form>
     );
   }
 }

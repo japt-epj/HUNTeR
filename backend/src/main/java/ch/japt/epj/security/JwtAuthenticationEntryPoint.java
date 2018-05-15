@@ -12,9 +12,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+<<<<<<< HEAD
 
   private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
 
+=======
+  private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
+
+>>>>>>> master
   @Override
   public void commence(
       HttpServletRequest request, HttpServletResponse response, AuthenticationException e)

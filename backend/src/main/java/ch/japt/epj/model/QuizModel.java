@@ -7,12 +7,15 @@ import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.LocationDto;
 import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.ExerciseRepository;
 import ch.japt.epj.repository.LocationRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,7 @@ public class QuizModel {
   private final ExerciseRepository exercises;
   private final PersonRepository persons;
   private final LocationRepository locations;
-  private final ModelMapper mapper = new ModelMapper();
+  private final ModelMapper mapper = Mappings.quizMapper();
 
   public QuizModel(
       @Autowired QuizRepository quizzes,
@@ -56,12 +59,19 @@ public class QuizModel {
   public void addQuiz(NewQuizDto quizDto) {
     Quiz quiz = mapper.map(quizDto, Quiz.class);
     quiz.setName(quizDto.getName());
+    quizzes.save(quiz);
     for (LocationDto entry : quizDto.getExercises()) {
-      Exercise exercise = exercises.findByExerciseId(entry.getExerciseId()).get();
+      Exercise exercise;
+      Optional exerciseOptional = exercises.findByExerciseId(entry.getExerciseId());
+      if (!exerciseOptional.isPresent()) {
+        break;
+      }
+      exercise = (Exercise) exerciseOptional.get();
       Location location = new Location();
+      location.setQuiz(quiz);
       location.setCoordinates(entry.getLat(), entry.getLng());
       locations.save(location);
-      exercise.setLocation(location);
+      exercise.addLocation(location);
       exercises.save(exercise);
       quiz.addTask(exercise);
     }
@@ -72,7 +82,7 @@ public class QuizModel {
   }
 
   public List<NewQuizDto> getQuizzes(List<Integer> ids) {
-    List<Long> longs = ListConverter.toLong(ids);
+    Collection<Long> longs = ListConverter.toLong(ids);
     return mapper.map(quizzes.findAll(longs), QUIZ_DTO_LIST);
   }
 }

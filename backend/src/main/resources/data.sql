@@ -125,8 +125,6 @@ INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exer
   (39,10),
   (40,10);
 
-;
-
 INSERT INTO role (name) VALUES
   ('ROLE_TEACHER'),
   ('ROLE_STUDENT');

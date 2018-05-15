@@ -184,6 +184,31 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Person"
+  /person:
+   put:
+      tags:
+      - "person"
+      summary: "Update an existing person"
+      description: ""
+      operationId: "updatePerson"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "person object that needs to be editted in the store"
+        required: true
+        schema:
+          $ref: "#/definitions/RegPerson"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "person not found"
+        405:
+          description: "Validation exception"
 
 
   /auth/register:

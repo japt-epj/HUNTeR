@@ -51,7 +51,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             .addMapping("/api/**")
             .allowedHeaders("*")
             .exposedHeaders("X-HUNTeR-Redirect")
-            .allowedOrigins("*");
+            .allowedOrigins("*")
+            .allowedMethods("GET", "POST", "PUT");
       }
     };
   }

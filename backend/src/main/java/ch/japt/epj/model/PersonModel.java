@@ -3,8 +3,10 @@ package ch.japt.epj.model;
 import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.PersonDto;
+import ch.japt.epj.model.dto.RegPersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -25,7 +27,7 @@ public class PersonModel {
   }
 
   public List<PersonDto> getPeople(List<Integer> ids) {
-    List<Long> longs = ListConverter.toLong(ids);
+    Collection<Long> longs = ListConverter.toLong(ids);
     Type dtoList = new TypeToken<List<PersonDto>>() {}.getType();
     return mapper.map(persons.findAll(longs), dtoList);
   }
@@ -34,5 +36,17 @@ public class PersonModel {
     return persons
         .findAll(new PageRequest(page, limit, sort))
         .map(person -> mapper.map(person, PersonDto.class));
+  }
+
+  public void updatePeople(RegPersonDto body) {
+    persons
+        .findByPersonId(body.getId())
+        .ifPresent(
+            person -> {
+              person.setEmail(body.getEmail());
+              person.setFirstName(body.getFirstName());
+              person.setLastName(body.getLastName());
+              persons.save(person);
+            });
   }
 }

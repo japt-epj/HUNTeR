@@ -2,6 +2,7 @@ package ch.japt.epj.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import ch.japt.epj.security.JwtTokenProvider;
 import org.junit.Before;
@@ -19,9 +20,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc
 public class ExerciseControllerTests {
 
@@ -55,7 +58,6 @@ public class ExerciseControllerTests {
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
-        //                .andExpect(status().is4xxClientError())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$[0].name").value("Natur und Umwelt"))
         .andExpect(
@@ -69,6 +71,58 @@ public class ExerciseControllerTests {
   }
 
   @Test
+  public void checkPageInformationDefaultQuery() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/exercise")
+            .header("Authorization", "Bearer " + token)
+            .accept(MediaType.APPLICATION_JSON);
+
+    mvc.perform(request)
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.numberOfElements").value(5))
+        .andExpect(jsonPath("$.size").value(5))
+        .andExpect(jsonPath("$.number").value(0))
+        .andExpect(jsonPath("$.last").value(false))
+        .andExpect(jsonPath("$.first").value(true))
+        .andExpect(jsonPath("$.sort[0].direction").value("ASC"))
+        .andExpect(jsonPath("$.sort[0].property").value("name"))
+        .andExpect(jsonPath("$.sort[0].ascending").value("true"))
+        .andExpect(jsonPath("$.sort[0].descending").value("false"));
+  }
+
+  @Test
+  public void checkPageInformationEmptyPage() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/exercise?page=100&limit=2")
+            .header("Authorization", "Bearer " + token)
+            .accept(MediaType.APPLICATION_JSON);
+
+    mvc.perform(request)
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.numberOfElements").value(0))
+        .andExpect(jsonPath("$.size").value(2))
+        .andExpect(jsonPath("$.number").value(100))
+        .andExpect(jsonPath("$.last").value(true))
+        .andExpect(jsonPath("$.first").value(false))
+        .andExpect(jsonPath("$.sort[0].direction").value("ASC"))
+        .andExpect(jsonPath("$.sort[0].property").value("name"))
+        .andExpect(jsonPath("$.sort[0].ascending").value("true"))
+        .andExpect(jsonPath("$.sort[0].descending").value("false"));
+  }
+
+  @Test
+  public void checkInvalidPagination() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/exercise/?sort=blabla")
+            .header("Authorization", "Bearer " + token)
+            .accept(MediaType.APPLICATION_JSON);
+
+    mvc.perform(request).andExpect(status().isOk()).andExpect(content().string(""));
+  }
+
+  @Test
   public void getExerciseNotFound() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise/100000")
@@ -76,7 +130,35 @@ public class ExerciseControllerTests {
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
-        //                .andExpect(status().is4xxClientError())
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(content().string("[]"));
+  }
+
+  @Test
+  public void makeExerciseSuccess() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.post("/api/exercise")
+            .header("Authorization", "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(
+                "{ \"name\": \"This is a test question\", \"question\": \"What is 42?\", \"answers\": [ { \"text\": \"A number\", \"checked\": \"false\" }, { \"text\": \"The answer to everything\", \"checked\": \"true\" } ] }");
+
+    mvc.perform(request)
+        // this should be set and needs to be fixed on the api level
+        //
+        // .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(status().isCreated());
+  }
+
+  @Test
+  public void makeExerciseFailure() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.post("/api/exercise")
+            .header("Authorization", "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{}");
+
+    mvc.perform(request).andExpect(status().isBadRequest());
   }
 }
