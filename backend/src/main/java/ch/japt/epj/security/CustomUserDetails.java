@@ -62,11 +62,7 @@ public class CustomUserDetails implements UserDetails {
 
   @Override
   public String getUsername() {
-<<<<<<< HEAD
     return null;
-=======
-    return email;
->>>>>>> master
   }
 
   @Override
@@ -88,7 +84,6 @@ public class CustomUserDetails implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
-<<<<<<< HEAD
 
   @Override
   public boolean equals(Object o) {
@@ -107,6 +102,4 @@ public class CustomUserDetails implements UserDetails {
 
     return Objects.hash(personId);
   }
-=======
->>>>>>> master
 }

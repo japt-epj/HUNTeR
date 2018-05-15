@@ -34,15 +34,6 @@ export default {
       this.setState({formOK: false});
     }
   },
-<<<<<<< HEAD
-
-  handleQuizSumbit() {
-    if (
-      this.state.selectedPositions.size !== 0 &&
-      Array.from(this.state.selectedPositions.keys()).every(
-        key => this.state.selectedPositions.get(key) !== undefined
-      )
-=======
 
   handleQuizSumbit() {
     if (
@@ -77,44 +68,6 @@ export default {
     if (
       this.state.selectedParticipants.length !== 0 &&
       this.state.selectedQuizId !== undefined
->>>>>>> master
-    ) {
-      this.postData(
-        {
-          name: this.state.name,
-<<<<<<< HEAD
-          exercises: Array.from(this.state.selectedPositions.keys()).map(
-            key => {
-              return {
-                exerciseId: key,
-                lat: this.state.selectedPositions.get(key).lat,
-                lng: this.state.selectedPositions.get(key).lng
-              };
-            }
-          ),
-          //TODO: Get currentPersonId and post
-          creator: Math.floor(Math.random() * 15) + 1
-        },
-        'quiz'
-=======
-          quizId: this.state.selectedQuizId,
-          participants: this.state.selectedParticipants,
-          startDate: this.state.startDate,
-          endDate: this.state.endDate
-        },
-        'execution'
->>>>>>> master
-      );
-    } else {
-      this.setState({formOK: false});
-    }
-  },
-
-<<<<<<< HEAD
-  handleExecutionSumbit() {
-    if (
-      this.state.selectedParticipants.length !== 0 &&
-      this.state.selectedQuizId !== undefined
     ) {
       this.postData(
         {
@@ -131,32 +84,6 @@ export default {
     }
   },
 
-  handleLoginSubmit() {
-    this.postLoginData(this.state).then(resData => {
-      if (resData.status >= 200 && resData.status < 300) {
-        window.localStorage.setItem(
-          'HUNTeR-Token',
-          resData.data.tokenType + ' ' + resData.data.token
-        );
-        setTimeout(() => {
-          this.setState({showSuccess: true});
-          this.redirectAfterLogin().then(redirectData => {
-            window.localStorage.setItem(
-              'HUNTeR-Redirect',
-              redirectData.headers['x-hunter-redirect']
-            );
-            this.setState({fireRedirect: true, showSuccess: false});
-          });
-        }, 1500);
-      } else {
-        this.setState({showLoginError: true});
-      }
-    });
-  },
-
-  handleNewParticipantSubmit() {
-    this.postData(this.state, 'participant');
-=======
   handleLoginSubmit() {
     this.postData(this.state, 'login');
   },
@@ -175,6 +102,5 @@ export default {
       },
       'person'
     );
->>>>>>> master
   }
 };
