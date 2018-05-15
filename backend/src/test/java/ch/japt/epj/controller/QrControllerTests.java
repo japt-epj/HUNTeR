@@ -3,12 +3,18 @@ package ch.japt.epj.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import ch.japt.epj.security.JwtTokenProvider;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -18,12 +24,31 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class QrControllerTests {
+  private String completeToken;
+
   @Autowired private MockMvc mvc;
+
+  @Autowired private JwtTokenProvider tokenProvider;
+
+  @Autowired private AuthenticationManager authenticationManager;
+
+  @Before
+  public void getToken() {
+    String validEmail = "jonas.kugler@hsr.ch";
+    String validPassword = "jonas";
+    Authentication authentication =
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(validEmail, validPassword));
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    completeToken = "Bearer " + tokenProvider.generateToken(authentication);
+  }
 
   @Test
   public void invalidExerciseId() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/qrCode/20000").accept(MediaType.IMAGE_PNG);
+        MockMvcRequestBuilders.get("/api/qrCode/20000")
+            .header("Authorization", completeToken)
+            .accept(MediaType.IMAGE_PNG);
 
     mvc.perform(request).andExpect(status().isNotFound());
   }
@@ -31,7 +56,9 @@ public class QrControllerTests {
   @Test
   public void getQrCodeAsPng() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/qrCode/1").accept(MediaType.IMAGE_PNG);
+        MockMvcRequestBuilders.get("/api/qrCode/1")
+            .header("Authorization", completeToken)
+            .accept(MediaType.IMAGE_PNG);
 
     byte[] expected = {
       -119, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 1, -12, 0, 0, 1, -12, 8,
