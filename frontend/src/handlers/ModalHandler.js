@@ -18,7 +18,10 @@ export default {
             labelPosition="right"
             icon="point"
             content="OK, ich habe verstanden"
-            onClick={() => this.setState({showAgreement: false})}
+            onClick={() => {
+              this.setState({showAgreement: false});
+              this.locate();
+            }}
           />
         </Modal.Actions>
       </Modal>

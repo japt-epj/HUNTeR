@@ -5,11 +5,13 @@ import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
 import APIHandler from '../../handlers/APIHandler';
+import ModalHandler from '../../handlers/ModalHandler';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showAgreement: true,
       locations: new Map(),
       selectedPositions: new Map(),
       routing: false,
@@ -22,18 +24,16 @@ export default class ParticipantNextLocation extends React.Component {
     };
 
     this.getJSONHeader = APIHandler.getJSONHeader;
+    this.getAgreement = ModalHandler.getAgreement.bind(this);
 
     this.mapref = React.createRef();
   }
 
   componentDidMount() {
-    this.locate();
     this.getNextLocation();
   }
 
-  locate = () => {
-    this.mapref.current.leafletElement.locate();
-  };
+  locate = () => this.mapref.current.leafletElement.locate();
 
   getNextLocation = () => {
     const locations = new Map([
@@ -103,6 +103,7 @@ export default class ParticipantNextLocation extends React.Component {
 
     return (
       <Grid padded>
+        {this.state.showAgreement && this.getAgreement()}
         <Grid.Row id="mapContainer">
           <LeafletMap
             center={this.state.map.location || [0, 0]}

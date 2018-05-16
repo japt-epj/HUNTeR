@@ -14,6 +14,7 @@ export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showAgreement: true,
       formOK: true,
       name: '',
       exercises: [],
@@ -49,6 +50,7 @@ export default class TeacherQuiz extends React.Component {
     this.postData = APIHandler.postData.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
+    this.getAgreement = ModalHandler.getAgreement.bind(this);
     this.getFormError = ModalHandler.getFormError.bind(this);
 
     this.mapref = React.createRef();
@@ -56,7 +58,6 @@ export default class TeacherQuiz extends React.Component {
 
   componentDidMount() {
     this.getExercises(this.state.pageNumber, this.state.limit);
-    this.mapref.current.leafletElement.locate();
   }
 
   getExercises = (page, limit) => {
@@ -96,6 +97,8 @@ export default class TeacherQuiz extends React.Component {
     map.zoom = this.mapref.current.leafletElement.getZoom();
     this.setState({map});
   };
+
+  locate = () => this.mapref.current.leafletElement.locate();
 
   handleLocation = event => {
     let map = {...this.state.map};
@@ -144,6 +147,7 @@ export default class TeacherQuiz extends React.Component {
           )}
         <Form onSubmit={this.handleSubmit}>
           <Grid>
+            {this.state.showAgreement && this.getAgreement()}
             <Grid.Row>
               <Grid.Column>
                 <Form.Input
