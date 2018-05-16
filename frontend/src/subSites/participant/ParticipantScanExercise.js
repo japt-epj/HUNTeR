@@ -11,7 +11,7 @@ export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      delay: 30000000000,
+      delay: 500,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exercise: '',
