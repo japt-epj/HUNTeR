@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Form} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
