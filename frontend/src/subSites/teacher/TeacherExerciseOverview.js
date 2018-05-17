@@ -1,27 +1,24 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Dimmer, Loader} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
+import viewHandler from '../../handlers/viewHandler';
 
-export default class TeacherExercisesOverview extends React.Component {
+export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       exercises: [],
-      loadingScreen: [
-        <Dimmer active inverted key={'dimmer'}>
-          <Loader size="large">Loading</Loader>
-        </Dimmer>
-      ],
       loading: true,
       pageNumber: 1,
       minPage: 1,
       maxPage: '',
       limit: 5
     };
+
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
   }
 
@@ -37,7 +34,7 @@ export default class TeacherExercisesOverview extends React.Component {
   };
 
   getExercises = (page, limit) => {
-    APIHandler.getExercises(page, limit).then(resData => {
+    APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
       if (resData.status === 200) {
         this.setState({
           exercises: resData.data.content,
@@ -51,13 +48,13 @@ export default class TeacherExercisesOverview extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loading && this.state.loadingScreen}
-        {!this.state.loading && this.getExerciseTable(false)}
+        {this.state.loading
+          ? viewHandler.getLoadingScreen()
+          : this.getExerciseTable(false)}
         <NavLink to="/exercise">
           <Button
             color="green"
             icon="add square"
-            positive
             labelPosition="right"
             label="Aufgabe hinzufügen"
           />

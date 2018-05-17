@@ -1,8 +1,17 @@
 import React from 'react';
 
-import {Button, Modal} from 'semantic-ui-react';
+import {Button, Header, Modal} from 'semantic-ui-react';
 
 export default {
+  getLoginSuccess() {
+    return (
+      <Modal dimmer="blurring" open>
+        <Header icon="sign in" content="Login erfolgt" />
+        <Modal.Content content="Sie haben sich erfolgreich eingeloggt." />
+      </Modal>
+    );
+  },
+
   getAgreement() {
     return (
       <Modal

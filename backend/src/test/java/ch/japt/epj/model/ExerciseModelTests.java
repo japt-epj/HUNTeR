@@ -14,18 +14,20 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Component.class))
+@SpringBootTest
+@AutoConfigureTestDatabase
+@Transactional
 public class ExerciseModelTests {
-  @Autowired private ExerciseModel model;
 
+  @Autowired private ExerciseModel model;
   @Autowired private ExerciseRepository repository;
 
   @Test

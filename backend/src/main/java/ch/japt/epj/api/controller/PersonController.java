@@ -46,7 +46,6 @@ public class PersonController implements PersonApi, PaginatedPerson {
     return new ResponseEntity<>(personModel.getPeople(id), HttpStatus.OK);
   }
 
-  @Override
   public ResponseEntity<Void> updatePerson(@Valid @RequestBody RegPersonDto body) {
     personModel.updatePeople(body);
     return new ResponseEntity<>(HttpStatus.CREATED);
