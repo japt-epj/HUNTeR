@@ -1,10 +1,12 @@
 import React from 'react';
 import TableHandler from './TableHandler';
-import {Form, Pagination, Table} from 'semantic-ui-react';
+import {Button, Form, Pagination, Table} from 'semantic-ui-react';
+
+import APIHandler from './APIHandler';
 
 export default {
   getQuizTable(checkboxNeeded) {
-    let headerElements = ['Name'];
+    let headerElements = ['Name', 'Download'];
     if (checkboxNeeded) {
       headerElements.unshift('');
     }
@@ -27,6 +29,14 @@ export default {
                   </Table.Cell>
                 )}
                 <Table.Cell>{element.name}</Table.Cell>
+                <Table.Cell collapsing>
+                  <Button
+                    color="orange"
+                    icon="file outline"
+                    basic
+                    onClick={() => APIHandler.downloadPDFCode(element.id)}
+                  />
+                </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
