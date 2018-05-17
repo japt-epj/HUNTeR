@@ -34,7 +34,7 @@ export default {
                     color="orange"
                     icon="file outline"
                     basic
-                    onClick={() => APIHandler.downloadPDFCode(element.id)}
+                    onClick={() => APIHandler.downloadQRCodePDF(element.id)}
                   />
                 </Table.Cell>
               </Table.Row>
