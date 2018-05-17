@@ -18,13 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class PersonControllerTests {
+public class PersonControllerTests extends AuthenticatedControllerTest {
+
   @Autowired private MockMvc mvc;
 
   @Test
   public void getExistingPersonById() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/person/1").contentType(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/person/1")
+            .header("Authorization", completeToken)
+            .contentType(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())

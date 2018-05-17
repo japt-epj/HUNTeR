@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Button, Dimmer, Form, Grid, Loader, Modal} from 'semantic-ui-react';
+import {Button, Form, Grid, Modal} from 'semantic-ui-react';
 import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
@@ -9,6 +9,7 @@ import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
+import viewHandler from '../../handlers/viewHandler';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
@@ -20,11 +21,6 @@ export default class TeacherQuiz extends React.Component {
       selected: [],
       bulkCheckbox: '',
       selectedExercises: [],
-      loadingScreen: [
-        <Dimmer active inverted key={'dimmer'}>
-          <Loader size="large">Loading</Loader>
-        </Dimmer>
-      ],
       loading: true,
       limit: 5,
       pageNumber: 1,
@@ -41,11 +37,21 @@ export default class TeacherQuiz extends React.Component {
         popupText: undefined
       }
     };
+
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
     this.getSelectedExerciseTable = ExerciseHandler.getSelectedExerciseTable.bind(
       this
     );
     this.handleSelection = ExerciseHandler.handleSelection.bind(this);
+    this.getJSONHeader = APIHandler.getJSONHeader;
+    this.handlePageChangeExercises = this.handlePageChangeExercises.bind(this);
+    this.resetPageNumber = this.resetPageNumber.bind(this);
+    this.getExercises = this.getExercises.bind(this);
+
+    this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
+    this.handleChange = FormHandler.handleChange.bind(this);
+    this.postData = APIHandler.postData.bind(this);
+    this.getJSONHeader = APIHandler.getJSONHeader;
     this.postData = APIHandler.postData.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
@@ -60,7 +66,7 @@ export default class TeacherQuiz extends React.Component {
   }
 
   getExercises = (page, limit) => {
-    APIHandler.getExercises(page, limit).then(resData => {
+    APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
       if (resData.status === 200) {
         this.setState({
           exercises: resData.data.content,
@@ -209,10 +215,11 @@ export default class TeacherQuiz extends React.Component {
                   }
                   closeIcon
                 >
-                  {this.state.loading && this.state.loadingScreen}
                   <Modal.Header content="Aufgaben hinzufügen" />
                   <Modal.Content scrolling>
-                    {!this.state.loading && this.getExerciseTable(true)}
+                    {this.state.loading
+                      ? viewHandler.getLoadingScreen()
+                      : this.getExerciseTable(true)}
                   </Modal.Content>
                 </Modal>
               </Grid.Column>
