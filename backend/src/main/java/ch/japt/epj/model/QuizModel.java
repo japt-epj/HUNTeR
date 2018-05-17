@@ -67,6 +67,7 @@ public class QuizModel {
                 location.addExercise(exercise);
                 locations.save(location);
                 quiz.addLocation(location);
+                quiz.addTask(exercise);
               });
     }
     quizzes.save(quiz);
