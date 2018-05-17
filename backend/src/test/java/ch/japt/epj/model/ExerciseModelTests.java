@@ -19,14 +19,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase
+@Transactional
 public class ExerciseModelTests {
 
   @Autowired private ExerciseModel model;
-
   @Autowired private ExerciseRepository repository;
 
   @Test
@@ -39,7 +40,7 @@ public class ExerciseModelTests {
     assertThat(model.getExercise(10_000_000L)).isEmpty();
   }
 
-  //  @Test
+  @Test
   public void shouldAddNewTask() {
     Page<ExerciseDto> before = model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId"));
 
@@ -52,7 +53,7 @@ public class ExerciseModelTests {
     assertThat(after.getTotalElements()).isEqualTo(size + 1);
   }
 
-  //  @Test
+  @Test
   public void newTaskReturned() {
     NewExerciseDto testDto = makeTestDto();
     model.addExercise(testDto);
@@ -73,7 +74,7 @@ public class ExerciseModelTests {
         .isThrownBy(() -> model.addExercise(fail));
   }
 
-  //  @Test
+  @Test
   public void getFirstPageDescending() {
     List<ExerciseDto> expected =
         repository
@@ -96,7 +97,7 @@ public class ExerciseModelTests {
     assertThat(page).isEmpty();
   }
 
-  //  @Test
+  @Test
   public void getExercisesByList() {
     List<Integer> ids = Arrays.asList(1, 2, 3, 300);
     List<ExerciseDto> exercises = model.getExercises(ids);
