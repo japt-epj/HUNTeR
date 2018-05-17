@@ -9,25 +9,24 @@ export default {
     });
   },
 
+  handleAnswerSelectChange(event, {value}) {
+    this.setState({answerId: value});
+  },
+
+  handleQuizSelectChange(event, {value}) {
+    this.setState({selectedQuizId: value});
+  },
+
   handleExerciseSubmit() {
-    let checkedAnswers = [
-      this.state.checked0,
-      this.state.checked1,
-      this.state.checked2,
-      this.state.checked3
-    ];
-    let isACheckboxSet = false;
-    Object.keys(checkedAnswers).forEach(element => {
-      isACheckboxSet = isACheckboxSet || checkedAnswers[element];
-    });
+    let isACheckboxSet = this.state.answerId >= 0 && this.state.answerId <= 3;
     if (isACheckboxSet) {
       let userType = window.location.pathname.split('/')[1];
       if (userType === 'teacher') {
-        this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
+        this.postData(APIHandler.prepareTeacherData(this.state), 'response');
       } else {
         this.postData(
           APIHandler.prepareParticipantData(this.state),
-          'exercise'
+          'response'
         );
       }
     } else {
