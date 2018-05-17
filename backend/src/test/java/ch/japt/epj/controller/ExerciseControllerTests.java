@@ -1,6 +1,8 @@
 package ch.japt.epj.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,16 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class ExerciseControllerTests {
+public class ExerciseControllerTests extends AuthenticatedControllerTest {
+
   @Autowired private MockMvc mvc;
 
   @Test
   public void getExerciseSuccess() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/exercise/2").accept(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/exercise/2")
+            .header("Authorization", completeToken)
+            .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
-        .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$[0].name").value("Natur und Umwelt"))
         .andExpect(
@@ -43,7 +47,9 @@ public class ExerciseControllerTests {
   @Test
   public void checkPageInformationDefaultQuery() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/exercise").accept(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/exercise")
+            .header("Authorization", completeToken)
+            .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())
@@ -63,6 +69,7 @@ public class ExerciseControllerTests {
   public void checkPageInformationEmptyPage() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise?page=100&limit=2")
+            .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -82,7 +89,9 @@ public class ExerciseControllerTests {
   @Test
   public void checkInvalidPagination() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/exercise/?sort=blabla").accept(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/exercise/?sort=blabla")
+            .header("Authorization", completeToken)
+            .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request).andExpect(status().isOk()).andExpect(content().string(""));
   }
@@ -90,7 +99,9 @@ public class ExerciseControllerTests {
   @Test
   public void getExerciseNotFound() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/exercise/100000").accept(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/exercise/100000")
+            .header("Authorization", completeToken)
+            .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())
@@ -102,6 +113,7 @@ public class ExerciseControllerTests {
   public void makeExerciseSuccess() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/exercise")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
                 "{ \"name\": \"This is a test question\", \"question\": \"What is 42?\", \"answers\": [ { \"text\": \"A number\", \"checked\": \"false\" }, { \"text\": \"The answer to everything\", \"checked\": \"true\" } ] }");
@@ -117,6 +129,7 @@ public class ExerciseControllerTests {
   public void makeExerciseFailure() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/exercise")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content("{}");
 

@@ -18,6 +18,7 @@ export default class TeacherNewParticipant extends React.Component {
     this.handleSubmit = FormHandler.handleNewParticipantSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
+    this.getJSONHeader = APIHandler.getJSONHeader;
   }
 
   render() {

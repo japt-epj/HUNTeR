@@ -7,7 +7,7 @@ import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
 
-export default class TeacherExercisesOverview extends React.Component {
+export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +18,7 @@ export default class TeacherExercisesOverview extends React.Component {
       maxPage: '',
       limit: 5
     };
+
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
   }
 
@@ -33,7 +34,7 @@ export default class TeacherExercisesOverview extends React.Component {
   };
 
   getExercises = (page, limit) => {
-    APIHandler.getExercises(page, limit).then(resData => {
+    APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
       if (resData.status === 200) {
         this.setState({
           exercises: resData.data.content,
@@ -54,7 +55,6 @@ export default class TeacherExercisesOverview extends React.Component {
           <Button
             color="green"
             icon="add square"
-            positive
             labelPosition="right"
             label="Aufgabe hinzufügen"
           />

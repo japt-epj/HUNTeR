@@ -17,13 +17,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class QrControllerTests {
+public class QrControllerTests extends AuthenticatedControllerTest {
+
   @Autowired private MockMvc mvc;
 
   @Test
   public void invalidExerciseId() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/qrCode/20000").accept(MediaType.IMAGE_PNG);
+        MockMvcRequestBuilders.get("/api/qrCode/20000")
+            .header("Authorization", completeToken)
+            .accept(MediaType.IMAGE_PNG);
 
     mvc.perform(request).andExpect(status().isNotFound());
   }
@@ -31,7 +34,9 @@ public class QrControllerTests {
   @Test
   public void getQrCodeAsPng() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/qrCode/1").accept(MediaType.IMAGE_PNG);
+        MockMvcRequestBuilders.get("/api/qrCode/1")
+            .header("Authorization", completeToken)
+            .accept(MediaType.IMAGE_PNG);
 
     byte[] expected = {
       -119, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 1, -12, 0, 0, 1, -12, 8,

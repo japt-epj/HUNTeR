@@ -10,6 +10,7 @@ import Settings from './ParticipantSetting';
 import ParticipantScore from './ParticipantScore';
 import ParticipantExercise from './ParticipantExercise';
 
+import config from '../../config/config';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
@@ -48,6 +49,18 @@ export default class ParticipantStructure extends React.Component {
                     <Route path="/scan" component={ParticipantScanExercise} />
                     <Route path="/score" component={ParticipantScore} />
                     <Route path="/exercise" component={ParticipantExercise} />
+                    <Route
+                      path="/logout"
+                      render={() => {
+                        return (
+                          <div>
+                            {window.localStorage.removeItem('HUNTeR-Redirect')}
+                            {window.localStorage.removeItem('HUNTeR-Token')}
+                            {window.location.replace(config.mainURL)}
+                          </div>
+                        );
+                      }}
+                    />
                     <Route component={NotFound} />
                   </Switch>
                 </Sidebar.Pusher>
