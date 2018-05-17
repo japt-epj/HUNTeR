@@ -57,18 +57,16 @@ public class QuizModel {
   public void addQuiz(NewQuizDto quizDto) {
     Quiz quiz = mapper.map(quizDto, Quiz.class);
     quiz.setName(quizDto.getName());
-    quizzes.save(quiz);
     for (ExerciseLocationDto entry : quizDto.getExercises()) {
+      Location location = new Location();
       exercises
           .findByExerciseId(entry.getExerciseId())
           .ifPresent(
               exercise -> {
-                quiz.addTask(exercise);
-                Location location = new Location();
-                location.setQuiz(quiz);
                 location.setCoordinates(entry.getLat(), entry.getLng());
-                location.setExercise(exercise);
+                location.addExercise(exercise);
                 locations.save(location);
+                quiz.addLocation(location);
               });
     }
     quizzes.save(quiz);
