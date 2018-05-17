@@ -10,7 +10,7 @@ import Settings from './ParticipantSetting';
 import ParticipantScore from './ParticipantScore';
 import ParticipantExercise from './ParticipantExercise';
 
-import config from '../../config/config';
+import Logout from '../Logout';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
@@ -52,13 +52,7 @@ export default class ParticipantStructure extends React.Component {
                     <Route
                       path="/logout"
                       render={() => {
-                        return (
-                          <div>
-                            {window.localStorage.removeItem('HUNTeR-Redirect')}
-                            {window.localStorage.removeItem('HUNTeR-Token')}
-                            {window.location.replace(config.mainURL)}
-                          </div>
-                        );
+                        return Logout();
                       }}
                     />
                     <Route component={NotFound} />
