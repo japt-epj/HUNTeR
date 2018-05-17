@@ -13,6 +13,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,10 @@ public class QrModel {
         content.beginText();
         content.setFont(PDType1Font.HELVETICA, 12);
         content.showText(quiz.getName());
+        content.endText();
+        byte[] bytes = makeQr(quiz.getQuizId(), 20, 0).get();
+        PDImageXObject image = PDImageXObject.createFromByteArray(document, bytes, null);
+        content.drawImage(image, 0f, 0f, image.getWidth(), image.getHeight());
       }
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
