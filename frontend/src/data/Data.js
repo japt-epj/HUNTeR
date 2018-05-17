@@ -45,7 +45,7 @@ export default {
         name: 'Aktueller ParticipantScore',
         component: 'ParticipantScore',
         icon: 'trophy'
-      }
+      },
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
   },
