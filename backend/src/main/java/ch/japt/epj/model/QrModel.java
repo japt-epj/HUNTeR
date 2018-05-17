@@ -38,7 +38,7 @@ public class QrModel {
         .flatMap(t -> makeQr(t.getExerciseId(), scale, border));
   }
 
-  public byte[] generatePdf(Long id) {
+  public Optional<byte[]> generatePdf(Long id) {
     Quiz quiz = quizzes.findQuizByQuizId(id).get();
 
     try (PDDocument document = new PDDocument()) {
@@ -57,12 +57,12 @@ public class QrModel {
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
       document.save(stream);
-      return stream.toByteArray();
+      return Optional.of(stream.toByteArray());
     } catch (IOException e) {
       e.printStackTrace();
     }
 
-    return new byte[0];
+    return Optional.empty();
   }
 
   private Optional<byte[]> makeQr(Long id, Integer scale, Integer border) {
