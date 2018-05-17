@@ -3,13 +3,13 @@ import fileDownload from 'js-file-download';
 
 import config from '../config/config';
 
-import getHeader from './getAxiosHeader';
+import getAxiosHeader from './getAxiosHeader';
 
 export default {
   getExerciseArray(exerciseIDs) {
     return axios
       .get(config.apiURL + 'exercise/' + exerciseIDs, {
-        headers: getHeader('application/json')
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
   },
@@ -17,7 +17,7 @@ export default {
   downloadQRCode(exerciseID) {
     return axios
       .get(config.apiURL + 'qrCode/' + exerciseID, {
-        headers: getHeader('image/png'),
+        headers: getAxiosHeader('image/png'),
         responseType: 'arraybuffer'
       })
       .then(res => fileDownload(res.data, 'qrCode' + exerciseID + '.png'))
@@ -31,7 +31,7 @@ export default {
     }
     return axios
       .get(requestURL, {
-        headers: getHeader('application/json')
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
   },
@@ -39,7 +39,7 @@ export default {
   postData(data, path) {
     axios
       .post(config.apiURL + path + '/', data, {
-        headers: getHeader('application/json')
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
@@ -56,7 +56,7 @@ export default {
           password: data.password
         },
         {
-          headers: getHeader('application/json'),
+          headers: getAxiosHeader('application/json'),
           validateStatus: function(status) {
             return status === 401 || (status >= 200 && status < 300);
           }
@@ -88,7 +88,7 @@ export default {
   redirectAfterLogin() {
     return axios
       .get(config.apiURL + 'auth/entryPoint', {
-        headers: getHeader('application/json')
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error(err));
   },
@@ -96,7 +96,7 @@ export default {
   getParticipant(participantId) {
     return axios
       .get(config.apiURL + 'person/' + participantId, {
-        headers: getHeader('application/json')
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
   },
