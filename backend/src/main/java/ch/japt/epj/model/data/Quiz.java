@@ -13,6 +13,8 @@ public class Quiz {
 
   private String name;
 
+  @OneToMany private Collection<Location> locations = new ArrayList<>();
+
   @OneToMany private Collection<Exercise> exercises = new ArrayList<>();
 
   public String getName() {
@@ -37,5 +39,13 @@ public class Quiz {
 
   public Collection<Exercise> getExercises() {
     return exercises;
+  }
+
+  public Collection<Location> getLocations() {
+    return locations;
+  }
+
+  public void addLocation(Location location) {
+    this.locations.add(location);
   }
 }
