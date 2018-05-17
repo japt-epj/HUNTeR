@@ -1,4 +1,4 @@
-export default function getHeader(contentType) {
+export default function getAxiosHeader(contentType) {
   return {
     Accept: contentType,
     'Content-Type': contentType,
