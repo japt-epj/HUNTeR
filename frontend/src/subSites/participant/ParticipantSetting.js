@@ -111,20 +111,6 @@ export default class ParticipantSetting extends React.Component {
               />
             </Modal.Actions>
           </Modal>
-
-          {/*<Modal*/}
-          {/*style={{marginTop: 0}}*/}
-          {/*size="fullscreen"*/}
-          {/*trigger={<Button content="Daten ändern" />}*/}
-          {/*closeIcon*/}
-          {/*>*/}
-          {/*<Header icon="key" content="Daten ändern?" />*/}
-          {/*<Modal.Content>Daten wirklich ändern</Modal.Content>*/}
-          {/*<Modal.Actions>*/}
-          {/*<Button color="red" inverted content="Nein" icon="cancel" />*/}
-          {/*<Button color="green" inverted content="Ja" icon="checkmark" />*/}
-          {/*</Modal.Actions>*/}
-          {/*</Modal>*/}
         </Form>
       </div>
     );
