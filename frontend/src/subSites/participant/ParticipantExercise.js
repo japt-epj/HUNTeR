@@ -28,16 +28,7 @@ export default class ParticipantExercise extends React.Component {
     this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
     this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
-    this.getParticipant = APIHandler.getParticipant.bind(this);
-  }
-
-  componentDidMount() {
-    this.getParticipant(1).then(resData => {
-      let participant = resData.data[0];
-      this.setState({
-        participantId: participant.id
-      });
-    });
+    this.getJSONHeader = APIHandler.getJSONHeader;
   }
 
   render() {
