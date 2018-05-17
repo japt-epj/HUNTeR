@@ -3,18 +3,12 @@ package ch.japt.epj.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import ch.japt.epj.security.JwtTokenProvider;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -23,25 +17,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class QrControllerTests {
-  private String completeToken;
+public class QrControllerTests extends AuthenticatedControllerTest {
 
   @Autowired private MockMvc mvc;
-
-  @Autowired private JwtTokenProvider tokenProvider;
-
-  @Autowired private AuthenticationManager authenticationManager;
-
-  @Before
-  public void getToken() {
-    String validEmail = "jonas.kugler@hsr.ch";
-    String validPassword = "jonas";
-    Authentication authentication =
-        authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(validEmail, validPassword));
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    completeToken = "Bearer " + tokenProvider.generateToken(authentication);
-  }
 
   @Test
   public void invalidExerciseId() throws Exception {
