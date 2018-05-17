@@ -85,7 +85,26 @@ export default {
   },
 
   handleLoginSubmit() {
-    this.postData(this.state, 'login');
+    this.postLoginData(this.state).then(resData => {
+      if (resData.status >= 200 && resData.status < 300) {
+        window.localStorage.setItem(
+          'HUNTeR-Token',
+          resData.data.tokenType + ' ' + resData.data.token
+        );
+        this.setState({showSuccess: true});
+        setTimeout(() => {
+          this.redirectAfterLogin().then(redirectData => {
+            window.localStorage.setItem(
+              'HUNTeR-Redirect',
+              redirectData.headers['x-hunter-redirect']
+            );
+            this.setState({fireRedirect: true, showSuccess: false});
+          });
+        }, 1500);
+      } else {
+        this.setState({showLoginError: true});
+      }
+    });
   },
 
   handleNewParticipantSubmit() {
