@@ -3,6 +3,8 @@ package ch.japt.epj.model.data;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Exercise {
@@ -13,11 +15,15 @@ public class Exercise {
 
   private String name;
 
-  @OneToMany private Collection<Location> locations = new ArrayList<>();
-
   @OneToMany private Collection<Answer> answerTemplates = new ArrayList<>();
 
-  @OneToMany private Collection<Response> responses = new ArrayList<>();
+  @ManyToMany(mappedBy = "exercises")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<Location> locations = new ArrayList<>();
+
+  @ManyToMany(mappedBy = "exercises")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<Quiz> quizzes = new ArrayList<>();
 
   private String question;
 
@@ -41,14 +47,6 @@ public class Exercise {
     this.name = name;
   }
 
-  public Collection<Location> getLocations() {
-    return locations;
-  }
-
-  public void addLocation(Location location) {
-    this.locations.add(location);
-  }
-
   public long getExerciseId() {
     return exerciseId;
   }
@@ -59,5 +57,21 @@ public class Exercise {
 
   public void setQuestion(String question) {
     this.question = question;
+  }
+
+  public Collection<Location> getLocations() {
+    return locations;
+  }
+
+  public void addLocation(Location location) {
+    this.locations.add(location);
+  }
+
+  public Collection<Quiz> getQuizzes() {
+    return quizzes;
+  }
+
+  public void addQuiz(Quiz quiz) {
+    this.quizzes.add(quiz);
   }
 }

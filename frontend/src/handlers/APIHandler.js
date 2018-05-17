@@ -70,18 +70,20 @@ export default {
       name: data.name,
       question: data.question,
       answers: [
-        {text: data.answer0, checked: data.checked0},
-        {text: data.answer1, checked: data.checked1},
-        {text: data.answer2, checked: data.checked2},
-        {text: data.answer3, checked: data.checked3}
-      ]
+        {text: data.answer0},
+        {text: data.answer1},
+        {text: data.answer2},
+        {text: data.answer3}
+      ],
+      correctAnswer: data.answerId
     };
   },
 
   prepareParticipantData(data) {
     return {
-      exerciseID: data.exerciseID,
-      answers: [data.checked0, data.checked1, data.checked2, data.checked3]
+      participantId: data.participantId,
+      exerciseId: data.exerciseId,
+      answerId: data.answerId
     };
   },
 

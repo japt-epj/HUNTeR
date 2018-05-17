@@ -22,7 +22,7 @@ export default {
                     <Form.Radio
                       value={element.id}
                       checked={this.state.selectedQuizId === element.id}
-                      onChange={this.handleSelectChange}
+                      onChange={this.handleQuizSelectChange}
                     />
                   </Table.Cell>
                 )}
