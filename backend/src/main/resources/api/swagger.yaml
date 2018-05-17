@@ -170,7 +170,7 @@ paths:
       parameters:
       - in: "path"
         name: "id"
-        required: true
+        required: false
         type: "array"
         items:
           type: "integer"
@@ -184,31 +184,50 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Person"
-  /person:
-   put:
+  /person/current:
+   get:
       tags:
       - "person"
-      summary: "Update an existing person"
+      summary: "Get current person"
       description: ""
-      operationId: "updatePerson"
-      consumes:
-      - "application/json"
+      operationId: "getCurrentPerson"
       produces:
       - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "person object that needs to be editted in the store"
-        required: true
-        schema:
-          $ref: "#/definitions/RegPerson"
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+
       responses:
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "person not found"
-        405:
-          description: "Validation exception"
+        200:
+          description: "Current person found"
+          schema:
+              $ref: "#/definitions/Person"
+  /person:
+  put:
+        tags:
+        - "person"
+        summary: "Update an existing person"
+        description: ""
+        operationId: "updatePerson"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "person object that needs to be editted in the store"
+          required: true
+          schema:
+            $ref: "#/definitions/RegPerson"
+        responses:
+          400:
+            description: "Invalid ID supplied"
+          404:
+            description: "person not found"
+          405:
+            description: "Validation exception"
 
 
   /auth/register:
