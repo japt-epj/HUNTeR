@@ -60,6 +60,7 @@ export default class TeacherExecution extends React.Component {
 
     this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
+    this.handleQuizSelectChange = FormHandler.handleQuizSelectChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
     this.getFormError = ModalHandler.getFormError.bind(this);
   }
@@ -121,10 +122,6 @@ export default class TeacherExecution extends React.Component {
 
   handleEndMomentChange = event => {
     this.setState({endDate: moment(event._d)});
-  };
-
-  handleSelectChange = (e, {value}) => {
-    this.setState({selectedQuizId: value});
   };
 
   isStartDateValid = current => {
