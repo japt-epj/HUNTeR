@@ -18,13 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class ExecutionControllerTests {
+public class ExecutionControllerTests extends AuthenticatedControllerTest {
+
   @Autowired private MockMvc mvc;
 
   //  @Test
   public void getExecutionById() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/execution/1").contentType(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/execution/1")
+            .header("Authorization", completeToken)
+            .contentType(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())
@@ -38,6 +41,7 @@ public class ExecutionControllerTests {
   public void createExecutionInvalidPayload() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/execution")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content("{}");
 
@@ -48,6 +52,7 @@ public class ExecutionControllerTests {
   public void createExecution() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/execution")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
                 "{\"name\":\"test\",\"quizId\":4,\"participants\":[5,12,9,14,10],\"startDate\":\"2018-05-04T10:21:10.356Z\",\"endDate\":\"2018-05-04T11:21:10.356Z\"}");
@@ -58,7 +63,9 @@ public class ExecutionControllerTests {
   //  @Test
   public void getAllExecutions() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/execution").contentType(MediaType.APPLICATION_JSON);
+        MockMvcRequestBuilders.get("/api/execution")
+            .header("Authorization", completeToken)
+            .contentType(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())

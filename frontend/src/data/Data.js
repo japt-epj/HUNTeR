@@ -1,42 +1,22 @@
 export default {
   getPathsTeacher() {
     return [
-      {
-        path: 'exercise',
-        name: 'Aufgabe erstellen',
-        component: 'ParticipantExercise',
-        icon: 'tasks'
-      },
+      {path: 'exercise', name: 'Aufgabe erstellen', icon: 'tasks'},
       {
         path: 'exerciseOverview',
         name: 'Übersicht der Aufgaben',
-        component: 'TeacherExercisesOverview',
         icon: 'stack exchange'
       },
-      {
-        path: 'quiz',
-        name: 'Quiz erstellen',
-        component: 'Quiz',
-        icon: 'tasks'
-      },
+      {path: 'quiz', name: 'Quiz erstellen', icon: 'tasks'},
       {
         path: 'quizOverview',
         name: 'Übersicht der Quizzes',
-        component: 'TeacherQuizOverview',
         icon: 'stack exchange'
       },
-      {
-        path: 'execution',
-        name: 'Ausführung erstellen',
-        component: 'TeacherExecution',
-        icon: 'calendar'
-      },
-      {
-        path: 'newUser',
-        name: 'Schüler erstellen',
-        component: 'TeacherNewParticipant',
-        icon: 'add user'
-      }
+
+      {path: 'execution', name: 'Ausführung erstellen', icon: 'calendar'},
+      {path: 'newUser', name: 'Schüler erstellen', icon: 'add user'},
+      {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
   },
 
@@ -66,6 +46,7 @@ export default {
         component: 'ParticipantScore',
         icon: 'trophy'
       }
+      {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
   },
 

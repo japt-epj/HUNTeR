@@ -50,10 +50,7 @@ paths:
       responses:
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:exercises"
-        - "read:exercises"
+
     put:
       tags:
       - "exercise"
@@ -78,10 +75,7 @@ paths:
           description: "Exercise not found"
         405:
           description: "Validation exception"
-      security:
-      - auth:
-        - "write:exercises"
-        - "read:exercises"
+
   /exercise/{id}:
     get:
       tags:
@@ -127,10 +121,6 @@ paths:
           description: "Success"
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:exercises"
-        - "read:exercises"
 
   /qrCode/{id}:
     get:
@@ -185,6 +175,8 @@ paths:
         items:
           type: "integer"
         description: "Person id, or multiple comma separated ids"
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: "People found"
@@ -217,6 +209,7 @@ paths:
           description: "person not found"
         405:
           description: "Validation exception"
+
 
   /auth/register:
     post:
@@ -259,13 +252,32 @@ paths:
           description: "Login succesful"
           schema:
             $ref: "#/definitions/JWT"
-          headers:
-            X-Expires-After:
-              type: "string"
-              format: "date-time"
-              description: "date in UTC when token expires"
         400:
           description: "Invalid email/password supplied"
+
+  /auth/entryPoint:
+    get:
+      tags:
+      - "auth"
+      summary: "Get destionation based on role"
+      description: ""
+      operationId: "getEntryPoint"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "X-HUNTeR-Frontend"
+        type: "boolean"
+
+      responses:
+        200:
+          description: "Entry point for HUNTer client provided"
+          headers:
+            X-HUNTeR-Redirect:
+              type: "string"
+              description: "Location to redirect to"
+        302:
+          description: "Entry point for non HUNTeR client provided"
 
 
   /quiz:
@@ -289,10 +301,7 @@ paths:
       responses:
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:quizzes"
-        - "read:quizzes"
+
     put:
       tags:
       - "quiz"
@@ -317,10 +326,6 @@ paths:
           description: "Execution not found"
         405:
           description: "Validation exception"
-      security:
-      - auth:
-        - "write:quizzes"
-        - "read:quizzes"
 
   /quiz/{id}:
     get:
@@ -367,10 +372,6 @@ paths:
           description: "Success"
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:quizzes"
-        - "read:quizzes"
 
   /execution:
     post:
@@ -393,10 +394,7 @@ paths:
       responses:
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:executions"
-        - "read:executions"
+
     put:
       tags:
       - "execution"
@@ -421,10 +419,7 @@ paths:
           description: "Execution not found"
         405:
           description: "Validation exception"
-      security:
-      - auth:
-        - "write:executions"
-        - "read:executions"
+
     get:
       tags:
       - "execution"
@@ -480,24 +475,14 @@ paths:
           description: "Success"
         405:
           description: "Invalid input"
-      security:
-      - auth:
-        - "write:executions"
-        - "read:executions"
+
 
 
 securityDefinitions:
-  auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:exercises: "modify exercises in your account"
-      read:exercises: "read your exercises"
-      write:executions: "modify executions in quiz"
-      read:executions: "read your executions from a quiz"
-      write:quizzes: "modify quizzes in db"
-      read:quizzes: "read your quizzes from db"
+  bearerAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
 
   api_key:
     type: "apiKey"
@@ -701,6 +686,7 @@ definitions:
         type: "string"
       password:
         type: "string"
+
 
 
 externalDocs:
