@@ -20,22 +20,22 @@ public class Location {
   private Collection<Exercise> exercises = new ArrayList<>();
 
   private double lat;
-  private double ing;
+  private double lng;
 
   public Location() {}
 
   public void setCoordinates(double lat, double ing) {
 
     this.lat = lat;
-    this.ing = ing;
+    this.lng = ing;
   }
 
   public double getLat() {
     return lat;
   }
 
-  public double getIng() {
-    return ing;
+  public double getLng() {
+    return lng;
   }
 
   public long getLocationId() {
