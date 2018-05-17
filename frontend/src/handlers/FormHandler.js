@@ -85,7 +85,7 @@ export default {
   },
 
   handleLoginSubmit() {
-    this.postData(this.state, 'login');
+    this.postLoginData(this.state);
   },
 
   handleNewParticipantSubmit() {
