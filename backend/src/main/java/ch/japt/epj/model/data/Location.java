@@ -1,5 +1,7 @@
 package ch.japt.epj.model.data;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,13 @@ public class Location {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long locationId;
 
-  @OneToOne private Quiz quiz;
+  @ManyToMany
+  @JoinTable(
+    name = "LocationExercise",
+    joinColumns = {@JoinColumn(name = "locationId")},
+    inverseJoinColumns = {@JoinColumn(name = "exerciseId")}
+  )
+  private Collection<Exercise> exercises = new ArrayList<>();
 
   private double lat;
   private double lng;
@@ -34,11 +42,11 @@ public class Location {
     return locationId;
   }
 
-  public Quiz getQuiz() {
-    return quiz;
+  public Collection<Exercise> getExercises() {
+    return exercises;
   }
 
-  public void setQuiz(Quiz quiz) {
-    this.quiz = quiz;
+  public void addExercise(Exercise exercise) {
+    this.exercises.add(exercise);
   }
 }

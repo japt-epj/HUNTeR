@@ -13,9 +13,15 @@ public class Quiz {
 
   private String name;
 
-  @OneToMany private Collection<Execution> executions = new ArrayList<>();
+  @OneToMany private Collection<Location> locations = new ArrayList<>();
 
-  @OneToMany private Collection<Exercise> exercises = new ArrayList<>();
+  @ManyToMany
+  @JoinTable(
+    name = "QuizExercise",
+    joinColumns = {@JoinColumn(name = "quizId")},
+    inverseJoinColumns = {@JoinColumn(name = "exerciseId")}
+  )
+  private Collection<Exercise> exercises = new ArrayList<>();
 
   public String getName() {
     return name;
@@ -23,14 +29,6 @@ public class Quiz {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public void addExecution(Execution execution) {
-    executions.add(execution);
-  }
-
-  public void removeExecution(Execution execution) {
-    executions.remove(execution);
   }
 
   public void addTask(Exercise exercise) {
@@ -45,11 +43,15 @@ public class Quiz {
     return quizId;
   }
 
-  public Collection<Execution> getExecutions() {
-    return executions;
+  public Collection<Exercise> getTasks() {
+    return exercises;
   }
 
-  public Collection<Exercise> getExercises() {
-    return exercises;
+  public Collection<Location> getLocations() {
+    return locations;
+  }
+
+  public void addLocation(Location location) {
+    this.locations.add(location);
   }
 }
