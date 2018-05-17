@@ -23,7 +23,9 @@ public class PersonModel {
 
   public PersonModel(@Autowired PersonRepository persons) {
     this.persons = persons;
-    mapper.createTypeMap(Person.class, PersonDto.class);
+    mapper
+        .createTypeMap(Person.class, PersonDto.class)
+        .addMappings(m -> m.skip(PersonDto::setPassword));
   }
 
   public List<PersonDto> getPeople(List<Integer> ids) {
@@ -48,5 +50,12 @@ public class PersonModel {
               person.setLastName(body.getLastName());
               persons.save(person);
             });
+  }
+
+  public PersonDto getPerson(Long id) {
+    return persons
+        .findByPersonId(id)
+        .map(person -> mapper.map(person, PersonDto.class))
+        .orElseThrow(() -> new IllegalArgumentException("Unable to find current person."));
   }
 }
