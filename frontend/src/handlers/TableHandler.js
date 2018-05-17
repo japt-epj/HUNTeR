@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Table} from 'semantic-ui-react';
+import {Checkbox, Table} from 'semantic-ui-react';
 
 export default {
   getTableHeader(cellValues) {
@@ -9,5 +9,18 @@ export default {
         {cellValue}
       </Table.HeaderCell>
     ));
+  },
+
+  getBulkCheckbox(pageNumber, bulkCheckbox, handleSelection) {
+    return (
+      <Table.HeaderCell>
+        <Checkbox
+          id={'Bulk' + pageNumber}
+          name={'Bulk' + pageNumber}
+          onChange={handleSelection}
+          checked={bulkCheckbox === 'Bulk' + pageNumber}
+        />
+      </Table.HeaderCell>
+    );
   }
 };

@@ -1,9 +1,6 @@
 package ch.japt.epj.configuration;
 
-import ch.japt.epj.security.CustomUserDetailsService;
-import ch.japt.epj.security.JwtAuthenticationEntryPoint;
-import ch.japt.epj.security.JwtAuthenticationFilter;
-import ch.japt.epj.security.JwtTokenProvider;
+import ch.japt.epj.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final JwtAuthenticationEntryPoint unauthorizedHandler;
   @Autowired JwtTokenProvider tokenProvider;
   @Autowired CustomUserDetailsService customUserDetailsService;
 
-  //    private final CustomUserDetailsService customUserDetailsService;
+  private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
   public WebSecurityConfig(
       @Autowired JwtAuthenticationEntryPoint unauthorizedHandler,
@@ -56,11 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // these paths are allowed free access
-    String[] allowed = {"/", "/*", "/**", "/static/**/*"};
+    String[] allowed = {"/api/auth/**"};
 
-    http
-        //                .cors()
-        //                    .and()
+    http.cors()
+        .and()
         .csrf()
         .disable()
         .exceptionHandling()
@@ -72,19 +67,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(allowed)
         .permitAll()
-        .antMatchers("/api/auth/**")
-        .permitAll()
-        //                .antMatchers("/api/**")
-        //                    .permitAll()
         .anyRequest()
         .authenticated()
         .and()
-        //                .formLogin()
-        //                    // uncommenting this should enable a default login form
-        //                    // we need to replace this with a custom one
-        //                    //.loginPage("login")
-        //                    .permitAll()
-        //                    .and()
+        .formLogin()
+        //                uncommenting this should enable a default login form
+        //                we need to replace this with a custom one
+        .loginPage("/")
+        .permitAll()
+        .and()
         .logout()
         .permitAll();
     //

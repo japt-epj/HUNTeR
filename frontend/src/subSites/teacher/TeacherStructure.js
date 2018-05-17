@@ -6,11 +6,12 @@ import '../../style/index.css';
 
 import getHome from '../../handlers/getHome';
 import TeacherExercise from './TeacherExercise';
-import ExercisesOverview from './TeacherExercisesOverview';
+import TeacherExerciseOverview from './TeacherExerciseOverview';
 import TeacherNewParticipant from './TeacherNewParticipant';
-import Quiz from './TeacherQuiz';
+import TeacherQuiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
 
+import config from '../../config/config';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
@@ -49,15 +50,27 @@ export default class TeacherStructure extends React.Component {
                     <Route path="/exercise" component={TeacherExercise} />
                     <Route
                       path="/exerciseOverview"
-                      component={ExercisesOverview}
+                      component={TeacherExerciseOverview}
                     />
-                    <Route path="/quiz" component={Quiz} />
+                    <Route path="/quiz" component={TeacherQuiz} />
                     <Route
                       path="/quizOverview"
                       component={TeacherQuizOverview}
                     />
                     <Route path="/execution" component={TeacherExecution} />
                     <Route path="/newUser" component={TeacherNewParticipant} />
+                    <Route
+                      path="/logout"
+                      render={() => {
+                        return (
+                          <div>
+                            {window.localStorage.removeItem('HUNTeR-Redirect')}
+                            {window.localStorage.removeItem('HUNTeR-Token')}
+                            {window.location.replace(config.mainURL)}
+                          </div>
+                        );
+                      }}
+                    />
                     <Route component={NotFound} />
                   </Switch>
                 </Sidebar.Pusher>
