@@ -21,6 +21,10 @@ public class Exercise {
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Location> locations = new ArrayList<>();
 
+  @ManyToMany(mappedBy = "exercises")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<Quiz> quizzes = new ArrayList<>();
+
   private String question;
 
   public void addAnswerTemplate(Answer answerTemplate) {
@@ -61,5 +65,13 @@ public class Exercise {
 
   public void addLocation(Location location) {
     this.locations.add(location);
+  }
+
+  public Collection<Quiz> getQuizzes() {
+    return quizzes;
+  }
+
+  public void addQuiz(Quiz quiz) {
+    this.quizzes.add(quiz);
   }
 }

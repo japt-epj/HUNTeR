@@ -15,7 +15,13 @@ public class Quiz {
 
   @OneToMany private Collection<Location> locations = new ArrayList<>();
 
-  @OneToMany private Collection<Exercise> exercises = new ArrayList<>();
+  @ManyToMany
+  @JoinTable(
+    name = "QuizExercise",
+    joinColumns = {@JoinColumn(name = "quizId")},
+    inverseJoinColumns = {@JoinColumn(name = "exerciseId")}
+  )
+  private Collection<Exercise> exercises = new ArrayList<>();
 
   public String getName() {
     return name;
@@ -37,7 +43,7 @@ public class Quiz {
     return quizId;
   }
 
-  public Collection<Exercise> getExercises() {
+  public Collection<Exercise> getTasks() {
     return exercises;
   }
 
