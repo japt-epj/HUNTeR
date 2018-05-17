@@ -10,6 +10,7 @@ import Settings from './ParticipantSetting';
 import ParticipantScore from './ParticipantScore';
 import ParticipantExercise from './ParticipantExercise';
 
+import Logout from '../Logout';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
@@ -48,6 +49,12 @@ export default class ParticipantStructure extends React.Component {
                     <Route path="/scan" component={ParticipantScanExercise} />
                     <Route path="/score" component={ParticipantScore} />
                     <Route path="/exercise" component={ParticipantExercise} />
+                    <Route
+                      path="/logout"
+                      render={() => {
+                        return Logout();
+                      }}
+                    />
                     <Route component={NotFound} />
                   </Switch>
                 </Sidebar.Pusher>

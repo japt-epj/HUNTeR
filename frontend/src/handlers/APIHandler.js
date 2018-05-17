@@ -3,93 +3,43 @@ import fileDownload from 'js-file-download';
 
 import config from '../config/config';
 
+import getAxiosHeader from './getAxiosHeader';
+
 export default {
   getExerciseArray(exerciseIDs) {
     return axios
-      .get(config.baseurl + 'exercise/' + exerciseIDs, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      .catch(err => console.warn(err));
-  },
-
-  getParticipant(participantId) {
-    return axios
-      .get(config.baseurl + 'person/' + participantId, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
+      .get(config.apiURL + 'exercise/' + exerciseIDs, {
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
   },
 
   downloadQRCode(exerciseID) {
     return axios
-      .get(config.baseurl + 'qrCode/' + exerciseID, {
-        headers: {
-          Accept: 'image/png',
-          'Content-Type': 'image/png'
-        },
+      .get(config.apiURL + 'qrCode/' + exerciseID, {
+        headers: getAxiosHeader('image/png'),
         responseType: 'arraybuffer'
       })
       .then(res => fileDownload(res.data, 'qrCode' + exerciseID + '.png'))
       .catch(err => console.warn(err));
   },
 
-  getExercises(page, limit) {
-    let requestURL = config.baseurl + 'exercise/';
+  getPaginatedElements(path, page, limit) {
+    let requestURL = config.apiURL + path + '/';
     if (page !== undefined && limit !== undefined) {
       requestURL += '?page=' + (page - 1) + '&limit=' + limit;
     }
     return axios
       .get(requestURL, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      .catch(err => console.warn(err));
-  },
-
-  getQuizzes(page, limit) {
-    let requestURL = config.baseurl + 'quiz/';
-    if (page !== undefined && limit !== undefined) {
-      requestURL += '?page=' + (page - 1) + '&limit=' + limit;
-    }
-    return axios
-      .get(requestURL, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      .catch(err => console.warn(err));
-  },
-
-  getParticipants(page, limit) {
-    let requestURL = config.baseurl + 'person/';
-    if (page !== undefined && limit !== undefined) {
-      requestURL += '?page=' + (page - 1) + '&limit=' + limit;
-    }
-    return axios
-      .get(requestURL, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
   },
 
   postData(data, path) {
     axios
-      .post(config.baseurl + path + '/', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      .post(config.apiURL + path + '/', data, {
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
@@ -97,17 +47,22 @@ export default {
       });
   },
 
-  putData(data, path) {
-    axios
-      .put(config.baseurl + path + '/', data, {
-        headers: {
-          'Content-Type': 'application/json'
+  postLoginData(data) {
+    return axios
+      .post(
+        config.apiURL + 'auth/login/',
+        {
+          email: data.email,
+          password: data.password
+        },
+        {
+          headers: getAxiosHeader('application/json'),
+          validateStatus: function(status) {
+            return status === 401 || (status >= 200 && status < 300);
+          }
         }
-      })
-      .catch(err => console.error('Error:', err))
-      .then(() => {
-        this.setState({fireRedirect: true});
-      });
+      )
+      .catch(err => console.error('Error:', err));
   },
 
   prepareTeacherData(data) {
@@ -130,5 +85,34 @@ export default {
       exerciseId: data.exerciseId,
       answerId: data.answerId
     };
+  },
+
+  redirectAfterLogin() {
+    return axios
+      .get(config.apiURL + 'auth/entryPoint', {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.error(err));
+  },
+
+  getParticipant(participantId) {
+    return axios
+      .get(config.apiURL + 'person/' + participantId, {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.warn(err));
+  },
+
+  putData(data, path) {
+    axios
+      .put(config.apiURL + path + '/', data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .catch(err => console.error('Error:', err))
+      .then(() => {
+        this.setState({fireRedirect: true});
+      });
   }
 };

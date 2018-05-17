@@ -1,5 +1,5 @@
 #!/bin/bash
-# devs will generally run this config file, so this is a fairly 
+# devs will generally run this config file, so this is a fairly
 # safe place to do this.
 git config core.hooksPath .githooks
 
