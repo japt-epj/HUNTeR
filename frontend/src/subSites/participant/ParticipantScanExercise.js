@@ -37,7 +37,7 @@ export default class ParticipantScanExercise extends React.Component {
           });
           this.setState({
             exercise: {
-              id: exercise.id,
+              exerciseId: exercise.id,
               name: exercise.name,
               question: exercise.question,
               answers: exercise.answers

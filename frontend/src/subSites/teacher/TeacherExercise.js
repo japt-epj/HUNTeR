@@ -14,22 +14,20 @@ export default class TeacherExercise extends React.Component {
     this.state = {
       formOK: true,
       fireRedirect: false,
-      id: '',
+      exerciseId: '',
       name: '',
       question: '',
       answer0: '',
-      checked0: false,
       answer1: '',
-      checked1: false,
       answer2: '',
-      checked2: false,
       answer3: '',
-      checked3: false,
+      answerId: '',
       answersAllowed: 4
     };
 
     this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
+    this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
     this.getFormError = ModalHandler.getFormError.bind(this);
   }
@@ -66,32 +64,28 @@ export default class TeacherExercise extends React.Component {
             <Table.Body>
               {new Array(this.state.answersAllowed)
                 .fill()
-                .map((item, index) => {
-                  return (
-                    <Table.Row key={'TableRow' + index}>
-                      <Table.Cell collapsing>{index + 1}</Table.Cell>
-                      <Table.Cell>
-                        <Form.Input
-                          fluid
-                          name={'answer' + index}
-                          value={this.state['answer' + index]}
-                          onChange={this.handleChange}
-                          placeholder="Bitte Antwort eingeben"
-                          required
-                        />
-                      </Table.Cell>
-                      <Table.Cell collapsing>
-                        <Form.Field
-                          control="input"
-                          type="checkbox"
-                          name={'checked' + index}
-                          onChange={this.handleChange}
-                          checked={this.state['checked' + index]}
-                        />
-                      </Table.Cell>
-                    </Table.Row>
-                  );
-                })}
+                .map((item, index) => (
+                  <Table.Row key={'TableRow' + index}>
+                    <Table.Cell collapsing>{index + 1}</Table.Cell>
+                    <Table.Cell>
+                      <Form.Input
+                        fluid
+                        name={'answer' + index}
+                        value={this.state['answer' + index]}
+                        onChange={this.handleChange}
+                        placeholder="Bitte Antwort eingeben"
+                        required
+                      />
+                    </Table.Cell>
+                    <Table.Cell collapsing>
+                      <Form.Radio
+                        value={index}
+                        onChange={this.handleSelectChange}
+                        checked={this.state.answerId === index}
+                      />
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
             </Table.Body>
           </Table>
           <Form.Button content="Submit" />

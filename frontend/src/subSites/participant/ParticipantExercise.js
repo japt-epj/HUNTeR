@@ -11,23 +11,22 @@ export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.location.state.exercise.id,
+      exerciseId: this.props.location.state.exercise.id,
       //TODO: Send the execution Id from server to send the response back to the correct execution
       executionId: 1,
       name: this.props.location.state.exercise.name,
       question: this.props.location.state.exercise.question,
-      checked0: false,
-      answer0: this.props.location.state.exercise.answers[0].text,
-      checked1: false,
-      answer1: this.props.location.state.exercise.answers[1].text,
-      checked2: false,
-      answer2: this.props.location.state.exercise.answers[2].text,
-      checked3: false,
-      answer3: this.props.location.state.exercise.answers[3].text,
+      options: [
+        this.props.location.state.exercise.answers[0].text,
+        this.props.location.state.exercise.answers[1].text,
+        this.props.location.state.exercise.answers[2].text,
+        this.props.location.state.exercise.answers[3].text
+      ],
+      answerId: '',
       fireRedirect: false
     };
     this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
+    this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
     this.getParticipant = APIHandler.getParticipant.bind(this);
   }
@@ -50,20 +49,13 @@ export default class ParticipantExercise extends React.Component {
             {this.state.question}
           </Grid.Row>
           <Grid.Row>
-            {new Array(4).fill().map((element, index) => {
+            {this.state.options.map((element, index) => {
               return (
-                <Form.Field
-                  control="input"
-                  type="checkbox"
-                  label={
-                    'Antwort ' +
-                    (index + 1) +
-                    ' : ' +
-                    this.state['answer' + index]
-                  }
-                  name={'checked' + index}
-                  onChange={this.handleChange}
-                  checked={this.state['checked' + index]}
+                <Form.Radio
+                  value={index}
+                  label={'Antwort ' + (index + 1) + ' : ' + element}
+                  onChange={this.handleSelectChange}
+                  checked={this.state.answerId === index}
                 />
               );
             })}
