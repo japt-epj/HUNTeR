@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // these paths are allowed free access
-    String[] allowed = {"/api/auth/**"};
+    String[] allowed = {"/api/auth/**", "/static/**"};
 
     http.cors()
         .and()
