@@ -27,7 +27,7 @@ export default {
   downloadPDFCode(quizID) {
     return axios
       .get(config.apiURL + 'quiz/' + quizID + '/print', {
-        headers: getAxiosHeader('file/pdf'),
+        headers: getAxiosHeader('application/pdf'),
         responseType: 'arraybuffer'
       })
       .then(res => fileDownload(res.data, 'qrCodes-quiz' + quizID + '.pdf'))
