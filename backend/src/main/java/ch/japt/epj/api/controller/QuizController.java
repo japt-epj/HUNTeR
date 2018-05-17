@@ -2,12 +2,14 @@ package ch.japt.epj.api.controller;
 
 import ch.japt.epj.api.PaginatedQuiz;
 import ch.japt.epj.library.SortParameterHandler;
+import ch.japt.epj.model.QrModel;
 import ch.japt.epj.model.QuizModel;
 import ch.japt.epj.model.dto.NewQuizDto;
 import io.swagger.annotations.Api;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api")
 public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   private final QuizModel quizModel;
+  private final QrModel qrModel;
 
-  public QuizController(@Autowired QuizModel quizModel) {
+  public QuizController(@Autowired QuizModel quizModel, @Autowired QrModel qrModel) {
     this.quizModel = quizModel;
+    this.qrModel = qrModel;
   }
 
   @Override
@@ -40,8 +44,10 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   }
 
   @Override
-  public ResponseEntity<Resource> quizIdPrintGet(Long id) {
-    return null;
+  public ResponseEntity<Resource> quizIdPrintGet(@Valid @PathVariable("id") Long id) {
+    byte[] bytes = qrModel.generatePdf(id);
+    ByteArrayResource resource = new ByteArrayResource(bytes);
+    return new ResponseEntity<>(resource, HttpStatus.OK);
   }
 
   @Override
