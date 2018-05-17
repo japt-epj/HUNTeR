@@ -22,9 +22,30 @@ export default {
 
   getPathsParticipant() {
     return [
-      {path: 'settings', name: 'Persönliches', icon: 'setting'},
-      {path: 'scan', name: 'Aufgabe scannen', icon: 'camera retro'},
-      {path: 'score', name: 'Aktueller ParticipantScore', icon: 'trophy'},
+      {
+        path: 'settings',
+        name: 'Persönliches',
+        component: 'Settings',
+        icon: 'setting'
+      },
+      {
+        path: 'nextLocation',
+        name: 'Nächste Standorte',
+        component: 'ParticipantNextLocation',
+        icon: 'point'
+      },
+      {
+        path: 'scan',
+        name: 'Aufgabe scannen',
+        component: 'ParticipantScanExercise',
+        icon: 'camera retro'
+      },
+      {
+        path: 'score',
+        name: 'Aktueller ParticipantScore',
+        component: 'ParticipantScore',
+        icon: 'trophy'
+      },
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
   },

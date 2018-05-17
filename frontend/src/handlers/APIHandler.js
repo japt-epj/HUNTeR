@@ -36,6 +36,18 @@ export default {
       .catch(err => console.warn(err));
   },
 
+  getNextLocation(id) {
+    let requestURL = config.baseurl + 'location/';
+    return axios
+      .get(requestURL, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .catch(err => console.warn(err));
+  },
+
   postData(data, path) {
     axios
       .post(config.apiURL + path + '/', data, {

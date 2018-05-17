@@ -11,7 +11,7 @@ export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      delay: 300,
+      delay: 500,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exercise: '',
@@ -59,34 +59,36 @@ export default class ParticipantScanExercise extends React.Component {
     console.error(err);
   };
 
+  locate = () => {
+    navigator.geolocation.getCurrentPosition(position =>
+      this.setState({
+        position: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        }
+      })
+    );
+  };
+
   render() {
     return (
       <div>
         {this.state.showAgreement ? (
           this.getAgreement()
         ) : (
-          <div>
-            {navigator.geolocation.getCurrentPosition(position =>
-              this.setState({
-                position: {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude
-                }
-              })
-            )}
-            <QrReader
-              delay={this.state.delay}
-              onError={this.handleError}
-              onScan={this.handleScan}
-            />
-            <Message
-              icon="camera retro"
-              size="mini"
-              header={this.state.displayText}
-              error={this.state.scanError}
-            />
-          </div>
+          <QrReader
+            delay={this.state.delay}
+            onError={this.handleError}
+            onScan={this.handleScan}
+          />
         )}
+
+        <Message
+          icon="camera retro"
+          size="mini"
+          header={this.state.displayText}
+          error={this.state.scanError}
+        />
 
         {this.state.fireRedirect && (
           <Redirect
