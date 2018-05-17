@@ -24,7 +24,7 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  downloadPDFCode(quizID) {
+  downloadQRCodePDF(quizID) {
     return axios
       .get(config.apiURL + 'quiz/' + quizID + '/print', {
         headers: getAxiosHeader('application/pdf'),
