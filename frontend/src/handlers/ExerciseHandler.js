@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
@@ -46,7 +47,7 @@ export default {
     APIHandler.getExerciseArray(
       newState.slice((currentPage - 1) * limit, currentPage * limit)
     ).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({
           selectedExercises: newState.length !== 0 ? resData.data : []
         });

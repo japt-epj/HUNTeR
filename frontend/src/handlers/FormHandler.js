@@ -1,4 +1,5 @@
 import APIHandler from './APIHandler';
+import {OK, NOT_FOUND} from 'http-status-codes';
 
 export default {
   handleChange(event) {
@@ -85,7 +86,7 @@ export default {
 
   handleLoginSubmit() {
     this.postLoginData(this.state).then(resData => {
-      if (resData.status >= 200 && resData.status < 300) {
+      if (resData.status === OK) {
         window.localStorage.setItem(
           'HUNTeR-Token',
           resData.data.tokenType + ' ' + resData.data.token

@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
+import {NOT_FOUND} from 'http-status-codes';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
@@ -35,7 +36,7 @@ export default class TeacherExerciseOverview extends React.Component {
 
   getExercises = (page, limit) => {
     APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,
           maxPage: resData.data.totalPages,

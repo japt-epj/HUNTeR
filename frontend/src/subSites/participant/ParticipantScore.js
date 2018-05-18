@@ -1,4 +1,5 @@
 import React from 'react';
+import {OK} from 'http-status-codes';
 
 import {
   Button,
@@ -31,7 +32,7 @@ export default class ParticipantScore extends React.Component {
 
   getQuizzes = () => {
     APIHandler.getPaginatedElements('quiz', 1, 200).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content.map(element => {
             element.key = element.id;
