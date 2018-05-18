@@ -24,6 +24,16 @@ export default {
       .catch(err => console.warn(err));
   },
 
+  downloadQRCodePDF(quizID) {
+    return axios
+      .get(config.apiURL + 'quiz/' + quizID + '/print', {
+        headers: getAxiosHeader('application/pdf'),
+        responseType: 'arraybuffer'
+      })
+      .then(res => fileDownload(res.data, 'qrCodes-quiz' + quizID + '.pdf'))
+      .catch(err => console.warn(err));
+  },
+
   getPaginatedElements(path, page, limit) {
     let requestURL = config.apiURL + path + '/';
     if (page !== undefined && limit !== undefined) {
