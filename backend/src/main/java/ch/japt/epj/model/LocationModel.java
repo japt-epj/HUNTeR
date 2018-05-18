@@ -3,13 +3,11 @@ package ch.japt.epj.model;
 import ch.japt.epj.library.LocationSorter;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Location;
-import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
 import ch.japt.epj.repository.LocationRepository;
 import ch.japt.epj.repository.QuizRepository;
 import ch.japt.epj.repository.ResponseRepository;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,12 +29,14 @@ public class LocationModel {
 
   public NextExerciseLocationDto getExerciseLocation(int id) {
     // TODO: Change static userId to user Id sent from frontend
-    ArrayList<Exercise> solvedExercises =
-        responses
-            .findByPersonId(1L)
-            .stream()
-            .map(Response::getExercise)
-            .collect(Collectors.toCollection(ArrayList::new));
+    //    Response reponse = responses.getAll().(response -> response.getPerson().getPersonId() ==
+    // id);
+    ArrayList<Exercise> solvedExercises = null;
+    //        responses
+    //            .findByPersonId(1L)
+    //            .stream()
+    //            .map(Response::getExercise)
+    //            .collect(Collectors.toCollection(ArrayList::new));
     ArrayList<Location> allLocationsSorted = new ArrayList<>();
 
     quizzes
