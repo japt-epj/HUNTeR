@@ -38,8 +38,19 @@ INSERT INTO answer (answer, checked) VALUES
   ('Anbaggern', false),
   ('Rumkriegen', false),
   ('Flachlegen', false),
-  ('Besteigen', true);
-
+  ('Besteigen', true),
+  ('Flirten', false),
+  ('anbaggern', false),
+  ('Bräute aufreissen', false),
+  ('Rum machen', true),
+  ('Sonicht', false),
+  ('Soja', true),
+  ('Soschoneher', false),
+  ('Sovielleicht', true),
+  ('mit Schulden', false),
+  ('knietief im Dispo', false),
+  ('in der Kreide', true),
+  ('auf Pump', false);
 
 
 INSERT INTO exercise (name, question) VALUES
@@ -52,19 +63,34 @@ INSERT INTO exercise (name, question) VALUES
   ('Hygiene', '50 Euro! „Wer“ kommt häufig bei der Körperpflege zum Einsatz'),
   ('Anatomie', 'Wer sich durch einen unwegsamen Laubwald kämpft, der streift bestimmt auch mit der...?'),
   ('Arbeitswelt', 'Sind sie gute Kollegen, arbeiten auch die härtesten Machos..?'),
-  ('Sexualkunde', 'Was machte Reinhold Messner mit dem Mount Everest?');
+  ('Sexualkunde', 'Was machte Reinhold Messner mit dem Mount Everest?'),
+  ('Kulturgüter', 'Eines muss man den Karibikbewohnern wirklich lassen: Sie können gut...'),
+  ('Kulturgüter', 'Was kommt in Ostasien häufig auf den Tisch?'),
+  ('Tiere', 'Die Dinosaurier lebten...?');
+
+INSERT INTO location (lat, lng) VALUES
+  (47.22375196850436, 8.817536830902101),
+  (47.222367088752726, 8.81709158420563),
+  (47.22379202212541, 8.816796541213991),
+  (47.22363578331323, 8.815970420837404),
+  (47.223621120092204, 8.81808400154114),
+  (47.22324232605475, 8.818652629852297),
+  (47.222367088752726, 8.81709158420563),
+  (47.22313229775402, 8.816512227058412),
+  (47.22272826099045, 8.817917704582216),
+  (47.22386145792592, 8.815600275993349);
 
 INSERT INTO quiz (name) VALUES
-    ('Mathe'),
-    ('Englisch'),
-    ('Deutsch'),
-    ('Biologie'),
-    ('Nahkampf'),
-    ('StGB'),
-    ('Informatik'),
-    ('Geologie');
+  ('Natur'),
+  ('Tiere'),
+  ('Kulturgüter'),
+  ('Biologie'),
+  ('Nahkampf'),
+  ('StGB'),
+  ('Informatik'),
+  ('Geologie');
 
- INSERT INTO person (email, first_name, last_name, is_creator, password) VALUES
+INSERT INTO person (email, first_name, last_name, is_creator, password) VALUES
    ('tobias.saladin@hsr.ch', 'Tobias', 'Saladin', true, '$2a$10$bX/vYIFp2BExRL6PkHTTq.3IKmFDLNHlcG0BdaxM/PHj1W.oF4MIO'),
    ('pascal.huerlimann@hsr.ch', 'Pascal', 'Hürlimann', true, '$2a$10$MwHE9md.qMTJwOe5H6eGW.NK5Rf7vuyMLgr6JTcICzfu7DJDAEPGu'),
    ('andi.hoerler@hsr.ch', 'Andi', 'Hörler', true, '$2a$10$7l.gQY32/wsh57CWMxqocOC5/VYhV1sgoIgpamm.6ddcF8TOReA5K'),
@@ -82,7 +108,32 @@ INSERT INTO quiz (name) VALUES
    ('machine@personOfInterest.com','Ernest','Thornhill',false,'$2a$10$iPhvq8dSQhEpj/AjrSxnpOVCzMimo4gumUeVTxFPFmGTjDlTZODQy');
 
 
+
 -- something something table
+INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
+  (1,2),
+  (1,3),
+  (2,1),
+  (2,2),
+  (2,13),
+  (3,11),
+  (3,12);
+
+INSERT INTO location_exercise (location_id, exercise_id) VALUES
+  (1,1),
+  (2,2),
+  (3,3),
+  (4,4),
+  (5,5),
+  (6,6),
+  (7,7),
+  (8,8),
+  (9,9),
+  (10,10),
+  (1,11),
+  (2,12),
+  (3,13);
+
 INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exercise_id) VALUES
   (1,1),
   (2,1),
@@ -123,7 +174,19 @@ INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exer
   (37,10),
   (38,10),
   (39,10),
-  (40,10);
+  (40,10),
+  (41,11),
+  (42,11),
+  (43,11),
+  (44,11),
+  (45,12),
+  (46,12),
+  (47,12),
+  (48,12),
+  (49,13),
+  (50,13),
+  (51,13),
+  (52,13);
 
 INSERT INTO role (name) VALUES
   ('ROLE_TEACHER'),
