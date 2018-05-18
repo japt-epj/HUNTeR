@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ResponseRepository extends CrudRepository<Response, Long> {
   Optional<Response> findByResponseId(Long responseId);
+
+  //  ArrayList<Response> findByPersonId(Long personId);
 }

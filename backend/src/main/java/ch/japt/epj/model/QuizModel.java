@@ -64,7 +64,7 @@ public class QuizModel {
           .ifPresent(
               exercise -> {
                 location.setCoordinates(entry.getLat(), entry.getLng());
-                location.addExercise(exercise);
+                location.setExercise(exercise);
                 locations.save(location);
                 quiz.addLocation(location);
                 quiz.addTask(exercise);

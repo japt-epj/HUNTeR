@@ -523,6 +523,25 @@ paths:
         405:
           description: "Invalid input"
 
+  /location/{id}:
+    get:
+      tags:
+      - "location"
+      summary: "Get location"
+      description: "Get location to next exercise by quizId"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: "integer"
+          description: "quiz id"
+      responses:
+        200:
+          description: "Locations found"
+          schema:
+            $ref: "#/definitions/NextExerciseLocation"
 
 
 securityDefinitions:
@@ -714,6 +733,20 @@ definitions:
         type: "integer"
         format: "int64"
         example: 1
+      lat:
+        type: "number"
+        format: "double"
+        example: 47.2232274
+      lng:
+        type: "number"
+        format: "double"
+        example: 8.8176142
+
+  NextExerciseLocation:
+    type: "object"
+    properties:
+      exerciseTitle:
+        type: "string"
       lat:
         type: "number"
         format: "double"
