@@ -2,6 +2,8 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
+
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
@@ -9,14 +11,14 @@ import viewHandler from '../../handlers/viewHandler';
 export default class TeacherQuizOverview extends React.Component {
   constructor(props) {
     super(props);
+    const defaultPageNumber = 1;
     this.state = {
       checkBox: '',
       quizzes: [],
       loadingQuiz: true,
-      pageNumber: 1,
+      pageNumber: defaultPageNumber,
       minPage: 1,
-      maxPageQuiz: '',
-      limit: 5
+      maxPageQuiz: ''
     };
 
     this.getQuizTable = QuizHandler.getQuizTable.bind(this);

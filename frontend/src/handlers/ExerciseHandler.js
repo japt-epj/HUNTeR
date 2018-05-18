@@ -59,6 +59,7 @@ export default {
 
   getSelectedExerciseTable() {
     let headerElements = ['Name', 'Standort gesetzt', 'Standort setzen'];
+    const maxElementsPerPage = 5;
     return (
       <Table>
         <Table.Header>
@@ -112,9 +113,12 @@ export default {
             <Table.HeaderCell colSpan={headerElements.length}>
               <Pagination
                 totalPages={
-                  this.state.selected.length % 5 === 0
-                    ? this.state.selected.length / 5
-                    : parseInt(this.state.selected.length / 5, 10) + 1
+                  this.state.selected.length % maxElementsPerPage === 0
+                    ? this.state.selected.length / maxElementsPerPage
+                    : parseInt(
+                        this.state.selected.length / maxElementsPerPage,
+                        10
+                      ) + 1
                 }
                 activePage={this.state.pageNumberSelected}
                 onPageChange={this.handlePageChangeSelected}

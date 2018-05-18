@@ -10,6 +10,7 @@ import ModalHandler from '../../handlers/ModalHandler';
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
+    const defaultZoomSize = 19;
     this.state = {
       showAgreement: true,
       locations: new Map(),
@@ -19,7 +20,7 @@ export default class ParticipantNextLocation extends React.Component {
       loading: true,
       map: {
         location: undefined,
-        zoom: 19
+        zoom: defaultZoomSize
       }
     };
 

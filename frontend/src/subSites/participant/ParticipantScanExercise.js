@@ -11,8 +11,9 @@ import ModalHandler from '../../handlers/ModalHandler';
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
+    const defaultDelayValue = 500;
     this.state = {
-      delay: 500,
+      delay: defaultDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exercise: '',

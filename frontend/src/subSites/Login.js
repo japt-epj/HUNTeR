@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';

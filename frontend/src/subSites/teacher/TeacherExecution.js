@@ -18,6 +18,7 @@ import viewHandler from '../../handlers/viewHandler';
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
+    const defaultPageNumber = 1;
     this.state = {
       formOK: true,
       name: '',
@@ -28,8 +29,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingUser: true,
       loadingQuiz: true,
-      limit: 5,
-      pageNumber: 1,
+      pageNumber: defaultPageNumber,
       minPage: 1,
       maxPageQuiz: '',
       maxPageParticipant: '',

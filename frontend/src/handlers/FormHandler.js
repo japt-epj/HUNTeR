@@ -1,5 +1,5 @@
 import APIHandler from './APIHandler';
-import {OK, NOT_FOUND} from 'http-status-codes';
+import {OK} from 'http-status-codes';
 
 export default {
   handleChange(event) {
@@ -19,15 +19,24 @@ export default {
   },
 
   handleExerciseSubmit() {
-    let isACheckboxSet = this.state.answerId >= 0 && this.state.answerId <= 3;
+    const minAnswerId = 0;
+    const maxAnswerId = 3;
+    let isACheckboxSet =
+      this.state.answerId >= minAnswerId && this.state.answerId <= maxAnswerId;
     if (isACheckboxSet) {
-      let userType = window.location.pathname.split('/')[1];
-      if (userType === 'teacher') {
-        this.postData(APIHandler.prepareTeacherData(this.state), 'response');
-      } else {
+      if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
+        this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
+      } else if (
+        window.localStorage.getItem('HUNTeR-Redirect') === '/participant'
+      ) {
         this.postData(
           APIHandler.prepareParticipantData(this.state),
           'response'
+        );
+      } else {
+        console.error(
+          'No correct HUNTeR-Redirect in window.localStorage: ' +
+            window.localStorage.getItem('HUNTeR-Redirect')
         );
       }
     } else {
@@ -92,6 +101,7 @@ export default {
           resData.data.tokenType + ' ' + resData.data.token
         );
         this.setState({showSuccess: true});
+        const waitTimeMilliSec = 3000;
         setTimeout(() => {
           this.redirectAfterLogin().then(redirectData => {
             window.localStorage.setItem(
@@ -100,7 +110,7 @@ export default {
             );
             this.setState({fireRedirect: true, showSuccess: false});
           });
-        }, 1500);
+        }, waitTimeMilliSec);
       } else {
         this.setState({showLoginError: true});
       }
