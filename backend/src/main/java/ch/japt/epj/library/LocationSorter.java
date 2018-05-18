@@ -30,6 +30,27 @@ public final class LocationSorter {
     return locations;
   }
 
+  //  public static Collection<Exercise> nearestNeighborFromExercises(Collection<Exercise> input) {
+  //    ArrayList<Exercise> exercises = new ArrayList<>(input);
+  //    for (int i = 0; i < exercises.size() - 1; i += 1) {
+  //      Edge next =
+  //          new Edge(exercises.get(i).getLocations().stream().findFirst(), locations.get(i + 1));
+  //      for (int j = i + 1; j < locations.size(); j += 1) {
+  //        Edge option = new Edge(locations.get(i), locations.get(j));
+  //        if (next.getLength() > option.getLength()) {
+  //          swap(locations, i, j);
+  //        }
+  //      }
+  //    }
+  //    return locations;
+  //  }
+
+  //  private static Location getLocationFromExercise(Exercise exercise) {
+  //    return exer.getLocations().stream().findFirst();
+  //  } private static Location getLocationFromExercise(Exercise exercise) {
+  ////    return exer.getLocations().stream().findFirst();
+  ////  }
+
   private static void swap(ArrayList<Location> locations, int i, int j) {
     Location temp = locations.get(i + 1);
     locations.set(i + 1, locations.get(j));
