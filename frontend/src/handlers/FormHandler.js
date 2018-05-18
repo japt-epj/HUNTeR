@@ -111,14 +111,20 @@ export default {
   },
 
   handleEditParticipant() {
-    this.putData(
-      {
-        id: this.state.id,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email
-      },
-      'person'
-    );
+    if (this.state.newPassword === this.state.newPasswordRepeated) {
+      this.putData(
+        {
+          id: this.state.id,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          email: this.state.email,
+          password: this.state.newPassword
+        },
+        'person'
+      );
+      this.setState({fireRedirect: true});
+    } else {
+      this.setState({showPasswordError: true});
+    }
   }
 };

@@ -5,8 +5,8 @@ import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
 import getHome from '../../handlers/getHome';
+import UserSettings from '../../components/UserSettings';
 import ParticipantScanExercise from './ParticipantScanExercise';
-import Settings from './ParticipantSetting';
 import ParticipantScore from './ParticipantScore';
 import ParticipantExercise from './ParticipantExercise';
 
@@ -45,7 +45,7 @@ export default class ParticipantStructure extends React.Component {
                       path="/"
                       render={props => getHome(Data.getPathsParticipant())}
                     />
-                    <Route path="/settings" component={Settings} />
+                    <Route path="/settings" component={UserSettings} />
                     <Route path="/scan" component={ParticipantScanExercise} />
                     <Route path="/score" component={ParticipantScore} />
                     <Route path="/exercise" component={ParticipantExercise} />

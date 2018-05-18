@@ -190,7 +190,7 @@ paths:
       - "person"
       summary: "Get current person"
       description: ""
-      operationId: "getCurrentPerson"
+      operationId: "getInformations"
       produces:
       - "application/json"
       parameters:
