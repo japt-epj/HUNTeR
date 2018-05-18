@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
+import config from '../config/config';
 import StructureHandler from '../handlers/StructureHandler';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
@@ -60,7 +61,12 @@ export default class Login extends React.Component {
                   onChange={this.handleChange}
                   required
                 />
-                <Form.Button content="Einloggen" icon="sign in" />
+                <Form.Button
+                  color={config.buttonColors.normal}
+                  icon="sign in"
+                  basic
+                  content="Einloggen"
+                />
               </Form>
             </Grid.Column>
             <Grid.Column />

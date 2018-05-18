@@ -1,7 +1,11 @@
 let config = {
   apiURL: '/api/',
   mainURL: `https://${window.location.hostname}`,
-  domain: window.location.hostname
+  domain: window.location.hostname,
+  buttonColors: {
+    normal: 'green',
+    download: 'orange'
+  }
 };
 
 if (process.env.NODE_ENV === 'development') {

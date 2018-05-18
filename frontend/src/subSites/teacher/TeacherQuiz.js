@@ -6,6 +6,7 @@ import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 import {OK} from 'http-status-codes';
 
+import config from '../../config/config';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from '../../handlers/FormHandler';
@@ -206,7 +207,7 @@ export default class TeacherQuiz extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color="green"
+                      color={config.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"
