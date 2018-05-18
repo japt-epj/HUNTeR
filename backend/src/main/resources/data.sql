@@ -83,7 +83,7 @@ INSERT INTO location (lat, lng) VALUES
 INSERT INTO quiz (name) VALUES
   ('Natur'),
   ('Tiere'),
-  ('Kulturgüter'),
+  ('Kulturgueter'),
   ('Biologie'),
   ('Nahkampf'),
   ('StGB'),
