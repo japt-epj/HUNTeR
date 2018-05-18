@@ -196,5 +196,3 @@ INSERT INTO quiz_locations (quiz_quiz_id, locations_location_id) VALUES
   (2, 5),
   (3, 6),
   (3, 7);
-
-INSERT INTO
