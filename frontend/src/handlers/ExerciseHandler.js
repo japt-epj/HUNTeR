@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
+import config from '../config/config';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
 
@@ -76,7 +77,7 @@ export default {
               </Table.Cell>
               <Table.Cell collapsing>
                 <Button
-                  color="green"
+                  color={config.buttonColors.normal}
                   basic
                   icon="point"
                   onClick={event => {
@@ -162,12 +163,16 @@ export default {
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing>
                   <NavLink to={'/exercise?id=' + element.id}>
-                    <Button color="green" icon="edit" basic />
+                    <Button
+                      color={config.buttonColors.normal}
+                      icon="edit"
+                      basic
+                    />
                   </NavLink>
                 </Table.Cell>
                 <Table.Cell collapsing>
                   <Button
-                    color="orange"
+                    color={config.buttonColors.download}
                     icon="qrcode"
                     basic
                     onClick={() => APIHandler.downloadQRCode(element.id)}
