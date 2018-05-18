@@ -15,6 +15,7 @@ public class Quiz {
 
   @OneToMany private Collection<Location> locations = new ArrayList<>();
 
+  // TODO: Check if we use this
   @ManyToMany
   @JoinTable(
     name = "QuizExercise",
