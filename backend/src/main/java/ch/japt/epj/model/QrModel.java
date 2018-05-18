@@ -16,6 +16,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.util.Matrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +50,17 @@ public class QrModel {
 
       try (PDPageContentStream content = new PDPageContentStream(document, page)) {
         content.beginText();
-        content.setFont(PDType1Font.HELVETICA, 12);
+        content.setFont(PDType1Font.HELVETICA_BOLD, 26);
+        Float center = Geometry.getCenter(page);
+        content.setTextMatrix(
+            Matrix.getTranslateInstance(
+                center.x
+                    - Geometry.getStringWidth(quiz.getName(), PDType1Font.HELVETICA_BOLD, 26) / 2,
+                page.getMediaBox().getHeight() - 26 - 10));
         content.showText(quiz.getName());
         content.endText();
-        Float center = Geometry.getCenter(page);
-        content.moveTo(center.x, center.y);
-        byte[] bytes = makeQr(quiz.getQuizId(), 20, 0).get();
+
+        byte[] bytes = makeQr(quiz.getQuizId(), 10, 0).get();
         PDImageXObject image = PDImageXObject.createFromByteArray(document, bytes, null);
         content.drawImage(image, 0f, 0f, image.getWidth(), image.getHeight());
       }
