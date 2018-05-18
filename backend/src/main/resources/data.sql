@@ -52,7 +52,6 @@ INSERT INTO answer (answer, checked) VALUES
   ('in der Kreide', true),
   ('auf Pump', false);
 
-
 INSERT INTO exercise (name, question) VALUES
   ('Tiere', 'Seit jeher haben die meisten...'),
   ('Natur und Umwelt', 'Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...'),
@@ -68,17 +67,20 @@ INSERT INTO exercise (name, question) VALUES
   ('Kulturgueter', 'Was kommt in Ostasien haeufig auf den Tisch?'),
   ('Tiere', 'Die Dinosaurier lebten...?');
 
-INSERT INTO location (lat, lng) VALUES
-  (47.22375196850436, 8.817536830902101),
-  (47.222367088752726, 8.81709158420563),
-  (47.22379202212541, 8.816796541213991),
-  (47.22363578331323, 8.815970420837404),
-  (47.223621120092204, 8.81808400154114),
-  (47.22324232605475, 8.818652629852297),
-  (47.222367088752726, 8.81709158420563),
-  (47.22313229775402, 8.816512227058412),
-  (47.22272826099045, 8.817917704582216),
-  (47.22386145792592, 8.815600275993349);
+INSERT INTO location (lat, lng, exercise_exercise_id) VALUES
+  (47.22375196850436, 8.817536830902101, 1),
+  (47.222367088752726, 8.81709158420563, 2),
+  (47.22379202212541, 8.816796541213991, 3),
+  (47.22363578331323, 8.815970420837404, 4),
+  (47.223621120092204, 8.81808400154114, 5),
+  (47.22324232605475, 8.818652629852297, 6),
+  (47.222367088752726, 8.81709158420563, 7),
+  (47.22313229775402, 8.816512227058412, 8),
+  (47.22272826099045, 8.817917704582216, 9),
+  (47.22386145792592, 8.815600275993349, 10),
+  (47.22375196850436, 8.817536830902101, 11),
+  (47.222367088752726, 8.81709158420563, 12),
+  (47.22379202212541, 8.816796541213991, 13);
 
 INSERT INTO quiz (name) VALUES
   ('Natur'),
@@ -107,7 +109,10 @@ INSERT INTO person (email, first_name, last_name, is_creator, password) VALUES
    ('lionel.fusco@personOfInterest.com','Lionel','Fusco',false,'$2a$10$mZKhymmDF6CLq8sB.5lwo.sXj21n.n4lmADQO88A9fimldR0WFxsm'),
    ('machine@personOfInterest.com','Ernest','Thornhill',false,'$2a$10$iPhvq8dSQhEpj/AjrSxnpOVCzMimo4gumUeVTxFPFmGTjDlTZODQy');
 
-
+INSERT INTO response (answer_from_person_answer_id, exercise_exercise_id, person_person_id) VALUES
+  (1, 1, 1),
+  (2, 1, 1),
+  (3, 2, 1);
 
 -- something something table
 INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
@@ -118,21 +123,6 @@ INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
   (2,13),
   (3,11),
   (3,12);
-
---INSERT INTO location_exercise (location_id, exercise_id) VALUES
---  (1,1),
---  (2,2),
---  (3,3),
---  (4,4),
---  (5,5),
---  (6,6),
---  (7,7),
---  (8,8),
---  (9,9),
---  (10,10),
---  (1,11),
---  (2,12),
---  (3,13);
 
 INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exercise_id) VALUES
   (1,1),
