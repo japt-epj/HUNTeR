@@ -68,7 +68,7 @@ export default class TeacherQuiz extends React.Component {
 
   getExercises = (page, limit) => {
     APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,
           maxPage: resData.data.totalPages,
@@ -130,7 +130,7 @@ export default class TeacherQuiz extends React.Component {
     APIHandler.getExerciseArray(
       this.state.selected.slice((currentPage - 1) * limit, currentPage * limit)
     ).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({selectedExercises: resData.data});
       } else {
         console.log('Error:' + resData);

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import fileDownload from 'js-file-download';
+import {OK, UNAUTHORIZED} from 'http-status-codes';
 
 import config from '../config/config';
-
 import getAxiosHeader from './getAxiosHeader';
 
 export default {
@@ -46,8 +46,8 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  getNextLocation(id) {
-    let requestURL = config.baseurl + 'location/';
+  getNextLocation(executionId) {
+    let requestURL = config.baseurl + 'location/' + executionId;
     return axios
       .get(requestURL, {
         headers: {
@@ -80,7 +80,7 @@ export default {
         {
           headers: getAxiosHeader('application/json'),
           validateStatus: function(status) {
-            return status === 401 || (status >= 200 && status < 300);
+            return status === UNAUTHORIZED || status === OK;
           }
         }
       )

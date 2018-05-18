@@ -62,8 +62,6 @@ export default class Login extends React.Component {
                 />
                 <Form.Button content="Einloggen" icon="sign in" />
               </Form>
-              <NavLink to={'/participant'}>Participant</NavLink>
-              <NavLink to={'/teacher'}>Teacher</NavLink>
             </Grid.Column>
             <Grid.Column />
           </Grid.Row>

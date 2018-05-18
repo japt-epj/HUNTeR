@@ -6,6 +6,7 @@ import DateTime from 'react-datetime';
 import moment from 'moment';
 import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
+import {OK} from 'http-status-codes';
 
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
@@ -62,7 +63,7 @@ export default class TeacherExecution extends React.Component {
 
   getParticipants = (page, limit) => {
     APIHandler.getPaginatedElements('person', page, limit).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
           maxPageParticipant: resData.data.totalPages,
@@ -74,7 +75,7 @@ export default class TeacherExecution extends React.Component {
 
   getQuizzes = (page, limit) => {
     APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
           maxPageQuiz: resData.data.totalPages,
