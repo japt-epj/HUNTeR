@@ -64,8 +64,8 @@ INSERT INTO exercise (name, question) VALUES
   ('Anatomie', 'Wer sich durch einen unwegsamen Laubwald kämpft, der streift bestimmt auch mit der...?'),
   ('Arbeitswelt', 'Sind sie gute Kollegen, arbeiten auch die härtesten Machos..?'),
   ('Sexualkunde', 'Was machte Reinhold Messner mit dem Mount Everest?'),
-  ('Kulturgüter', 'Eines muss man den Karibikbewohnern wirklich lassen: Sie können gut...'),
-  ('Kulturgüter', 'Was kommt in Ostasien häufig auf den Tisch?'),
+  ('Kulturgueter', 'Eines muss man den Karibikbewohnern wirklich lassen: Sie koennen gut...'),
+  ('Kulturgueter', 'Was kommt in Ostasien haeufig auf den Tisch?'),
   ('Tiere', 'Die Dinosaurier lebten...?');
 
 INSERT INTO location (lat, lng) VALUES
