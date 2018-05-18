@@ -14,6 +14,7 @@ public class Location {
   private double lat;
   private double lng;
 
+  // Is used for empty object initialization
   public Location() {}
 
   public void setCoordinates(double lat, double ing) {

@@ -12,5 +12,5 @@ public interface ResponseRepository extends CrudRepository<Response, Long> {
   Optional<Response> findByResponseId(Long responseId);
 
   @Query("select r from Response r")
-  Stream<Response> getAll();
+  Stream<Response> getAllResponses();
 }

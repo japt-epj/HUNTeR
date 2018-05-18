@@ -35,10 +35,6 @@ public class Quiz {
     exercises.add(exercise);
   }
 
-  public void removeTask(Exercise exercise) {
-    exercises.remove(exercise);
-  }
-
   public long getQuizId() {
     return quizId;
   }

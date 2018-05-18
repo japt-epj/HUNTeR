@@ -15,7 +15,7 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
-public class Mappings {
+public final class Mappings {
   private Mappings() {}
 
   public static ModelMapper exerciseMapper() {
@@ -35,21 +35,8 @@ public class Mappings {
     return mapper;
   }
 
-  public static ModelMapper executionMapper() {
-    ModelMapper mapper = new ModelMapper();
-    return mapper;
-  }
-
   public static ModelMapper responseMapper() {
     ModelMapper mapper = new ModelMapper();
-
-    //    mapper
-    //        .createTypeMap(Response.class, ResponseDto.class)
-    //        .addMapping(Response::getAnswersFromPerson, ResponseDto::setAnswers);
-    //
-    //    mapper
-    //        .createTypeMap(ResponseDto.class, Response.class)
-    //        .addMapping(ResponseDto::getAnswers, Response::setAnswersFromPerson);
     mapper
         .createTypeMap(NewAnswerDto.class, Answer.class)
         .addMapping(NewAnswerDto::getText, Answer::setAnswer);
@@ -64,11 +51,6 @@ public class Mappings {
 
     Converter<Collection<Execution>, List<ExecutionDto>> converter =
         context -> mapper.map(context.getSource(), executionDtos);
-
-    //    mapper
-    //        .createTypeMap(Quiz.class, NewQuizDto.class)
-    //        .addMappings(m -> m.using(converter).map(Quiz::getExecutions,
-    // NewQuizDto::setExecutions));
 
     mapper
         .createTypeMap(Execution.class, NewExecutionDto.class)
