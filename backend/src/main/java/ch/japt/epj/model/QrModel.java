@@ -1,9 +1,11 @@
 package ch.japt.epj.model;
 
+import ch.japt.epj.library.pdf.Geometry;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.repository.ExerciseRepository;
 import ch.japt.epj.repository.QuizRepository;
 import io.nayuki.qrcodegen.QrCode;
+import java.awt.geom.Point2D.Float;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -50,6 +52,8 @@ public class QrModel {
         content.setFont(PDType1Font.HELVETICA, 12);
         content.showText(quiz.getName());
         content.endText();
+        Float center = Geometry.getCenter(page);
+        content.moveTo(center.x, center.y);
         byte[] bytes = makeQr(quiz.getQuizId(), 20, 0).get();
         PDImageXObject image = PDImageXObject.createFromByteArray(document, bytes, null);
         content.drawImage(image, 0f, 0f, image.getWidth(), image.getHeight());
