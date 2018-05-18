@@ -12,11 +12,10 @@ import viewHandler from '../../handlers/viewHandler';
 export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
     super(props);
-    const defaultPageNumber = 1;
     this.state = {
       exercises: [],
       loading: true,
-      pageNumber: defaultPageNumber,
+      pageNumber: config.defaultNumbers.pageNumber,
       minPage: 1,
       maxPage: ''
     };
@@ -25,18 +24,18 @@ export default class TeacherExerciseOverview extends React.Component {
   }
 
   componentDidMount() {
-    this.getExercises(this.state.pageNumber, this.state.limit);
+    this.getExercises(this.state.pageNumber);
   }
 
   handlePageChangeExercises = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getExercises(element.activePage, this.state.limit);
+    this.getExercises(element.activePage);
   };
 
-  getExercises = (page, limit) => {
-    APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
+  getExercises = page => {
+    APIHandler.getPaginatedElements('exercise', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,

@@ -20,6 +20,7 @@ export default class Login extends React.Component {
       showLoginError: false,
       fireRedirect: window.localStorage.getItem('HUNTeR-Redirect') !== null
     };
+
     this.handleLoginSubmit = FormHandler.handleLoginSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.postLoginData = APIHandler.postLoginData.bind(this);

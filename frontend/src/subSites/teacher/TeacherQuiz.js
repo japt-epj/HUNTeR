@@ -16,31 +16,33 @@ import viewHandler from '../../handlers/viewHandler';
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
-    const defaultPageNumber = 1;
-    const defaultZoomSize = 19;
     this.state = {
       showAgreement: true,
       formOK: true,
       name: '',
       exercises: [],
-      selected: [],
-      bulkCheckbox: '',
+      selectedCheckboxes: [],
+      bulkCheckboxes: [],
       selectedExercises: [],
       loading: true,
-      pageNumber: defaultPageNumber,
-      pageNumberSelectedExercises: defaultPageNumber,
+      pageNumber: config.defaultNumbers.pageNumber,
+      pageNumberSelectedExercises: config.defaultNumbers.pageNumber,
       minPage: 1,
       maxPage: '',
       fireRedirect: false,
       selectedPositions: new Map(),
       map: {
         location: undefined,
-        zoom: defaultZoomSize,
+        zoom: this.defaultZoomSize,
         clicked: false,
         currentExercise: undefined,
         popupText: undefined
       }
     };
+
+    this.defaultPageNumber = config.defaultNumbers.pageNumber;
+    this.exerciseLimitPerPage = config.defaultNumbers.exerciseLimitPerPage;
+    this.defaultZoomSize = 19;
 
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
     this.getSelectedExerciseTable = ExerciseHandler.getSelectedExerciseTable.bind(
@@ -66,11 +68,11 @@ export default class TeacherQuiz extends React.Component {
   }
 
   componentDidMount() {
-    this.getExercises(this.state.pageNumber, this.state.limit);
+    this.getExercises(this.state.pageNumber);
   }
 
-  getExercises = (page, limit) => {
-    APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
+  getExercises = page => {
+    APIHandler.getPaginatedElements('exercise', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,
@@ -83,7 +85,7 @@ export default class TeacherQuiz extends React.Component {
 
   resetPageNumber = event => {
     event.preventDefault();
-    this.setState({pageNumber: 1});
+    this.setState({pageNumber: this.defaultPageNumber});
   };
 
   handleClick = event => {
@@ -121,20 +123,22 @@ export default class TeacherQuiz extends React.Component {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getExercises(element.activePage, this.state.limit);
+    this.getExercises(element.activePage);
   };
 
   handlePageChangeSelected = (event, element) => {
     let currentPage = element.activePage;
-    let limit = this.state.limit;
     this.setState({pageNumberSelectedExercises: element.activePage});
     APIHandler.getExerciseArray(
-      this.state.selected.slice((currentPage - 1) * limit, currentPage * limit)
+      this.state.selectedCheckboxes.slice(
+        (currentPage - 1) * this.exerciseLimitPerPage,
+        currentPage * this.exerciseLimitPerPage
+      )
     ).then(resData => {
       if (resData.status === OK) {
         this.setState({selectedExercises: resData.data});
       } else {
-        console.log('Error:' + resData);
+        console.error('Error:' + resData);
       }
     });
   };
@@ -171,7 +175,7 @@ export default class TeacherQuiz extends React.Component {
             <Grid.Row columns="equal" id="mapContainer">
               <Grid.Column width={4}>
                 {!this.state.loading &&
-                  this.state.selected.length !== 0 &&
+                  this.state.selectedCheckboxes.length !== 0 &&
                   this.getSelectedExerciseTable()}
               </Grid.Column>
               <Grid.Column>

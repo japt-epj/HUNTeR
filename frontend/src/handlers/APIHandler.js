@@ -34,10 +34,10 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  getPaginatedElements(path, page, limit) {
+  getPaginatedElements(path, page) {
     let requestURL = config.apiURL + path + '/';
-    if (page !== undefined && limit !== undefined) {
-      requestURL += '?page=' + (page - 1) + '&limit=' + limit;
+    if (typeof page === 'number') {
+      requestURL += '?page=' + (page - 1);
     }
     return axios
       .get(requestURL, {

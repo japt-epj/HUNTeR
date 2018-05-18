@@ -27,11 +27,11 @@ export default class ParticipantScore extends React.Component {
   }
 
   componentDidMount() {
-    this.getQuizzes(this.state.pageNumber, this.state.limit);
+    this.getQuizzes(this.state.pageNumber);
   }
 
   getQuizzes = () => {
-    APIHandler.getPaginatedElements('quiz', 1, 200).then(resData => {
+    APIHandler.getPaginatedElements('quiz', 1).then(resData => {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content.map(element => {

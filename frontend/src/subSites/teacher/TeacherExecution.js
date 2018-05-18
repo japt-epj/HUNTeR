@@ -19,7 +19,6 @@ import viewHandler from '../../handlers/viewHandler';
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
-    const defaultPageNumber = 1;
     this.state = {
       formOK: true,
       name: '',
@@ -30,7 +29,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingUser: true,
       loadingQuiz: true,
-      pageNumber: defaultPageNumber,
+      pageNumber: config.defaultNumbers.pageNumber,
       minPage: 1,
       maxPageQuiz: '',
       maxPageParticipant: '',
@@ -58,12 +57,12 @@ export default class TeacherExecution extends React.Component {
   }
 
   componentDidMount() {
-    this.getParticipants(this.state.pageNumber, this.state.limit);
-    this.getQuizzes(this.state.pageNumber, this.state.limit);
+    this.getParticipants(this.state.pageNumber);
+    this.getQuizzes(this.state.pageNumber);
   }
 
-  getParticipants = (page, limit) => {
-    APIHandler.getPaginatedElements('person', page, limit).then(resData => {
+  getParticipants = page => {
+    APIHandler.getPaginatedElements('person', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
@@ -74,8 +73,8 @@ export default class TeacherExecution extends React.Component {
     });
   };
 
-  getQuizzes = (page, limit) => {
-    APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
+  getQuizzes = page => {
+    APIHandler.getPaginatedElements('quiz', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
@@ -90,14 +89,14 @@ export default class TeacherExecution extends React.Component {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getParticipants(element.activePage, this.state.limit);
+    this.getParticipants(element.activePage);
   };
 
   handlePageChangeQuizzes = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getQuizzes(element.activePage, this.state.limit);
+    this.getQuizzes(element.activePage);
   };
 
   resetPageNumber = event => {
