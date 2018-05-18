@@ -43,7 +43,7 @@ public class JwtTokenProviderTests {
   }
 
   @Test
-  public void shouldProvideJwtToken() throws Exception {
+  public void shouldProvideValidJwtToken() throws Exception {
 
     Authentication authentication =
         authenticationManager.authenticate(
