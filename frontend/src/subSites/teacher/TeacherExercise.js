@@ -21,7 +21,7 @@ export default class TeacherExercise extends React.Component {
       answer1: '',
       answer2: '',
       answer3: '',
-      answerId: '',
+      answerId: -1,
       answersAllowed: 4
     };
 
