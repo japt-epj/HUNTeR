@@ -22,7 +22,7 @@ export default class ParticipantExercise extends React.Component {
         this.props.location.state.exercise.answers[2].text,
         this.props.location.state.exercise.answers[3].text
       ],
-      answerId: '',
+      answerId: -1,
       fireRedirect: false
     };
     this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
