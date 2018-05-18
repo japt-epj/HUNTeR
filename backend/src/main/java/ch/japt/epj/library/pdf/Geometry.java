@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.util.Matrix;
 
 public final class Geometry {
   private Geometry() {}
@@ -23,5 +24,9 @@ public final class Geometry {
 
   public static float getStringWidth(String text, PDFont font, int size) throws IOException {
     return font.getStringWidth(text) * size / 1000;
+  }
+
+  public static Matrix getHeaderMatrix(String title, PDFont font, int size) {
+    return null;
   }
 }

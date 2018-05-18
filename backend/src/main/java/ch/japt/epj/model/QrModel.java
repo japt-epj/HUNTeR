@@ -1,11 +1,11 @@
 package ch.japt.epj.model;
 
-import ch.japt.epj.library.pdf.Geometry;
+import ch.japt.epj.library.pdf.ExercisePage;
+import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.repository.ExerciseRepository;
 import ch.japt.epj.repository.QuizRepository;
 import io.nayuki.qrcodegen.QrCode;
-import java.awt.geom.Point2D.Float;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,10 +13,6 @@ import java.util.Optional;
 import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.apache.pdfbox.util.Matrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,39 +41,22 @@ public class QrModel {
     Quiz quiz = quizzes.findQuizByQuizId(id).get();
 
     try (PDDocument document = new PDDocument()) {
-      PDPage page = new PDPage();
-      document.addPage(page);
+      // document cover page...
+      for (Exercise exercise : quiz.getTasks()) {
+        PDPage page =
+            ExercisePage.make(exercise, document, makeQr(exercise.getExerciseId(), 20, 20).get());
 
-      try (PDPageContentStream content = new PDPageContentStream(document, page)) {
-        content.beginText();
-        content.setFont(PDType1Font.HELVETICA_BOLD, 26);
-        Float center = Geometry.getCenter(page);
-        content.setTextMatrix(
-            Matrix.getTranslateInstance(
-                center.x
-                    - Geometry.getStringWidth(quiz.getName(), PDType1Font.HELVETICA_BOLD, 26) / 2,
-                page.getMediaBox().getHeight() - 26 - 10));
-        content.showText(quiz.getName());
-        content.endText();
-
-        byte[] bytes = makeQr(quiz.getQuizId(), 20, 0).get();
-        PDImageXObject image = PDImageXObject.createFromByteArray(document, bytes, null);
-        content.drawImage(
-            image,
-            center.x - image.getWidth() / 2,
-            center.y - image.getHeight() / 2,
-            image.getWidth(),
-            image.getHeight());
+        document.addPage(page);
       }
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
       document.save(stream);
       return Optional.of(stream.toByteArray());
     } catch (IOException e) {
+      // log this
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
   }
 
   private Optional<byte[]> makeQr(Long id, Integer scale, Integer border) {
