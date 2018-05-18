@@ -13,7 +13,7 @@ import org.apache.pdfbox.util.Matrix;
 public final class ExercisePage {
   private ExercisePage() {}
 
-  public static PDPage make(Exercise exercise, PDDocument document, byte[] qrcode)
+  public static void addPage(Exercise exercise, PDDocument document, byte[] qrcode)
       throws IOException {
     PDPage page = new PDPage();
 
@@ -36,8 +36,8 @@ public final class ExercisePage {
           center.y - image.getHeight() / 2,
           image.getWidth(),
           image.getHeight());
-    }
 
-    return page;
+      document.addPage(page);
+    }
   }
 }
