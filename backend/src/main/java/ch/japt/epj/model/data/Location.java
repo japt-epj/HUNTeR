@@ -9,13 +9,7 @@ public class Location {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long locationId;
 
-  @ManyToOne
-  //  @JoinTable(
-  //    name = "LocationExercise",
-  //    joinColumns = {@JoinColumn(name = "locationId")},
-  //    inverseJoinColumns = {@JoinColumn(name = "exerciseId")}
-  //  )
-  private Exercise exercise;
+  @ManyToOne private Exercise exercise;
 
   private double lat;
   private double lng;
