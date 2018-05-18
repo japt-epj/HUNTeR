@@ -60,9 +60,14 @@ public class QrModel {
         content.showText(quiz.getName());
         content.endText();
 
-        byte[] bytes = makeQr(quiz.getQuizId(), 10, 0).get();
+        byte[] bytes = makeQr(quiz.getQuizId(), 20, 0).get();
         PDImageXObject image = PDImageXObject.createFromByteArray(document, bytes, null);
-        content.drawImage(image, 0f, 0f, image.getWidth(), image.getHeight());
+        content.drawImage(
+            image,
+            center.x - image.getWidth() / 2,
+            center.y - image.getHeight() / 2,
+            image.getWidth(),
+            image.getHeight());
       }
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
