@@ -4,6 +4,7 @@ import {Redirect} from 'react-router';
 import {Button, Form, Grid, Modal} from 'semantic-ui-react';
 import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
+import {OK} from 'http-status-codes';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
@@ -14,6 +15,8 @@ import viewHandler from '../../handlers/viewHandler';
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
+    const defaultPageNumber = 1;
+    const defaultZoomSize = 19;
     this.state = {
       showAgreement: true,
       formOK: true,
@@ -23,16 +26,15 @@ export default class TeacherQuiz extends React.Component {
       bulkCheckbox: '',
       selectedExercises: [],
       loading: true,
-      limit: 5,
-      pageNumber: 1,
-      pageNumberSelected: 1,
+      pageNumber: defaultPageNumber,
+      pageNumberSelectedExercises: defaultPageNumber,
       minPage: 1,
       maxPage: '',
       fireRedirect: false,
       selectedPositions: new Map(),
       map: {
         location: undefined,
-        zoom: 19,
+        zoom: defaultZoomSize,
         clicked: false,
         currentExercise: undefined,
         popupText: undefined
@@ -124,9 +126,7 @@ export default class TeacherQuiz extends React.Component {
   handlePageChangeSelected = (event, element) => {
     let currentPage = element.activePage;
     let limit = this.state.limit;
-    this.setState({
-      pageNumberSelected: element.activePage
-    });
+    this.setState({pageNumberSelectedExercises: element.activePage});
     APIHandler.getExerciseArray(
       this.state.selected.slice((currentPage - 1) * limit, currentPage * limit)
     ).then(resData => {

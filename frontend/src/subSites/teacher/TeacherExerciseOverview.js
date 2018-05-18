@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
-import {NOT_FOUND} from 'http-status-codes';
+import {OK} from 'http-status-codes';
 
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
@@ -11,13 +11,13 @@ import viewHandler from '../../handlers/viewHandler';
 export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
     super(props);
+    const defaultPageNumber = 1;
     this.state = {
       exercises: [],
       loading: true,
-      pageNumber: 1,
+      pageNumber: defaultPageNumber,
       minPage: 1,
-      maxPage: '',
-      limit: 5
+      maxPage: ''
     };
 
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);

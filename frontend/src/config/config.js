@@ -5,8 +5,10 @@ let config = {
 };
 
 if (process.env.NODE_ENV === 'development') {
-  config.apiURL = `http://${window.location.hostname}:8080/api/`;
-  config.mainURL = `http://${window.location.hostname}:3000`;
+  const apiPort = 8080;
+  const websitePort = 3000;
+  config.apiURL = `http://${window.location.hostname}:${apiPort}/api/`;
+  config.mainURL = `http://${window.location.hostname}:${websitePort}`;
 }
 
 export default Object.freeze(Object.assign({}, config));
