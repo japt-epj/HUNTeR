@@ -31,14 +31,16 @@ public class LocationModel {
 
   public NextExerciseLocationDto getExerciseLocation(int id) {
     ArrayList<Exercise> solvedExercises = new ArrayList<>();
+    ArrayList<Response> allResponses = new ArrayList<>();
+    responses.findAll().forEach(allResponses::add);
     // TODO: Change static userId to user Id sent from frontend
     persons
         .findByPersonId(1L)
         .ifPresent(
             p ->
                 solvedExercises.addAll(
-                    responses
-                        .getAllResponses()
+                    allResponses
+                        .stream()
                         .filter(response -> response.getPerson().getPersonId() == p.getPersonId())
                         .map(Response::getExercise)
                         .collect(Collectors.toCollection(ArrayList::new))));
@@ -50,7 +52,6 @@ public class LocationModel {
     ArrayList<Location> filteredAndSortedLocations = new ArrayList<>(allLocationsSorted);
     filteredAndSortedLocations.removeIf(
         location -> solvedExercises.contains(location.getExercise()));
-
     Location nextLocationToGo = filteredAndSortedLocations.get(0);
     Exercise nextExerciseToDo = nextLocationToGo.getExercise();
     NextExerciseLocationDto dto = new NextExerciseLocationDto();

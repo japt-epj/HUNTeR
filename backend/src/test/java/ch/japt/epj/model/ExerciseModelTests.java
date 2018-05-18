@@ -99,6 +99,7 @@ public class ExerciseModelTests {
 
   @Test
   public void getExercisesByList() {
+    // TODO: Refactor this
     List<Integer> ids = Arrays.asList(1, 2, 3, 300);
     List<ExerciseDto> exercises = model.getExercises(ids);
 
