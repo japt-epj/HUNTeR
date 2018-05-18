@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Profile;
 @Profile("standalone")
 @Configuration
 public class HttpRedirectConfig {
-  private final int APIPORT = 8080;
-  private final int LOCALHTTPS = 8443;
+  private static final int APIPORT = 8080;
+  private static final int LOCALHTTPS = 8443;
 
   @Bean
   public EmbeddedServletContainerFactory servletContainer() {
