@@ -79,9 +79,9 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     boolean isTeacher = false;
 
     for (GrantedAuthority grantedAuthority : authorities) {
-      if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
+      if ("ROLE_TEACHER".equals(grantedAuthority.getAuthority())) {
         isTeacher = true;
-      } else if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
+      } else if ("ROLE_STUDENT".equals(grantedAuthority.getAuthority())) {
         isStudent = true;
       }
     }
