@@ -5,6 +5,10 @@ let config = {
   buttonColors: {
     normal: 'green',
     download: 'orange'
+  },
+  defaultNumbers: {
+    pageNumber: 1,
+    exerciseLimitPerPage: 5
   }
 };
 
