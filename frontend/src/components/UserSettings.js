@@ -26,13 +26,13 @@ export default class UserSettings extends React.Component {
   }
 
   componentDidMount() {
-    APIHandler.getInformations().then(resData => {
-      let personInformations = resData.data;
+    APIHandler.getInformation().then(resData => {
+      let personInformation = resData.data;
       this.setState({
-        id: personInformations.id,
-        firstName: personInformations.firstName,
-        lastName: personInformations.lastName,
-        email: personInformations.email
+        id: personInformation.id,
+        firstName: personInformation.firstName,
+        lastName: personInformation.lastName,
+        email: personInformation.email
       });
     });
   }

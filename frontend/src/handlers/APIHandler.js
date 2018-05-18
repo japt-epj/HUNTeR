@@ -95,7 +95,7 @@ export default {
       .catch(err => console.error(err));
   },
 
-  getInformations() {
+  getInformation() {
     return axios
       .get(config.apiURL + 'person/current', {
         headers: getAxiosHeader('application/json')
