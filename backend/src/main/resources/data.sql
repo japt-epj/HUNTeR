@@ -40,6 +40,12 @@ INSERT INTO answer (answer, checked) VALUES
   ('Flachlegen', false),
   ('Besteigen', true);
 
+INSERT INTO response (answer_from_person_answer_id, exercise_exercise_id, person_person_id) VALUES
+  (1, 1, 1),
+  (2, 1, 1),
+  (3, 2, 1);
+
+
 
 
 INSERT INTO exercise (name, question) VALUES
