@@ -95,9 +95,9 @@ export default {
       .catch(err => console.error(err));
   },
 
-  getParticipant(participantId) {
+  getInformations() {
     return axios
-      .get(config.apiURL + 'person/' + participantId, {
+      .get(config.apiURL + 'person/current', {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
@@ -106,9 +106,7 @@ export default {
   putData(data, path) {
     axios
       .put(config.apiURL + path + '/', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
