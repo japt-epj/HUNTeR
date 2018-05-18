@@ -31,10 +31,6 @@ public class Exercise {
     answerTemplates.add(answerTemplate);
   }
 
-  public void removeAnswerTemplate(Answer answerTemplate) {
-    answerTemplates.remove(answerTemplate);
-  }
-
   public Collection<Answer> getAnswerTemplates() {
     return answerTemplates;
   }

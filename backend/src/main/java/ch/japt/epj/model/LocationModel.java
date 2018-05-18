@@ -5,7 +5,6 @@ import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Location;
 import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
-import ch.japt.epj.repository.LocationRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
 import ch.japt.epj.repository.ResponseRepository;
@@ -17,17 +16,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class LocationModel {
 
-  private final LocationRepository locations;
   private final QuizRepository quizzes;
   private final ResponseRepository responses;
   private final PersonRepository persons;
 
   public LocationModel(
-      @Autowired LocationRepository locations,
       @Autowired QuizRepository quizzes,
       @Autowired ResponseRepository responses,
       @Autowired PersonRepository persons) {
-    this.locations = locations;
     this.quizzes = quizzes;
     this.responses = responses;
     this.persons = persons;
@@ -42,7 +38,7 @@ public class LocationModel {
             p ->
                 solvedExercises.addAll(
                     responses
-                        .getAll()
+                        .getAllResponses()
                         .filter(response -> response.getPerson().getPersonId() == p.getPersonId())
                         .map(Response::getExercise)
                         .collect(Collectors.toCollection(ArrayList::new))));
