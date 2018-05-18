@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Optional;
 import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +42,7 @@ public class QrModel {
     try (PDDocument document = new PDDocument()) {
       // document cover page...
       for (Exercise exercise : quiz.getTasks()) {
-        PDPage page =
-            ExercisePage.make(exercise, document, makeQr(exercise.getExerciseId(), 20, 20).get());
-
-        document.addPage(page);
+        ExercisePage.addPage(exercise, document, makeQr(exercise.getExerciseId(), 20, 20).get());
       }
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
