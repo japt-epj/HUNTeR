@@ -119,20 +119,20 @@ INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
   (3,11),
   (3,12);
 
-INSERT INTO location_exercise (location_id, exercise_id) VALUES
-  (1,1),
-  (2,2),
-  (3,3),
-  (4,4),
-  (5,5),
-  (6,6),
-  (7,7),
-  (8,8),
-  (9,9),
-  (10,10),
-  (1,11),
-  (2,12),
-  (3,13);
+--INSERT INTO location_exercise (location_id, exercise_id) VALUES
+--  (1,1),
+--  (2,2),
+--  (3,3),
+--  (4,4),
+--  (5,5),
+--  (6,6),
+--  (7,7),
+--  (8,8),
+--  (9,9),
+--  (10,10),
+--  (1,11),
+--  (2,12),
+--  (3,13);
 
 INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exercise_id) VALUES
   (1,1),
