@@ -5,6 +5,7 @@ import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Location;
 import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
+import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
 import ch.japt.epj.repository.ResponseRepository;
@@ -19,14 +20,17 @@ public class LocationModel {
   private final QuizRepository quizzes;
   private final ResponseRepository responses;
   private final PersonRepository persons;
+  private final ExecutionRepository executions;
 
   public LocationModel(
       @Autowired QuizRepository quizzes,
       @Autowired ResponseRepository responses,
-      @Autowired PersonRepository persons) {
+      @Autowired PersonRepository persons,
+      @Autowired ExecutionRepository executions) {
     this.quizzes = quizzes;
     this.responses = responses;
     this.persons = persons;
+    this.executions = executions;
   }
 
   public NextExerciseLocationDto getExerciseLocation(int id) {
@@ -45,10 +49,12 @@ public class LocationModel {
                         .map(Response::getExercise)
                         .collect(Collectors.toCollection(ArrayList::new))));
     ArrayList<Location> allLocationsSorted = new ArrayList<>();
-    quizzes
-        .findQuizByQuizId((long) id)
+    executions
+        .findByExecutionId((long) id)
         .ifPresent(
-            quiz -> allLocationsSorted.addAll(LocationSorter.nearestNeighbor(quiz.getLocations())));
+            execution1 ->
+                allLocationsSorted.addAll(
+                    LocationSorter.nearestNeighbor(execution1.getQuiz().getLocations())));
     ArrayList<Location> filteredAndSortedLocations = new ArrayList<>(allLocationsSorted);
     filteredAndSortedLocations.removeIf(
         location -> solvedExercises.contains(location.getExercise()));

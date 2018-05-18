@@ -170,7 +170,7 @@ paths:
       parameters:
       - in: "path"
         name: "id"
-        required: false
+        required: true
         type: "array"
         items:
           type: "integer"
@@ -184,50 +184,31 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Person"
-  /person/current:
-   get:
+  /person:
+   put:
       tags:
       - "person"
-      summary: "Get current person"
+      summary: "Update an existing person"
       description: ""
-      operationId: "getCurrentPerson"
+      operationId: "updatePerson"
+      consumes:
+      - "application/json"
       produces:
       - "application/json"
       parameters:
-      - in: "header"
-        name: "Authorization"
-        type: "string"
-
+      - in: "body"
+        name: "body"
+        description: "person object that needs to be editted in the store"
+        required: true
+        schema:
+          $ref: "#/definitions/RegPerson"
       responses:
-        200:
-          description: "Current person found"
-          schema:
-              $ref: "#/definitions/Person"
-  /person:
-  put:
-        tags:
-        - "person"
-        summary: "Update an existing person"
-        description: ""
-        operationId: "updatePerson"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - in: "body"
-          name: "body"
-          description: "person object that needs to be editted in the store"
-          required: true
-          schema:
-            $ref: "#/definitions/RegPerson"
-        responses:
-          400:
-            description: "Invalid ID supplied"
-          404:
-            description: "person not found"
-          405:
-            description: "Validation exception"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "person not found"
+        405:
+          description: "Validation exception"
 
 
   /auth/register:
@@ -547,7 +528,7 @@ paths:
       tags:
       - "location"
       summary: "Get location"
-      description: "Get location to next exercise by quizId"
+      description: "Get location to next exercise by executionId"
       produces:
       - "application/json"
       parameters:
@@ -555,12 +536,26 @@ paths:
           name: "id"
           required: true
           type: "integer"
-          description: "quiz id"
+          description: "execution id"
       responses:
         200:
           description: "Locations found"
           schema:
             $ref: "#/definitions/NextExerciseLocation"
+
+  /location:
+    get:
+      tags:
+      - "location"
+      summary: "Get all locations"
+      description: "Get all locations to next exercises from open executions"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Locations found"
+          schema:
+            $ref: "#/definitions/NextExerciseLocations"
 
 
 securityDefinitions:
@@ -775,6 +770,13 @@ definitions:
         format: "double"
         example: 8.8176142
 
+  NextExerciseLocations:
+    type: "object"
+    properties:
+      exerciseLocations:
+        type: "array"
+        items:
+          $ref: "#/definitions/NextExerciseLocation"
 
   JWT:
     type: "object"
