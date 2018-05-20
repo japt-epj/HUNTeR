@@ -2,7 +2,7 @@ package ch.japt.epj.library.pdf;
 
 import ch.japt.epj.library.QrGenerator;
 import ch.japt.epj.model.data.Exercise;
-import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Float;
 import java.io.IOException;
 import java.util.Collection;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -14,30 +14,54 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.util.Matrix;
 
-public final class ExercisePage {
-  private ExercisePage() {}
+public final class ExercisePage implements AutoCloseable {
 
-  private static void addTitle(String title, PDPageContentStream content, PDPage page)
-      throws IOException {
-    Point2D.Float center = Geometry.getCenter(page);
+  private final Exercise exercise;
+  private final PDDocument document;
+  private final PDPage page;
+  private final Float center;
+  private final PDPageContentStream content;
+
+  public ExercisePage(PDDocument document, Exercise exercise) throws IOException {
+    this.exercise = exercise;
+    this.document = document;
+    this.page = new PDPage((PDRectangle.A4));
+    this.center = Geometry.getCenter(page);
+    this.content = new PDPageContentStream(document, page, AppendMode.APPEND, false, true);
+
+    document.addPage(page);
+  }
+
+  public void make() throws IOException {
+    PDPage page = new PDPage(PDRectangle.A4);
+    document.addPage(page);
+
+    try (PDPageContentStream content =
+        new PDPageContentStream(document, page, AppendMode.APPEND, false, true)) {
+      addTitle();
+      addQuestion();
+      addImage();
+    }
+  }
+
+  private void addTitle() throws IOException {
     content.beginText();
     content.setFont(PDType1Font.HELVETICA_BOLD, 36);
     Matrix matrix =
         Matrix.getTranslateInstance(
-            center.x - Geometry.getStringWidth(title, PDType1Font.HELVETICA_BOLD, 36) / 2,
+            center.x
+                - Geometry.getStringWidth(exercise.getName(), PDType1Font.HELVETICA_BOLD, 36) / 2,
             page.getMediaBox().getHeight() - 36 - 20);
     content.setTextMatrix(matrix);
-    content.showText(title);
+    content.showText(exercise.getName());
     content.endText();
   }
 
-  private static void addQuestion(String question, PDPageContentStream content, PDPage page)
-      throws IOException {
-    Point2D.Float center = Geometry.getCenter(page);
+  private void addQuestion() throws IOException {
     float em = Geometry.getStringWidth("M", PDType1Font.HELVETICA, 20);
     float letters = page.getMediaBox().getWidth() / em * 1.5F;
 
-    Collection<String> lines = StringSplit.lines(question, Math.round(letters));
+    Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
 
     // set initial line to start bellow the title
     int lineCount = 5;
@@ -54,10 +78,7 @@ public final class ExercisePage {
     }
   }
 
-  private static void addImage(
-      Exercise exercise, PDDocument document, PDPageContentStream content, PDPage page)
-      throws IOException {
-    Point2D.Float center = Geometry.getCenter(page);
+  private void addImage() throws IOException {
     byte[] qrcode = QrGenerator.makeQr(String.valueOf(exercise.getExerciseId()), 20, 0).get();
     PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
     content.drawImage(
@@ -68,15 +89,10 @@ public final class ExercisePage {
         image.getHeight());
   }
 
-  public static void addPage(Exercise exercise, PDDocument document) throws IOException {
-    PDPage page = new PDPage(PDRectangle.A4);
-    document.addPage(page);
-
-    try (PDPageContentStream content =
-        new PDPageContentStream(document, page, AppendMode.APPEND, false, true)) {
-      addTitle(exercise.getName(), content, page);
-      addQuestion(exercise.getQuestion(), content, page);
-      addImage(exercise, document, content, page);
+  @Override
+  public void close() throws Exception {
+    if (this.content != null) {
+      this.content.close();
     }
   }
 }
