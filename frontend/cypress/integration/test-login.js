@@ -4,8 +4,14 @@ import login from '../helpers/login';
 describe('Login tests', function() {
   it('Login test with wrong credentials', function() {
     setViewport('HD+');
-    login('andi.hoerler@hsr.ch', 'Andi', false);
-    cy.url().should('include', '/');
+    const loginCredentials = {
+      email: 'andi.hoerler@hsr.ch',
+      password: 'Andi',
+      credentialsCorrect: false,
+      role: 'participant'
+    };
+    login(loginCredentials);
+    cy.url().should('equal', Cypress.env('baseUrl') + '/');
     cy
       .contains('Username oder Passwort falsch eingegeben')
       .should('be.visible');
@@ -13,19 +19,33 @@ describe('Login tests', function() {
 
   it('Login test with participant credentials', function() {
     setViewport('fullHD');
-    const role = 'participant';
-    login('andi.hoerler@hsr.ch', 'andi', true);
-    cy.url().should('include', '/' + role);
+    const loginCredentials = {
+      email: 'andi.hoerler@hsr.ch',
+      password: 'andi',
+      credentialsCorrect: true,
+      role: 'participant'
+    };
+    login(loginCredentials);
+    cy
+      .url()
+      .should('equal', Cypress.env('baseUrl') + '/' + loginCredentials.role);
     cy.get('.pusher > .ui > [href="/participant/logout"] > .item').click();
-    cy.url().should('include', '/');
+    cy.url().should('equal', Cypress.env('baseUrl') + '/');
   });
 
   it('Login test with teacher credentials', function() {
     setViewport('fullHD');
-    const role = 'teacher';
-    login('tobias.saladin@hsr.ch', 'tobias', true);
-    cy.url().should('include', '/' + role);
+    const loginCredentials = {
+      email: 'tobias.saladin@hsr.ch',
+      password: 'tobias',
+      credentialsCorrect: true,
+      role: 'teacher'
+    };
+    login(loginCredentials);
+    cy
+      .url()
+      .should('equal', Cypress.env('baseUrl') + '/' + loginCredentials.role);
     cy.get('.pusher > .ui > [href="/teacher/logout"] > .item').click();
-    cy.url().should('include', '/');
+    cy.url().should('equal', Cypress.env('baseUrl') + '/');
   });
 });
