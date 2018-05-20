@@ -1,10 +1,9 @@
 package ch.japt.epj.library.pdf;
 
 import ch.japt.epj.model.data.Exercise;
-import com.google.common.base.Splitter;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -38,8 +37,10 @@ public final class ExercisePage {
       float em = Geometry.getStringWidth("M", PDType1Font.HELVETICA, 20) * 0.75F;
       float letters = page.getMediaBox().getWidth() / em;
 
-      List<String> lines =
-          Splitter.fixedLength(Math.round(letters)).on(" ").splitToList(exercise.getQuestion());
+      //      List<String> lines =
+      //          Splitter.fixedLength(Math.round(letters)).splitToList(exercise.getQuestion());
+
+      Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
 
       int lineCount = 2;
 
