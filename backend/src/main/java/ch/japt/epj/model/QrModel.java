@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QrModel {
+
   private final ExerciseRepository exercises;
   private final QuizRepository quizzes;
 
@@ -34,10 +35,7 @@ public class QrModel {
 
     try (PDDocument document = new PDDocument()) {
       for (Exercise exercise : quiz.getTasks()) {
-        ExercisePage.addPage(
-            exercise,
-            document,
-            QrGenerator.makeQr(String.valueOf(exercise.getExerciseId()), 20, 0).get());
+        ExercisePage.addPage(exercise, document);
       }
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
