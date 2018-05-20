@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +45,11 @@ public class QrModel {
 
     try (PDDocument document = new PDDocument()) {
       // document cover page...
-      PDPage title = new PDPage();
+      PDPage title = new PDPage(PDRectangle.A4);
       document.addPage(title);
       try (PDPageContentStream content = new PDPageContentStream(document, title)) {
         content.beginText();
-        content.setFont(PDType1Font.HELVETICA_BOLD, 26);
+        content.setFont(PDType1Font.HELVETICA_BOLD, 36);
         content.showText(quiz.getName());
         content.endText();
       }
