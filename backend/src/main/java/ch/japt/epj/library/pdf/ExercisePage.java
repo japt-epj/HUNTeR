@@ -10,6 +10,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.util.Matrix;
 
 public final class ExercisePage {
@@ -34,12 +35,13 @@ public final class ExercisePage {
       content.showText(exercise.getName());
       content.endText();
 
-      float em = Geometry.getStringWidth("M", PDType1Font.HELVETICA, 20) * 0.75F;
+      float em = Geometry.getStringWidth("M", PDType1Font.HELVETICA, 20);
       float letters = page.getMediaBox().getWidth() / em;
 
       Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
 
-      int lineCount = 2;
+      // set initial line to start bellow the title
+      int lineCount = 5;
 
       for (String line : lines) {
         content.beginText();
@@ -50,13 +52,13 @@ public final class ExercisePage {
         content.endText();
       }
 
-      //      PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
-      //      content.drawImage(
-      //          image,
-      //          center.x - image.getWidth() / 2,
-      //          center.y - image.getHeight() / 2,
-      //          image.getWidth(),
-      //          image.getHeight());
+      PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
+      content.drawImage(
+          image,
+          center.x - image.getWidth() / 2,
+          center.y - image.getHeight() / 2,
+          image.getWidth(),
+          image.getHeight());
     }
   }
 }
