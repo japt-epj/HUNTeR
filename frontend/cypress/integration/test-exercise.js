@@ -1,7 +1,9 @@
-import login from '../helpers/helper-login';
+import setViewport from '../helpers/setViewport';
+import login from '../helpers/login';
 
 describe('Login tests', function() {
   it('Create new exercise', function() {
+    setViewport('fullHD');
     login('tobias.saladin@hsr.ch', 'tobias');
     cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
     cy.get('.form > :nth-child(1) > .ui > input').type('Länder');
@@ -23,12 +25,10 @@ describe('Login tests', function() {
     cy
       .get('.pusher > .ui > [href="/teacher/exerciseOverview"] > .item')
       .click();
-
-    //cy.get('.pusher > .ui > [href="/teacher/logout"] > .item').click();
-    //cy.url().should('include', '/');
   });
 
   it('Create new exercise', function() {
+    setViewport('fullHD');
     login('tobias.saladin@hsr.ch', 'tobias');
     cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
     cy.get('.form > :nth-child(1) > .ui > input').type('Prüfungen');
@@ -56,8 +56,5 @@ describe('Login tests', function() {
     cy
       .get('.pusher > .ui > [href="/teacher/exerciseOverview"] > .item')
       .click();
-
-    //cy.get('.pusher > .ui > [href="/teacher/logout"] > .item').click();
-    //cy.url().should('include', '/');
   });
 });
