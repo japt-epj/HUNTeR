@@ -36,7 +36,7 @@ public final class ExercisePage {
       content.endText();
 
       float em = Geometry.getStringWidth("M", PDType1Font.HELVETICA, 20);
-      float letters = page.getMediaBox().getWidth() / em;
+      float letters = page.getMediaBox().getWidth() / em * 1.5F;
 
       Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
 
@@ -46,7 +46,9 @@ public final class ExercisePage {
       for (String line : lines) {
         content.beginText();
         content.setFont(PDType1Font.HELVETICA, 20);
-        content.newLineAtOffset(0, page.getMediaBox().getHeight() - 20 * lineCount);
+        content.newLineAtOffset(
+            center.x - Geometry.getStringWidth(line, PDType1Font.HELVETICA, 20) / 2,
+            page.getMediaBox().getHeight() - 20 * lineCount);
         lineCount += 1;
         content.showText(line);
         content.endText();
