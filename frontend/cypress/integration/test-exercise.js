@@ -1,10 +1,11 @@
 import setViewport from '../helpers/setViewport';
 import login from '../helpers/login';
+import Credentials from '../helpers/Credentials';
 
 describe('Login tests', function() {
   it('Create new exercise', function() {
     setViewport('fullHD');
-    login('tobias.saladin@hsr.ch', 'tobias');
+    login(Credentials.getTeacherCredentials());
     cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
     cy.get('.form > :nth-child(1) > .ui > input').type('Länder');
     cy.get('textarea').type('Was sind Schweden und Norweger');
@@ -29,7 +30,7 @@ describe('Login tests', function() {
 
   it('Create new exercise', function() {
     setViewport('fullHD');
-    login('tobias.saladin@hsr.ch', 'tobias');
+    login(Credentials.getTeacherCredentials());
     cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
     cy.get('.form > :nth-child(1) > .ui > input').type('Prüfungen');
     cy

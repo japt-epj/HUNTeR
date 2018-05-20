@@ -13,7 +13,7 @@ export default function login(loginCredentials) {
     .get(':nth-child(3) > .ui')
     .click()
     .should(() => {
-      if (loginCredentials.credentialsCorrect) {
+      if (loginCredentials.correctCredentials) {
         expect(localStorage.getItem('HUNTeR-Token')).to.include('Bearer ');
         expect(localStorage.getItem('HUNTeR-Redirect')).to.equal(
           '/' + loginCredentials.role
