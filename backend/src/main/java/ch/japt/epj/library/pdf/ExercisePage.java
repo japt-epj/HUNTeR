@@ -46,8 +46,6 @@ public final class ExercisePage implements AutoCloseable {
   }
 
   public void make() throws IOException {
-    PDPage page = new PDPage(PDRectangle.A4);
-    document.addPage(page);
     addTitle();
     addQuestion();
     addImage();
@@ -69,7 +67,7 @@ public final class ExercisePage implements AutoCloseable {
 
     Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
 
-    // set initial line to start bellow the title
+    // set initial line to start below the title
     int lineCount = TEXT_MARGIN_LINES;
 
     for (String line : lines) {
