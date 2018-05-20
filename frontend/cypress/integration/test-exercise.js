@@ -1,6 +1,7 @@
 import setViewport from '../helpers/setViewport';
-import login from '../helpers/login';
 import Credentials from '../helpers/Credentials';
+import login from '../helpers/login';
+import Logout from '../helpers/Logout';
 
 describe('Login tests', function() {
   it('Create new exercise', function() {
@@ -23,9 +24,7 @@ describe('Login tests', function() {
       .type('Skandinavier');
     cy.get('tbody > :nth-child(4) > :nth-child(3) > .field > .ui').click();
     cy.get(':nth-child(4) > .ui').click();
-    cy
-      .get('.pusher > .ui > [href="/teacher/exerciseOverview"] > .item')
-      .click();
+    Logout.getTeacherLogout();
   });
 
   it('Create new exercise', function() {
@@ -54,8 +53,6 @@ describe('Login tests', function() {
     cy.get('.actions > .ui').click();
     cy.get('tbody > :nth-child(3) > :nth-child(3) > .field > .ui').click();
     cy.get(':nth-child(4) > .ui').click();
-    cy
-      .get('.pusher > .ui > [href="/teacher/exerciseOverview"] > .item')
-      .click();
+    Logout.getTeacherLogout();
   });
 });
