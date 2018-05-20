@@ -37,9 +37,6 @@ public final class ExercisePage {
       float em = Geometry.getStringWidth("M", PDType1Font.HELVETICA, 20) * 0.75F;
       float letters = page.getMediaBox().getWidth() / em;
 
-      //      List<String> lines =
-      //          Splitter.fixedLength(Math.round(letters)).splitToList(exercise.getQuestion());
-
       Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
 
       int lineCount = 2;
