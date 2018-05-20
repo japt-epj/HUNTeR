@@ -1,3 +1,5 @@
+import Credentials from './Credentials';
+
 export default function login(loginCredentials) {
   cy.visit('/');
   cy.contains('E-Mail-Adresse');
@@ -20,4 +22,7 @@ export default function login(loginCredentials) {
         );
       }
     });
+  cy
+    .url()
+    .should('equal', Cypress.env('baseUrl') + '/' + loginCredentials.role);
 }
