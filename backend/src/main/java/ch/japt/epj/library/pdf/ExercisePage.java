@@ -12,7 +12,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.apache.pdfbox.util.Matrix;
 
 public final class ExercisePage implements AutoCloseable {
 
@@ -35,24 +34,17 @@ public final class ExercisePage implements AutoCloseable {
   public void make() throws IOException {
     PDPage page = new PDPage(PDRectangle.A4);
     document.addPage(page);
-
-    try (PDPageContentStream content =
-        new PDPageContentStream(document, page, AppendMode.APPEND, false, true)) {
-      addTitle();
-      addQuestion();
-      addImage();
-    }
+    addTitle();
+    addQuestion();
+    addImage();
   }
 
   private void addTitle() throws IOException {
     content.beginText();
     content.setFont(PDType1Font.HELVETICA_BOLD, 36);
-    Matrix matrix =
-        Matrix.getTranslateInstance(
-            center.x
-                - Geometry.getStringWidth(exercise.getName(), PDType1Font.HELVETICA_BOLD, 36) / 2,
-            page.getMediaBox().getHeight() - 36 - 20);
-    content.setTextMatrix(matrix);
+    content.newLineAtOffset(
+        center.x - Geometry.getStringWidth(exercise.getName(), PDType1Font.HELVETICA_BOLD, 36) / 2,
+        page.getMediaBox().getHeight() - 36 - 20);
     content.showText(exercise.getName());
     content.endText();
   }
