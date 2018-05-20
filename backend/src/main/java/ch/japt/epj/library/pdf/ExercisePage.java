@@ -15,6 +15,20 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public final class ExercisePage implements AutoCloseable {
 
+  // this can probably be extracted to a configuration enum...
+  private static final PDRectangle PAGE_FORMAT = PDRectangle.A4;
+
+  private static final PDType1Font TITLE_FONT = PDType1Font.HELVETICA_BOLD;
+  private static final int TITLE_FONT_SIZE = 36;
+
+  private static final PDType1Font TEXT_FONT = PDType1Font.HELVETICA;
+  private static final int TEXT_FONT_SIZE = 20;
+
+  private static final int QR_SCALE = 20;
+  private static final int TITLE_MARGIN = 20;
+  private static final int TEXT_MARGIN_LINES = 5;
+  private static final float EM_APPROXIMATION_FACTOR = 1.5F;
+
   private final Exercise exercise;
   private final PDDocument document;
   private final PDPage page;
@@ -24,7 +38,7 @@ public final class ExercisePage implements AutoCloseable {
   public ExercisePage(PDDocument document, Exercise exercise) throws IOException {
     this.exercise = exercise;
     this.document = document;
-    this.page = new PDPage((PDRectangle.A4));
+    this.page = new PDPage((PAGE_FORMAT));
     this.center = Geometry.getCenter(page);
     this.content = new PDPageContentStream(document, page, AppendMode.APPEND, false, true);
 
@@ -41,29 +55,29 @@ public final class ExercisePage implements AutoCloseable {
 
   private void addTitle() throws IOException {
     content.beginText();
-    content.setFont(PDType1Font.HELVETICA_BOLD, 36);
+    content.setFont(TITLE_FONT, TITLE_FONT_SIZE);
     content.newLineAtOffset(
-        center.x - Geometry.getStringWidth(exercise.getName(), PDType1Font.HELVETICA_BOLD, 36) / 2,
-        page.getMediaBox().getHeight() - 36 - 20);
+        center.x - Geometry.getStringWidth(exercise.getName(), TITLE_FONT, TITLE_FONT_SIZE) / 2,
+        page.getMediaBox().getHeight() - TITLE_FONT_SIZE - TITLE_MARGIN);
     content.showText(exercise.getName());
     content.endText();
   }
 
   private void addQuestion() throws IOException {
-    float em = Geometry.getStringWidth("M", PDType1Font.HELVETICA, 20);
-    float letters = page.getMediaBox().getWidth() / em * 1.5F;
+    float em = Geometry.getStringWidth("M", TEXT_FONT, TEXT_FONT_SIZE) / EM_APPROXIMATION_FACTOR;
+    float letters = page.getMediaBox().getWidth() / em;
 
     Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
 
     // set initial line to start bellow the title
-    int lineCount = 5;
+    int lineCount = TEXT_MARGIN_LINES;
 
     for (String line : lines) {
       content.beginText();
-      content.setFont(PDType1Font.HELVETICA, 20);
+      content.setFont(TEXT_FONT, TEXT_FONT_SIZE);
       content.newLineAtOffset(
-          center.x - Geometry.getStringWidth(line, PDType1Font.HELVETICA, 20) / 2,
-          page.getMediaBox().getHeight() - 20 * lineCount);
+          center.x - Geometry.getStringWidth(line, TEXT_FONT, TEXT_FONT_SIZE) / 2,
+          page.getMediaBox().getHeight() - TEXT_FONT_SIZE * lineCount);
       lineCount += 1;
       content.showText(line);
       content.endText();
@@ -71,7 +85,7 @@ public final class ExercisePage implements AutoCloseable {
   }
 
   private void addImage() throws IOException {
-    byte[] qrcode = QrGenerator.makeQr(String.valueOf(exercise.getExerciseId()), 20, 0).get();
+    byte[] qrcode = QrGenerator.makeQr(String.valueOf(exercise.getExerciseId()), QR_SCALE, 0).get();
     PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
     content.drawImage(
         image,
