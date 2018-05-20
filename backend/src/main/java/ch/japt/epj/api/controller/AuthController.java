@@ -8,6 +8,8 @@ import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.security.JwtTokenProvider;
 import io.swagger.annotations.Api;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -46,9 +48,9 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
 
   @Override
   public ResponseEntity<JWTDto> loginPerson(@Valid @RequestBody AuthPersonDto body) {
-    Authentication authentication =
-        authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword()));
+    UsernamePasswordAuthenticationToken token =
+        new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword());
+    Authentication authentication = authenticationManager.authenticate(token);
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     String jwt = tokenProvider.generateToken(authentication);
@@ -75,8 +77,21 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     HttpHeaders headers = new HttpHeaders();
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
     boolean isStudent = false;
     boolean isTeacher = false;
+
+    Map<Boolean, String> headerMap = new HashMap<>();
+    headerMap.put(true, "X-HUNTeR-Redirect");
+    headerMap.put(false, "Location");
+
+    Map<String, String> roleMap = new HashMap<>();
+    roleMap.put("ROLE_TEACHER", "/teacher");
+    roleMap.put("ROLE_STUDENT", "/participant");
+
+    Map<Boolean, HttpStatus> statusMap = new HashMap<>();
+    statusMap.put(true, HttpStatus.OK);
+    statusMap.put(false, HttpStatus.FOUND);
 
     for (GrantedAuthority grantedAuthority : authorities) {
       if ("ROLE_TEACHER".equals(grantedAuthority.getAuthority())) {
@@ -86,24 +101,13 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
       }
     }
 
-    if (hunter) {
-      if (isTeacher) {
-        headers.add("X-HUNTeR-Redirect", "/teacher");
-      } else if (isStudent) {
-        headers.add("X-HUNTeR-Redirect", "/participant");
-      } else {
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-      }
-      return new ResponseEntity<>(headers, HttpStatus.OK);
+    if (isTeacher) {
+      headers.add(headerMap.get(hunter), roleMap.get("ROLE_TEACHER"));
+    } else if (isStudent) {
+      headers.add(headerMap.get(hunter), roleMap.get("ROLE_STUDENT"));
     } else {
-      if (isTeacher) {
-        headers.add("Location", "/teacher");
-      } else if (isStudent) {
-        headers.add("Location", "/participant");
-      } else {
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-      }
-      return new ResponseEntity<>(headers, HttpStatus.FOUND);
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
+    return new ResponseEntity<>(headers, statusMap.get(hunter));
   }
 }
