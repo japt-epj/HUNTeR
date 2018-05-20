@@ -1,21 +1,23 @@
-export default function login(email, password, loginCorrect) {
+export default function login(loginCredentials) {
   cy.visit('/');
   cy.contains('E-Mail-Adresse');
   cy
     .get(':nth-child(1) > .ui > input')
     .click()
-    .type(email);
+    .type(loginCredentials.email);
   cy
     .get(':nth-child(2) > .ui > input')
     .click()
-    .type(password);
+    .type(loginCredentials.password);
   cy
     .get(':nth-child(3) > .ui')
     .click()
     .should(() => {
-      if (loginCorrect) {
-        expect(localStorage.getItem('HUNTeR-Token')).contains('Bearer ');
-        expect(localStorage.getItem('HUNTeR-Redirect')).contains('/');
+      if (loginCredentials.credentialsCorrect) {
+        expect(localStorage.getItem('HUNTeR-Token')).to.include('Bearer ');
+        expect(localStorage.getItem('HUNTeR-Redirect')).to.equal(
+          '/' + loginCredentials.role
+        );
       }
     });
 }
