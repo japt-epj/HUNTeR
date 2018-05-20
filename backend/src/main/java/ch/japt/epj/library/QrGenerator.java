@@ -16,9 +16,9 @@ public final class QrGenerator {
   private QrGenerator() {}
 
   // ID will have to be replaced with a bytearray or a string or something
-  public static Optional<byte[]> makeQr(Long id, Integer scale, Integer border) {
+  public static Optional<byte[]> makeQr(String data, Integer scale, Integer border) {
     try {
-      QrCode code = QrCode.encodeText(String.valueOf(id), QrCode.Ecc.MEDIUM);
+      QrCode code = QrCode.encodeText(data, QrCode.Ecc.MEDIUM);
       BufferedImage image = code.toImage(scale, border);
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
       ImageIO.write(image, OUTPUT_TYPE, stream);
