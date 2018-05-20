@@ -35,7 +35,12 @@ public class QrModel {
 
     try (PDDocument document = new PDDocument()) {
       for (Exercise exercise : quiz.getTasks()) {
-        ExercisePage.addPage(exercise, document);
+        try (ExercisePage page = new ExercisePage(document, exercise)) {
+          page.make();
+        } catch (Exception e) {
+          // this needs to become a lot nicer
+          e.printStackTrace();
+        }
       }
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
