@@ -33,6 +33,7 @@ public class QrModel {
   public Optional<byte[]> generatePdf(Long id) {
     Quiz quiz = quizzes.findQuizByQuizId(id).get();
 
+    // compact these tries into one. Maybe make ExerciseDocument
     try (PDDocument document = new PDDocument()) {
       for (Exercise exercise : quiz.getTasks()) {
         try (ExercisePage page = new ExercisePage(document, exercise)) {

@@ -10,11 +10,11 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public final class ExercisePage implements AutoCloseable {
-
   // this can probably be extracted to a configuration enum...
   private static final PDRectangle PAGE_FORMAT = PDRectangle.A4;
 
@@ -25,8 +25,8 @@ public final class ExercisePage implements AutoCloseable {
   private static final int TEXT_FONT_SIZE = 20;
 
   private static final int QR_SCALE = 20;
-  private static final int TITLE_MARGIN = 20;
-  private static final int TEXT_MARGIN_LINES = 5;
+  private static final int TITLE_MARGIN_LINES = 1;
+  private static final int TEXT_MARGIN_LINES = 4;
   private static final float EM_APPROXIMATION_FACTOR = 1.5F;
 
   private final Exercise exercise;
@@ -52,30 +52,28 @@ public final class ExercisePage implements AutoCloseable {
   }
 
   private void addTitle() throws IOException {
-    content.beginText();
-    content.setFont(TITLE_FONT, TITLE_FONT_SIZE);
-    content.newLineAtOffset(
-        center.x - Geometry.getStringWidth(exercise.getName(), TITLE_FONT, TITLE_FONT_SIZE) / 2,
-        page.getMediaBox().getHeight() - TITLE_FONT_SIZE - TITLE_MARGIN);
-    content.showText(exercise.getName());
-    content.endText();
+    writeLines(exercise.getName(), TITLE_MARGIN_LINES, TITLE_FONT, TITLE_FONT_SIZE);
   }
 
   private void addQuestion() throws IOException {
-    float em = Geometry.getStringWidth("M", TEXT_FONT, TEXT_FONT_SIZE) / EM_APPROXIMATION_FACTOR;
+    writeLines(exercise.getQuestion(), TEXT_MARGIN_LINES, TEXT_FONT, TEXT_FONT_SIZE);
+  }
+
+  private void writeLines(String text, int marginLines, PDFont font, int fontSize)
+      throws IOException {
+    float em = Geometry.getStringWidth("M", font, fontSize) / EM_APPROXIMATION_FACTOR;
     float letters = page.getMediaBox().getWidth() / em;
 
-    Collection<String> lines = StringSplit.lines(exercise.getQuestion(), Math.round(letters));
+    Collection<String> lines = StringSplit.lines(text, Math.round(letters));
 
-    // set initial line to start below the title
-    int lineCount = TEXT_MARGIN_LINES;
+    int lineCount = marginLines;
 
     for (String line : lines) {
       content.beginText();
-      content.setFont(TEXT_FONT, TEXT_FONT_SIZE);
+      content.setFont(font, fontSize);
       content.newLineAtOffset(
-          center.x - Geometry.getStringWidth(line, TEXT_FONT, TEXT_FONT_SIZE) / 2,
-          page.getMediaBox().getHeight() - TEXT_FONT_SIZE * lineCount);
+          center.x - Geometry.getStringWidth(line, font, fontSize) / 2,
+          page.getMediaBox().getHeight() - fontSize * lineCount);
       lineCount += 1;
       content.showText(line);
       content.endText();
