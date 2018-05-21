@@ -1,13 +1,10 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-
-import {Button, Form, Pagination, Table} from 'semantic-ui-react';
-
 import TableHandler from './TableHandler';
+import {Form, Pagination, Table} from 'semantic-ui-react';
 
 export default {
   getQuizTable(checkboxNeeded) {
-    let headerElements = ['Name', 'ID', 'Bearbeiten'];
+    let headerElements = ['Name', 'ID'];
     if (checkboxNeeded) {
       headerElements.unshift('');
     }
@@ -20,13 +17,17 @@ export default {
           {!this.state.loadingQuizzes &&
             this.state.quizzes.map(element => (
               <Table.Row key={'TableRow' + element.id}>
+                {checkboxNeeded && (
+                  <Table.Cell collapsing>
+                    <Form.Radio
+                      value={element.id}
+                      checked={this.state.selectedQuizId === element.id}
+                      onChange={this.handleQuizSelectChange}
+                    />
+                  </Table.Cell>
+                )}
                 <Table.Cell>{element.name}</Table.Cell>
-                <Table.Cell collapsing>{element.id}</Table.Cell>
-                <Table.Cell collapsing>
-                  <NavLink to={'/quiz'}>
-                    <Button color="green" icon="edit" basic />
-                  </NavLink>
-                </Table.Cell>
+                <Table.Cell>{element.id}</Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
