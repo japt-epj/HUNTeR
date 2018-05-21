@@ -3,7 +3,6 @@ package ch.japt.epj.api.controller;
 import ch.japt.epj.api.LocationApi;
 import ch.japt.epj.model.LocationModel;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
-import ch.japt.epj.model.dto.NextExerciseLocationsDto;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +21,10 @@ public class LocationController implements LocationApi {
     this.locationModel = locationModel;
   }
 
-  @Override
-  public ResponseEntity<NextExerciseLocationsDto> locationGet() {
-    return null;
-  }
+  //  @Override
+  //  public ResponseEntity<NextExerciseLocationDto> locationGet() {
+  //    return null;
+  //  }
 
   @Override
   public ResponseEntity<NextExerciseLocationDto> locationIdGet(@PathVariable("id") Integer id) {
