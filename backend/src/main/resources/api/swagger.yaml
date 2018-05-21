@@ -591,6 +591,22 @@ paths:
           schema:
             $ref: "#/definitions/NextExerciseLocation"
 
+  /location:
+    get:
+      tags:
+      - "location"
+      summary: "Get locations"
+      description: "Get locations to next exercise by executionId"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Responses found"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/NextExerciseLocation"
+
 securityDefinitions:
   bearerAuth:
     type: "apiKey"

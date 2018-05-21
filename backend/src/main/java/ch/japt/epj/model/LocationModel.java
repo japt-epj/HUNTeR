@@ -10,6 +10,7 @@ import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
 import ch.japt.epj.repository.ResponseRepository;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,7 @@ public class LocationModel {
     this.executions = executions;
   }
 
-  public NextExerciseLocationDto getExerciseLocation(int id) {
+  public NextExerciseLocationDto getExerciseLocation(long id) {
     ArrayList<Exercise> solvedExercises = new ArrayList<>();
     ArrayList<Response> allResponses = new ArrayList<>();
     responses.findAll().forEach(allResponses::add);
@@ -65,5 +66,20 @@ public class LocationModel {
     dto.setLng(nextLocationToGo.getLng());
     dto.setLat(nextLocationToGo.getLat());
     return dto;
+  }
+
+  public List<NextExerciseLocationDto> getExerciseLocations() {
+    ArrayList<NextExerciseLocationDto> locations = new ArrayList<>();
+    executions
+        .findAll()
+        .forEach(
+            execution -> {
+              NextExerciseLocationDto location = getExerciseLocation(execution.getExecutionId());
+              if (location != null) {
+                locations.add(location);
+              }
+            });
+
+    return locations;
   }
 }

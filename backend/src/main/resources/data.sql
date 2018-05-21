@@ -1,6 +1,6 @@
 INSERT INTO answer (answer, checked) VALUES
   ('Dober Männer', false),
-  ('Cocker Spaniels', false),
+  ('Cocker Spaniels', true),
   ('Schäfer Hunde', true),
   ('Riesen Schnauzer', false),
   ('...einen draufmachen', false),
@@ -196,3 +196,14 @@ INSERT INTO quiz_locations (quiz_quiz_id, locations_location_id) VALUES
   (2, 5),
   (3, 6),
   (3, 7);
+
+INSERT INTO execution (end_date, name, start_date, quiz_quiz_id) VALUES
+  (NULL, 'First execution', NULL, 1);
+
+INSERT INTO execution_participants (execution_execution_id, participants_person_id) VALUES
+  (1, 5);
+
+INSERT INTO execution_responses (execution_execution_id, responses_response_id) VALUES
+  (1, 1),
+  (1, 2),
+  (1, 3);
