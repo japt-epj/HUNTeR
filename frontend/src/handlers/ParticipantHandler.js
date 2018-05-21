@@ -71,7 +71,7 @@ export default {
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="4">
+            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPageParticipant}
                 activePage={this.state.pageNumber}
