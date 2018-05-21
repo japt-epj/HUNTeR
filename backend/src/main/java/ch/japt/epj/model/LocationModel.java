@@ -51,7 +51,7 @@ public class LocationModel {
                         .collect(Collectors.toCollection(ArrayList::new))));
     ArrayList<Location> allLocationsSorted = new ArrayList<>();
     executions
-        .findByExecutionId((long) id)
+        .findByExecutionId(id)
         .ifPresent(
             execution1 ->
                 allLocationsSorted.addAll(
@@ -79,7 +79,6 @@ public class LocationModel {
                 locations.add(location);
               }
             });
-
     return locations;
   }
 }
