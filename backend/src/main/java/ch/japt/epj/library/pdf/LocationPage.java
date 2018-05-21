@@ -2,6 +2,7 @@ package ch.japt.epj.library.pdf;
 
 import ch.japt.epj.library.QrGenerator;
 import ch.japt.epj.model.data.Location;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.geom.Point2D.Float;
 import java.io.IOException;
 import java.util.Collection;
@@ -23,7 +24,7 @@ public final class LocationPage implements AutoCloseable {
   private static final PDType1Font TEXT_FONT = PDType1Font.HELVETICA;
   private static final int TEXT_FONT_SIZE = 20;
 
-  private static final int QR_SCALE = 20;
+  private static final int QR_SCALE = 15;
   private static final int TITLE_MARGIN_LINES = 1;
   private static final int TEXT_MARGIN_LINES = 4;
 
@@ -79,9 +80,11 @@ public final class LocationPage implements AutoCloseable {
   }
 
   private void addImage() throws IOException {
-    byte[] qrcode =
-        QrGenerator.makeQr(String.valueOf(location.getExercise().getExerciseId()), QR_SCALE, 0)
-            .get();
+    LocationQrCode code = new LocationQrCode(location.getExercise().getExerciseId(), executionId);
+    ObjectMapper mapper = new ObjectMapper();
+    String value = mapper.writeValueAsString(code);
+
+    byte[] qrcode = QrGenerator.makeQr(value, QR_SCALE, 0).get();
     PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
     content.drawImage(
         image,
@@ -95,6 +98,16 @@ public final class LocationPage implements AutoCloseable {
   public void close() throws IOException {
     if (this.content != null) {
       this.content.close();
+    }
+  }
+
+  private final class LocationQrCode {
+    public final long exerciseId;
+    public final long executionId;
+
+    private LocationQrCode(long exerciseId, long executionId) {
+      this.exerciseId = exerciseId;
+      this.executionId = executionId;
     }
   }
 }
