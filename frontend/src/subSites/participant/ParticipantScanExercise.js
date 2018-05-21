@@ -34,7 +34,6 @@ export default class ParticipantScanExercise extends React.Component {
       APIHandler.getExerciseArray(jsonData.exerciseId, 'exercise').then(
         resData => {
           if (resData.status === 200) {
-            alert(JSON.stringify(resData.data[0]));
             let exercise = resData.data[0];
             exercise.answers.forEach(function(element, index, arrayObject) {
               arrayObject[index] = {text: element, checked: false};
