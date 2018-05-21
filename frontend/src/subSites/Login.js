@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
-import config from '../config/config';
+import defaultUIConfig from '../config/defaultUIConfig';
 import StructureHandler from '../handlers/StructureHandler';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
@@ -63,7 +63,7 @@ export default class Login extends React.Component {
                   required
                 />
                 <Form.Button
-                  color={config.buttonColors.normal}
+                  color={defaultUIConfig.buttonColors.normal}
                   icon="sign in"
                   basic
                   content="Einloggen"

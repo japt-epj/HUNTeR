@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import config from '../../config/config';
+import defaultUIConfig from '../../config/defaultUIConfig';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
@@ -15,7 +15,7 @@ export default class TeacherExerciseOverview extends React.Component {
     this.state = {
       exercises: [],
       loading: true,
-      pageNumber: config.defaultNumbers.pageNumber,
+      pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
       minPage: 1,
       maxPage: ''
     };
@@ -54,7 +54,7 @@ export default class TeacherExerciseOverview extends React.Component {
           : this.getExerciseTable(false)}
         <NavLink to="/exercise">
           <Button
-            color={config.buttonColors.normal}
+            color={defaultUIConfig.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Aufgabe hinzufügen"

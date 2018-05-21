@@ -2,7 +2,6 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Message} from 'semantic-ui-react';
-import {OK} from 'http-status-codes';
 
 import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';

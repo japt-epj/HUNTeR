@@ -1,8 +1,6 @@
 import React from 'react';
 import TableHandler from './TableHandler';
-import {Button, Form, Pagination, Table} from 'semantic-ui-react';
-import config from '../config/config';
-import APIHandler from './APIHandler';
+import {Form, Pagination, Table} from 'semantic-ui-react';
 
 export default {
   getQuizTable(checkboxNeeded) {

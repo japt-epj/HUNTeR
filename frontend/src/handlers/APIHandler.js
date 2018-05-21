@@ -2,13 +2,13 @@ import axios from 'axios';
 import fileDownload from 'js-file-download';
 import {OK, UNAUTHORIZED} from 'http-status-codes';
 
-import config from '../config/config';
+import pathConfig from '../config/pathConfig';
 import getAxiosHeader from './getAxiosHeader';
 
 export default {
   getExerciseArray(exerciseIDs) {
     return axios
-      .get(config.apiURL + 'exercise/' + exerciseIDs, {
+      .get(pathConfig.apiURL + 'exercise/' + exerciseIDs, {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
@@ -16,7 +16,7 @@ export default {
 
   downloadExecutionQRCodePDF(executionID) {
     return axios
-      .get(config.apiURL + 'quiz/' + executionID + '/print', {
+      .get(pathConfig.apiURL + 'quiz/' + executionID + '/print', {
         headers: getAxiosHeader('application/pdf'),
         responseType: 'arraybuffer'
       })
@@ -27,7 +27,7 @@ export default {
   },
 
   getPaginatedElements(path, page) {
-    let requestURL = config.apiURL + path + '/';
+    let requestURL = pathConfig.apiURL + path + '/';
     if (typeof page === 'number') {
       requestURL += '?page=' + (page - 1);
     }
@@ -39,7 +39,7 @@ export default {
   },
 
   getNextLocation(executionId) {
-    let requestURL = config.baseurl + 'location/' + executionId;
+    let requestURL = pathConfig.baseurl + 'location/' + executionId;
     return axios
       .get(requestURL, {
         headers: {
@@ -52,7 +52,7 @@ export default {
 
   postData(data, path) {
     axios
-      .post(config.apiURL + path + '/', data, {
+      .post(pathConfig.apiURL + path + '/', data, {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error('Error:', err))
@@ -64,7 +64,7 @@ export default {
   postLoginData(data) {
     return axios
       .post(
-        config.apiURL + 'auth/login/',
+        pathConfig.apiURL + 'auth/login/',
         {
           email: data.email,
           password: data.password
@@ -81,7 +81,7 @@ export default {
 
   redirectAfterLogin() {
     return axios
-      .get(config.apiURL + 'auth/entryPoint', {
+      .get(pathConfig.apiURL + 'auth/entryPoint', {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error(err));
@@ -89,7 +89,7 @@ export default {
 
   getParticipant(participantId) {
     return axios
-      .get(config.apiURL + 'person/' + participantId, {
+      .get(pathConfig.apiURL + 'person/' + participantId, {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
@@ -97,7 +97,7 @@ export default {
 
   putData(data, path) {
     axios
-      .put(config.apiURL + path + '/', data, {
+      .put(pathConfig.apiURL + path + '/', data, {
         headers: {
           'Content-Type': 'application/json'
         }

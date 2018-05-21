@@ -8,7 +8,7 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 import {OK} from 'http-status-codes';
 
-import config from '../../config/config';
+import defaultUIConfig from '../../config/defaultUIConfig';
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';
@@ -29,7 +29,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingUser: true,
       loadingQuiz: true,
-      pageNumber: config.defaultNumbers.pageNumber,
+      pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
       minPage: 1,
       maxPageQuiz: '',
       maxPageParticipant: '',
@@ -151,7 +151,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={config.buttonColors.normal}
+                      color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"
@@ -174,7 +174,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={config.buttonColors.normal}
+                      color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"
