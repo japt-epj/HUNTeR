@@ -15,7 +15,6 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class LocationPage implements AutoCloseable {
@@ -37,7 +36,6 @@ public final class LocationPage implements AutoCloseable {
   private final PDPage page;
   private final Float center;
   private final PDPageContentStream content;
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public LocationPage(PDDocument document, Location location, Long executionId) throws IOException {
     this.document = document;
@@ -106,7 +104,7 @@ public final class LocationPage implements AutoCloseable {
           image.getWidth(),
           image.getHeight());
     } catch (IOException e) {
-      logger.warn(String.valueOf(e));
+      LoggerFactory.getLogger(this.getClass()).warn(String.valueOf(e));
     }
   }
 
