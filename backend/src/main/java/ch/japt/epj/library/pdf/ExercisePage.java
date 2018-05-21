@@ -15,7 +15,6 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public final class ExercisePage implements AutoCloseable {
-  // this can probably be extracted to a configuration enum...
   private static final PDRectangle PAGE_FORMAT = PDRectangle.A4;
 
   private static final PDType1Font TITLE_FONT = PDType1Font.HELVETICA_BOLD;
@@ -38,14 +37,14 @@ public final class ExercisePage implements AutoCloseable {
   public ExercisePage(PDDocument document, Exercise exercise) throws IOException {
     this.exercise = exercise;
     this.document = document;
-    this.page = new PDPage((PAGE_FORMAT));
+    this.page = new PDPage(PAGE_FORMAT);
     this.center = Geometry.getCenter(page);
     this.content = new PDPageContentStream(document, page, AppendMode.APPEND, false, true);
 
     document.addPage(page);
   }
 
-  public void make() throws IOException {
+  public void addContent() throws IOException {
     addTitle();
     addQuestion();
     addImage();
@@ -92,7 +91,7 @@ public final class ExercisePage implements AutoCloseable {
   }
 
   @Override
-  public void close() throws Exception {
+  public void close() throws IOException {
     if (this.content != null) {
       this.content.close();
     }

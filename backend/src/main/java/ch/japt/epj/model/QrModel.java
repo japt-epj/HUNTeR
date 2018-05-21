@@ -1,15 +1,10 @@
 package ch.japt.epj.model;
 
 import ch.japt.epj.library.QrGenerator;
-import ch.japt.epj.library.pdf.ExercisePage;
-import ch.japt.epj.model.data.Exercise;
-import ch.japt.epj.model.data.Quiz;
+import ch.japt.epj.library.pdf.ExerciseDocumentFactory;
 import ch.japt.epj.repository.ExerciseRepository;
 import ch.japt.epj.repository.QuizRepository;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.Optional;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,26 +26,8 @@ public class QrModel {
   }
 
   public Optional<byte[]> generatePdf(Long id) {
-    Quiz quiz = quizzes.findQuizByQuizId(id).get();
-
-    // compact these tries into one. Maybe make ExerciseDocument
-    try (PDDocument document = new PDDocument()) {
-      for (Exercise exercise : quiz.getTasks()) {
-        try (ExercisePage page = new ExercisePage(document, exercise)) {
-          page.make();
-        } catch (Exception e) {
-          // this needs to become a lot nicer
-          e.printStackTrace();
-        }
-      }
-
-      ByteArrayOutputStream stream = new ByteArrayOutputStream();
-      document.save(stream);
-      return Optional.of(stream.toByteArray());
-    } catch (IOException e) {
-      // log this
-      e.printStackTrace();
-      return Optional.empty();
-    }
+    return quizzes
+        .findQuizByQuizId(id)
+        .flatMap(q -> Optional.of(new ExerciseDocumentFactory(q).asArray()));
   }
 }
