@@ -1,7 +1,7 @@
 package ch.japt.epj.library.pdf;
 
 import ch.japt.epj.model.data.Execution;
-import ch.japt.epj.model.data.Exercise;
+import ch.japt.epj.model.data.Location;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -16,8 +16,8 @@ public class ExecutionDocumentFactory implements AutoCloseable {
   }
 
   private void make() throws IOException {
-    for (Exercise exercise : execution.getQuiz().getTasks()) {
-      try (ExercisePage page = new ExercisePage(document, exercise)) {
+    for (Location location : execution.getQuiz().getLocations()) {
+      try (ExercisePage page = new ExercisePage(document, location.getExercise())) {
         page.addContent();
       }
     }
