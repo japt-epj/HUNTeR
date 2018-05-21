@@ -13,8 +13,12 @@ export default {
         name: 'Übersicht der Quizzes',
         icon: 'stack exchange'
       },
-
       {path: 'execution', name: 'Ausführung erstellen', icon: 'calendar'},
+      {
+        path: 'executionOverview',
+        name: 'Übersicht der Ausführungen',
+        icon: 'stack exchange'
+      },
       {path: 'newUser', name: 'Schüler erstellen', icon: 'add user'},
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
