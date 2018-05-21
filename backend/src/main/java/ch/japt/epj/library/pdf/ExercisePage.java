@@ -26,7 +26,6 @@ public final class ExercisePage implements AutoCloseable {
   private static final int QR_SCALE = 20;
   private static final int TITLE_MARGIN_LINES = 1;
   private static final int TEXT_MARGIN_LINES = 4;
-  private static final float EM_APPROXIMATION_FACTOR = 1.5F;
 
   private final Exercise exercise;
   private final PDDocument document;
@@ -60,10 +59,8 @@ public final class ExercisePage implements AutoCloseable {
 
   private void writeLines(String text, int marginLines, PDFont font, int fontSize)
       throws IOException {
-    float em = Geometry.getStringWidth("M", font, fontSize) / EM_APPROXIMATION_FACTOR;
-    float letters = page.getMediaBox().getWidth() / em;
-
-    Collection<String> lines = StringSplit.lines(text, Math.round(letters));
+    int letters = Geometry.lettersPerLine(page, font, fontSize);
+    Collection<String> lines = StringSplit.lines(text, letters);
 
     int lineCount = marginLines;
 
