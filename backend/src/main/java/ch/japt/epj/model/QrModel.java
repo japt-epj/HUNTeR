@@ -29,6 +29,6 @@ public class QrModel {
   public Optional<byte[]> generatePdf(Long id) {
     return executions
         .findByExecutionId(id)
-        .flatMap(q -> Optional.of(new ExecutionDocumentFactory(q).asArray()));
+        .flatMap(execution -> Optional.of(new ExecutionDocumentFactory(execution).asArray()));
   }
 }
