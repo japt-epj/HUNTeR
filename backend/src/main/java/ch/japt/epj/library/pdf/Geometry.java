@@ -9,6 +9,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 
 public final class Geometry {
   private static final float EM_APPROXIMATION_FACTOR = 1.5F;
+  private static final int PDFONT_FACTOR = 1000;
 
   private Geometry() {}
 
@@ -24,7 +25,7 @@ public final class Geometry {
   }
 
   public static float getStringWidth(String text, PDFont font, int size) throws IOException {
-    return font.getStringWidth(text) * size / 1000;
+    return font.getStringWidth(text) * size / PDFONT_FACTOR;
   }
 
   public static int lettersPerLine(PDPage page, PDFont font, int fontSize) throws IOException {
