@@ -40,7 +40,7 @@ export default {
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="5">
+            <Table.HeaderCell colSpan={headerElements.length}>
               <Pagination
                 totalPages={this.state.maxPage}
                 activePage={this.state.pageNumber}
