@@ -1,13 +1,12 @@
 import React from 'react';
 import TableHandler from './TableHandler';
 import {Button, Form, Pagination, Table} from 'semantic-ui-react';
-
 import config from '../config/config';
 import APIHandler from './APIHandler';
 
 export default {
   getQuizTable(checkboxNeeded) {
-    let headerElements = ['Name', 'Download'];
+    let headerElements = ['Name', 'ID'];
     if (checkboxNeeded) {
       headerElements.unshift('');
     }
@@ -30,20 +29,13 @@ export default {
                   </Table.Cell>
                 )}
                 <Table.Cell>{element.name}</Table.Cell>
-                <Table.Cell collapsing>
-                  <Button
-                    color={config.buttonColors.download}
-                    icon="file outline"
-                    basic
-                    onClick={() => APIHandler.downloadQRCodePDF(element.id)}
-                  />
-                </Table.Cell>
+                <Table.Cell>{element.id}</Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="2">
+            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPageQuiz}
                 activePage={this.state.pageNumber}

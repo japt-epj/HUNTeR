@@ -14,23 +14,15 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  downloadQRCode(exerciseID) {
+  downloadExecutionQRCodePDF(executionID) {
     return axios
-      .get(config.apiURL + 'qrCode/' + exerciseID, {
-        headers: getAxiosHeader('image/png'),
-        responseType: 'arraybuffer'
-      })
-      .then(res => fileDownload(res.data, 'qrCode' + exerciseID + '.png'))
-      .catch(err => console.warn(err));
-  },
-
-  downloadQRCodePDF(quizID) {
-    return axios
-      .get(config.apiURL + 'quiz/' + quizID + '/print', {
+      .get(config.apiURL + 'quiz/' + executionID + '/print', {
         headers: getAxiosHeader('application/pdf'),
         responseType: 'arraybuffer'
       })
-      .then(res => fileDownload(res.data, 'qrCodes-quiz' + quizID + '.pdf'))
+      .then(res =>
+        fileDownload(res.data, 'qrCodes-quiz' + executionID + '.pdf')
+      )
       .catch(err => console.warn(err));
   },
 

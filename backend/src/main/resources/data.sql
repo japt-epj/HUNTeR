@@ -54,7 +54,7 @@ INSERT INTO answer (answer, checked) VALUES
 
 INSERT INTO exercise (name, question) VALUES
   ('Tiere', 'Seit jeher haben die meisten...'),
-  ('Natur und Umwelt', 'Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und...'),
+  ('Natur und Umwelt', 'Wenn das Wetter gut ist, wird der Bauer bestimmt den Eber, das Ferkel und...'),
   ('Natur und Umwelt', 'Mit dem Picknick im Grünen wird es meist nur dann etwas, wenn...'),
   ('Strassenverkehr', 'Auch ein Navi führt manchmal in die...?'),
   ('Kind und Kegel', 'Hält der Bengel im Kinderzimmer einfach keine Ordnung, darf er sich auch nicht wundern, wenn er ständig irgendein...?'),
@@ -63,8 +63,8 @@ INSERT INTO exercise (name, question) VALUES
   ('Anatomie', 'Wer sich durch einen unwegsamen Laubwald kämpft, der streift bestimmt auch mit der...?'),
   ('Arbeitswelt', 'Sind sie gute Kollegen, arbeiten auch die härtesten Machos..?'),
   ('Sexualkunde', 'Was machte Reinhold Messner mit dem Mount Everest?'),
-  ('Kulturgüter', 'Eines muss man den Karibikbewohnern wirklich lassen: Sie können gut...'),
-  ('Kulturgüter', 'Was kommt in Ostasien häufig auf den Tisch?'),
+  ('Kulturgueter', 'Eines muss man den Karibikbewohnern wirklich lassen: Sie koennen gut...'),
+  ('Kulturgueter', 'Was kommt in Ostasien haeufig auf den Tisch?'),
   ('Tiere', 'Die Dinosaurier lebten...?');
 
 INSERT INTO location (lat, lng, exercise_exercise_id) VALUES
@@ -85,7 +85,7 @@ INSERT INTO location (lat, lng, exercise_exercise_id) VALUES
 INSERT INTO quiz (name) VALUES
   ('Natur'),
   ('Tiere'),
-  ('Kulturgüter'),
+  ('Kulturgueter'),
   ('Biologie'),
   ('Nahkampf'),
   ('StGB'),

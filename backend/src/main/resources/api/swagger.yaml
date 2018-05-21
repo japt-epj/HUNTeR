@@ -28,7 +28,6 @@ tags:
 schemes:
 - "https"
 paths:
-
   /exercise:
     post:
       tags:
@@ -208,32 +207,50 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Person"
-  /person:
-   put:
-      tags:
-      - "person"
-      summary: "Update an existing person"
-      description: ""
-      operationId: "updatePerson"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "person object that needs to be editted in the store"
-        required: true
-        schema:
-          $ref: "#/definitions/RegPerson"
-      responses:
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "person not found"
-        405:
-          description: "Validation exception"
 
+  /person/current:
+     get:
+        tags:
+        - "person"
+        summary: "Get current person"
+        description: ""
+        operationId: "getCurrentPerson"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "header"
+          name: "Authorization"
+          type: "string"
+        responses:
+          200:
+            description: "Current person found"
+            schema:
+                $ref: "#/definitions/Person"
+  /person:
+    put:
+          tags:
+          - "person"
+          summary: "Update an existing person"
+          description: ""
+          operationId: "updatePerson"
+          consumes:
+          - "application/json"
+          produces:
+          - "application/json"
+          parameters:
+          - in: "body"
+            name: "body"
+            description: "person object that needs to be editted in the store"
+            required: true
+            schema:
+              $ref: "#/definitions/RegPerson"
+          responses:
+            400:
+              description: "Invalid ID supplied"
+            404:
+              description: "person not found"
+            405:
+              description: "Validation exception"
 
   /auth/register:
     post:
@@ -302,7 +319,6 @@ paths:
               description: "Location to redirect to"
         302:
           description: "Entry point for non HUNTeR client provided"
-
 
   /quiz:
     post:
@@ -397,6 +413,28 @@ paths:
         405:
           description: "Invalid input"
 
+  /quiz/{id}/print:
+    get:
+      tags:
+        - "quiz"
+      summary: "Print out quiz"
+      description: "Print out a quiz for distributing way points that can be scanned"
+      produces:
+      - "application/pdf"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of quiz to print"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: file
+        401:
+          description: "Not Found"
 
   /response:
     post:
@@ -491,20 +529,6 @@ paths:
         405:
           description: "Validation exception"
 
-    get:
-      tags:
-      - "execution"
-      summary: "Get all executions"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "All executions"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Execution"
-
   /execution/{id}:
     get:
       tags:
@@ -567,21 +591,6 @@ paths:
           schema:
             $ref: "#/definitions/NextExerciseLocation"
 
-  /location:
-    get:
-      tags:
-      - "location"
-      summary: "Get all locations"
-      description: "Get all locations to next exercises from open executions"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "Locations found"
-          schema:
-            $ref: "#/definitions/NextExerciseLocations"
-
-
 securityDefinitions:
   bearerAuth:
     type: "apiKey"
@@ -592,7 +601,6 @@ securityDefinitions:
     name: "api_key"
     in: "header"
 definitions:
-
 
   Person:
     type: "object"
@@ -621,7 +629,6 @@ definitions:
         type: "string"
       checked:
         type: "boolean"
-
 
   NewExercise:
     type: "object"
@@ -661,7 +668,6 @@ definitions:
         type: "array"
         items:
           type: "string"
-
 
   NewExecution:
       type: "object"
@@ -752,7 +758,6 @@ definitions:
         items:
           $ref: "#/definitions/ExerciseLocation"
 
-
   ExerciseLocation:
     type: "object"
     required:
@@ -794,14 +799,6 @@ definitions:
         format: "double"
         example: 8.8176142
 
-  NextExerciseLocations:
-    type: "object"
-    properties:
-      exerciseLocations:
-        type: "array"
-        items:
-          $ref: "#/definitions/NextExerciseLocation"
-
   JWT:
     type: "object"
     required:
@@ -834,8 +831,6 @@ definitions:
         type: "string"
       password:
         type: "string"
-
-
 
 externalDocs:
   description: "Find out more about Swagger"
