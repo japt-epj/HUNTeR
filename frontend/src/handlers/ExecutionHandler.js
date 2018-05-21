@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
+import {Button, Pagination, Table} from 'semantic-ui-react';
 
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';

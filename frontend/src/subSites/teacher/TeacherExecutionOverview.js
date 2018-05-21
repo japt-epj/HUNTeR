@@ -34,10 +34,10 @@ export default class TeacherExecutionOverview extends React.Component {
   };
 
   getExecutions = (page, limit) => {
-    APIHandler.getPaginatedElements('executions', page, limit).then(resData => {
+    APIHandler.getPaginatedElements('execution', page, limit).then(resData => {
       if (resData.status === 200) {
         this.setState({
-          exercises: resData.data.content,
+          executions: resData.data.content,
           maxPage: resData.data.totalPages,
           loading: false
         });
@@ -50,7 +50,7 @@ export default class TeacherExecutionOverview extends React.Component {
       <div>
         {this.state.loading
           ? viewHandler.getLoadingScreen()
-          : this.getExecutionTable}
+          : this.getExecutionTable()}
         <NavLink to="/execution">
           <Button
             color="green"
