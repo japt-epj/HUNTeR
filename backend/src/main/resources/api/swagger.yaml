@@ -485,20 +485,6 @@ paths:
         405:
           description: "Validation exception"
 
-    get:
-      tags:
-      - "execution"
-      summary: "Get all executions"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "All executions"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Execution"
-
   /execution/{id}:
     get:
       tags:
@@ -780,3 +766,4 @@ definitions:
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
+
