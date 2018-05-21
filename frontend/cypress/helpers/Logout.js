@@ -1,22 +1,23 @@
+import Credentials from './Credentials';
+
 export default {
-  getTeacherLogout() {
-    cy
-      .get('.pusher > .ui > [href="/teacher/logout"] > .item')
-      .click()
-      .should(() => {
-        this.getLogoutTokenClearingTest();
-      });
+  getTeacherLogout(loginCredentials) {
+    this.getTestsBeforeLogout(loginCredentials.role);
     this.getTestsAfterLogout();
   },
 
-  getParticipantLogout() {
+  getParticipantLogout(loginCredentials) {
+    this.getTestsBeforeLogout(loginCredentials.role);
+    this.getTestsAfterLogout();
+  },
+
+  getTestsBeforeLogout(role) {
     cy
-      .get('.pusher > .ui > [href="/participant/logout"] > .item')
+      .get(`.pusher > .ui > [href="/${role}/logout"] > .item`)
       .click()
       .should(() => {
         this.getLogoutTokenClearingTest();
       });
-    this.getTestsAfterLogout();
   },
 
   getLogoutTokenClearingTest() {

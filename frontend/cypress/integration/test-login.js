@@ -6,8 +6,9 @@ import Logout from '../helpers/Logout';
 describe('Login tests', function() {
   it('Login test with wrong credentials', function() {
     setViewport('iphone-6/7/8');
-    login(Credentials.getWrongCredentials());
-    Logout.getTestsAfterLogout();
+    const loginCredentials = Credentials.getWrongCredentials();
+
+    login(loginCredentials);
     cy
       .contains('Username oder Passwort falsch eingegeben')
       .should('be.visible');
@@ -15,13 +16,17 @@ describe('Login tests', function() {
 
   it('Login test with participant credentials', function() {
     setViewport('iphone-6/7/8');
-    login(Credentials.getParticipantCredentials());
-    Logout.getParticipantLogout();
+    const loginCredentials = Credentials.getParticipantCredentials();
+
+    login(loginCredentials);
+    Logout.getParticipantLogout(loginCredentials);
   });
 
   it('Login test with teacher credentials', function() {
     setViewport('iphone-6/7/8');
-    login(Credentials.getTeacherCredentials());
-    Logout.getTeacherLogout();
+    const loginCredentials = Credentials.getTeacherCredentials();
+
+    login(loginCredentials);
+    Logout.getTeacherLogout(loginCredentials);
   });
 });
