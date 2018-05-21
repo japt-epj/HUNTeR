@@ -15,6 +15,8 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class LocationPage implements AutoCloseable {
   private static final PDRectangle PAGE_FORMAT = PDRectangle.A4;
@@ -35,6 +37,7 @@ public final class LocationPage implements AutoCloseable {
   private final PDPage page;
   private final Float center;
   private final PDPageContentStream content;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public LocationPage(PDDocument document, Location location, Long executionId) throws IOException {
     this.document = document;
@@ -61,6 +64,7 @@ public final class LocationPage implements AutoCloseable {
     writeLines(location.getExercise().getQuestion(), TEXT_MARGIN_LINES, TEXT_FONT, TEXT_FONT_SIZE);
   }
 
+  @SuppressWarnings("squid:S109")
   private void writeLines(String text, int marginLines, PDFont font, int fontSize)
       throws IOException {
     int letters = Geometry.lettersPerLine(page, font, fontSize);
@@ -88,14 +92,22 @@ public final class LocationPage implements AutoCloseable {
     ObjectMapper mapper = new ObjectMapper();
     String value = mapper.writeValueAsString(code);
 
-    byte[] qrcode = QrGenerator.makeQr(value, QR_SCALE, 0).get();
-    PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
-    content.drawImage(
-        image,
-        center.x - image.getWidth() / 2,
-        center.y - image.getHeight() / 2,
-        image.getWidth(),
-        image.getHeight());
+    QrGenerator.makeQr(value, QR_SCALE, 0).ifPresent(this::drawImage);
+  }
+
+  @SuppressWarnings("squid:S109")
+  private void drawImage(byte[] qrcode) {
+    try {
+      PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
+      content.drawImage(
+          image,
+          center.x - image.getWidth() / 2,
+          center.y - image.getHeight() / 2,
+          image.getWidth(),
+          image.getHeight());
+    } catch (IOException e) {
+      logger.warn(e.getMessage());
+    }
   }
 
   @Override
@@ -105,7 +117,7 @@ public final class LocationPage implements AutoCloseable {
     }
   }
 
-  private final class LocationPayload {
+  private static final class LocationPayload {
     public final long exerciseId;
     public final long executionId;
     public final Coordinates coordinates;
