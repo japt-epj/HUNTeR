@@ -156,7 +156,7 @@ export default {
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing>
-                  <NavLink to={'/exercise?id=' + element.id}>
+                  <NavLink to={'/exercise/Teacher?id=' + element.id}>
                     <Button color="green" icon="edit" basic />
                   </NavLink>
                 </Table.Cell>

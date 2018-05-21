@@ -42,6 +42,12 @@ public class ExerciseController implements ExerciseApi, PaginatedExercise {
   }
 
   @Override
+  public ResponseEntity<List<NewExerciseDto>> exerciseTeacherIdGet(
+      @PathVariable("id") List<Integer> id) {
+    return new ResponseEntity<>(exerciseModel.getExercisesForTeacher(id), HttpStatus.OK);
+  }
+
+  @Override
   public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
     throw new RuntimeException("Not implemented");
   }

@@ -122,6 +122,30 @@ paths:
         405:
           description: "Invalid input"
 
+  /exercise/teacher/{id}:
+    get:
+      tags:
+      - "exercise"
+      summary: "Get exercise"
+      description: "Get exercise by id"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: "array"
+          items:
+            type: "integer"
+          description: "exercise id, or multiple comma separated ids"
+      responses:
+        200:
+          description: "Exercises found"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/NewExercise"
+
   /qrCode/{id}:
     get:
       tags:
