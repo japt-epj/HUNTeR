@@ -22,7 +22,7 @@ export default {
     if (isACheckboxSet) {
       let userType = window.location.pathname.split('/')[1];
       if (userType === 'teacher') {
-        this.postData(APIHandler.prepareTeacherData(this.state), 'response');
+        this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
       } else {
         this.postData(
           APIHandler.prepareParticipantData(this.state),
@@ -97,9 +97,9 @@ export default {
               'HUNTeR-Redirect',
               redirectData.headers['x-hunter-redirect']
             );
-            this.setState({fireRedirect: true, showSuccess: false});
+            this.setState({fireRedirect: true});
           });
-        }, 1500);
+        }, 2500);
       } else {
         this.setState({showLoginError: true});
       }

@@ -22,7 +22,10 @@ export default function login(loginCredentials) {
         );
       }
     });
-  cy
-    .url()
-    .should('equal', Cypress.env('baseUrl') + '/' + loginCredentials.role);
+
+  const urlPath = loginCredentials.correctCredentials
+    ? loginCredentials.role
+    : '';
+
+  cy.url().should('equal', Cypress.env('baseUrl') + '/' + urlPath);
 }
