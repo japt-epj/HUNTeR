@@ -95,13 +95,14 @@ public final class LocationPage implements AutoCloseable {
     QrGenerator.makeQr(value, QR_SCALE, 0).ifPresent(this::drawImage);
   }
 
-  @SuppressWarnings("squid:S109")
   private void drawImage(byte[] qrcode) {
     try {
       PDImageXObject image = PDImageXObject.createFromByteArray(document, qrcode, null);
       content.drawImage(
           image,
+          // NOSONAR
           center.x - image.getWidth() / 2,
+          // NOSONAR
           center.y - image.getHeight() / 2,
           image.getWidth(),
           image.getHeight());
