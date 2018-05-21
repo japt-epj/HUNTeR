@@ -2,6 +2,9 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
+
+import config from '../../config/config';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
@@ -13,29 +16,28 @@ export default class TeacherQuizOverview extends React.Component {
       checkBox: '',
       quizzes: [],
       loadingQuiz: true,
-      pageNumber: 1,
+      pageNumber: config.defaultNumbers.pageNumber,
       minPage: 1,
-      maxPageQuiz: '',
-      limit: 5
+      maxPageQuiz: ''
     };
 
     this.getQuizTable = QuizHandler.getQuizTable.bind(this);
   }
 
   componentDidMount() {
-    this.getQuizzes(this.state.pageNumber, this.state.limit);
+    this.getQuizzes(this.state.pageNumber);
   }
 
   handlePageChangeQuizzes = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getQuizzes(element.activePage, this.state.limit);
+    this.getQuizzes(element.activePage);
   };
 
-  getQuizzes = (page, limit) => {
-    APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
-      if (resData.status === 200) {
+  getQuizzes = page => {
+    APIHandler.getPaginatedElements('quiz', page).then(resData => {
+      if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
           maxPageQuiz: resData.data.totalPages,

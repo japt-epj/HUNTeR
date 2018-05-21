@@ -6,7 +6,9 @@ import DateTime from 'react-datetime';
 import moment from 'moment';
 import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
+import {OK} from 'http-status-codes';
 
+import config from '../../config/config';
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';
@@ -27,8 +29,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingUser: true,
       loadingQuiz: true,
-      limit: 5,
-      pageNumber: 1,
+      pageNumber: config.defaultNumbers.pageNumber,
       minPage: 1,
       maxPageQuiz: '',
       maxPageParticipant: '',
@@ -56,13 +57,13 @@ export default class TeacherExecution extends React.Component {
   }
 
   componentDidMount() {
-    this.getParticipants(this.state.pageNumber, this.state.limit);
-    this.getQuizzes(this.state.pageNumber, this.state.limit);
+    this.getParticipants(this.state.pageNumber);
+    this.getQuizzes(this.state.pageNumber);
   }
 
-  getParticipants = (page, limit) => {
-    APIHandler.getPaginatedElements('person', page, limit).then(resData => {
-      if (resData.status === 200) {
+  getParticipants = page => {
+    APIHandler.getPaginatedElements('person', page).then(resData => {
+      if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
           maxPageParticipant: resData.data.totalPages,
@@ -72,9 +73,9 @@ export default class TeacherExecution extends React.Component {
     });
   };
 
-  getQuizzes = (page, limit) => {
-    APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
-      if (resData.status === 200) {
+  getQuizzes = page => {
+    APIHandler.getPaginatedElements('quiz', page).then(resData => {
+      if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
           maxPageQuiz: resData.data.totalPages,
@@ -88,14 +89,14 @@ export default class TeacherExecution extends React.Component {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getParticipants(element.activePage, this.state.limit);
+    this.getParticipants(element.activePage);
   };
 
   handlePageChangeQuizzes = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getQuizzes(element.activePage, this.state.limit);
+    this.getQuizzes(element.activePage);
   };
 
   resetPageNumber = event => {
@@ -150,7 +151,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color="green"
+                      color={config.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"
@@ -173,7 +174,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color="green"
+                      color={config.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"

@@ -2,6 +2,7 @@ import React from 'react';
 import TableHandler from './TableHandler';
 import {Button, Form, Pagination, Table} from 'semantic-ui-react';
 
+import config from '../config/config';
 import APIHandler from './APIHandler';
 
 export default {
@@ -31,7 +32,7 @@ export default {
                 <Table.Cell>{element.name}</Table.Cell>
                 <Table.Cell collapsing>
                   <Button
-                    color="orange"
+                    color={config.buttonColors.download}
                     icon="file outline"
                     basic
                     onClick={() => APIHandler.downloadQRCodePDF(element.id)}
