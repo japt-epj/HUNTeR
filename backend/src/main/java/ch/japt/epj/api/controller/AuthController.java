@@ -12,7 +12,6 @@ import io.swagger.annotations.Api;
 import java.util.Comparator;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -82,9 +81,7 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
         .map(
             role -> {
               HeaderStatus status = new HeaderStatus(hunter, role);
-              HttpHeaders headers = new HttpHeaders();
-              headers.add(status.getHeader(), status.getPath());
-              return new ResponseEntity<Void>(headers, status.getStatus());
+              return new ResponseEntity<Void>(status.getHeaders(), status.getStatus());
             })
         .orElse(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
   }

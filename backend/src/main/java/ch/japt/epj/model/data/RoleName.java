@@ -2,7 +2,7 @@ package ch.japt.epj.model.data;
 
 public enum RoleName {
   ROLE_TEACHER("ROLE_TEACHER", "/teacher", 0),
-  ROLE_STUDENT("ROLE_STUDENT", "/student", 1);
+  ROLE_STUDENT("ROLE_STUDENT", "/participant", 1);
 
   private final String role;
   private final String path;

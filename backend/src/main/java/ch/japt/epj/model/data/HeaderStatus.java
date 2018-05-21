@@ -1,5 +1,6 @@
 package ch.japt.epj.model.data;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
 // rename this to authentication status and have routings in here?
@@ -15,15 +16,13 @@ public class HeaderStatus {
     this.role = role;
   }
 
-  public String getHeader() {
-    return header;
-  }
-
   public HttpStatus getStatus() {
     return status;
   }
 
-  public String getPath() {
-    return role.getPath();
+  public HttpHeaders getHeaders() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(header, role.getPath());
+    return headers;
   }
 }
