@@ -28,30 +28,35 @@ export default class ParticipantScanExercise extends React.Component {
   }
 
   handleScan = data => {
-    if (data) {
-      APIHandler.getExerciseArray(data, 'exercise').then(resData => {
-        if (resData.status === 200) {
-          let exercise = resData.data[0];
-          exercise.answers.forEach(function(element, index, arrayObject) {
-            arrayObject[index] = {text: element, checked: false};
-          });
-          this.setState({
-            exercise: {
-              exerciseId: exercise.id,
-              name: exercise.name,
-              question: exercise.question,
-              answers: exercise.answers
-            }
-          });
-          this.setState({fireRedirect: true});
-        } else {
-          this.setState({scanError: true});
-          this.setState({
-            displayText:
-              'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
-          });
+    const jsonData = JSON.parse(data);
+    if (jsonData !== null && jsonData.coordinates !== undefined) {
+      APIHandler.getExerciseArray(jsonData.exerciseId, 'exercise').then(
+        resData => {
+          if (resData.status === 200) {
+            alert(JSON.stringify(resData.data[0]));
+            let exercise = resData.data[0];
+            exercise.answers.forEach(function(element, index, arrayObject) {
+              arrayObject[index] = {text: element, checked: false};
+            });
+            this.setState({
+              exercise: {
+                executionId: jsonData.executionId,
+                exerciseId: exercise.id,
+                name: exercise.name,
+                question: exercise.question,
+                answers: exercise.answers
+              },
+              fireRedirect: true
+            });
+          } else {
+            this.setState({scanError: true});
+            this.setState({
+              displayText:
+                'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+            });
+          }
         }
-      });
+      );
     }
   };
 
