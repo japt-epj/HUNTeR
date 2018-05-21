@@ -1,9 +1,9 @@
 package ch.japt.epj.model;
 
 import ch.japt.epj.library.QrGenerator;
-import ch.japt.epj.library.pdf.ExerciseDocumentFactory;
+import ch.japt.epj.library.pdf.ExecutionDocumentFactory;
+import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.ExerciseRepository;
-import ch.japt.epj.repository.QuizRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,11 +12,12 @@ import org.springframework.stereotype.Component;
 public class QrModel {
 
   private final ExerciseRepository exercises;
-  private final QuizRepository quizzes;
+  private final ExecutionRepository executions;
 
-  public QrModel(@Autowired ExerciseRepository exercises, @Autowired QuizRepository quizzes) {
+  public QrModel(
+      @Autowired ExerciseRepository exercises, @Autowired ExecutionRepository executions) {
     this.exercises = exercises;
-    this.quizzes = quizzes;
+    this.executions = executions;
   }
 
   public Optional<byte[]> generateCode(Integer id, Integer scale, Integer border) {
@@ -26,8 +27,8 @@ public class QrModel {
   }
 
   public Optional<byte[]> generatePdf(Long id) {
-    return quizzes
-        .findQuizByQuizId(id)
-        .flatMap(q -> Optional.of(new ExerciseDocumentFactory(q).asArray()));
+    return executions
+        .findByExecutionId(id)
+        .flatMap(q -> Optional.of(new ExecutionDocumentFactory(q).asArray()));
   }
 }
