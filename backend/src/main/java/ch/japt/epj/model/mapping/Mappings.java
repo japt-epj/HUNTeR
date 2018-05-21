@@ -31,6 +31,11 @@ public final class Mappings {
     mapper
         .createTypeMap(NewExerciseDto.class, Exercise.class)
         .addMapping(NewExerciseDto::getName, Exercise::setName);
+    mapper
+        .createTypeMap(Exercise.class, NewExerciseDto.class)
+        .addMapping(Exercise::getName, NewExerciseDto::setName)
+        .addMapping(Exercise::getQuestion, NewExerciseDto::setQuestion)
+        .addMapping(Exercise::getAnswerTemplates, NewExerciseDto::setAnswers);
 
     return mapper;
   }
