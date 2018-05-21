@@ -17,10 +17,13 @@ public class Location {
   // Is used for empty object initialization
   public Location() {}
 
-  public void setCoordinates(double lat, double ing) {
-
+  public void setCoordinates(double lat, double lng) {
     this.lat = lat;
-    this.lng = ing;
+    this.lng = lng;
+  }
+
+  public Coordinates getCoordinates() {
+    return new Coordinates(lat, lng);
   }
 
   public double getLat() {

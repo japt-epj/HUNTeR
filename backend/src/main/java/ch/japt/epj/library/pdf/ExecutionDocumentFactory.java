@@ -5,10 +5,13 @@ import ch.japt.epj.model.data.Location;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExecutionDocumentFactory implements AutoCloseable {
   private final PDDocument document;
   private final Execution execution;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public ExecutionDocumentFactory(Execution execution) {
     this.execution = execution;
@@ -17,7 +20,7 @@ public class ExecutionDocumentFactory implements AutoCloseable {
 
   private void make() throws IOException {
     for (Location location : execution.getQuiz().getLocations()) {
-      try (ExercisePage page = new ExercisePage(document, location.getExercise())) {
+      try (LocationPage page = new LocationPage(document, location, execution.getExecutionId())) {
         page.addContent();
       }
     }
@@ -30,6 +33,7 @@ public class ExecutionDocumentFactory implements AutoCloseable {
       document.save(stream);
       return stream.toByteArray();
     } catch (IOException e) {
+      logger.warn(String.valueOf(e));
       return new byte[0];
     }
   }

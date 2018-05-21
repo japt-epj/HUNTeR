@@ -19,6 +19,11 @@ export default {
         name: 'Übersicht der Ausführungen',
         icon: 'stack exchange'
       },
+      {
+        path: 'teacherNavigation',
+        name: 'Navigation zu einem QR-Code Standort',
+        icon: 'camera retro'
+      },
       {path: 'newUser', name: 'Schüler erstellen', icon: 'add user'},
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
