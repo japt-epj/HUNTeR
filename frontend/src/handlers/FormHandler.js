@@ -1,5 +1,5 @@
-import APIHandler from './APIHandler';
 import {OK} from 'http-status-codes';
+import DataHandler from './DataHandler';
 
 export default {
   handleChange(event) {
@@ -25,12 +25,12 @@ export default {
       this.state.answerId >= minAnswerId && this.state.answerId <= maxAnswerId;
     if (isACheckboxSet) {
       if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
-        this.postData(APIHandler.prepareTeacherData(this.state), 'exercise');
+        this.postData(DataHandler.prepareTeacherData(this.state), 'exercise');
       } else if (
         window.localStorage.getItem('HUNTeR-Redirect') === '/participant'
       ) {
         this.postData(
-          APIHandler.prepareParticipantData(this.state),
+          DataHandler.prepareParticipantData({...this.state}),
           'response'
         );
       } else {

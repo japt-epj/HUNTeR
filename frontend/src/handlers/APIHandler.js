@@ -79,28 +79,6 @@ export default {
       .catch(err => console.error('Error:', err));
   },
 
-  prepareTeacherData(data) {
-    return {
-      name: data.name,
-      question: data.question,
-      answers: [
-        {text: data.answer0},
-        {text: data.answer1},
-        {text: data.answer2},
-        {text: data.answer3}
-      ],
-      correctAnswer: data.answerId
-    };
-  },
-
-  prepareParticipantData(data) {
-    return {
-      participantId: data.participantId,
-      exerciseId: data.exerciseId,
-      answerId: data.answerId
-    };
-  },
-
   redirectAfterLogin() {
     return axios
       .get(config.apiURL + 'auth/entryPoint', {

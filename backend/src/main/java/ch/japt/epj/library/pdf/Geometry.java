@@ -19,6 +19,7 @@ public final class Geometry {
    * @param page Portrait oriented page to find center for
    * @return Point in the Center of the page
    */
+  @SuppressWarnings("squid:S109")
   public static Point2D.Float getCenter(PDPage page) {
     PDRectangle box = page.getMediaBox();
     return new Float(box.getWidth() / 2F, box.getHeight() / 2F);
