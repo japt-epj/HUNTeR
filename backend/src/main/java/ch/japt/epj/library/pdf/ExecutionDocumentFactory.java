@@ -17,7 +17,7 @@ public class ExecutionDocumentFactory implements AutoCloseable {
 
   private void make() throws IOException {
     for (Location location : execution.getQuiz().getLocations()) {
-      try (ExercisePage page = new ExercisePage(document, location.getExercise())) {
+      try (LocationPage page = new LocationPage(document, location, execution.getExecutionId())) {
         page.addContent();
       }
     }
