@@ -31,6 +31,7 @@ export default {
     }
     this.setState({selectedParticipants: newState});
   },
+
   getParticipantTable(checkboxNeeded) {
     let headerElements = ['Vorname', 'Nachname', 'E-Mail'];
     return (

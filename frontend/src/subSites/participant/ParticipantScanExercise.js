@@ -2,6 +2,7 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Message} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
 import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';
@@ -10,8 +11,9 @@ import ModalHandler from '../../handlers/ModalHandler';
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
+    const defaultDelayValue = 500;
     this.state = {
-      delay: 500,
+      delay: defaultDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exercise: '',
@@ -30,7 +32,7 @@ export default class ParticipantScanExercise extends React.Component {
   handleScan = data => {
     if (data) {
       APIHandler.getExerciseArray(data, 'exercise').then(resData => {
-        if (resData.status === 200) {
+        if (resData.status === OK) {
           let exercise = resData.data[0];
           exercise.answers.forEach(function(element, index, arrayObject) {
             arrayObject[index] = {text: element, checked: false};

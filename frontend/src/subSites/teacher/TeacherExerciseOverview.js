@@ -2,7 +2,9 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
+import config from '../../config/config';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
@@ -13,29 +15,28 @@ export default class TeacherExerciseOverview extends React.Component {
     this.state = {
       exercises: [],
       loading: true,
-      pageNumber: 1,
+      pageNumber: config.defaultNumbers.pageNumber,
       minPage: 1,
-      maxPage: '',
-      limit: 5
+      maxPage: ''
     };
 
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
   }
 
   componentDidMount() {
-    this.getExercises(this.state.pageNumber, this.state.limit);
+    this.getExercises(this.state.pageNumber);
   }
 
   handlePageChangeExercises = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getExercises(element.activePage, this.state.limit);
+    this.getExercises(element.activePage);
   };
 
-  getExercises = (page, limit) => {
-    APIHandler.getPaginatedElements('exercise', page, limit).then(resData => {
-      if (resData.status === 200) {
+  getExercises = page => {
+    APIHandler.getPaginatedElements('exercise', page).then(resData => {
+      if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,
           maxPage: resData.data.totalPages,
@@ -53,7 +54,7 @@ export default class TeacherExerciseOverview extends React.Component {
           : this.getExerciseTable(false)}
         <NavLink to="/exercise">
           <Button
-            color="green"
+            color={config.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Aufgabe hinzufügen"
