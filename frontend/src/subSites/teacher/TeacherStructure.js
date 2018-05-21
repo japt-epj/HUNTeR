@@ -10,12 +10,13 @@ import TeacherExerciseOverview from './TeacherExerciseOverview';
 import TeacherNewParticipant from './TeacherNewParticipant';
 import TeacherQuiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
+import TeacherExecution from './TeacherExecution';
+import TeacherExecutionOverview from './TeacherExecutionOverview';
 
 import Logout from '../Logout';
 import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
-import TeacherExecution from './TeacherExecution';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {
@@ -58,6 +59,10 @@ export default class TeacherStructure extends React.Component {
                       component={TeacherQuizOverview}
                     />
                     <Route path="/execution" component={TeacherExecution} />
+                    <Route
+                      path="/executionOverview"
+                      component={TeacherExecutionOverview}
+                    />
                     <Route path="/newUser" component={TeacherNewParticipant} />
                     <Route
                       path="/logout"
