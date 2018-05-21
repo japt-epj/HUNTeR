@@ -194,17 +194,6 @@ export default {
                     />
                   </NavLink>
                 </Table.Cell>
-                {/*<<<<<<< HEAD*/}
-                {/*<Table.Cell collapsing>*/}
-                {/*<Button*/}
-                {/*color={config.buttonColors.download}*/}
-                {/*icon="qrcode"*/}
-                {/*basic*/}
-                {/*onClick={() => APIHandler.downloadQRCode(element.id)}*/}
-                {/*/>*/}
-                {/*</Table.Cell>*/}
-                {/*=======*/}
-                {/*>>>>>>> pdf-generation*/}
               </Table.Row>
             ))}
         </Table.Body>

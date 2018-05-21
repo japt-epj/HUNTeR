@@ -37,7 +37,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
         .andExpect(
             jsonPath("$[0].question")
                 .value(
-                    "Wenn das Wetter gut ist, wird der Brauer bestimmt den Eber, das Ferkel und..."))
+                    "Wenn das Wetter gut ist, wird der Bauer bestimmt den Eber, das Ferkel und..."))
         .andExpect(jsonPath("$[0].answers[0]").value("...einen draufmachen"))
         .andExpect(jsonPath("$[0].answers[1]").value("...die Nacht durchzechen"))
         .andExpect(jsonPath("$[0].answers[2]").value("...die Sau rauslassen"))
