@@ -6,13 +6,14 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.util.Matrix;
 
 public final class Geometry {
+  private static final float EM_APPROXIMATION_FACTOR = 1.5F;
+
   private Geometry() {}
 
   /**
-   * Returns the center of the page. Only works for portrait oriented pages.
+   * Returns the center of the page. <em>Only works for portrait oriented pages.</em>
    *
    * @param page Portrait oriented page to find center for
    * @return Point in the Center of the page
@@ -26,7 +27,9 @@ public final class Geometry {
     return font.getStringWidth(text) * size / 1000;
   }
 
-  public static Matrix getHeaderMatrix(String title, PDFont font, int size) {
-    return null;
+  public static int lettersPerLine(PDPage page, PDFont font, int fontSize) throws IOException {
+    float em = getStringWidth("M", font, fontSize) / EM_APPROXIMATION_FACTOR;
+    float letters = page.getMediaBox().getWidth() / em;
+    return Math.round(letters);
   }
 }
