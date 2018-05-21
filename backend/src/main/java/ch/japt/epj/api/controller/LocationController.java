@@ -4,6 +4,7 @@ import ch.japt.epj.api.LocationApi;
 import ch.japt.epj.model.LocationModel;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
 import io.swagger.annotations.Api;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,12 @@ public class LocationController implements LocationApi {
   //  }
 
   @Override
+  public ResponseEntity<List<NextExerciseLocationDto>> locationGet() {
+    return new ResponseEntity<>(locationModel.getExerciseLocations(), HttpStatus.OK);
+  }
+
+  @Override
   public ResponseEntity<NextExerciseLocationDto> locationIdGet(@PathVariable("id") Integer id) {
-    return new ResponseEntity<>(locationModel.getExerciseLocation(id), HttpStatus.OK);
+    return new ResponseEntity<>(locationModel.getExerciseLocation((long) id), HttpStatus.OK);
   }
 }
