@@ -72,7 +72,7 @@ INSERT INTO location (lat, lng, exercise_exercise_id) VALUES
   (47.222367088752726, 8.81709158420563, 3),
   (47.22379202212541, 8.816796541213991, 1),
   (47.22363578331323, 8.815970420837404, 2),
-  (47.223621120092204, 8.81808400154114, 13),
+  (47.223621120092204, 8.81808400154114, 5),
   (47.22324232605475, 8.818652629852297, 11),
   (47.222367088752726, 8.81709158420563, 12),
   (47.22313229775402, 8.816512227058412, 8),
@@ -111,13 +111,18 @@ INSERT INTO person (email, first_name, last_name, is_creator, password) VALUES
 
 INSERT INTO response (answer_from_person_answer_id, exercise_exercise_id, person_person_id) VALUES
   (1, 1, 1),
-  (2, 1, 1),
-  (3, 2, 1);
+  (2, 2, 1),
+  (3, 3, 1),
+  (4, 1, 2),
+  (5, 2, 2);
 
 -- something something table
 INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
+  (1,1),
   (1,2),
   (1,3),
+  (1,4),
+  (1,5),
   (2,1),
   (2,2),
   (2,13),
@@ -191,19 +196,25 @@ INSERT INTO person_role (person_id, role_id) VALUES
 INSERT INTO quiz_locations (quiz_quiz_id, locations_location_id) VALUES
   (1, 1),
   (1, 2),
-  (2, 3),
-  (2, 4),
-  (2, 5),
-  (3, 6),
-  (3, 7);
+  (1, 3),
+  (1, 4),
+  (1, 5),
+  (2, 6),
+  (2, 7);
 
 INSERT INTO execution (end_date, name, start_date, quiz_quiz_id) VALUES
-  (NULL, 'First execution', NULL, 1);
+  (NULL, 'First execution', NULL, 1),
+  (NULL, 'Second execution', NULL, 2);
 
 INSERT INTO execution_participants (execution_execution_id, participants_person_id) VALUES
-  (1, 5);
+  (1, 5),
+  (1, 1),
+  (2, 2),
+  (2, 3);
 
 INSERT INTO execution_responses (execution_execution_id, responses_response_id) VALUES
   (1, 1),
   (1, 2),
-  (1, 3);
+  (1, 3),
+  (2, 4),
+  (2, 5);
