@@ -3,12 +3,17 @@ import Credentials from '../helpers/Credentials';
 import login from '../helpers/login';
 import Logout from '../helpers/Logout';
 
-describe('Login tests', function() {
+describe('Exercise tests', function() {
   it('Create new exercise', function() {
-    setViewport('fullHD');
+    setViewport('iphone-6/7/8');
     login(Credentials.getTeacherCredentials());
     cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
-    cy.get('.form > :nth-child(1) > .ui > input').type('Länder');
+
+    const exerciseTitle =
+      'CypressTest - Nordische Peripheriebegriffe - ' +
+      Math.floor(Math.random() * Math.floor(10000));
+
+    cy.get('.form > :nth-child(1) > .ui > input').type(exerciseTitle);
     cy.get('textarea').type('Was sind Schweden und Norweger');
     cy
       .get(':nth-child(1) > :nth-child(2) > .required > .ui > input')
@@ -23,36 +28,44 @@ describe('Login tests', function() {
       .get(':nth-child(4) > :nth-child(2) > .required > .ui > input')
       .type('Skandinavier');
     cy.get('tbody > :nth-child(4) > :nth-child(3) > .field > .ui').click();
-    cy.get(':nth-child(4) > .ui').click();
+    cy
+      .get(':nth-child(4) > .ui')
+      .click()
+      .should(() => {
+        cy.contains('Die Aufgabe wurde erfolgreich erstellt');
+      });
+
     Logout.getTeacherLogout();
   });
 
   it('Create new exercise', function() {
-    setViewport('fullHD');
-    login(Credentials.getTeacherCredentials());
-    cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
-    cy.get('.form > :nth-child(1) > .ui > input').type('Prüfungen');
-    cy
-      .get('textarea')
-      .type(
-        'Ohne Vorbereitung ist es wahrscheinlich, dass ich beim Examen...?'
-      );
-    cy
-      .get(':nth-child(1) > :nth-child(2) > .required > .ui > input')
-      .type('Bauchweh');
-    cy
-      .get(':nth-child(2) > :nth-child(2) > .required > .ui > input')
-      .type('Übelkeit');
-    cy
-      .get(':nth-child(3) > :nth-child(2) > .required > .ui > input')
-      .type('Durchfall');
-    cy
-      .get(':nth-child(4) > :nth-child(2) > .required > .ui > input')
-      .type('Erbrechen');
-    cy.get(':nth-child(4) > .ui').click();
-    cy.get('.actions > .ui').click();
-    cy.get('tbody > :nth-child(3) > :nth-child(3) > .field > .ui').click();
-    cy.get(':nth-child(4) > .ui').click();
-    Logout.getTeacherLogout();
+    setViewport('iphone-6/7/8');
+    //login(Credentials.getTeacherCredentials());
+    // cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
+    // cy
+    //   .get('.form > :nth-child(1) > .ui > input')
+    //   .type('CypressTest - Prüfungsangst');
+    // cy
+    //   .get('textarea')
+    //   .type(
+    //     'Ohne Vorbereitung ist es wahrscheinlich, dass ich beim Examen...?'
+    //   );
+    // cy
+    //   .get(':nth-child(1) > :nth-child(2) > .required > .ui > input')
+    //   .type('Bauchweh');
+    // cy
+    //   .get(':nth-child(2) > :nth-child(2) > .required > .ui > input')
+    //   .type('Übelkeit');
+    // cy
+    //   .get(':nth-child(3) > :nth-child(2) > .required > .ui > input')
+    //   .type('Durchfall');
+    // cy
+    //   .get(':nth-child(4) > :nth-child(2) > .required > .ui > input')
+    //   .type('Erbrechen');
+    // cy.get(':nth-child(4) > .ui').click();
+    // cy.get('.actions > .ui').click();
+    // cy.get('tbody > :nth-child(3) > :nth-child(3) > .field > .ui').click();
+    // cy.get(':nth-child(4) > .ui').click();
+    // Logout.getTeacherLogout();
   });
 });

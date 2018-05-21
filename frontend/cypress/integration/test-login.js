@@ -5,7 +5,7 @@ import Logout from '../helpers/Logout';
 
 describe('Login tests', function() {
   it('Login test with wrong credentials', function() {
-    setViewport('HD+');
+    setViewport('iphone-6/7/8');
     login(Credentials.getWrongCredentials());
     Logout.getTestsAfterLogout();
     cy
@@ -14,13 +14,13 @@ describe('Login tests', function() {
   });
 
   it('Login test with participant credentials', function() {
-    setViewport('fullHD');
+    setViewport('iphone-6/7/8');
     login(Credentials.getParticipantCredentials());
     Logout.getParticipantLogout();
   });
 
   it('Login test with teacher credentials', function() {
-    setViewport('fullHD');
+    setViewport('iphone-6/7/8');
     login(Credentials.getTeacherCredentials());
     Logout.getTeacherLogout();
   });

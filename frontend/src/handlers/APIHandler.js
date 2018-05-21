@@ -43,7 +43,12 @@ export default {
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
-        this.setState({fireRedirect: true});
+        let successMessage = {...this.state.successMessage};
+        successMessage.showModal = true;
+        this.setState({successMessage});
+        setTimeout(() => {
+          this.setState({fireRedirect: true});
+        }, 2500);
       });
   },
 

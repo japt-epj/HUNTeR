@@ -12,6 +12,11 @@ export default class TeacherExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: {
+        showModal: false,
+        title: 'Aufgabe erstellt',
+        content: 'Die Aufgabe wurde erfolgreich erstellt'
+      },
       formOK: true,
       fireRedirect: false,
       exerciseId: '',
@@ -36,6 +41,8 @@ export default class TeacherExercise extends React.Component {
   render() {
     return (
       <div>
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError('Keine Antwort wurde als richtig markiert!')}
         <Form onSubmit={this.handleSubmit}>

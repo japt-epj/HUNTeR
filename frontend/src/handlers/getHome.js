@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import {Menu} from 'semantic-ui-react';
 
-export default function getHome(paths) {
+export default function getHome(paths, showModal) {
   return (
     <Menu fluid vertical>
       {paths.map(element => (
