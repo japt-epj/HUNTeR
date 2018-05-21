@@ -26,7 +26,7 @@ export default class TeacherExecutionOverview extends React.Component {
     this.getExecutions(this.state.pageNumber, this.state.limit);
   }
 
-  handlePageChangeExercutions = (event, element) => {
+  handlePageChangeExecutions = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });

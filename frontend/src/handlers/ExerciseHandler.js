@@ -125,7 +125,7 @@ export default {
     );
   },
   getExerciseTable(checkboxNeeded) {
-    let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Code'];
+    let headerElements = ['Name', 'ID', 'Bearbeiten'];
     return (
       <Table>
         <Table.Header>
@@ -160,20 +160,12 @@ export default {
                     <Button color="green" icon="edit" basic />
                   </NavLink>
                 </Table.Cell>
-                <Table.Cell collapsing>
-                  <Button
-                    color="orange"
-                    icon="qrcode"
-                    basic
-                    onClick={() => APIHandler.downloadQRCode(element.id)}
-                  />
-                </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="5">
+            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPage}
                 activePage={this.state.pageNumber}

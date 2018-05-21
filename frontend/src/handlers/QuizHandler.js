@@ -1,12 +1,13 @@
 import React from 'react';
-import TableHandler from './TableHandler';
+import {NavLink} from 'react-router-dom';
+
 import {Button, Form, Pagination, Table} from 'semantic-ui-react';
 
-import APIHandler from './APIHandler';
+import TableHandler from './TableHandler';
 
 export default {
   getQuizTable(checkboxNeeded) {
-    let headerElements = ['Name', 'Download'];
+    let headerElements = ['Name', 'ID', 'Bearbeiten'];
     if (checkboxNeeded) {
       headerElements.unshift('');
     }
@@ -19,30 +20,19 @@ export default {
           {!this.state.loadingQuizzes &&
             this.state.quizzes.map(element => (
               <Table.Row key={'TableRow' + element.id}>
-                {checkboxNeeded && (
-                  <Table.Cell collapsing>
-                    <Form.Radio
-                      value={element.id}
-                      checked={this.state.selectedQuizId === element.id}
-                      onChange={this.handleQuizSelectChange}
-                    />
-                  </Table.Cell>
-                )}
                 <Table.Cell>{element.name}</Table.Cell>
+                <Table.Cell collapsing>{element.id}</Table.Cell>
                 <Table.Cell collapsing>
-                  <Button
-                    color="orange"
-                    icon="file outline"
-                    basic
-                    onClick={() => APIHandler.downloadQRCodePDF(element.id)}
-                  />
+                  <NavLink to={'/quiz'}>
+                    <Button color="green" icon="edit" basic />
+                  </NavLink>
                 </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="2">
+            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPageQuiz}
                 activePage={this.state.pageNumber}
