@@ -12,6 +12,7 @@ import TeacherQuiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
 import TeacherExecution from './TeacherExecution';
 import TeacherExecutionOverview from './TeacherExecutionOverview';
+import TeacherNavigation from './TeacherNavigation';
 
 import Logout from '../Logout';
 import Data from '../../data/Data';
@@ -62,6 +63,10 @@ export default class TeacherStructure extends React.Component {
                     <Route
                       path="/executionOverview"
                       component={TeacherExecutionOverview}
+                    />
+                    <Route
+                      path="/teacherNavigation"
+                      component={TeacherNavigation}
                     />
                     <Route path="/newUser" component={TeacherNewParticipant} />
                     <Route
