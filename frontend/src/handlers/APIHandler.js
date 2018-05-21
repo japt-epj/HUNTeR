@@ -41,7 +41,6 @@ export default {
       .post(config.apiURL + path + '/', data, {
         headers: getAxiosHeader('application/json')
       })
-      .catch(err => console.error('Error:', err))
       .then(() => {
         let successMessage = {...this.state.successMessage};
         successMessage.showModal = true;
@@ -49,7 +48,8 @@ export default {
         setTimeout(() => {
           this.setState({fireRedirect: true});
         }, 2500);
-      });
+      })
+      .catch(err => console.error('Error:', err));
   },
 
   postLoginData(data) {
