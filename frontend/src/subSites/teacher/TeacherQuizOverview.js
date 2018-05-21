@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import config from '../../config/config';
+import defaultUIConfig from '../../config/defaultUIConfig';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
@@ -16,7 +16,7 @@ export default class TeacherQuizOverview extends React.Component {
       checkBox: '',
       quizzes: [],
       loadingQuiz: true,
-      pageNumber: config.defaultNumbers.pageNumber,
+      pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
       minPage: 1,
       maxPageQuiz: ''
     };

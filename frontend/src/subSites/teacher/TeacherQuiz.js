@@ -6,7 +6,7 @@ import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 import {OK} from 'http-status-codes';
 
-import config from '../../config/config';
+import defaultUIConfig from '../../config/defaultUIConfig';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from '../../handlers/FormHandler';
@@ -25,8 +25,8 @@ export default class TeacherQuiz extends React.Component {
       bulkCheckboxes: [],
       selectedExercises: [],
       loading: true,
-      pageNumber: config.defaultNumbers.pageNumber,
-      pageNumberSelectedExercises: config.defaultNumbers.pageNumber,
+      pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
+      pageNumberSelectedExercises: defaultUIConfig.defaultNumbers.pageNumber,
       minPage: 1,
       maxPage: '',
       fireRedirect: false,
@@ -40,8 +40,9 @@ export default class TeacherQuiz extends React.Component {
       }
     };
 
-    this.defaultPageNumber = config.defaultNumbers.pageNumber;
-    this.exerciseLimitPerPage = config.defaultNumbers.exerciseLimitPerPage;
+    this.defaultPageNumber = defaultUIConfig.defaultNumbers.pageNumber;
+    this.exerciseLimitPerPage =
+      defaultUIConfig.defaultNumbers.exerciseLimitPerPage;
     this.defaultZoomSize = 19;
 
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
@@ -211,7 +212,7 @@ export default class TeacherQuiz extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={config.buttonColors.normal}
+                      color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"
