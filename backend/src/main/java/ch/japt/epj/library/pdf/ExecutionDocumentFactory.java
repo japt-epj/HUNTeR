@@ -1,22 +1,22 @@
 package ch.japt.epj.library.pdf;
 
+import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Exercise;
-import ch.japt.epj.model.data.Quiz;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
-public class ExerciseDocumentFactory implements AutoCloseable {
-  private final Quiz quiz;
+public class ExecutionDocumentFactory implements AutoCloseable {
   private final PDDocument document;
+  private final Execution execution;
 
-  public ExerciseDocumentFactory(Quiz quiz) {
-    this.quiz = quiz;
+  public ExecutionDocumentFactory(Execution execution) {
+    this.execution = execution;
     this.document = new PDDocument();
   }
 
   private void make() throws IOException {
-    for (Exercise exercise : quiz.getTasks()) {
+    for (Exercise exercise : execution.getQuiz().getTasks()) {
       try (ExercisePage page = new ExercisePage(document, exercise)) {
         page.addContent();
       }
