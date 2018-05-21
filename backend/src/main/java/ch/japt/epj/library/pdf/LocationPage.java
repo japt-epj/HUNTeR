@@ -107,7 +107,7 @@ public final class LocationPage implements AutoCloseable {
           image.getWidth(),
           image.getHeight());
     } catch (IOException e) {
-      logger.warn(e.getMessage());
+      logger.warn(String.valueOf(e));
     }
   }
 

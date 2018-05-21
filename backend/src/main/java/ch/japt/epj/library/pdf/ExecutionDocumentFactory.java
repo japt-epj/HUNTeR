@@ -33,7 +33,7 @@ public class ExecutionDocumentFactory implements AutoCloseable {
       document.save(stream);
       return stream.toByteArray();
     } catch (IOException e) {
-      logger.warn(e.getMessage());
+      logger.warn(String.valueOf(e));
       return new byte[0];
     }
   }
