@@ -19,6 +19,10 @@ public class Answer {
     return answer;
   }
 
+  public Long getAnswerId() {
+    return answerId;
+  }
+
   public void setAnswer(String answer) {
     this.answer = answer;
   }
