@@ -38,6 +38,7 @@ export default {
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({showAgreement: false});
+              window.sessionStorage.setItem('showAgreement', false);
               this.locate();
             }}
           />
@@ -58,6 +59,25 @@ export default {
             icon="pencil"
             content="OK, ich habe verstanden"
             onClick={() => this.setState({formOK: true})}
+          />
+        </Modal.Actions>
+      </Modal>
+    );
+  },
+
+  getMobileError() {
+    const message =
+      'Die Lehrerseite für das Erstellen über das Smartphone nicht designed. ' +
+      'Bitte nutzen Sie hierfür ein Gerät mit einer besseren Auflösung.';
+    return (
+      <Modal dimmer="blurring" open>
+        <Header icon="mobile" content="Mobiles Gerät erkannt" />
+        <Modal.Content content={message} />
+        <Modal.Actions>
+          <Button
+            positive
+            content="OK, ich habe verstanden"
+            onClick={() => this.setState({showMobileError: false})}
           />
         </Modal.Actions>
       </Modal>
