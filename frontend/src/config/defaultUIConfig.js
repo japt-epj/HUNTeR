@@ -25,7 +25,11 @@ let defaultUIConfig = {
       title: 'Ausführung erstellt',
       content: 'Die Ausführung wurde erfolgreich erstellt'
     }
-  }
+  },
+  showAgreement:
+    window.sessionStorage.getItem('showAgreement') !== null
+      ? JSON.parse(window.sessionStorage.getItem('showAgreement'))
+      : true
 };
 
 export default Object.freeze(Object.assign({}, defaultUIConfig));

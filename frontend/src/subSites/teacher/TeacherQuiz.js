@@ -18,7 +18,7 @@ export default class TeacherQuiz extends React.Component {
     super(props);
     this.state = {
       successMessage: defaultUIConfig.defaultSuccessMessages.quiz,
-      showAgreement: true,
+      showAgreement: defaultUIConfig.showAgreement,
       formOK: true,
       name: '',
       exercises: [],
