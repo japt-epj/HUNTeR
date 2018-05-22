@@ -21,6 +21,17 @@ export default {
     );
   },
 
+  getScanSuccess() {
+    const message =
+      'Der QR-Code wurde erfolgreich eingescannt. ' +
+      'Sie werden nun auf eine andere Seite weitergeleitet';
+    return (
+      <Modal dimmer="blurring" open>
+        <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt" />
+      </Modal>
+    );
+  },
+
   getAgreement() {
     return (
       <Modal
@@ -67,8 +78,8 @@ export default {
 
   getMobileError() {
     const message =
-      'Die Lehrerseite für das Erstellen über das Smartphone nicht designed. ' +
-      'Bitte nutzen Sie hierfür ein Gerät mit einer besseren Auflösung.';
+      'Nutzen Sie das Smartphone nur für das Scannen für QR-Code Standorten. Anderenfalls nutzen Sie' +
+      'bitte ein Gerät mit besserer Auflösung für das Arbeiten mit der TeacherSeite.';
     return (
       <Modal dimmer="blurring" open>
         <Header icon="mobile" content="Mobiles Gerät erkannt" />

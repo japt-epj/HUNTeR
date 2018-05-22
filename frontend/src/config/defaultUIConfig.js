@@ -8,7 +8,7 @@ let defaultUIConfig = {
     exerciseLimitPerPage: 5,
     defaultZoomSize: 19
   },
-  defaultTimeoutTime: 2500,
+  defaultTimeoutTime: 2000,
   defaultSuccessMessages: {
     exercise: {
       showModal: false,
