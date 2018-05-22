@@ -4,6 +4,7 @@ import {OK, UNAUTHORIZED} from 'http-status-codes';
 
 import pathConfig from '../config/pathConfig';
 import getAxiosHeader from './getAxiosHeader';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getExerciseArray(exerciseIDs) {
@@ -54,7 +55,11 @@ export default {
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
-        this.setState({fireRedirect: true});
+        setTimeout(() => {
+          this.redirectAfterLogin().then(redirectData => {
+            this.setState({fireRedirect: true});
+          });
+        }, defaultUIConfig.defaultTimoutTime);
       });
   },
 
@@ -101,7 +106,11 @@ export default {
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
-        this.setState({fireRedirect: true});
+        setTimeout(() => {
+          this.redirectAfterLogin().then(redirectData => {
+            this.setState({fireRedirect: true});
+          });
+        }, defaultUIConfig.defaultTimoutTime);
       });
   }
 };

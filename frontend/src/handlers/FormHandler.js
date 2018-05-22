@@ -1,5 +1,6 @@
 import {OK} from 'http-status-codes';
 import DataHandler from './DataHandler';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   handleChange(event) {
@@ -101,7 +102,6 @@ export default {
           resData.data.tokenType + ' ' + resData.data.token
         );
         this.setState({showSuccess: true});
-        const waitTimeMilliSec = 3000;
         setTimeout(() => {
           this.redirectAfterLogin().then(redirectData => {
             window.localStorage.setItem(
@@ -110,7 +110,7 @@ export default {
             );
             this.setState({fireRedirect: true, showSuccess: false});
           });
-        }, waitTimeMilliSec);
+        }, defaultUIConfig.defaultTimoutTime);
       } else {
         this.setState({showLoginError: true});
       }
