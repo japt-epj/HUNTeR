@@ -19,6 +19,7 @@ export default class ParticipantScanExercise extends React.Component {
       exercise: '',
       scanError: false,
       showAgreement: defaultUIConfig.showAgreement,
+      showSuccess: false,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
@@ -46,9 +47,12 @@ export default class ParticipantScanExercise extends React.Component {
                 name: exercise.name,
                 question: exercise.question,
                 answers: exercise.answers
-              },
-              fireRedirect: true
+              }
             });
+            setTimeout(
+              () => this.setState({fireRedirect: true, showSuccess: false}),
+              defaultUIConfig.defaultTimeoutTime
+            );
           } else {
             this.setState({scanError: true});
             this.setState({
@@ -79,6 +83,7 @@ export default class ParticipantScanExercise extends React.Component {
   render() {
     return (
       <div>
+        {this.state.showSuccess && ModalHandler.getScanSuccess()}
         {this.state.showAgreement ? (
           this.getAgreement()
         ) : (
