@@ -12,6 +12,15 @@ export default {
     );
   },
 
+  getCreationSuccess(successMessage) {
+    return (
+      <Modal dimmer="blurring" open={successMessage.showModal}>
+        <Header icon="check" content={successMessage.title} />
+        <Modal.Content content={successMessage.content} />
+      </Modal>
+    );
+  },
+
   getAgreement() {
     return (
       <Modal

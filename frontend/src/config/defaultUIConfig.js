@@ -8,7 +8,24 @@ let defaultUIConfig = {
     exerciseLimitPerPage: 5,
     defaultZoomSize: 19
   },
-  defaultTimoutTime: 2500
+  defaultTimeoutTime: 2500,
+  defaultSuccessMessages: {
+    exercise: {
+      showModal: false,
+      title: 'Aufgabe erstellt',
+      content: 'Die Aufgabe wurde erfolgreich erstellt'
+    },
+    quiz: {
+      showModal: false,
+      title: 'Quiz erstellt',
+      content: 'Das Quiz wurde erfolgreich erstellt'
+    },
+    execution: {
+      showModal: false,
+      title: 'Ausführung erstellt',
+      content: 'Die Ausführung wurde erfolgreich erstellt'
+    }
+  }
 };
 
 export default Object.freeze(Object.assign({}, defaultUIConfig));

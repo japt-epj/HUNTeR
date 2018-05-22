@@ -55,11 +55,13 @@ export default {
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
-        setTimeout(() => {
-          this.redirectAfterLogin().then(redirectData => {
-            this.setState({fireRedirect: true});
-          });
-        }, defaultUIConfig.defaultTimoutTime);
+        let successMessage = {...this.state.successMessage};
+        successMessage.showModal = true;
+        this.setState({successMessage});
+        setTimeout(
+          () => this.setState({fireRedirect: true}),
+          defaultUIConfig.defaultTimeoutTime
+        );
       });
   },
 
@@ -106,11 +108,13 @@ export default {
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
-        setTimeout(() => {
-          this.redirectAfterLogin().then(redirectData => {
-            this.setState({fireRedirect: true});
-          });
-        }, defaultUIConfig.defaultTimoutTime);
+        let successMessage = {...this.state.successMessage};
+        successMessage.showModal = true;
+        this.setState({successMessage});
+        setTimeout(
+          () => this.setState({fireRedirect: true}),
+          defaultUIConfig.defaultTimeoutTime
+        );
       });
   }
 };
