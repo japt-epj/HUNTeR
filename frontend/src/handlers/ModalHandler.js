@@ -28,6 +28,7 @@ export default {
     return (
       <Modal dimmer="blurring" open>
         <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt" />
+        <Modal.Content content={message} />
       </Modal>
     );
   },
