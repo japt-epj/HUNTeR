@@ -89,7 +89,10 @@ export default {
           <Button
             positive
             content="OK, ich habe verstanden"
-            onClick={() => this.setState({showMobileError: false})}
+            onClick={() => {
+              this.setState({showMobileError: false});
+              window.sessionStorage.setItem('showMobileError', false);
+            }}
           />
         </Modal.Actions>
       </Modal>

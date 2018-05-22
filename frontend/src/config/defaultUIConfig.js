@@ -29,6 +29,10 @@ let defaultUIConfig = {
   showAgreement:
     window.sessionStorage.getItem('showAgreement') !== null
       ? JSON.parse(window.sessionStorage.getItem('showAgreement'))
+      : true,
+  showMobileError:
+    window.sessionStorage.getItem('showMobileError') !== null
+      ? JSON.parse(window.sessionStorage.getItem('showMobileError'))
       : true
 };
 

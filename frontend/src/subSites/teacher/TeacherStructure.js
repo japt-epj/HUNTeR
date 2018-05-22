@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
-import {isMobile} from 'react-device-detect';
 
 import getHome from '../../handlers/getHome';
 import TeacherExercise from './TeacherExercise';
@@ -20,12 +19,13 @@ import Data from '../../data/Data';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ModalHandler from '../../handlers/ModalHandler';
+import defaultUIConfig from '../../config/defaultUIConfig';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMobileError: isMobile,
+      showMobileError: defaultUIConfig.showMobileError,
       visible: false,
       iconName: 'bars'
     };
