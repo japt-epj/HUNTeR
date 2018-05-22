@@ -54,7 +54,14 @@ export default class ParticipantExercise extends React.Component {
                 <Form.Button content="Submit" />
               </Grid.Row>
             </Form>
-            {this.state.fireRedirect && <Redirect to="/" />}
+            {this.state.fireRedirect && (
+              <Redirect
+                to={{
+                  pathname: 'nextLocation',
+                  state: {executionId: this.state.executionId}
+                }}
+              />
+            )}
           </Grid>
         ) : (
           <NavLink to="/scan">
