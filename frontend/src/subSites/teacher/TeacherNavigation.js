@@ -13,7 +13,7 @@ export default class TeacherNavigation extends React.Component {
       result: '',
       displayText: 'Scanne QR-Code für die Navigation ein.',
       scanError: false,
-      showAgreement: true,
+      showAgreement: defaultUIConfig.showAgreement,
       fireRedirect: false,
       locationPermission: undefined,
       coordinates: {

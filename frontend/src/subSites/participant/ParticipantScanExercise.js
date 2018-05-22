@@ -6,6 +6,7 @@ import {Message} from 'semantic-ui-react';
 import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';
 import ModalHandler from '../../handlers/ModalHandler';
+import defaultUIConfig from '../../config/defaultUIConfig';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ export default class ParticipantScanExercise extends React.Component {
       displayText: 'Scanne QR-Code ein.',
       exercise: '',
       scanError: false,
-      showAgreement: true,
+      showAgreement: defaultUIConfig.showAgreement,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
