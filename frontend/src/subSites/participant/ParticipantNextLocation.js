@@ -13,7 +13,10 @@ export default class ParticipantNextLocation extends React.Component {
     const defaultZoomSize = 19;
     this.state = {
       showAgreement: true,
-      executionId: '',
+      executionId:
+        this.props.location.state !== undefined
+          ? this.props.location.state.executionId
+          : 1,
       locations: new Map(),
       selectedPositions: new Map(),
       routing: false,
@@ -40,7 +43,9 @@ export default class ParticipantNextLocation extends React.Component {
   promiceToLocation = promice => {
     let locations = new Map(this.state.locations);
     promice.then(resData => {
-      new Array(resData.data).forEach(element => {
+      const resDataArray =
+        this.state.executionId === '' ? resData.data : new Array(resData.data);
+      resDataArray.forEach(element => {
         locations.set(element.exerciseTitle, [element.lat, element.lng]);
       });
     });
