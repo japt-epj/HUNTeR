@@ -20,6 +20,7 @@ export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.execution,
       formOK: true,
       name: '',
       participants: [],
@@ -126,6 +127,8 @@ export default class TeacherExecution extends React.Component {
   render() {
     return (
       <div>
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError(
             'Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet.'

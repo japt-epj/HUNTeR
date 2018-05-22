@@ -17,6 +17,7 @@ export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.quiz,
       showAgreement: true,
       formOK: true,
       name: '',
@@ -153,6 +154,8 @@ export default class TeacherQuiz extends React.Component {
 
     return (
       <div>
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError(
             'Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.'

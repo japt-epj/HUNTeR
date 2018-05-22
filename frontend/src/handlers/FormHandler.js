@@ -110,7 +110,7 @@ export default {
             );
             this.setState({fireRedirect: true, showSuccess: false});
           });
-        }, defaultUIConfig.defaultTimoutTime);
+        }, defaultUIConfig.defaultTimeoutTime);
       } else {
         this.setState({showLoginError: true});
       }
