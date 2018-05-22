@@ -1,19 +1,19 @@
 INSERT INTO person (email, first_name, last_name, is_creator, password) VALUES
-('tobias.saladin@hsr.ch', 'Tobias', 'Saladin', true, '$2a$10$bX/vYIFp2BExRL6PkHTTq.3IKmFDLNHlcG0BdaxM/PHj1W.oF4MIO'),
-('pascal.huerlimann@hsr.ch', 'Pascal', 'Hürlimann', true, '$2a$10$MwHE9md.qMTJwOe5H6eGW.NK5Rf7vuyMLgr6JTcICzfu7DJDAEPGu'),
-('andi.hoerler@hsr.ch', 'Andi', 'Hörler', false, '$2a$10$7l.gQY32/wsh57CWMxqocOC5/VYhV1sgoIgpamm.6ddcF8TOReA5K'),
-('jonas.kugler@hsr.ch', 'Jonas', 'Kugler', false, '$2a$10$jKbp1Nbr60qVcezROc/FV.29QWf8YJwzGc1WNpTr3LqyJAO8LH/62'),
-('dolores.abernathy@host.westworld.com', 'Dolores', 'Abernathy', false, '$2a$10$xVKf.oFxw0f1QQLO2unmgOIUQUIPieRcJJCvCAmuFwdDSo3tofZ7.'),
-('maeve.millay@host.westworld.com', 'Maeve', 'Millay', false, '$2a$10$2iKDV5glfo4DXcoIEY3laOIfhRkfj3jANSkibEgh9dQ9YEJuRSrs6'),
-('bernard.lowe@host.westworld.com', 'Bernard', 'Lowe', true, '$2a$10$WRJZSpoIl7/mngWlEuhfPe4S4u4LG9OFU.JeVFZ.7QmNRGtV6YPQ2'),
-('arnold.weber@creator.westworld.com', 'Arnold', 'Weber', true, '$2a$10$t1gmxCL.MzQqbJMttwRi4OPjdUd8HIT87ERUziNcQDEwytuCgqR/.'),
-('robert.ford@creator.westworld.com', 'Robert', 'Ford', true, '$2a$10$gAshn0JiODtOi0fg84UNIuH0pfH8eqY6ViKOGMbo5uvk53iLPUB9i'),
-('root@personOfInterest.com', 'Samantha', 'Grove', true, '$2a$10$gn78WzxfgdvSgnfv/euc/..6ZGCV5ueYkHrIUfUL364QheaS2jzKq'),
-('john.reese@personofinterest.com', 'John', 'Reese', false, '$2a$10$O5j15J4DxZPE/1kNx15ChuqmS/9A.ppdGe.7rv16RJQub1JYmYXP6'),
-('harold.finch@personofinterest.com', 'Harold', 'Finch', true, '$2a$10$54DvLjIurOVuDhonIRRc7OggyqEOCa28j1nmPI0ZYSTfLmGeaDYZu'),
-('sameen.shaw@personofinterest.com', 'Sameen', 'Shaw', false, '$2a$10$LxwyiGiVYDnxBpiBIPEoSOdx3pIepvpUUZ5aHx/RV7OlDcb78j7eW'),
-('lionel.fusco@personofinterest.com', 'Lionel', 'Fusco', false, '$2a$10$mZKhymmDF6CLq8sB.5lwo.sXj21n.n4lmADQO88A9fimldR0WFxsm'),
-('machine@personofinterest.com', 'Ernest', 'Thornhill', false, '$2a$10$iPhvq8dSQhEpj/AjrSxnpOVCzMimo4gumUeVTxFPFmGTjDlTZODQy');
+  ('tobias.saladin@hsr.ch', 'Tobias', 'Saladin', true, '$2a$10$bX/vYIFp2BExRL6PkHTTq.3IKmFDLNHlcG0BdaxM/PHj1W.oF4MIO'),
+  ('pascal.huerlimann@hsr.ch', 'Pascal', 'Hürlimann', true, '$2a$10$MwHE9md.qMTJwOe5H6eGW.NK5Rf7vuyMLgr6JTcICzfu7DJDAEPGu'),
+  ('andi.hoerler@hsr.ch', 'Andi', 'Hörler', false, '$2a$10$7l.gQY32/wsh57CWMxqocOC5/VYhV1sgoIgpamm.6ddcF8TOReA5K'),
+  ('jonas.kugler@hsr.ch', 'Jonas', 'Kugler', false, '$2a$10$jKbp1Nbr60qVcezROc/FV.29QWf8YJwzGc1WNpTr3LqyJAO8LH/62'),
+  ('dolores.abernathy@host.westworld.com', 'Dolores', 'Abernathy', false, '$2a$10$xVKf.oFxw0f1QQLO2unmgOIUQUIPieRcJJCvCAmuFwdDSo3tofZ7.'),
+  ('maeve.millay@host.westworld.com', 'Maeve', 'Millay', false, '$2a$10$2iKDV5glfo4DXcoIEY3laOIfhRkfj3jANSkibEgh9dQ9YEJuRSrs6'),
+  ('bernard.lowe@host.westworld.com', 'Bernard', 'Lowe', true, '$2a$10$WRJZSpoIl7/mngWlEuhfPe4S4u4LG9OFU.JeVFZ.7QmNRGtV6YPQ2'),
+  ('arnold.weber@creator.westworld.com', 'Arnold', 'Weber', true, '$2a$10$t1gmxCL.MzQqbJMttwRi4OPjdUd8HIT87ERUziNcQDEwytuCgqR/.'),
+  ('robert.ford@creator.westworld.com', 'Robert', 'Ford', true, '$2a$10$gAshn0JiODtOi0fg84UNIuH0pfH8eqY6ViKOGMbo5uvk53iLPUB9i'),
+  ('root@personOfInterest.com', 'Samantha', 'Grove', true, '$2a$10$gn78WzxfgdvSgnfv/euc/..6ZGCV5ueYkHrIUfUL364QheaS2jzKq'),
+  ('john.reese@personofinterest.com', 'John', 'Reese', false, '$2a$10$O5j15J4DxZPE/1kNx15ChuqmS/9A.ppdGe.7rv16RJQub1JYmYXP6'),
+  ('harold.finch@personofinterest.com', 'Harold', 'Finch', true, '$2a$10$54DvLjIurOVuDhonIRRc7OggyqEOCa28j1nmPI0ZYSTfLmGeaDYZu'),
+  ('sameen.shaw@personofinterest.com', 'Sameen', 'Shaw', false, '$2a$10$LxwyiGiVYDnxBpiBIPEoSOdx3pIepvpUUZ5aHx/RV7OlDcb78j7eW'),
+  ('lionel.fusco@personofinterest.com', 'Lionel', 'Fusco', false, '$2a$10$mZKhymmDF6CLq8sB.5lwo.sXj21n.n4lmADQO88A9fimldR0WFxsm'),
+  ('machine@personofinterest.com', 'Ernest', 'Thornhill', false, '$2a$10$iPhvq8dSQhEpj/AjrSxnpOVCzMimo4gumUeVTxFPFmGTjDlTZODQy');
 
 INSERT INTO role (name) VALUES
   ('ROLE_TEACHER'),
@@ -58,7 +58,7 @@ INSERT INTO person_school (school_id, person_id) VALUES
   (3, 12),
   (3, 13),
   (3, 14),
-  (3, 15),
+  (3, 15);
 
 /*===============*/
 
@@ -439,17 +439,6 @@ INSERT INTO execution_participants (participants_person_id, execution_execution_
   (9, 14),
   (9, 15);
 
-/*===============*/
-
-INSERT INTO response (answer_from_person_answer_id, exercise_exercise_id, person_person_id) VALUES
-  (1, 1, 1),
-  (2, 2, 1),
-  (3, 3, 1),
-  (4, 1, 2),
-  (5, 2, 2);
-
-/*===============*/
-
 INSERT INTO quiz_locations (quiz_quiz_id, locations_location_id) VALUES
   (1, 1),
   (1, 2),
@@ -459,20 +448,11 @@ INSERT INTO quiz_locations (quiz_quiz_id, locations_location_id) VALUES
   (2, 6),
   (2, 7);
 
-
-
 INSERT INTO execution_participants (execution_execution_id, participants_person_id) VALUES
   (1, 5),
   (1, 1),
   (2, 2),
   (2, 3);
-
-INSERT INTO execution_responses (execution_execution_id, responses_response_id) VALUES
-  (1, 1),
-  (1, 2),
-  (1, 3),
-  (2, 4),
-  (2, 5);
 
 /*===============*/
 
@@ -537,9 +517,16 @@ INSERT INTO quiz_locations (locations_location_id, quiz_quiz_id) VALUES
   (7, 30),
   (8, 18),
   (8, 23),
-  (9, 21),
+  (9, 21);
 
 INSERT INTO school_locations (locations_location_id, school_school_id) VALUES
   (1,1),
   (2,2),
   (3,3);
+
+/*===============
+
+INSERT INTO response (answer_from_person_answer_id, exercise_exercise_id, person_person_id) VALUES
+  ()
+
+/*
