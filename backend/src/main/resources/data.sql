@@ -1,6 +1,6 @@
 INSERT INTO answer (answer, checked) VALUES
   ('Dober Männer', false),
-  ('Cocker Spaniels', true),
+  ('Cocker Spaniels', false),
   ('Schäfer Hunde', true),
   ('Riesen Schnauzer', false),
   ('...einen draufmachen', false),
@@ -46,7 +46,7 @@ INSERT INTO answer (answer, checked) VALUES
   ('Sonicht', false),
   ('Soja', true),
   ('Soschoneher', false),
-  ('Sovielleicht', true),
+  ('Sovielleicht', false),
   ('mit Schulden', false),
   ('knietief im Dispo', false),
   ('in der Kreide', true),
