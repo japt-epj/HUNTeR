@@ -16,7 +16,7 @@ export default class ParticipantNextLocation extends React.Component {
       executionId:
         this.props.location.state !== undefined
           ? this.props.location.state.executionId
-          : 1,
+          : '',
       locations: new Map(),
       selectedPositions: new Map(),
       routing: false,
