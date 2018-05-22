@@ -38,14 +38,11 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  getNextLocation(executionId) {
-    let requestURL = pathConfig.baseurl + 'location/' + executionId;
+  getNextLocations(executionId) {
+    let requestURL = pathConfig.apiURL + 'location/' + executionId;
     return axios
       .get(requestURL, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
   },

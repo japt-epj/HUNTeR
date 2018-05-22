@@ -13,6 +13,7 @@ export default class ParticipantNextLocation extends React.Component {
     const defaultZoomSize = 19;
     this.state = {
       showAgreement: true,
+      executionId: '',
       locations: new Map(),
       selectedPositions: new Map(),
       routing: false,
@@ -31,19 +32,18 @@ export default class ParticipantNextLocation extends React.Component {
   }
 
   componentDidMount() {
-    this.getNextLocation();
+    this.promiceToLocation(APIHandler.getNextLocations(this.state.executionId));
   }
 
   locate = () => this.mapref.current.leafletElement.locate();
 
-  getNextLocation = () => {
-    const locations = new Map([
-      ['Schwamendingerplatz', [47.4048799, 8.5714819]],
-      ['Heiden', [47.446416, 9.53677]],
-      ['Zürich HB', [47.377923, 8.5401898]],
-      ['HSR', [47.2233607, 8.8173627]]
-    ]);
-
+  promiceToLocation = promice => {
+    let locations = new Map(this.state.locations);
+    promice.then(resData => {
+      new Array(resData.data).forEach(element => {
+        locations.set(element.exerciseTitle, [element.lat, element.lng]);
+      });
+    });
     this.setState({
       locations,
       selectedPositions: new Map(locations),
@@ -73,7 +73,6 @@ export default class ParticipantNextLocation extends React.Component {
           this.state.locations.get(event.target.options.id)
         ]
       ]);
-
       this.setState({routing: false});
     }
 
