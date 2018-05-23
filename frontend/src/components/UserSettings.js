@@ -11,6 +11,7 @@ export default class UserSettings extends React.Component {
     super(props);
     this.state = {
       showModal: false,
+      loading: true,
       fireRedirect: false,
       firstName: '',
       lastName: '',
@@ -32,7 +33,8 @@ export default class UserSettings extends React.Component {
         id: personInformation.id,
         firstName: personInformation.firstName,
         lastName: personInformation.lastName,
-        email: personInformation.email
+        email: personInformation.email,
+        loading: false
       });
     });
   }
@@ -45,7 +47,7 @@ export default class UserSettings extends React.Component {
     return (
       <div>
         {this.state.showModal && this.getSettingChanging()}
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit} loading={this.state.loading}>
           <Form.Input
             label="Vorname"
             type="text"
@@ -74,7 +76,7 @@ export default class UserSettings extends React.Component {
             label="Lehranstalt"
             type="text"
             defaultValue={'HSR'}
-            required
+            disabled
           />
           <Form.Input
             label="Neues Passwort"
