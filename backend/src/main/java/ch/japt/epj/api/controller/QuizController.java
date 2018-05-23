@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,11 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   @Override
   public ResponseEntity<List<NewQuizDto>> quizIdGet(@Valid @PathVariable("id") List<Integer> id) {
     return new ResponseEntity<>(quizModel.getQuizzes(id), HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<Resource> quizIdPrintGet(Long id) {
+    return null;
   }
 
   @Override

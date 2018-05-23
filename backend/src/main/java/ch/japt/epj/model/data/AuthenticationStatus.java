@@ -10,8 +10,14 @@ public class AuthenticationStatus {
   private final RoleName role;
 
   public AuthenticationStatus(Boolean hunter, RoleName role) {
-    this.header = hunter ? "X-HUNTeR-Redirect" : "Location";
-    this.status = hunter ? HttpStatus.OK : HttpStatus.FOUND;
+    if (hunter) {
+      this.header = "X-HUNTeR-Redirect";
+      this.status = HttpStatus.OK;
+    } else {
+      this.header = "Location";
+      this.status = HttpStatus.FOUND;
+    }
+
     this.role = role;
   }
 
