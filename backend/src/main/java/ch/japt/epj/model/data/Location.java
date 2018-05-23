@@ -15,7 +15,7 @@ public class Location {
 
   @ManyToMany
   @JoinTable(
-    name = "QuizLocations",
+    name = "QuizLocation",
     joinColumns = {@JoinColumn(name = "locationId")},
     inverseJoinColumns = {@JoinColumn(name = "quizId")}
   )

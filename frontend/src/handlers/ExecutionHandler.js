@@ -9,7 +9,7 @@ import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getExecutionTable() {
-    let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Code'];
+    let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Codes herunterladen'];
     return (
       <Table>
         <Table.Header>
@@ -29,7 +29,7 @@ export default {
                 <Table.Cell collapsing>
                   <Button
                     color="orange"
-                    icon="qrcode"
+                    icon="download"
                     basic
                     onClick={() =>
                       APIHandler.downloadExecutionQRCodePDF(element.id)

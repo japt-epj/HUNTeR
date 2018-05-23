@@ -474,7 +474,7 @@ INSERT INTO location (lat, lng, exercise_exercise_id) VALUES
 	(47.22554776790502,	8.817435452154996, 27),
 	(47.22578186384256, 8.81953240700284, 28);
 
-INSERT INTO quiz_locations (location_id, quiz_id) VALUES
+INSERT INTO quiz_location (location_id, quiz_id) VALUES
   (4, 1),
   (5, 1),
   (8, 1),
