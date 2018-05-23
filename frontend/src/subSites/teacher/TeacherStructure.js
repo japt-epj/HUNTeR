@@ -5,6 +5,7 @@ import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
 import getHome from '../../handlers/getHome';
+import UserSettings from '../../components/UserSettings';
 import TeacherExercise from './TeacherExercise';
 import TeacherExerciseOverview from './TeacherExerciseOverview';
 import TeacherNewParticipant from './TeacherNewParticipant';
@@ -55,6 +56,7 @@ export default class TeacherStructure extends React.Component {
                         path="/"
                         render={props => getHome(Data.getPathsTeacher())}
                       />
+                      <Route path="/settings" component={UserSettings} />
                       <Route path="/exercise" component={TeacherExercise} />
                       <Route
                         path="/exerciseOverview"

@@ -207,7 +207,6 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Person"
-
   /person/current:
      get:
         tags:

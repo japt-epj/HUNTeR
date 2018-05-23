@@ -1,6 +1,7 @@
 export default {
   getPathsTeacher() {
     return [
+      {path: 'settings', name: 'Persönliches', icon: 'setting'},
       {path: 'exercise', name: 'Aufgabe erstellen', icon: 'tasks'},
       {
         path: 'exerciseOverview',
