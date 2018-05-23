@@ -328,9 +328,9 @@ INSERT INTO quiz (name) VALUES
   ('Lebensmittel'),
   ('Mensch'),
   ('Natur'),
+  ('Sexologie'),
   ('Neuzeit'),
   ('Richtige Wortwahl'),
-  ('Sexologie'),
   ('Wissen');
 
 INSERT INTO person_quizzes (quizzes_quiz_id, person_person_id) VALUES
@@ -339,9 +339,9 @@ INSERT INTO person_quizzes (quizzes_quiz_id, person_person_id) VALUES
   (3, 2),
   (4, 12),
   (5, 8),
-  (6, 10),
+  (6, 2),
   (7, 7),
-  (8, 2),
+  (8, 10),
   (9, 10);
 
 INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
@@ -354,17 +354,17 @@ INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
   (7,7),
   (2,8),
   (1,9),
-  (6,10),
-  (6,11),
+  (8,10),
+  (8,11),
   (5,12),
   (3,13),
   (7,14),
-  (8,15),
+  (6,15),
   (3,16),
   (2,17),
   (9,18),
   (5,19),
-  (8,20),
+  (6,20),
   (2,21),
   (7,22),
   (1,23),
@@ -382,9 +382,9 @@ INSERT INTO execution (end_date, start_date, name, quiz_quiz_id) VALUES
   (NULL, NULL, 'Lebensmittel', 3),
   (NULL, NULL, 'Mensch', 4),
   (NULL, NULL, 'Natur', 5),
-  (NULL, NULL, 'Neuzeit', 6),
+  (NULL, NULL, 'Sexologie', 6),
+  (NULL, NULL, 'Neuzeit', 8),
   (NULL, NULL, 'Richtige Wortwahl', 7),
-  (NULL, NULL, 'Sexologie', 8),
   (NULL, NULL, 'Wissen', 9);
 
 INSERT INTO execution_participants (participants_person_id, execution_execution_id) VALUES
@@ -492,16 +492,16 @@ INSERT INTO quiz_location (location_id, quiz_id) VALUES
   (15, 5),
   (22, 5),
   (31, 5),
-  (13, 6),
-  (14, 6),
+  (18, 6),
+  (23, 6),
   (10, 7),
   (17, 7),
   (25, 7),
   (27, 7),
   (29, 7),
   (30, 7),
-  (18, 8),
-  (23, 8),
+  (13, 8),
+  (14, 8),
   (21, 9);
 
 INSERT INTO school_locations (locations_location_id, school_school_id) VALUES
