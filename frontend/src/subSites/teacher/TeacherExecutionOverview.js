@@ -30,7 +30,7 @@ export default class TeacherExecutionOverview extends React.Component {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getExercises(element.activePage, this.state.limit);
+    this.getExecutions(element.activePage, this.state.limit);
   };
 
   getExecutions = (page, limit) => {
