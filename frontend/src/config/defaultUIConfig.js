@@ -1,3 +1,5 @@
+import {isMobile} from 'react-device-detect';
+
 let defaultUIConfig = {
   buttonColors: {
     normal: 'green',
@@ -34,7 +36,7 @@ let defaultUIConfig = {
   showMobileError:
     window.sessionStorage.getItem('showMobileError') !== null
       ? JSON.parse(window.sessionStorage.getItem('showMobileError'))
-      : true
+      : isMobile
 };
 
 export default Object.freeze(Object.assign({}, defaultUIConfig));

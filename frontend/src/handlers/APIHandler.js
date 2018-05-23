@@ -22,7 +22,7 @@ export default {
         responseType: 'arraybuffer'
       })
       .then(res =>
-        fileDownload(res.data, 'qrCodes-quiz' + executionID + '.pdf')
+        fileDownload(res.data, 'qrCodes-execution' + executionID + '.pdf')
       )
       .catch(err => console.warn(err));
   },
