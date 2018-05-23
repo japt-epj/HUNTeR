@@ -49,12 +49,12 @@ public class ExerciseController implements ExerciseApi, PaginatedExercise {
 
   @Override
   public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
-    throw new RuntimeException("Not implemented");
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
   public ResponseEntity<Void> updateExerciseWithForm(@Valid @PathVariable("id") Long id) {
-    return null;
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
