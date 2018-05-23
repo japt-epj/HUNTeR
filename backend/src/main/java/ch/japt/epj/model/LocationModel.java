@@ -7,7 +7,6 @@ import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
-import ch.japt.epj.repository.QuizRepository;
 import ch.japt.epj.repository.ResponseRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +17,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class LocationModel {
 
-  private final QuizRepository quizzes;
   private final ResponseRepository responses;
   private final PersonRepository persons;
   private final ExecutionRepository executions;
 
   public LocationModel(
-      @Autowired QuizRepository quizzes,
       @Autowired ResponseRepository responses,
       @Autowired PersonRepository persons,
       @Autowired ExecutionRepository executions) {
-    this.quizzes = quizzes;
     this.responses = responses;
     this.persons = persons;
     this.executions = executions;

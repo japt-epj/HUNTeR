@@ -62,11 +62,11 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
 
   @Override
   public ResponseEntity<Void> updateQuiz(NewQuizDto body) {
-    return null;
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
   public ResponseEntity<Void> updateQuizWithForm(Long id) {
-    return null;
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 }

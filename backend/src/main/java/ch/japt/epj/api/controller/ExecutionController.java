@@ -40,12 +40,12 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi, Pagina
 
   @Override
   public ResponseEntity<Void> updateExecution(NewExecutionDto body) {
-    return null;
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
   public ResponseEntity<Void> updateExecutionWithForm(Long id) {
-    return null;
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
