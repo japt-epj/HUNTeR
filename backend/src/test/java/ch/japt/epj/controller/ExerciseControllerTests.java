@@ -33,7 +33,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
 
     mvc.perform(request)
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$[0].name").value("Natur und Umwelt"))
+        .andExpect(jsonPath("$[0].name").value("Bauernleben"))
         .andExpect(
             jsonPath("$[0].question")
                 .value(

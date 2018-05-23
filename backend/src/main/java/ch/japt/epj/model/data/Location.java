@@ -1,5 +1,7 @@
 package ch.japt.epj.model.data;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,14 @@ public class Location {
   private long locationId;
 
   @ManyToOne private Exercise exercise;
+
+  @ManyToMany
+  @JoinTable(
+    name = "QuizLocations",
+    joinColumns = {@JoinColumn(name = "locationId")},
+    inverseJoinColumns = {@JoinColumn(name = "quizId")}
+  )
+  private Collection<Location> locations = new ArrayList<>();
 
   private double lat;
   private double lng;
