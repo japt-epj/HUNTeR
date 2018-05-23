@@ -13,7 +13,13 @@ public class Quiz {
 
   private String name;
 
-  @OneToMany private Collection<Location> locations = new ArrayList<>();
+  @ManyToMany
+  @JoinTable(
+    name = "QuizLocation",
+    joinColumns = {@JoinColumn(name = "quizId")},
+    inverseJoinColumns = {@JoinColumn(name = "locationId")}
+  )
+  private Collection<Location> locations = new ArrayList<>();
 
   // TODO: Check if we use this
   @ManyToMany

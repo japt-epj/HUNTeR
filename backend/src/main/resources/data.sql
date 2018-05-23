@@ -323,15 +323,15 @@ INSERT INTO exercise_answer_templates (answer_templates_answer_id, exercise_exer
 /*===============*/
 
 INSERT INTO quiz (name) VALUES
-('Bräuche'),
-('Geometrie'),
-('Lebensmittel'),
-('Mensch'),
-('Natur'),
-('Neuzeit'),
-('Richtige Wortwahl'),
-('Sexologie'),
-('Wissen');
+  ('Bräuche'),
+  ('Geometrie'),
+  ('Lebensmittel'),
+  ('Mensch'),
+  ('Natur'),
+  ('Neuzeit'),
+  ('Richtige Wortwahl'),
+  ('Sexologie'),
+  ('Wissen');
 
 INSERT INTO person_quizzes (quizzes_quiz_id, person_person_id) VALUES
   (1, 1),
@@ -376,16 +376,16 @@ INSERT INTO quiz_exercise (quiz_id, exercise_id) VALUES
 
 /*===============*/
 
-INSERT INTO execution (end_date, name, start_date, quiz_quiz_id) VALUES
-(NULL, 'Bräuche', NULL, 1),
-(NULL, 'Geometrie', NULL, 2),
-(NULL, 'Lebensmittel', NULL, 3),
-(NULL, 'Mensch', NULL, 4),
-(NULL, 'Natur', NULL, 5),
-(NULL, 'Neuzeit', NULL, 6),
-(NULL, 'Richtige Wortwahl', NULL, 7),
-(NULL, 'Sexologie', NULL, 8),
-(NULL, 'Wissen', NULL, 9);
+INSERT INTO execution (end_date, start_date, name, quiz_quiz_id) VALUES
+  (NULL, NULL, 'Bräuche', 1),
+  (NULL, NULL, 'Geometrie', 2),
+  (NULL, NULL, 'Lebensmittel', 3),
+  (NULL, NULL, 'Mensch', 4),
+  (NULL, NULL, 'Natur', 5),
+  (NULL, NULL, 'Neuzeit', 6),
+  (NULL, NULL, 'Richtige Wortwahl', 7),
+  (NULL, NULL, 'Sexologie', 8),
+  (NULL, NULL, 'Wissen', 9);
 
 INSERT INTO execution_participants (participants_person_id, execution_execution_id) VALUES
   (3, 1),
@@ -508,10 +508,3 @@ INSERT INTO school_locations (locations_location_id, school_school_id) VALUES
   (1,1),
   (2,2),
   (3,3);
-
-/*===============
-
-INSERT INTO response (answer_from_person_answer_id, exercise_exercise_id, person_person_id) VALUES
-  ()
-
-*/
