@@ -69,6 +69,9 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
+  // Diamond operator cannot be used here, because type inference is broken inside a lambda.
+  // This really is an issue with the sonar rule, and not with our code.
+  @SuppressWarnings("squid:S2293")
   @Override
   public ResponseEntity<Void> getEntryPoint(@RequestHeader("X-HUNTeR-Frontend") Boolean hunter) {
     return SecurityContextHolder.getContext()
