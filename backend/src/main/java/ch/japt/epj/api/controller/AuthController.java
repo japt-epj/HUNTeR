@@ -1,7 +1,7 @@
 package ch.japt.epj.api.controller;
 
 import ch.japt.epj.model.RegPersonModel;
-import ch.japt.epj.model.data.HeaderStatus;
+import ch.japt.epj.model.data.AuthenticationStatus;
 import ch.japt.epj.model.data.RoleName;
 import ch.japt.epj.model.dto.AuthPersonDto;
 import ch.japt.epj.model.dto.JWTDto;
@@ -80,7 +80,7 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
         .findFirst()
         .map(
             role -> {
-              HeaderStatus status = new HeaderStatus(hunter, role);
+              AuthenticationStatus status = new AuthenticationStatus(hunter, role);
               return new ResponseEntity<Void>(status.getHeaders(), status.getStatus());
             })
         .orElse(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
