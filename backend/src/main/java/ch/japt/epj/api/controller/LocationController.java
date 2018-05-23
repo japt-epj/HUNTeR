@@ -22,11 +22,6 @@ public class LocationController implements LocationApi {
     this.locationModel = locationModel;
   }
 
-  //  @Override
-  //  public ResponseEntity<NextExerciseLocationDto> locationGet() {
-  //    return null;
-  //  }
-
   @Override
   public ResponseEntity<List<NextExerciseLocationDto>> locationGet() {
     return new ResponseEntity<>(locationModel.getExerciseLocations(), HttpStatus.OK);
