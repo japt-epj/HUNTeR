@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Checkbox, Pagination, Table} from 'semantic-ui-react';
 import TableHandler from './TableHandler';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   handleSelection(event, checkbox) {
@@ -77,6 +78,9 @@ export default {
                 totalPages={this.state.maxPageParticipant}
                 activePage={this.state.pageNumber}
                 onPageChange={this.handlePageChangeParticipants}
+                pointing
+                secondary
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>

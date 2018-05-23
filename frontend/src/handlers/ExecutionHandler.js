@@ -5,6 +5,7 @@ import {Button, Pagination, Table} from 'semantic-ui-react';
 
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getExecutionTable() {
@@ -45,6 +46,9 @@ export default {
                 totalPages={this.state.maxPage}
                 activePage={this.state.pageNumber}
                 onPageChange={this.handlePageChangeExecutions}
+                pointing
+                secondary
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>
