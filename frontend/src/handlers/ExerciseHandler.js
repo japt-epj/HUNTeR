@@ -143,7 +143,7 @@ export default {
                 onPageChange={this.handlePageChangeSelected}
                 pointing
                 secondary
-                color="green"
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>
@@ -206,7 +206,7 @@ export default {
                 onPageChange={this.handlePageChangeExercises}
                 pointing
                 secondary
-                color="green"
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>

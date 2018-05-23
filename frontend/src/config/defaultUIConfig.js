@@ -3,6 +3,7 @@ let defaultUIConfig = {
     normal: 'green',
     download: 'orange'
   },
+  paginationColor: 'green',
   defaultNumbers: {
     pageNumber: 1,
     exerciseLimitPerPage: 5,

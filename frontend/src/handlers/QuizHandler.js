@@ -1,6 +1,7 @@
 import React from 'react';
 import TableHandler from './TableHandler';
 import {Form, Pagination, Table} from 'semantic-ui-react';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getQuizTable(checkboxNeeded) {
@@ -38,6 +39,9 @@ export default {
                 totalPages={this.state.maxPageQuiz}
                 activePage={this.state.pageNumber}
                 onPageChange={this.handlePageChangeQuizzes}
+                pointing
+                secondary
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>
