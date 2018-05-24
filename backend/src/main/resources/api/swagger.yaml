@@ -426,7 +426,6 @@ paths:
         description: "ID of quiz to print"
         required: true
         type: "integer"
-        format: "int64"
       responses:
         200:
           description: "Success"
@@ -631,8 +630,10 @@ definitions:
         type: "string"
       password:
         type: "string"
-    xml:
-      name: "person"
+      schools:
+        type: "array"
+        items:
+          type: "object"
 
   NewAnswer:
     type: "object"
