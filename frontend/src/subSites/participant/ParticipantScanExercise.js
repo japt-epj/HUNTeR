@@ -3,7 +3,6 @@ import {Redirect} from 'react-router';
 
 import {Message} from 'semantic-ui-react';
 
-import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';
 import ModalHandler from '../../handlers/ModalHandler';
 import defaultUIConfig from '../../config/defaultUIConfig';
