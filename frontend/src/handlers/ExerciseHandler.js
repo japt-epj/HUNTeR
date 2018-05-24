@@ -7,6 +7,7 @@ import defaultUIConfig from '../config/defaultUIConfig';
 import ShowExerciseModal from '../components/ShowExerciseModal';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
+import ShowExerciseEditModal from '../components/ShowExerciseEditModal';
 
 export default {
   handleSelection(event, checkbox) {
@@ -153,7 +154,7 @@ export default {
   },
 
   getExerciseTable(checkboxNeeded) {
-    let headerElements = ['Name', 'ID', 'Einsehen'];
+    let headerElements = ['Name', 'ID', 'Bearbeiten', 'Einsehen'];
     return (
       <Table>
         <Table.Header>
@@ -185,6 +186,9 @@ export default {
                 )}
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
+                <Table.Cell collapsing>
+                  <ShowExerciseEditModal exerciseId={element.id} />
+                </Table.Cell>
                 <Table.Cell collapsing>
                   <ShowExerciseModal id={element.id} />
                 </Table.Cell>

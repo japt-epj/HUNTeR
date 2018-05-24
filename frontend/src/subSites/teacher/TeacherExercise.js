@@ -8,6 +8,7 @@ import FormHandler from '../../handlers/FormHandler';
 import TableHandler from '../../handlers/TableHandler';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
+import {OK} from 'http-status-codes/index';
 
 export default class TeacherExercise extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class TeacherExercise extends React.Component {
       successMessage: defaultUIConfig.defaultSuccessMessages.exercise,
       formOK: true,
       fireRedirect: false,
-      exerciseId: '',
+      exerciseId: this.props !== undefined ? this.props.exerciseId : '',
       name: '',
       question: '',
       answer0: '',
@@ -34,6 +35,30 @@ export default class TeacherExercise extends React.Component {
     this.getJSONHeader = APIHandler.getJSONHeader;
     this.getFormError = ModalHandler.getFormError.bind(this);
   }
+
+  componentDidMount() {
+    this.getExercise(this.state.exerciseId);
+  }
+
+  getExercise = exerciseId => {
+    APIHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
+      if (resData.status === OK) {
+        const exerciseData = resData.data[0];
+        const answerId = exerciseData.answers.map((element, index) => {
+          if (element.checked) return index;
+        });
+        this.setState({
+          answer0: exerciseData.answers[0].text,
+          answer1: exerciseData.answers[1].text,
+          answer2: exerciseData.answers[2].text,
+          answer3: exerciseData.answers[3].text,
+          answerId,
+          question: exerciseData.question,
+          name: exerciseData.name
+        });
+      }
+    });
+  };
 
   render() {
     return (
