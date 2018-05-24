@@ -3,15 +3,18 @@ package ch.japt.epj.model;
 import ch.japt.epj.library.LocationSorter;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Location;
+import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.ResponseRepository;
+import ch.japt.epj.security.CustomUserDetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,9 +37,11 @@ public class LocationModel {
     ArrayList<Exercise> solvedExercises = new ArrayList<>();
     ArrayList<Response> allResponses = new ArrayList<>();
     responses.findAll().forEach(allResponses::add);
-    // TODO: Change static userId to user Id sent from frontend
+    Long personId =
+        ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+            .getPersonId();
     persons
-        .findByPersonId(1L)
+        .findByPersonId(personId)
         .ifPresent(
             p ->
                 solvedExercises.addAll(
@@ -45,13 +50,24 @@ public class LocationModel {
                         .filter(response -> response.getPerson().getPersonId() == p.getPersonId())
                         .map(Response::getExercise)
                         .collect(Collectors.toCollection(ArrayList::new))));
+
     ArrayList<Location> allLocationsSorted = new ArrayList<>();
     executions
         .findByExecutionId(id)
         .ifPresent(
-            execution1 ->
+            execution1 -> {
+              if (execution1
+                  .getParticipants()
+                  .stream()
+                  .map(Person::getPersonId)
+                  .anyMatch(i -> i.equals(personId))) {
                 allLocationsSorted.addAll(
-                    LocationSorter.nearestNeighbor(execution1.getQuiz().getLocations())));
+                    LocationSorter.nearestNeighbor(execution1.getQuiz().getLocations()));
+              }
+            });
+    if (allLocationsSorted.size() == 0) {
+      return null;
+    }
     ArrayList<Location> filteredAndSortedLocations = new ArrayList<>(allLocationsSorted);
     filteredAndSortedLocations.removeIf(
         location -> solvedExercises.contains(location.getExercise()));
