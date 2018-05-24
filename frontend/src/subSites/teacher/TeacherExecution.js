@@ -222,6 +222,12 @@ export default class TeacherExecution extends React.Component {
               <Grid.Column>
                 <Form.Button content="Submit" />
               </Grid.Column>
+              <Grid.Column>
+                <Form.Button
+                  content="Abbrechen"
+                  onClick={() => this.setState({fireRedirect: true})}
+                />
+              </Grid.Column>
             </Grid.Row>
           </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
