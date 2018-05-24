@@ -11,42 +11,45 @@ public class Location {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long locationId;
 
+  @ManyToOne private Exercise exercise;
+
   @ManyToMany
   @JoinTable(
-    name = "LocationExercise",
+    name = "QuizLocation",
     joinColumns = {@JoinColumn(name = "locationId")},
-    inverseJoinColumns = {@JoinColumn(name = "exerciseId")}
+    inverseJoinColumns = {@JoinColumn(name = "quizId")}
   )
-  private Collection<Exercise> exercises = new ArrayList<>();
+  private Collection<Location> locations = new ArrayList<>();
 
   private double lat;
-  private double ing;
+  private double lng;
 
-  public Location() {}
-
-  public void setCoordinates(double lat, double ing) {
-
+  public void setCoordinates(double lat, double lng) {
     this.lat = lat;
-    this.ing = ing;
+    this.lng = lng;
+  }
+
+  public Coordinates getCoordinates() {
+    return new Coordinates(lat, lng);
   }
 
   public double getLat() {
     return lat;
   }
 
-  public double getIng() {
-    return ing;
+  public double getLng() {
+    return lng;
   }
 
   public long getLocationId() {
     return locationId;
   }
 
-  public Collection<Exercise> getExercises() {
-    return exercises;
+  public Exercise getExercise() {
+    return exercise;
   }
 
-  public void addExercise(Exercise exercise) {
-    this.exercises.add(exercise);
+  public void setExercise(Exercise exercise) {
+    this.exercise = exercise;
   }
 }

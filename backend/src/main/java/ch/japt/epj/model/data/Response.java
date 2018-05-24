@@ -18,8 +18,6 @@ public class Response {
   @ManyToOne(cascade = CascadeType.ALL)
   private Answer answerFromPerson;
 
-  public Response() {}
-
   public Person getPerson() {
     return person;
   }

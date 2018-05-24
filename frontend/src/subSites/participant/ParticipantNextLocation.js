@@ -6,13 +6,15 @@ import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
+import defaultUIConfig from '../../config/defaultUIConfig';
+
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
     const defaultZoomSize = 19;
     this.state = {
-      showAgreement: true,
+      showAgreement: defaultUIConfig.showAgreement,
       executionId:
         this.props.location.state !== undefined
           ? this.props.location.state.executionId

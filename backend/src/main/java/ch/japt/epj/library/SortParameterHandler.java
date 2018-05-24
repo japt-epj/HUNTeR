@@ -3,7 +3,7 @@ package ch.japt.epj.library;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Sort;
 
-public class SortParameterHandler {
+public final class SortParameterHandler {
   private SortParameterHandler() {}
 
   /**

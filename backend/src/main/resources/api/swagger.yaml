@@ -28,7 +28,6 @@ tags:
 schemes:
 - "https"
 paths:
-
   /exercise:
     post:
       tags:
@@ -122,6 +121,30 @@ paths:
         405:
           description: "Invalid input"
 
+  /exercise/teacher/{id}:
+    get:
+      tags:
+      - "exercise"
+      summary: "Get exercise"
+      description: "Get exercise by id"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: "array"
+          items:
+            type: "integer"
+          description: "exercise id, or multiple comma separated ids"
+      responses:
+        200:
+          description: "Exercises found"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/NewExercise"
+
   /qrCode/{id}:
     get:
       tags:
@@ -185,6 +208,7 @@ paths:
             items:
               $ref: "#/definitions/Person"
   /person/current:
+<<<<<<< HEAD
     get:
       tags:
       - "person"
@@ -229,6 +253,50 @@ paths:
         405:
           description: "Validation exception"
 
+=======
+     get:
+        tags:
+        - "person"
+        summary: "Get current person"
+        description: ""
+        operationId: "getCurrentPerson"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "header"
+          name: "Authorization"
+          type: "string"
+        responses:
+          200:
+            description: "Current person found"
+            schema:
+                $ref: "#/definitions/Person"
+  /person:
+    put:
+          tags:
+          - "person"
+          summary: "Update an existing person"
+          description: ""
+          operationId: "updatePerson"
+          consumes:
+          - "application/json"
+          produces:
+          - "application/json"
+          parameters:
+          - in: "body"
+            name: "body"
+            description: "person object that needs to be editted in the store"
+            required: true
+            schema:
+              $ref: "#/definitions/RegPerson"
+          responses:
+            400:
+              description: "Invalid ID supplied"
+            404:
+              description: "person not found"
+            405:
+              description: "Validation exception"
+>>>>>>> master
 
   /auth/register:
     post:
@@ -297,7 +365,6 @@ paths:
               description: "Location to redirect to"
         302:
           description: "Entry point for non HUNTeR client provided"
-
 
   /quiz:
     post:
@@ -392,6 +459,27 @@ paths:
         405:
           description: "Invalid input"
 
+  /quiz/{id}/print:
+    get:
+      tags:
+        - "quiz"
+      summary: "Print out quiz"
+      description: "Print out a quiz for distributing way points that can be scanned"
+      produces:
+      - "application/pdf"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of quiz to print"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: file
+        401:
+          description: "Not Found"
 
   /response:
     post:
@@ -486,20 +574,6 @@ paths:
         405:
           description: "Validation exception"
 
-    get:
-      tags:
-      - "execution"
-      summary: "Get all executions"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "All executions"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Execution"
-
   /execution/{id}:
     get:
       tags:
@@ -542,6 +616,7 @@ paths:
         405:
           description: "Invalid input"
 
+<<<<<<< HEAD
   /score/{id}:
     get:
       tags:
@@ -550,19 +625,56 @@ paths:
       description: ""
       operationId: "getScore"
       produces:
+       - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        type: "integer"
+        format: "int64"
+        description: "execution id"
+        responses:
+          200:
+            description: "Score found"
+            schema:
+              $ref: "#/definitions/Score"
+
+  /location/{id}:
+    get:
+      tags:
+      - "location"
+      summary: "Get location"
+      description: "Get location to next exercise by executionId"
+      produces:
       - "application/json"
       parameters:
         - in: "path"
           name: "id"
           required: true
           type: "integer"
-          format: "int64"
           description: "execution id"
       responses:
         200:
-          description: "Score found"
+          description: "Locations found"
           schema:
-            $ref: "#/definitions/Score"
+            $ref: "#/definitions/NextExerciseLocation"
+
+  /location:
+    get:
+      tags:
+      - "location"
+      summary: "Get locations"
+      description: "Get locations to next exercise by executionId"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Responses found"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/NextExerciseLocation"
+
 
 securityDefinitions:
   bearerAuth:
@@ -574,7 +686,6 @@ securityDefinitions:
     name: "api_key"
     in: "header"
 definitions:
-
 
   Person:
     type: "object"
@@ -603,7 +714,6 @@ definitions:
         type: "string"
       checked:
         type: "boolean"
-
 
   NewExercise:
     type: "object"
@@ -643,7 +753,6 @@ definitions:
         type: "array"
         items:
           type: "string"
-
 
   NewExecution:
       type: "object"
@@ -734,7 +843,6 @@ definitions:
         items:
           $ref: "#/definitions/ExerciseLocation"
 
-
   ExerciseLocation:
     type: "object"
     required:
@@ -762,6 +870,19 @@ definitions:
         format: "double"
         example: 8.8176142
 
+  NextExerciseLocation:
+    type: "object"
+    properties:
+      exerciseTitle:
+        type: "string"
+      lat:
+        type: "number"
+        format: "double"
+        example: 47.2232274
+      lng:
+        type: "number"
+        format: "double"
+        example: 8.8176142
 
   JWT:
     type: "object"
@@ -801,7 +922,6 @@ definitions:
     additionalProperties:
       type: "integer"
       format: "int64"
-
 
 
 externalDocs:
