@@ -3,7 +3,8 @@ import {isMobile} from 'react-device-detect';
 let defaultUIConfig = {
   buttonColors: {
     normal: 'green',
-    download: 'orange'
+    download: 'orange',
+    show: 'blue'
   },
   paginationColor: 'green',
   defaultNumbers: {

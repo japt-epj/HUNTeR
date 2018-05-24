@@ -34,7 +34,7 @@ export default {
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
+            <Table.HeaderCell colSpan={headerElements.length + checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPageQuiz}
                 activePage={this.state.pageNumber}
