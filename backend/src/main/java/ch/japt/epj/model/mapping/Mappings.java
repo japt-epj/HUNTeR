@@ -3,17 +3,11 @@ package ch.japt.epj.model.mapping;
 import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Exercise;
-import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 
 public final class Mappings {
   private Mappings() {}
@@ -51,11 +45,6 @@ public final class Mappings {
 
   public static ModelMapper quizMapper() {
     ModelMapper mapper = new ModelMapper();
-
-    Type executionDtos = new TypeToken<List<NewExecutionDto>>() {}.getType();
-
-    Converter<Collection<Execution>, List<ExecutionDto>> converter =
-        context -> mapper.map(context.getSource(), executionDtos);
 
     mapper
         .createTypeMap(Execution.class, NewExecutionDto.class)
