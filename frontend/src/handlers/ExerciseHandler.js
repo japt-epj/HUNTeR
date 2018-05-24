@@ -1,10 +1,10 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 
 import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import defaultUIConfig from '../config/defaultUIConfig';
+import ShowExerciseModal from '../components/ShowExerciseModal';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
 
@@ -153,7 +153,7 @@ export default {
   },
 
   getExerciseTable(checkboxNeeded) {
-    let headerElements = ['Name', 'ID', 'Bearbeiten'];
+    let headerElements = ['Name', 'ID', 'Einsehen'];
     return (
       <Table>
         <Table.Header>
@@ -186,20 +186,14 @@ export default {
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing>
-                  <NavLink to={'/exercise?id=' + element.id}>
-                    <Button
-                      color={defaultUIConfig.buttonColors.normal}
-                      icon="edit"
-                      basic
-                    />
-                  </NavLink>
+                  <ShowExerciseModal id={element.id} />
                 </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
+            <Table.HeaderCell colSpan={headerElements.length + checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPage}
                 activePage={this.state.pageNumber}
