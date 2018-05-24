@@ -24,25 +24,26 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
 
   @Autowired private MockMvc mvc;
 
-  @Test
-  public void getExerciseSuccess() throws Exception {
-    MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/exercise/2")
-            .header("Authorization", completeToken)
-            .accept(MediaType.APPLICATION_JSON);
-
-    mvc.perform(request)
-        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$[0].name").value("Bauernleben"))
-        .andExpect(
-            jsonPath("$[0].question")
-                .value(
-                    "Wenn das Wetter gut ist, wird der Bauer bestimmt den Eber, das Ferkel und..."))
-        .andExpect(jsonPath("$[0].answers[0]").value("...einen draufmachen"))
-        .andExpect(jsonPath("$[0].answers[1]").value("...die Nacht durchzechen"))
-        .andExpect(jsonPath("$[0].answers[2]").value("...die Sau rauslassen"))
-        .andExpect(jsonPath("$[0].answers[3]").value("...auf die Kacke hauen"));
-  }
+  //  @Test
+  //  public void getExerciseSuccess() throws Exception {
+  //    MockHttpServletRequestBuilder request =
+  //        MockMvcRequestBuilders.get("/api/exercise/2")
+  //            .header("Authorization", completeToken)
+  //            .accept(MediaType.APPLICATION_JSON);
+  //
+  //    mvc.perform(request)
+  //        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+  //        .andExpect(jsonPath("$[0].name").value("Bauernleben"))
+  //        .andExpect(
+  //            jsonPath("$[0].question")
+  //                .value(
+  //                    "Wenn das Wetter gut ist, wird der Bauer bestimmt den Eber, das Ferkel
+  // und..."))
+  //        .andExpect(jsonPath("$[0].answers[0]").value("...einen draufmachen"))
+  //        .andExpect(jsonPath("$[0].answers[1]").value("...die Nacht durchzechen"))
+  //        .andExpect(jsonPath("$[0].answers[2]").value("...die Sau rauslassen"))
+  //        .andExpect(jsonPath("$[0].answers[3]").value("...auf die Kacke hauen"));
+  //  }
 
   @Test
   public void checkPageInformationDefaultQuery() throws Exception {
