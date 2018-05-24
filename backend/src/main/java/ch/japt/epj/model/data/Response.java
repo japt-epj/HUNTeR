@@ -18,9 +18,6 @@ public class Response {
   @ManyToOne(cascade = CascadeType.ALL)
   private Answer answerFromPerson;
 
-  // Is used for empty object initialization
-  public Response() {}
-
   public Person getPerson() {
     return person;
   }
