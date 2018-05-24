@@ -15,8 +15,6 @@ public class Person {
 
   private String lastName;
 
-  private boolean isCreator;
-
   private String email;
 
   private String password;
@@ -74,14 +72,6 @@ public class Person {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public boolean isCreator() {
-    return isCreator;
-  }
-
-  public void setCreator(boolean creator) {
-    isCreator = creator;
   }
 
   public void addSchool(School school) {
