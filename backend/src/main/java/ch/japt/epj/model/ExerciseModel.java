@@ -48,6 +48,12 @@ public class ExerciseModel {
     return exercises.findByExerciseId(id).map(t -> mapper.map(t, ExerciseDto.class));
   }
 
+  public List<NewExerciseDto> getExercisesForTeacher(List<Integer> ids) {
+    Collection<Long> longs = ListConverter.toLong(ids);
+    Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
+    return mapper.map(exercises.findAll(longs), dtoList);
+  }
+
   public void addExercise(NewExerciseDto exerciseDto) {
     Exercise exercise = mapper.map(exerciseDto, Exercise.class);
     exerciseDto

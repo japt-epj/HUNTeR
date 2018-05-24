@@ -3,6 +3,7 @@ import {Redirect} from 'react-router';
 
 import {Form, Table} from 'semantic-ui-react';
 
+import defaultUIConfig from '../../config/defaultUIConfig';
 import FormHandler from '../../handlers/FormHandler';
 import TableHandler from '../../handlers/TableHandler';
 import APIHandler from '../../handlers/APIHandler';
@@ -12,6 +13,7 @@ export default class TeacherExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.exercise,
       formOK: true,
       fireRedirect: false,
       exerciseId: '',
@@ -36,6 +38,8 @@ export default class TeacherExercise extends React.Component {
   render() {
     return (
       <div>
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError('Keine Antwort wurde als richtig markiert!')}
         <Form onSubmit={this.handleSubmit}>

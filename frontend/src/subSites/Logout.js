@@ -1,13 +1,18 @@
 import React from 'react';
 
-import config from '../config/config';
+import ModalHandler from '../handlers/ModalHandler';
+import pathConfig from '../config/pathConfig';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default function Logout() {
   return (
     <div>
       {window.localStorage.removeItem('HUNTeR-Redirect')}
       {window.localStorage.removeItem('HUNTeR-Token')}
-      {window.location.replace(config.mainURL)}
+      {ModalHandler.getLogoutSuccess()}
+      {setTimeout(() => {
+        window.location.replace(pathConfig.mainURL);
+      }, defaultUIConfig.defaultTimeoutTime)}
     </div>
   );
 }

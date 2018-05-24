@@ -16,6 +16,9 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,6 +36,12 @@ public class ExecutionModel {
     this.executions = executions;
     this.persons = persons;
     this.quizzes = quizzes;
+  }
+
+  public Page<ExecutionDto> pageExecution(int page, int limit, Sort sort) {
+    return executions
+        .findAll(new PageRequest(page, limit, sort))
+        .map(execution -> mapper.map(execution, ExecutionDto.class));
   }
 
   public List<ExecutionDto> allExecutions() {

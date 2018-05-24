@@ -2,62 +2,81 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
+import defaultUIConfig from '../config/defaultUIConfig';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
 
 export default {
   handleSelection(event, checkbox) {
-    let newState = this.state.selected;
-    let currentPage = this.state.pageNumberSelected;
-    let newPositions = this.state.selectedPositions;
-    let limit = this.state.limit;
+    let selectedCheckboxes = [...this.state.selectedCheckboxes];
+    let bulkCheckboxes = [...this.state.bulkCheckboxes];
+    let pageNumber = this.state.pageNumber;
+    let pageNumberSelectedExercises = this.state.pageNumberSelectedExercises;
+    let selectedPositions = new Map(this.state.selectedPositions);
+    const startNameBulkCheckbox = 'BulkCheckbox';
     if (checkbox.checked) {
-      if (checkbox.name.startsWith('Bulk')) {
+      if (checkbox.name.startsWith(startNameBulkCheckbox)) {
+        bulkCheckboxes.push(checkbox.id);
         this.state.exercises.forEach(element => {
-          if (newState.indexOf(element.id) === -1) {
-            newState.push(element.id);
-            newPositions.set(element.id, undefined);
+          if (selectedCheckboxes.indexOf(element.id) === -1) {
+            selectedCheckboxes.push(element.id);
+            selectedPositions.set(element.id, undefined);
           }
         });
-        this.setState({bulkCheckbox: checkbox.id});
       } else {
-        newPositions.set(checkbox.id, undefined);
-        newState.push(checkbox.id);
+        selectedPositions.set(checkbox.id, undefined);
+        selectedCheckboxes.push(checkbox.id);
       }
     } else {
-      if (checkbox.name.startsWith('Bulk')) {
+      if (checkbox.name.startsWith(startNameBulkCheckbox)) {
+        bulkCheckboxes.splice(selectedCheckboxes.lastIndexOf(checkbox.id), 1);
         this.state.exercises.forEach(element => {
-          if (newState.indexOf(element.id) !== -1) {
-            newState.splice(newState.indexOf(element.id), 1);
-            newPositions.delete(element.id);
+          if (selectedCheckboxes.indexOf(element.id) !== -1) {
+            selectedCheckboxes.splice(
+              selectedCheckboxes.indexOf(element.id),
+              1
+            );
+            selectedPositions.delete(element.id);
           }
         });
-        this.setState({bulkCheckbox: ''});
       } else {
-        newPositions.delete(checkbox.id);
-        newState.splice(newState.lastIndexOf(checkbox.id), 1);
+        bulkCheckboxes.splice(
+          selectedCheckboxes.lastIndexOf(startNameBulkCheckbox + pageNumber),
+          1
+        );
+        selectedPositions.delete(checkbox.id);
+        selectedCheckboxes.splice(
+          selectedCheckboxes.lastIndexOf(checkbox.id),
+          1
+        );
       }
     }
     this.setState({
-      selected: newState.sort((a, b) => a > b),
-      selectedPositions: newPositions
+      bulkCheckboxes,
+      selectedCheckboxes: selectedCheckboxes.sort((a, b) => a > b),
+      selectedPositions
     });
     APIHandler.getExerciseArray(
-      newState.slice((currentPage - 1) * limit, currentPage * limit)
+      selectedCheckboxes.slice(
+        (pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage,
+        pageNumberSelectedExercises * this.exerciseLimitPerPage
+      )
     ).then(resData => {
-      if (resData.status === 200) {
+      if (resData.status === OK) {
         this.setState({
-          selectedExercises: newState.length !== 0 ? resData.data : []
+          selectedExercises: selectedCheckboxes.length !== 0 ? resData.data : []
         });
       } else {
-        console.log('Error:' + resData);
+        console.error('Error:' + resData);
       }
     });
   },
 
   getSelectedExerciseTable() {
     let headerElements = ['Name', 'Standort gesetzt', 'Standort setzen'];
+    const maxElementsPerPage = 5;
     return (
       <Table>
         <Table.Header>
@@ -74,7 +93,7 @@ export default {
               </Table.Cell>
               <Table.Cell collapsing>
                 <Button
-                  color="green"
+                  color={defaultUIConfig.buttonColors.normal}
                   basic
                   icon="point"
                   onClick={event => {
@@ -111,12 +130,20 @@ export default {
             <Table.HeaderCell colSpan={headerElements.length}>
               <Pagination
                 totalPages={
-                  this.state.selected.length % 5 === 0
-                    ? this.state.selected.length / 5
-                    : parseInt(this.state.selected.length / 5, 10) + 1
+                  this.state.selectedCheckboxes.length % maxElementsPerPage ===
+                  0
+                    ? this.state.selectedCheckboxes.length / maxElementsPerPage
+                    : parseInt(
+                        this.state.selectedCheckboxes.length /
+                          maxElementsPerPage,
+                        10
+                      ) + 1
                 }
-                activePage={this.state.pageNumberSelected}
+                activePage={this.state.pageNumberSelectedExercises}
                 onPageChange={this.handlePageChangeSelected}
+                pointing
+                secondary
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>
@@ -124,8 +151,9 @@ export default {
       </Table>
     );
   },
+
   getExerciseTable(checkboxNeeded) {
-    let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Code'];
+    let headerElements = ['Name', 'ID', 'Bearbeiten'];
     return (
       <Table>
         <Table.Header>
@@ -133,14 +161,14 @@ export default {
             {checkboxNeeded &&
               TableHandler.getBulkCheckbox(
                 this.state.pageNumber,
-                this.state.bulkCheckbox,
+                this.state.bulkCheckboxes,
                 this.handleSelection
               )}
             {TableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {!this.state.loadingExercises &&
+          {!this.state.loading &&
             this.state.exercises.map(element => (
               <Table.Row key={'TableRow' + element.id}>
                 {checkboxNeeded && (
@@ -149,7 +177,9 @@ export default {
                       id={element.id}
                       name={element.name}
                       onChange={this.handleSelection}
-                      checked={this.state.selected.indexOf(element.id) !== -1}
+                      checked={
+                        this.state.selectedCheckboxes.indexOf(element.id) !== -1
+                      }
                     />
                   </Table.Cell>
                 )}
@@ -157,27 +187,26 @@ export default {
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing>
                   <NavLink to={'/exercise?id=' + element.id}>
-                    <Button color="green" icon="edit" basic />
+                    <Button
+                      color={defaultUIConfig.buttonColors.normal}
+                      icon="edit"
+                      basic
+                    />
                   </NavLink>
-                </Table.Cell>
-                <Table.Cell collapsing>
-                  <Button
-                    color="orange"
-                    icon="qrcode"
-                    basic
-                    onClick={() => APIHandler.downloadQRCode(element.id)}
-                  />
                 </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="5">
+            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPage}
                 activePage={this.state.pageNumber}
                 onPageChange={this.handlePageChangeExercises}
+                pointing
+                secondary
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>
