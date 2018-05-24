@@ -20,7 +20,8 @@ public final class Mappings {
     mapper
         .createTypeMap(Exercise.class, ExerciseDto.class)
         .addMapping(Exercise::getName, ExerciseDto::setName)
-        .addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers);
+        .addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers)
+        .addMapping(Exercise::getAnswerIds, ExerciseDto::setAnswerIds);
     mapper
         .createTypeMap(NewAnswerDto.class, Answer.class)
         .addMapping(NewAnswerDto::getText, Answer::setAnswer);
@@ -32,6 +33,10 @@ public final class Mappings {
         .addMapping(Exercise::getName, NewExerciseDto::setName)
         .addMapping(Exercise::getQuestion, NewExerciseDto::setQuestion)
         .addMapping(Exercise::getAnswerTemplates, NewExerciseDto::setAnswers);
+    mapper
+        .createTypeMap(Answer.class, NewAnswerDto.class)
+        .addMapping(Answer::getAnswer, NewAnswerDto::setText)
+        .addMapping(Answer::getAnswerId, NewAnswerDto::setAnswerId);
 
     return mapper;
   }

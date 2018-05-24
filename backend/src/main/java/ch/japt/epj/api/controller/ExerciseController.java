@@ -37,7 +37,7 @@ public class ExerciseController implements ExerciseApi, PaginatedExercise {
   }
 
   @Override
-  public ResponseEntity<List<ExerciseDto>> exerciseIdGet(@PathVariable("id") List<Integer> id) {
+  public ResponseEntity<List<NewExerciseDto>> exerciseIdGet(@PathVariable("id") List<Integer> id) {
     return new ResponseEntity<>(exerciseModel.getExercises(id), HttpStatus.OK);
   }
 
