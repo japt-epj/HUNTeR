@@ -12,6 +12,15 @@ export default {
     );
   },
 
+  getLogoutSuccess() {
+    return (
+      <Modal dimmer="blurring" open>
+        <Header icon="sign in" content="Erfolgreich ausgeloggt" />
+        <Modal.Content content="Sie haben sich erfolgreich ausgeloggt." />
+      </Modal>
+    );
+  },
+
   getCreationSuccess(successMessage) {
     return (
       <Modal dimmer="blurring" open={successMessage.showModal}>
