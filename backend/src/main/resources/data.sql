@@ -92,7 +92,7 @@ INSERT INTO exercise (name, question) VALUES
   ('Diebesgut', 'Was wird strafrechtlich verfolgt'),
   ('Asiatische Köstlichkeiten', 'Welche chinesische Köstlichkeit ist auch bei uns als warme Vorspeise beliebt?');
 
-INSERT INTO answer (answer, checked) VALUES
+INSERT INTO answer (text, checked) VALUES
   ('Dober Männer', false),
   ('Cocker Spaniels', false),
   ('Schäfer Hunde', true),
