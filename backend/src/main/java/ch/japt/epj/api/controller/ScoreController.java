@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -22,7 +23,7 @@ public class ScoreController implements ch.japt.epj.api.ScoreApi {
   }
 
   @Override
-  public ResponseEntity<ScoreDto> getScore(@Valid Long id) {
+  public ResponseEntity<ScoreDto> getScore(@Valid @PathVariable("id") Long id) {
     //    scoreModel.getScore(id);
     return new ResponseEntity<>(scoreModel.getScore(id), HttpStatus.OK);
   }
