@@ -65,7 +65,7 @@ public class LocationModel {
                     LocationSorter.nearestNeighbor(execution1.getQuiz().getLocations()));
               }
             });
-    if (allLocationsSorted.size() == 0) {
+    if (allLocationsSorted.isEmpty()) {
       return null;
     }
     ArrayList<Location> filteredAndSortedLocations = new ArrayList<>(allLocationsSorted);
