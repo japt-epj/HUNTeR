@@ -34,6 +34,7 @@ export default class UserSettings extends React.Component {
         firstName: personInformation.firstName,
         lastName: personInformation.lastName,
         email: personInformation.email,
+        school: personInformation.schools[0].name,
         loading: false
       });
     });
@@ -75,7 +76,7 @@ export default class UserSettings extends React.Component {
           <Form.Input
             label="Lehranstalt"
             type="text"
-            defaultValue={'HSR'}
+            defaultValue={this.state.school}
             disabled
           />
           <Form.Input
