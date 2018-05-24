@@ -38,9 +38,9 @@ public class HttpRedirectConfig {
   private Connector initiateHttpConnector() {
     Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
     connector.setScheme("http");
-    connector.setPort(APIPORT);
+    connector.setPort(API_PORT);
     connector.setSecure(false);
-    connector.setRedirectPort(LOCALHTTPS);
+    connector.setRedirectPort(LOCAL_HTTPS);
     return connector;
   }
 }
