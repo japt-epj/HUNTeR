@@ -11,14 +11,14 @@ export default {
     ));
   },
 
-  getBulkCheckbox(pageNumber, bulkCheckbox, handleSelection) {
+  getBulkCheckbox(pageNumber, bulkCheckboxes, handleSelection) {
     return (
       <Table.HeaderCell>
         <Checkbox
-          id={'Bulk' + pageNumber}
-          name={'Bulk' + pageNumber}
+          id={'BulkCheckbox' + pageNumber}
+          name={'BulkCheckbox' + pageNumber}
           onChange={handleSelection}
-          checked={bulkCheckbox === 'Bulk' + pageNumber}
+          checked={bulkCheckboxes.indexOf('BulkCheckbox' + pageNumber) !== -1}
         />
       </Table.HeaderCell>
     );
