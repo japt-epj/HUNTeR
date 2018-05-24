@@ -15,7 +15,6 @@ public final class QrGenerator {
 
   private QrGenerator() {}
 
-  // ID will have to be replaced with a bytearray or a string or something
   public static Optional<byte[]> makeQr(String data, Integer scale, Integer border) {
     try {
       QrCode code = QrCode.encodeText(data, QrCode.Ecc.MEDIUM);
