@@ -41,17 +41,21 @@ export default class ParticipantExercise extends React.Component {
               </Grid.Row>
               <Grid.Row>{this.state.question}</Grid.Row>
               <Grid.Row>
-                {this.state.options.map((element, index) => {
-                  return (
-                    <Form.Radio
-                      value={index}
-                      label={'Antwort ' + (index + 1) + ' : ' + element}
-                      onChange={this.handleSelectChange}
-                      checked={this.state.answerId === index}
-                    />
-                  );
-                })}
-                <Form.Button content="Submit" />
+                <Grid padded>
+                  <Grid.Row>
+                    {this.state.options.map((element, index) => {
+                      return (
+                        <Form.Radio
+                          value={index}
+                          label={'Antwort ' + (index + 1) + ' : ' + element}
+                          onChange={this.handleSelectChange}
+                          checked={this.state.answerId === index}
+                        />
+                      );
+                    })}
+                    <Form.Button content="Submit" />
+                  </Grid.Row>
+                </Grid>
               </Grid.Row>
             </Form>
             {this.state.fireRedirect && (

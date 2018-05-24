@@ -94,17 +94,15 @@ export default class TeacherExercise extends React.Component {
             </Table.Body>
           </Table>
           <Grid>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Button content="Submit" />
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Button
-                  content="Abbrechen"
-                  onClick={() => this.setState({fireRedirect: true})}
-                />
-              </Grid.Column>
-            </Grid.Row>
+            <Grid.Column>
+              <Form.Button content="Submit" />
+            </Grid.Column>
+            <Grid.Column>
+              <Form.Button
+                content="Abbrechen"
+                onClick={() => this.setState({fireRedirect: true})}
+              />
+            </Grid.Column>
           </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
