@@ -37,35 +37,20 @@ export default class ParticipantScanExercise extends React.Component {
       jsonData !== undefined &&
       jsonData.coordinates !== undefined
     ) {
-      APIHandler.getExerciseArray(jsonData.exerciseId, 'exercise').then(
-        resData => {
-          if (resData.status === 200) {
-            let exercise = resData.data[0];
-            exercise.answers.forEach(function(element, index, arrayObject) {
-              arrayObject[index] = {text: element, checked: false};
-            });
-            this.setState({
-              exercise: {
-                executionId: jsonData.executionId,
-                exerciseId: exercise.id,
-                name: exercise.name,
-                question: exercise.question,
-                answers: exercise.answers
-              }
-            });
-            setTimeout(
-              () => this.setState({fireRedirect: true, showSuccess: false}),
-              defaultUIConfig.defaultTimeoutTime
-            );
-          } else {
-            this.setState({scanError: true});
-            this.setState({
-              displayText:
-                'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
-            });
-          }
-        }
+      this.setState({
+        executionId: jsonData.executionId,
+        exerciseId: jsonData.exerciseId
+      });
+      setTimeout(
+        () => this.setState({fireRedirect: true, showSuccess: false}),
+        defaultUIConfig.defaultTimeoutTime
       );
+    } else {
+      this.setState({scanError: true});
+      this.setState({
+        displayText:
+          'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+      });
     }
   };
 
