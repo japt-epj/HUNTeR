@@ -178,9 +178,40 @@ export default class TeacherQuiz extends React.Component {
             </Grid.Row>
             <Grid.Row columns="equal" id="mapContainer">
               <Grid.Column width={6}>
-                {!this.state.loading &&
-                  this.state.selectedCheckboxes.length !== 0 &&
-                  this.getSelectedExerciseTable()}
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Modal
+                        size="fullscreen"
+                        trigger={
+                          <Button
+                            color={defaultUIConfig.buttonColors.normal}
+                            icon="add square"
+                            positive
+                            labelPosition="right"
+                            label="Aufgabe hinzufügen"
+                            onClick={this.resetPageNumber}
+                          />
+                        }
+                        closeIcon
+                      >
+                        <Modal.Header content="Aufgaben hinzufügen" />
+                        <Modal.Content scrolling>
+                          {this.state.loading
+                            ? viewHandler.getLoadingScreen()
+                            : this.getExerciseTable(true)}
+                        </Modal.Content>
+                      </Modal>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      {!this.state.loading &&
+                        this.state.selectedCheckboxes.length !== 0 &&
+                        this.getSelectedExerciseTable()}
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
               </Grid.Column>
               <Grid.Column>
                 <LeafletMap
@@ -209,30 +240,7 @@ export default class TeacherQuiz extends React.Component {
                 </LeafletMap>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row columns="equal">
-              <Grid.Column>
-                <Modal
-                  size="fullscreen"
-                  trigger={
-                    <Button
-                      color={defaultUIConfig.buttonColors.normal}
-                      icon="add square"
-                      positive
-                      labelPosition="right"
-                      label="Aufgabe hinzufügen"
-                      onClick={this.resetPageNumber}
-                    />
-                  }
-                  closeIcon
-                >
-                  <Modal.Header content="Aufgaben hinzufügen" />
-                  <Modal.Content scrolling>
-                    {this.state.loading
-                      ? viewHandler.getLoadingScreen()
-                      : this.getExerciseTable(true)}
-                  </Modal.Content>
-                </Modal>
-              </Grid.Column>
+            <Grid.Row>
               <Grid.Column>
                 <Form.Button content="Submit" />
               </Grid.Column>
