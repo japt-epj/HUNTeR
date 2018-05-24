@@ -426,7 +426,6 @@ paths:
         description: "ID of quiz to print"
         required: true
         type: "integer"
-        format: "int64"
       responses:
         200:
           description: "Success"
