@@ -3,7 +3,8 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Grid, Header, Image, Menu, Sidebar} from 'semantic-ui-react';
 
-import Logo from '../images/icons/e.jpg';
+import defaultUIConfig from '../config/defaultUIConfig';
+import Logo from '../images/icons/e.png';
 
 export default {
   toggleVisibility() {
@@ -32,11 +33,15 @@ export default {
           </NavLink>
         </Grid.Column>
         <Grid.Column textAlign="center" className="headerElement">
-          <Header size="medium" color="green" content={'Pathname'} />
+          <Header
+            size="medium"
+            color={defaultUIConfig.buttonColors.normal}
+            content={'Pathname'}
+          />
         </Grid.Column>
         <Grid.Column textAlign="right">
           <Button
-            color="green"
+            color={defaultUIConfig.buttonColors.normal}
             icon={this.state.iconName}
             onClick={this.toggleVisibility}
           />
@@ -56,7 +61,11 @@ export default {
           />
         </Grid.Column>
         <Grid.Column textAlign="right" className="headerElement">
-          <Header size="medium" color="green" content="Login Seite" />
+          <Header
+            size="medium"
+            color={defaultUIConfig.buttonColors.normal}
+            content="Login Seite"
+          />
         </Grid.Column>
       </Grid.Row>
     );

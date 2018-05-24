@@ -21,16 +21,12 @@ public class Execution {
   @ManyToOne(cascade = CascadeType.ALL)
   private Quiz quiz;
 
-  @OneToMany private Collection<Person> participants = new ArrayList<>();
+  @ManyToMany private Collection<Person> participants = new ArrayList<>();
 
   @OneToMany private Collection<Response> responses = new ArrayList<>();
 
   public void addParticipant(Person person) {
     participants.add(person);
-  }
-
-  public void removeParticipant(Person person) {
-    participants.remove(person);
   }
 
   public Collection<Person> getParticipants() {

@@ -1,10 +1,11 @@
 import React from 'react';
 import TableHandler from './TableHandler';
 import {Form, Pagination, Table} from 'semantic-ui-react';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getQuizTable(checkboxNeeded) {
-    let headerElements = ['Name'];
+    let headerElements = ['Name', 'ID'];
     if (checkboxNeeded) {
       headerElements.unshift('');
     }
@@ -27,16 +28,20 @@ export default {
                   </Table.Cell>
                 )}
                 <Table.Cell>{element.name}</Table.Cell>
+                <Table.Cell>{element.id}</Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="2">
+            <Table.HeaderCell colSpan={headerElements.length + !checkboxNeeded}>
               <Pagination
                 totalPages={this.state.maxPageQuiz}
                 activePage={this.state.pageNumber}
                 onPageChange={this.handlePageChangeQuizzes}
+                pointing
+                secondary
+                color={defaultUIConfig.paginationColor}
               />
             </Table.HeaderCell>
           </Table.Row>

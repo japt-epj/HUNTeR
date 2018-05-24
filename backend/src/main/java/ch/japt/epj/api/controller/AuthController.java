@@ -1,24 +1,22 @@
 package ch.japt.epj.api.controller;
 
 import ch.japt.epj.model.RegPersonModel;
+import ch.japt.epj.model.data.AuthenticationStatus;
+import ch.japt.epj.model.data.RoleName;
 import ch.japt.epj.model.dto.AuthPersonDto;
 import ch.japt.epj.model.dto.JWTDto;
 import ch.japt.epj.model.dto.RegPersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.security.JwtTokenProvider;
 import io.swagger.annotations.Api;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Comparator;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,7 +60,6 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
 
   @Override
   public ResponseEntity<Void> registerPerson(@Valid @RequestBody RegPersonDto body) {
-
     if (personRepository.existsByEmail(body.getEmail())) {
       return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
@@ -72,42 +69,23 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
+  // Diamond operator cannot be used here, because type inference is broken inside a lambda.
+  // This really is an issue with the sonar rule, and not with our code.
+  @SuppressWarnings("squid:S2293")
   @Override
   public ResponseEntity<Void> getEntryPoint(@RequestHeader("X-HUNTeR-Frontend") Boolean hunter) {
-    HttpHeaders headers = new HttpHeaders();
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
-    boolean isStudent = false;
-    boolean isTeacher = false;
-
-    Map<Boolean, String> headerMap = new HashMap<>();
-    headerMap.put(true, "X-HUNTeR-Redirect");
-    headerMap.put(false, "Location");
-
-    Map<String, String> roleMap = new HashMap<>();
-    roleMap.put("ROLE_TEACHER", "/teacher");
-    roleMap.put("ROLE_STUDENT", "/participant");
-
-    Map<Boolean, HttpStatus> statusMap = new HashMap<>();
-    statusMap.put(true, HttpStatus.OK);
-    statusMap.put(false, HttpStatus.FOUND);
-
-    for (GrantedAuthority grantedAuthority : authorities) {
-      if ("ROLE_TEACHER".equals(grantedAuthority.getAuthority())) {
-        isTeacher = true;
-      } else if ("ROLE_STUDENT".equals(grantedAuthority.getAuthority())) {
-        isStudent = true;
-      }
-    }
-
-    if (isTeacher) {
-      headers.add(headerMap.get(hunter), roleMap.get("ROLE_TEACHER"));
-    } else if (isStudent) {
-      headers.add(headerMap.get(hunter), roleMap.get("ROLE_STUDENT"));
-    } else {
-      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-    }
-    return new ResponseEntity<>(headers, statusMap.get(hunter));
+    return SecurityContextHolder.getContext()
+        .getAuthentication()
+        .getAuthorities()
+        .stream()
+        .map(granted -> Enum.valueOf(RoleName.class, granted.getAuthority()))
+        .sorted(Comparator.comparingInt(RoleName::getPriority))
+        .findFirst()
+        .map(
+            role -> {
+              AuthenticationStatus status = new AuthenticationStatus(hunter, role);
+              return new ResponseEntity<Void>(status.getHeaders(), status.getStatus());
+            })
+        .orElse(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
   }
 }
