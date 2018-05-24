@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Form, Table} from 'semantic-ui-react';
+import {Form, Grid, Table} from 'semantic-ui-react';
 
 import defaultUIConfig from '../../config/defaultUIConfig';
 import FormHandler from '../../handlers/FormHandler';
@@ -93,7 +93,19 @@ export default class TeacherExercise extends React.Component {
                 ))}
             </Table.Body>
           </Table>
-          <Form.Button content="Submit" />
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.Button content="Submit" />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Button
+                  content="Abbrechen"
+                  onClick={() => this.setState({fireRedirect: true})}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
       </div>

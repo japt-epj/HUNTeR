@@ -177,7 +177,7 @@ export default class TeacherQuiz extends React.Component {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row columns="equal" id="mapContainer">
-              <Grid.Column width={4}>
+              <Grid.Column width={6}>
                 {!this.state.loading &&
                   this.state.selectedCheckboxes.length !== 0 &&
                   this.getSelectedExerciseTable()}
@@ -235,6 +235,12 @@ export default class TeacherQuiz extends React.Component {
               </Grid.Column>
               <Grid.Column>
                 <Form.Button content="Submit" />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Button
+                  content="Abbrechen"
+                  onClick={() => this.setState({fireRedirect: true})}
+                />
               </Grid.Column>
             </Grid.Row>
           </Grid>
