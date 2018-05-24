@@ -88,16 +88,8 @@ public class Person {
     schools.add(school);
   }
 
-  public void removeSchool(School school) {
-    schools.remove(school);
-  }
-
   public void addQuiz(Quiz quiz) {
     quizzes.add(quiz);
-  }
-
-  public void removeQuiz(Quiz quiz) {
-    quizzes.remove(quiz);
   }
 
   public String getPassword() {
