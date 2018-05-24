@@ -26,7 +26,7 @@ public class QrModel {
         .flatMap(t -> QrGenerator.makeQr(String.valueOf(t.getExerciseId()), scale, border));
   }
 
-  public Optional<byte[]> generatePdf(Long id) {
+  public Optional<byte[]> generatePdf(Integer id) {
     return executions
         .findByExecutionId(id)
         .flatMap(execution -> Optional.of(new ExecutionDocumentFactory(execution).asArray()));
