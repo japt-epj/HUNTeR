@@ -3,11 +3,13 @@ package ch.japt.epj.model.mapping;
 import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Exercise;
+import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.ExecutionDto;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
+import ch.japt.epj.model.dto.PersonDto;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
@@ -46,6 +48,15 @@ public final class Mappings {
         .createTypeMap(NewAnswerDto.class, Answer.class)
         .addMapping(NewAnswerDto::getText, Answer::setAnswer);
 
+    return mapper;
+  }
+
+  public static ModelMapper personMapper() {
+    ModelMapper mapper = new ModelMapper();
+    mapper
+        .createTypeMap(Person.class, PersonDto.class)
+        .addMapping(Person::getSchools, PersonDto::addSchoolsItem)
+        .addMappings(m -> m.skip(PersonDto::setPassword));
     return mapper;
   }
 
