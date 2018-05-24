@@ -44,7 +44,7 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   }
 
   @Override
-  public ResponseEntity<Resource> quizIdPrintGet(@Valid @PathVariable("id") Long id) {
+  public ResponseEntity<Resource> quizIdPrintGet(@Valid @PathVariable("id") Integer id) {
     return qrModel
         .generatePdf(id)
         .map(b -> new ResponseEntity<Resource>(new ByteArrayResource(b), HttpStatus.OK))
