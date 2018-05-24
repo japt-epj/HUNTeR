@@ -32,6 +32,6 @@ public class ResponseController implements ResponseApi {
 
   @Override
   public ResponseEntity<List<ResponseDto>> responseIdGet(@PathVariable("id") List<Integer> id) {
-    return null;
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 }

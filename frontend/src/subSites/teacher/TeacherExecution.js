@@ -6,7 +6,9 @@ import DateTime from 'react-datetime';
 import moment from 'moment';
 import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
+import {OK} from 'http-status-codes';
 
+import defaultUIConfig from '../../config/defaultUIConfig';
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';
@@ -18,6 +20,7 @@ export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.execution,
       formOK: true,
       name: '',
       participants: [],
@@ -27,8 +30,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingUser: true,
       loadingQuiz: true,
-      limit: 5,
-      pageNumber: 1,
+      pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
       minPage: 1,
       maxPageQuiz: '',
       maxPageParticipant: '',
@@ -56,13 +58,13 @@ export default class TeacherExecution extends React.Component {
   }
 
   componentDidMount() {
-    this.getParticipants(this.state.pageNumber, this.state.limit);
-    this.getQuizzes(this.state.pageNumber, this.state.limit);
+    this.getParticipants(this.state.pageNumber);
+    this.getQuizzes(this.state.pageNumber);
   }
 
-  getParticipants = (page, limit) => {
-    APIHandler.getPaginatedElements('person', page, limit).then(resData => {
-      if (resData.status === 200) {
+  getParticipants = page => {
+    APIHandler.getPaginatedElements('person', page).then(resData => {
+      if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
           maxPageParticipant: resData.data.totalPages,
@@ -72,9 +74,9 @@ export default class TeacherExecution extends React.Component {
     });
   };
 
-  getQuizzes = (page, limit) => {
-    APIHandler.getPaginatedElements('quiz', page, limit).then(resData => {
-      if (resData.status === 200) {
+  getQuizzes = page => {
+    APIHandler.getPaginatedElements('quiz', page).then(resData => {
+      if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
           maxPageQuiz: resData.data.totalPages,
@@ -88,14 +90,14 @@ export default class TeacherExecution extends React.Component {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getParticipants(element.activePage, this.state.limit);
+    this.getParticipants(element.activePage);
   };
 
   handlePageChangeQuizzes = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getQuizzes(element.activePage, this.state.limit);
+    this.getQuizzes(element.activePage);
   };
 
   resetPageNumber = event => {
@@ -125,6 +127,8 @@ export default class TeacherExecution extends React.Component {
   render() {
     return (
       <div>
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError(
             'Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet.'
@@ -150,7 +154,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color="green"
+                      color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"
@@ -173,7 +177,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color="green"
+                      color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
                       positive
                       labelPosition="right"

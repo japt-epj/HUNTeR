@@ -17,7 +17,7 @@ public class Exercise {
 
   @OneToMany private Collection<Answer> answerTemplates = new ArrayList<>();
 
-  @ManyToMany(mappedBy = "exercises")
+  @OneToMany(mappedBy = "exercise")
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Location> locations = new ArrayList<>();
 
@@ -29,10 +29,6 @@ public class Exercise {
 
   public void addAnswerTemplate(Answer answerTemplate) {
     answerTemplates.add(answerTemplate);
-  }
-
-  public void removeAnswerTemplate(Answer answerTemplate) {
-    answerTemplates.remove(answerTemplate);
   }
 
   public Collection<Answer> getAnswerTemplates() {

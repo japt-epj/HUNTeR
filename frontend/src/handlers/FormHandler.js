@@ -1,4 +1,6 @@
-import APIHandler from './APIHandler';
+import {OK} from 'http-status-codes';
+import DataHandler from './DataHandler';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   handleChange(event) {
@@ -18,15 +20,24 @@ export default {
   },
 
   handleExerciseSubmit() {
-    let isACheckboxSet = this.state.answerId >= 0 && this.state.answerId <= 3;
+    const minAnswerId = 0;
+    const maxAnswerId = 3;
+    let isACheckboxSet =
+      this.state.answerId >= minAnswerId && this.state.answerId <= maxAnswerId;
     if (isACheckboxSet) {
-      let userType = window.location.pathname.split('/')[1];
-      if (userType === 'teacher') {
-        this.postData(APIHandler.prepareTeacherData(this.state), 'response');
-      } else {
+      if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
+        this.postData(DataHandler.prepareTeacherData(this.state), 'exercise');
+      } else if (
+        window.localStorage.getItem('HUNTeR-Redirect') === '/participant'
+      ) {
         this.postData(
-          APIHandler.prepareParticipantData(this.state),
+          DataHandler.prepareParticipantData({...this.state}),
           'response'
+        );
+      } else {
+        console.error(
+          'No correct HUNTeR-Redirect in window.localStorage: ' +
+            window.localStorage.getItem('HUNTeR-Redirect')
         );
       }
     } else {
@@ -85,7 +96,7 @@ export default {
 
   handleLoginSubmit() {
     this.postLoginData(this.state).then(resData => {
-      if (resData.status >= 200 && resData.status < 300) {
+      if (resData.status === OK) {
         window.localStorage.setItem(
           'HUNTeR-Token',
           resData.data.tokenType + ' ' + resData.data.token
@@ -99,7 +110,7 @@ export default {
             );
             this.setState({fireRedirect: true, showSuccess: false});
           });
-        }, 1500);
+        }, defaultUIConfig.defaultTimeoutTime);
       } else {
         this.setState({showLoginError: true});
       }
@@ -111,14 +122,20 @@ export default {
   },
 
   handleEditParticipant() {
-    this.putData(
-      {
-        id: this.state.id,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email
-      },
-      'person'
-    );
+    if (this.state.newPassword === this.state.newPasswordRepeated) {
+      this.putData(
+        {
+          id: this.state.id,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          email: this.state.email,
+          password: this.state.newPassword
+        },
+        'person'
+      );
+      this.setState({fireRedirect: true});
+    } else {
+      this.setState({showPasswordError: true});
+    }
   }
 };
