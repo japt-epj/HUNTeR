@@ -208,52 +208,6 @@ paths:
             items:
               $ref: "#/definitions/Person"
   /person/current:
-<<<<<<< HEAD
-    get:
-      tags:
-      - "person"
-      summary: "Get current person"
-      description: ""
-      operationId: "getCurrentPerson"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "header"
-        name: "Authorization"
-        type: "string"
-
-      responses:
-        200:
-          description: "Current person found"
-          schema:
-              $ref: "#/definitions/Person"
-  /person:
-    put:
-      tags:
-      - "person"
-      summary: "Update an existing person"
-      description: ""
-      operationId: "updatePerson"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "person object that needs to be editted in the store"
-        required: true
-        schema:
-          $ref: "#/definitions/RegPerson"
-      responses:
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "person not found"
-        405:
-          description: "Validation exception"
-
-=======
      get:
         tags:
         - "person"
@@ -296,7 +250,6 @@ paths:
               description: "person not found"
             405:
               description: "Validation exception"
->>>>>>> master
 
   /auth/register:
     post:
@@ -616,7 +569,7 @@ paths:
         405:
           description: "Invalid input"
 
-<<<<<<< HEAD
+
   /score/{id}:
     get:
       tags:
@@ -633,11 +586,11 @@ paths:
         type: "integer"
         format: "int64"
         description: "execution id"
-        responses:
-          200:
-            description: "Score found"
-            schema:
-              $ref: "#/definitions/Score"
+      responses:
+        200:
+          description: "Score found"
+          schema:
+            $ref: "#/definitions/Score"
 
   /location/{id}:
     get:
@@ -921,7 +874,7 @@ definitions:
     type: "object"
     additionalProperties:
       type: "integer"
-      format: "int64"
+      
 
 
 externalDocs:

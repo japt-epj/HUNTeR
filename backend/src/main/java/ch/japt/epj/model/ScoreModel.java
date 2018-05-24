@@ -31,7 +31,7 @@ public class ScoreModel {
   }
 
   public ScoreDto getScore(Long executionId) {
-    Map<Long, Integer> scoreMap = new HashMap<>();
+    Map<String, Integer> scoreMap = new HashMap<>();
     Execution execution =
         executions
             .findByExecutionId(executionId)
@@ -39,15 +39,17 @@ public class ScoreModel {
     Collection<Response> responses = execution.getResponses();
     Collection<Person> participants = execution.getParticipants();
     for (Person participant : participants) {
-      scoreMap.put(participant.getPersonId(), 0);
+      scoreMap.put(String.valueOf(participant.getPersonId()), 0);
 
       for (Response response : responses) {
         if (response.getPerson().getPersonId() == participant.getPersonId()
             && response.getAnswerFromPerson().isChecked()) {
-          scoreMap.put(participant.getPersonId(), scoreMap.get(participant.getPersonId()) + 1);
+          scoreMap.put(
+              String.valueOf(participant.getPersonId()),
+              scoreMap.get(participant.getPersonId()) + 1);
         }
       }
     }
-    return mapper.map(execution, ScoreDto.class);
+    return mapper.map(scoreMap, ScoreDto.class);
   }
 }
