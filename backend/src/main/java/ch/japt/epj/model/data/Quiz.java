@@ -13,8 +13,15 @@ public class Quiz {
 
   private String name;
 
-  @OneToMany private Collection<Location> locations = new ArrayList<>();
+  @ManyToMany
+  @JoinTable(
+    name = "QuizLocation",
+    joinColumns = {@JoinColumn(name = "quizId")},
+    inverseJoinColumns = {@JoinColumn(name = "locationId")}
+  )
+  private Collection<Location> locations = new ArrayList<>();
 
+  // TODO: Check if we use this
   @ManyToMany
   @JoinTable(
     name = "QuizExercise",
@@ -33,10 +40,6 @@ public class Quiz {
 
   public void addTask(Exercise exercise) {
     exercises.add(exercise);
-  }
-
-  public void removeTask(Exercise exercise) {
-    exercises.remove(exercise);
   }
 
   public long getQuizId() {
