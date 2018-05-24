@@ -20,15 +20,15 @@ public class QrModel {
     this.executions = executions;
   }
 
-  public Optional<byte[]> generateCode(Integer id, Integer scale, Integer border) {
+  public Optional<byte[]> generateCode(Number id, Integer scale, Integer border) {
     return exercises
         .findByExerciseId(id.longValue())
         .flatMap(t -> QrGenerator.makeQr(String.valueOf(t.getExerciseId()), scale, border));
   }
 
-  public Optional<byte[]> generatePdf(Integer id) {
+  public Optional<byte[]> generatePdf(Number id) {
     return executions
-        .findByExecutionId(id)
+        .findByExecutionId(id.longValue())
         .flatMap(execution -> Optional.of(new ExecutionDocumentFactory(execution).asArray()));
   }
 }
