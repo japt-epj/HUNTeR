@@ -8,9 +8,9 @@ import ch.japt.epj.repository.ExecutionRepository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-import javafx.util.Pair;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,8 +36,7 @@ public class ScoreModel {
           Long.valueOf(responses.filter(response -> correctResponse(response, participant)).count())
               .intValue();
       Boolean isEqualPerson = personId.equals(participant.getPersonId());
-      scoreMap.put(
-          Long.toString(participant.getPersonId()), new Pair<>(rightAnswers, isEqualPerson));
+      scoreMap.put(Long.toString(participant.getPersonId()), Pair.of(rightAnswers, isEqualPerson));
     }
     return mapper.map(scoreMap, ScoreDto.class);
   }
