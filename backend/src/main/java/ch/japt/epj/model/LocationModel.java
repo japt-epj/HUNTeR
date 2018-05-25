@@ -1,6 +1,7 @@
 package ch.japt.epj.model;
 
 import ch.japt.epj.library.LocationSorter;
+import ch.japt.epj.library.PersonHandler;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Location;
 import ch.japt.epj.model.data.Person;
@@ -9,12 +10,10 @@ import ch.japt.epj.model.dto.NextExerciseLocationDto;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.ResponseRepository;
-import ch.japt.epj.security.CustomUserDetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,7 +33,7 @@ public class LocationModel {
   }
 
   public NextExerciseLocationDto getExerciseLocation(long executionId) {
-    Long personId = getCurrentPersonId();
+    Long personId = PersonHandler.getCurrentPersonId();
     List<Location> locations = getSortedLocationsByExecutionId(personId, executionId);
     if (locations.isEmpty()) {
       return null;
@@ -58,12 +57,6 @@ public class LocationModel {
       List<Location> locations, List<Exercise> solvedExercises) {
     locations.removeIf(location -> solvedExercises.contains(location.getExercise()));
     return locations;
-  }
-
-  private Long getCurrentPersonId() {
-    return ((CustomUserDetails)
-            SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-        .getPersonId();
   }
 
   private List<Exercise> getSolvedExercisesByPersonId(Long personId) {
