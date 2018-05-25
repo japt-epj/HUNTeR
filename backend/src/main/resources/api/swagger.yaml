@@ -872,8 +872,14 @@ definitions:
 
   Score:
     type: "object"
-    additionalProperties:
-      type: "integer"
+    properties:
+      scoreValue:
+        type: "number"
+        format: "double"
+      isCurrentStudent:
+        type: "boolean"
+
+
       
 
 
