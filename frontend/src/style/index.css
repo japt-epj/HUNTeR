@@ -41,7 +41,7 @@ html {
 }
 
 .ui.card > .content > .header > .ui.text.menu {
-    margin: 0 !important;
+    margin: -0.5rem !important;
 }
 
 .ui.card > .content > .description {
@@ -61,6 +61,10 @@ html {
     background: rgba(32, 192, 40, 0.7);
 }
 
+.userScoreName{
+  font-weight: bold;
+}
+
 .goldenTrophy {
     color: gold;
 }
@@ -69,8 +73,12 @@ html {
     color: silver;
 }
 
-.bronceTrophy {
+.bronzeTrophy {
     color: #cc8e34;
+}
+
+.redTrophy {
+    color: red;
 }
 
 .errorBackground {
