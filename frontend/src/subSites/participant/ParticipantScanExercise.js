@@ -32,7 +32,11 @@ export default class ParticipantScanExercise extends React.Component {
 
   handleScan = data => {
     const jsonData = JSON.parse(data);
-    if (jsonData !== null && jsonData.coordinates !== undefined) {
+    if (
+      jsonData !== null &&
+      jsonData !== undefined &&
+      jsonData.coordinates !== undefined
+    ) {
       APIHandler.getExerciseArray(jsonData.exerciseId, 'exercise').then(
         resData => {
           if (resData.status === 200) {
