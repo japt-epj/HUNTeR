@@ -1,97 +1,48 @@
 import React from 'react';
 import {OK} from 'http-status-codes';
 
-import {
-  Button,
-  Card,
-  Dropdown,
-  Grid,
-  Icon,
-  Menu,
-  Modal,
-  Progress,
-  Statistic
-} from 'semantic-ui-react';
+import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
-import Data from '../../data/Data';
 import APIHandler from '../../handlers/APIHandler';
 
 export default class ParticipantScore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      trophyColors: ['golden', 'silver', 'bronze', 'red'],
+      leaderBoard: [],
+      executionId: 1,
       quizzes: [],
       quiz: 'quiz1'
     };
   }
 
   componentDidMount() {
-    this.getQuizzes(this.state.pageNumber);
+    this.getLeaderBoard(this.state.executionId);
   }
 
-  getQuizzes = () => {
-    APIHandler.getPaginatedElements('quiz', 1).then(resData => {
-      if (resData.status === OK) {
-        this.setState({
-          quizzes: resData.data.content.map(element => {
-            element.key = element.id;
-            element.value = element.id;
-            element.text = element.name;
-            return element;
-          }),
-          maxPageQuizzes: resData.data.totalPages,
-          loadingQuizzes: false
+  getLeaderBoard = executionId => {
+    APIHandler.getLeaderBoard(executionId).then(resData => {
+      const scoreList = Object.entries(resData.data)
+        .sort((a, b) => a[1].userScore < b[1].userScore)
+        .map((element, index) => {
+          element.ranking = index + 1;
+          return element;
         });
+      let leaderBoard = scoreList.slice(0, 3);
+      if (!leaderBoard.some(element => element[1].me)) {
+        leaderBoard = leaderBoard.concat(
+          scoreList.filter(element => element[1].me)
+        );
+      }
+      if (resData.status === OK) {
+        this.setState({leaderBoard});
       }
     });
   };
 
-  getColor = (element, index) => {
-    if (element.correctAnswers[index]) {
-      return 'green';
-    } else {
-      return 'red';
-    }
-  };
-
-  getUserAnswer = (element, index) => {
-    if (element.userAnswers[index]) {
-      return <Icon name="checkmark box" size="large" />;
-    } else {
-      return <Icon name="" />;
-    }
-  };
-
-  buildScoreOverview = quizProgress => {
-    return [
-      {
-        key: 'exercise',
-        label: 'Aufgaben insgesammt',
-        value: quizProgress.exercises
-      },
-      {
-        key: 'solvedExercises',
-        label: 'Aufgaben gelöst',
-        value: quizProgress.solvedExercises
-      },
-      {key: 'points', label: 'Punkte insgesammt', value: quizProgress.points}
-    ];
-  };
-
-  getScore = element => {
-    let points = 0;
-    element.correctAnswers.forEach(function(answer, index) {
-      if (answer === element.userAnswers[index]) {
-        points += 1;
-      } else {
-        points -= 1;
-      }
-    });
-    return (points < 0 ? 0 : points) + '/4';
-  };
-
-  changeQuizState = value => {
+  changeExecutionState = value => {
     this.setState({quiz: value});
   };
 
@@ -100,21 +51,26 @@ export default class ParticipantScore extends React.Component {
       <Grid padded>
         <Grid.Row centered>
           <Card.Group centered>
-            {Data.getLeaderBoard().map(element => (
-              <Card key={'scoreCard' + element.name}>
+            {this.state.leaderBoard.map((element, index) => (
+              <Card
+                key={'scoreCard' + element[1].userName}
+                color={element[1].me ? 'red' : 'green'}
+              >
                 <Card.Content>
                   <Card.Header>
                     <Menu text>
-                      <Menu.Item header>{element.name}</Menu.Item>
+                      <Menu.Item header>{element[1].userName}</Menu.Item>
                       <Menu.Item>
                         <Icon
                           name="trophy"
-                          className={element.trophyColor + 'Trophy'}
+                          className={this.state.trophyColors[index] + 'Trophy'}
                         />
                       </Menu.Item>
+                      <Menu.Item content={element[1].userScore * 100 + '%'} />
+                      <Menu.Item content={'Rang: ' + element.ranking} />
                     </Menu>
                   </Card.Header>
-                  <Card.Description>{element.score}</Card.Description>
+                  <Card.Description />
                 </Card.Content>
               </Card>
             ))}
@@ -129,32 +85,6 @@ export default class ParticipantScore extends React.Component {
             upward={isMobile}
             options={this.state.quizzes}
           />
-        </Grid.Row>
-        <Grid.Row>
-          <Modal
-            style={{marginTop: 0}}
-            size="fullscreen"
-            trigger={<Button content="Resultate einsehen" />}
-            closeIcon
-          >
-            <Modal.Header>
-              {'Andi Hörler - ' + Data.getQuiz(this.state.quiz).text}
-            </Modal.Header>
-            <Modal.Content>
-              <Modal.Description>
-                <Statistic.Group
-                  items={this.buildScoreOverview(Data.getQuiz(this.state.quiz))}
-                  size="mini"
-                  horizontal
-                />
-                <Progress
-                  value={Data.getProgress(this.state.quiz).value}
-                  total={Data.getProgress(this.state.quiz).total}
-                  progress="ratio"
-                />
-              </Modal.Description>
-            </Modal.Content>
-          </Modal>
         </Grid.Row>
       </Grid>
     );

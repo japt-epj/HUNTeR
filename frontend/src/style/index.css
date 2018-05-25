@@ -69,8 +69,12 @@ html {
     color: silver;
 }
 
-.bronceTrophy {
+.bronzeTrophy {
     color: #cc8e34;
+}
+
+.redTrophy {
+    color: red;
 }
 
 .errorBackground {

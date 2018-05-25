@@ -8,7 +8,6 @@ import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import defaultUIConfig from '../../config/defaultUIConfig';
 
-
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);

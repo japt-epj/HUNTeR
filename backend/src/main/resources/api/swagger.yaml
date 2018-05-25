@@ -875,15 +875,17 @@ definitions:
   Score:
     type: "object"
     additionalProperties:
-      $ref: "#/definitions/ScoreIsMe"
+      $ref: "#/definitions/ScoreValue"
 
-  ScoreIsMe:
+  ScoreValue:
     type: "object"
     properties:
-      scoreValue:
+      participantName:
+        type: "string"
+      participantScore:
         type: "number"
         format: "double"
-      isCurrentStudent:
+      isParticipantMe:
         type: "boolean"
 
 
