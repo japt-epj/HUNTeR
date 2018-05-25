@@ -7,7 +7,7 @@ import {OK} from 'http-status-codes';
 import defaultUIConfig from '../../config/defaultUIConfig';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from '../../handlers/APIHandler';
-import viewHandler from '../../handlers/viewHandler';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherQuizOverview extends React.Component {
   constructor(props) {
@@ -52,9 +52,7 @@ export default class TeacherQuizOverview extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loadingQuiz
-          ? viewHandler.getLoadingScreen()
-          : this.getQuizTable(false)}
+        {this.state.loadingQuiz ? getLoadingScreen() : this.getQuizTable(false)}
         <NavLink to={'/quiz'}>
           <Button basic positive content="Neues Quiz eröffnen" />
         </NavLink>

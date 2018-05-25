@@ -14,7 +14,7 @@ import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';
 import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
-import viewHandler from '../../handlers/viewHandler';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
@@ -167,7 +167,7 @@ export default class TeacherExecution extends React.Component {
                   <Modal.Header content="Quiz auswählen" />
                   <Modal.Content scrolling>
                     {this.state.loadingQuiz
-                      ? viewHandler.getLoadingScreen()
+                      ? getLoadingScreen()
                       : this.getQuizTable(true)}
                   </Modal.Content>
                 </Modal>
@@ -190,7 +190,7 @@ export default class TeacherExecution extends React.Component {
                   <Modal.Header content="Benutzer hinzufügen" />
                   <Modal.Content scrolling>
                     {this.state.loadingUser
-                      ? viewHandler.getLoadingScreen()
+                      ? getLoadingScreen()
                       : this.getParticipantTable(true)}
                   </Modal.Content>
                 </Modal>
