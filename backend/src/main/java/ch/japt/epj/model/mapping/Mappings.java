@@ -35,7 +35,7 @@ public final class Mappings {
         .addMapping(Exercise::getAnswerTemplates, NewExerciseDto::setAnswers);
     mapper
         .createTypeMap(Answer.class, NewAnswerDto.class)
-        .addMapping(Answer::getAnswer, NewAnswerDto::setText)
+        .addMapping(Answer::getText, NewAnswerDto::setText)
         .addMapping(Answer::getAnswerId, NewAnswerDto::setAnswerId);
 
     return mapper;
