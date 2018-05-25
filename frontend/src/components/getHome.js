@@ -8,14 +8,18 @@ export default function getHome(paths) {
     <Menu fluid vertical size="massive">
       {paths.map(mainElement => (
         <Menu.Item key={mainElement.name}>
-          <Menu.Header content={mainElement.name} />
+          <Menu.Header className="menuHeader" content={mainElement.name} />
           <Menu.Menu>
             {mainElement.subPaths.map(subElement => (
               <NavLink
                 key={'NavLink' + subElement.path}
                 to={'/' + subElement.path}
               >
-                <Menu.Item icon={subElement.icon} content={subElement.name} />
+                <Menu.Item
+                  className="menuItem"
+                  icon={subElement.icon}
+                  content={subElement.name}
+                />
               </NavLink>
             ))}
           </Menu.Menu>

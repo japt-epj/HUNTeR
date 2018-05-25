@@ -62,12 +62,25 @@ html {
     color: white;
 }
 
+.ui.massive.fluid.vertical.menu, .ui.vertical.menu, .item{
+    color: black !important;
+}
+
 .menuHeader {
-    color: white !important;
     font-weight: bolder !important;
 }
 
 .menuItem{
+    font-weight: lighter !important;
+    font-style: italic !important;
+}
+
+.sideMenuHeader {
+    color: white !important;
+    font-weight: bolder !important;
+}
+
+.sideMenuItem{
     color: white !important;
     font-weight: lighter !important;
     font-style: italic !important;
