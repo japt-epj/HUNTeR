@@ -6,9 +6,10 @@ import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.ScoreDto;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExecutionRepository;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
+import javafx.util.Pair;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,25 +31,26 @@ public class ScoreModel {
     //    this.responses = responses;
   }
 
-  public ScoreDto getScore(Long executionId) {
-    Map<String, Integer> scoreMap = new HashMap<>();
+  public ScoreDto getScore(Long executionId, Long personId) {
+    Map<String, Pair<Integer, Boolean>> scoreMap = new HashMap<>();
     Execution execution =
         executions
             .findByExecutionId(executionId)
             .orElseThrow(() -> new IllegalArgumentException("Illegal executionId"));
-    Collection<Response> responses = execution.getResponses();
-    Collection<Person> participants = execution.getParticipants();
-    for (Person participant : participants) {
-      scoreMap.put(String.valueOf(participant.getPersonId()), 0);
-
-      for (Response response : responses) {
-        if (response.getPerson().getPersonId() == participant.getPersonId()
-            && response.getAnswerFromPerson().isChecked()) {
-          scoreMap.put(
-              String.valueOf(participant.getPersonId()),
-              scoreMap.get(participant.getPersonId()) + 1);
-        }
-      }
+    Stream<Response> responses = execution.getResponses().stream().distinct();
+    for (Person participant : execution.getParticipants()) {
+      Integer rightAnswers =
+          new Long(
+                  responses
+                      .filter(
+                          response ->
+                              response.getPerson().getPersonId() == participant.getPersonId()
+                                  && response.getAnswerFromPerson().isChecked())
+                      .count())
+              .intValue();
+      Boolean isEqualPerson = personId.equals(participant.getPersonId());
+      scoreMap.put(
+          Long.toString(participant.getPersonId()), new Pair<>(rightAnswers, isEqualPerson));
     }
     return mapper.map(scoreMap, ScoreDto.class);
   }
