@@ -100,7 +100,7 @@ public class ExerciseModelTests {
   @Test
   public void verifyOnlyExistingItemsReturned() {
     List<Integer> ids = Arrays.asList(1, 2, 3, 300);
-    List<ExerciseDto> exercises = model.getExercises(ids);
+    List<NewExerciseDto> exercises = model.getExercises(ids);
 
     assertThat(exercises)
         .isNotEmpty()
