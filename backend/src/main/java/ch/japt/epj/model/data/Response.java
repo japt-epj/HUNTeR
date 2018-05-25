@@ -1,5 +1,6 @@
 package ch.japt.epj.model.data;
 
+import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
@@ -44,5 +45,24 @@ public class Response {
 
   public void setAnswerFromPerson(Answer answerFromPerson) {
     this.answerFromPerson = answerFromPerson;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Response response = (Response) o;
+    return Objects.equals(person, response.person)
+        && Objects.equals(exercise, response.exercise)
+        && Objects.equals(answerFromPerson, response.answerFromPerson);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(person, exercise, answerFromPerson);
   }
 }

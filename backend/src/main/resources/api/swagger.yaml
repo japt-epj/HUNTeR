@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "Hunter API specification"
+  description: "HUNTeR API specification"
   version: "o.0.1"
-  title: "Hunter Swagger specification"
+  title: "HUNTeR Swagger specification"
   termsOfService: "http://swagger.io/terms/"
   license:
     name: "Apache 2.0"
@@ -638,6 +638,8 @@ securityDefinitions:
     type: "apiKey"
     name: "api_key"
     in: "header"
+
+
 definitions:
 
   Person:
@@ -873,8 +875,16 @@ definitions:
   Score:
     type: "object"
     additionalProperties:
-      type: "integer"
-      
+      $ref: "#/definitions/ScoreIsMe"
+
+  ScoreIsMe:
+    type: "object"
+    properties:
+      scoreValue:
+        type: "number"
+        format: "double"
+      isCurrentStudent:
+        type: "boolean"
 
 
 externalDocs:
