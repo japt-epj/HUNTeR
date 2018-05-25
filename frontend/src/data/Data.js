@@ -52,8 +52,8 @@ export default {
       },
       {
         path: 'score',
-        name: 'Aktueller ParticipantScore',
-        component: 'ParticipantScore',
+        name: 'Aktuelles Leaderboard',
+        component: 'ParticipantLeaderBoard',
         icon: 'trophy'
       },
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}

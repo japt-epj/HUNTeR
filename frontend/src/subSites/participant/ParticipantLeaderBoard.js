@@ -6,7 +6,7 @@ import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 import APIHandler from '../../handlers/APIHandler';
 import viewHandler from '../../handlers/viewHandler';
 
-export default class ParticipantScore extends React.Component {
+export default class ParticipantLeaderBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
