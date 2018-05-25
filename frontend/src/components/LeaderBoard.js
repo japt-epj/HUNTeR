@@ -3,19 +3,20 @@ import {OK} from 'http-status-codes';
 
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
-import APIHandler from '../../handlers/APIHandler';
-import viewHandler from '../../handlers/viewHandler';
+import APIHandler from '../handlers/APIHandler';
+import viewHandler from '../handlers/viewHandler';
 
-export default class ParticipantLeaderBoard extends React.Component {
+export default class LeaderBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      trophyColors: ['golden', 'silver', 'bronze', 'red'],
+      trophyColors: ['golden', 'silver', 'bronze'],
       leaderBoard: [],
       executionId: 1,
       executions: [],
-      execution: 'execution1'
+      execution: 'execution1',
+      teacher: window.location.pathname.includes('teacher')
     };
   }
 
@@ -34,7 +35,6 @@ export default class ParticipantLeaderBoard extends React.Component {
           returnValue.value = element.id;
           return returnValue;
         })
-
         .sort((a, b) => a.key > b.key);
       this.setState({executions});
     });
@@ -48,8 +48,13 @@ export default class ParticipantLeaderBoard extends React.Component {
           element.ranking = index + 1;
           return element;
         });
-      let leaderBoard = scoreList.slice(0, 3);
-      if (!leaderBoard.some(element => element[1].me)) {
+      let leaderBoard = scoreList.splice(0, 3);
+      if (this.state.teacher) {
+        leaderBoard = leaderBoard.concat(scoreList);
+      } else if (!leaderBoard.some(element => element[1].me)) {
+        let trophyColors = [...this.state.trophyColors];
+        trophyColors.push('red');
+        this.setState({trophyColors});
         leaderBoard = leaderBoard.concat(
           scoreList.filter(element => element[1].me)
         );
@@ -71,6 +76,7 @@ export default class ParticipantLeaderBoard extends React.Component {
         <Grid.Row>
           <Dropdown
             fluid
+            search
             selection
             closeOnBlur
             scrolling
@@ -87,7 +93,8 @@ export default class ParticipantLeaderBoard extends React.Component {
               {this.state.leaderBoard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
-                  color={element[1].me ? 'red' : 'green'}
+                  color={element[1].me && !this.state.teacher ? 'red' : 'green'}
+                  fluid={index >= 3}
                 >
                   <Card.Content>
                     <Card.Header>
