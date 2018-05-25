@@ -3,10 +3,12 @@ package ch.japt.epj.model.mapping;
 import ch.japt.epj.model.data.Answer;
 import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Exercise;
+import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExecutionDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
+import ch.japt.epj.model.dto.PersonDto;
 import org.modelmapper.ModelMapper;
 
 public final class Mappings {
@@ -18,7 +20,8 @@ public final class Mappings {
     mapper
         .createTypeMap(Exercise.class, ExerciseDto.class)
         .addMapping(Exercise::getName, ExerciseDto::setName)
-        .addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers);
+        .addMapping(Exercise::getAnswerTemplates, ExerciseDto::setAnswers)
+        .addMapping(Exercise::getAnswerIds, ExerciseDto::setAnswerIds);
     mapper
         .createTypeMap(NewAnswerDto.class, Answer.class)
         .addMapping(NewAnswerDto::getText, Answer::setText);
@@ -30,6 +33,10 @@ public final class Mappings {
         .addMapping(Exercise::getName, NewExerciseDto::setName)
         .addMapping(Exercise::getQuestion, NewExerciseDto::setQuestion)
         .addMapping(Exercise::getAnswerTemplates, NewExerciseDto::setAnswers);
+    mapper
+        .createTypeMap(Answer.class, NewAnswerDto.class)
+        .addMapping(Answer::getText, NewAnswerDto::setText)
+        .addMapping(Answer::getAnswerId, NewAnswerDto::setAnswerId);
 
     return mapper;
   }
@@ -40,6 +47,15 @@ public final class Mappings {
         .createTypeMap(NewAnswerDto.class, Answer.class)
         .addMapping(NewAnswerDto::getText, Answer::setText);
 
+    return mapper;
+  }
+
+  public static ModelMapper personMapper() {
+    ModelMapper mapper = new ModelMapper();
+    mapper
+        .createTypeMap(Person.class, PersonDto.class)
+        .addMapping(Person::getSchools, PersonDto::addSchoolsItem)
+        .addMappings(m -> m.skip(PersonDto::setPassword));
     return mapper;
   }
 
