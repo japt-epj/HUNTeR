@@ -30,8 +30,8 @@ public class ScoreModel {
             .findByExecutionId(executionId)
             .orElseThrow(() -> new IllegalArgumentException("Illegal executionId"));
 
-    Stream<Response> responses = execution.getResponses().stream().distinct();
     for (Person participant : execution.getParticipants()) {
+      Stream<Response> responses = execution.getResponses().stream().distinct();
       Integer rightAnswers =
           Long.valueOf(responses.filter(response -> correctResponse(response, participant)).count())
               .intValue();
