@@ -13,14 +13,28 @@ export default class ParticipantScore extends React.Component {
       trophyColors: ['golden', 'silver', 'bronze', 'red'],
       leaderBoard: [],
       executionId: 1,
-      quizzes: [],
-      quiz: 'quiz1'
+      executions: [],
+      execution: 'execution1'
     };
   }
 
   componentDidMount() {
+    this.getExecutions();
     this.getLeaderBoard(this.state.executionId);
   }
+
+  getExecutions = () => {
+    APIHandler.getExecutions().then(resData => {
+      const executions = resData.data.content.map(element => {
+        let returnValue = {};
+        returnValue.key = element.id;
+        returnValue.text = element.name;
+        returnValue.value = element.id;
+        return returnValue;
+      });
+      this.setState({executions});
+    });
+  };
 
   getLeaderBoard = executionId => {
     APIHandler.getLeaderBoard(executionId).then(resData => {
@@ -42,8 +56,9 @@ export default class ParticipantScore extends React.Component {
     });
   };
 
-  changeExecutionState = value => {
-    this.setState({quiz: value});
+  changeExecutionState = (event, data) => {
+    this.setState({executionId: data.value});
+    this.getLeaderBoard(data.value);
   };
 
   render() {
@@ -83,7 +98,8 @@ export default class ParticipantScore extends React.Component {
             closeOnBlur
             scrolling
             upward={isMobile}
-            options={this.state.quizzes}
+            options={this.state.executions}
+            onChange={this.changeExecutionState}
           />
         </Grid.Row>
       </Grid>
