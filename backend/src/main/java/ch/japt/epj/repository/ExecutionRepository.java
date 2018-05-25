@@ -24,4 +24,13 @@ public interface ExecutionRepository extends PagingAndSortingRepository<Executio
             + "group by person_person_id, person.first_name, person.last_name;"
   )
   List<?> getAggregatedScore(Long executionId);
+
+  //      + "SUM(CASE WHEN answer.checked = true THEN 1 ELSE 0 END) "
+  @Query(
+      "SELECT p.personId, p.firstName, p.lastName FROM Response r "
+          + "INNER JOIN r.person p INNER JOIN r.answerFromPerson "
+          + "JOIN Execution e ON r MEMBER OF e.responses AND e.executionId = ?1")
+  //          + "INNER JOIN Execution e WHERE r MEMBER OF e.responses AND e.executionId = ?1 ")
+  //          + "GROUP BY p.personId, p.firstName, p.lastName")
+  List<?> getAggregatedScore2(Long executionId);
 }

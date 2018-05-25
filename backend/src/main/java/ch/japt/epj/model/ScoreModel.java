@@ -25,6 +25,7 @@ public class ScoreModel {
 
   public ScoreDto getScore(Long executionId, Long personId) {
     List<?> aggregatedScore = executions.getAggregatedScore(executionId);
+    List<?> aggregatedScore2 = executions.getAggregatedScore2(executionId);
 
     Map<String, ScoreValue> scoreMap = new HashMap<>();
     Execution execution =
