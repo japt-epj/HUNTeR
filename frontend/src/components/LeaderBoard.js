@@ -4,14 +4,14 @@ import {OK} from 'http-status-codes';
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
 import APIHandler from '../handlers/APIHandler';
-import viewHandler from '../handlers/viewHandler';
+import getLoadingScreen from './getLoadingScreen';
 
 export default class LeaderBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      trophyColors: ['golden', 'silver', 'bronze'],
+      trophyColors: new Map([[1, 'golden'], [2, 'silver'], [3, 'bronze']]),
       leaderBoard: [],
       executionId: 1,
       executions: [],
@@ -42,27 +42,43 @@ export default class LeaderBoard extends React.Component {
 
   getLeaderBoard = executionId => {
     APIHandler.getLeaderBoard(executionId).then(resData => {
-      const scoreList = Object.entries(resData.data)
-        .sort((a, b) => a[1].userScore < b[1].userScore)
-        .map((element, index) => {
-          element.ranking = index + 1;
-          return element;
-        });
-      let leaderBoard = scoreList.splice(0, 3);
-      if (this.state.teacher) {
-        leaderBoard = leaderBoard.concat(scoreList);
-      } else if (!leaderBoard.some(element => element[1].me)) {
-        let trophyColors = [...this.state.trophyColors];
-        trophyColors.push('red');
-        this.setState({trophyColors});
-        leaderBoard = leaderBoard.concat(
-          scoreList.filter(element => element[1].me)
-        );
-      }
       if (resData.status === OK) {
+        let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
+        leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
         this.setState({leaderBoard, loading: false});
       }
     });
+  };
+
+  checkMoreParticipants = (leaderBoard, scoreList) => {
+    if (this.state.teacher) {
+      leaderBoard = leaderBoard.concat(scoreList);
+    } else if (!leaderBoard.some(element => element[1].me)) {
+      let trophyColors = new Map(this.state.trophyColors);
+      trophyColors.set(4, 'red');
+      this.setState({trophyColors});
+      leaderBoard = leaderBoard.concat(
+        scoreList.filter(element => element[1].me)
+      );
+    }
+    return leaderBoard;
+  };
+
+  calculateLeaderBoard = scoreData => {
+    let rankingStartPosition = 0;
+    let rankingCurrentScore = 0;
+    const scoreList = Object.entries(scoreData)
+      .sort((a, b) => a[1].userScore < b[1].userScore)
+      .map((element, index) => {
+        if (element.userScore !== rankingCurrentScore) {
+          rankingCurrentScore = element.userScore;
+          rankingStartPosition += 1;
+        }
+        element.ranking = rankingStartPosition;
+        return element;
+      });
+    let leaderBoard = scoreList.splice(0, 3);
+    return {leaderBoard, scoreList};
   };
 
   changeExecutionState = (event, data) => {
@@ -82,18 +98,20 @@ export default class LeaderBoard extends React.Component {
             scrolling
             options={this.state.executions}
             onChange={this.changeExecutionState}
-            defaultValue={1}
+            defaultValue={this.state.executionId}
           />
         </Grid.Row>
         <Grid.Row centered>
           {this.state.loading ? (
-            viewHandler.getLoadingScreen()
+            getLoadingScreen()
           ) : (
             <Card.Group centered>
               {this.state.leaderBoard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
-                  color={element[1].me && !this.state.teacher ? 'red' : 'green'}
+                  color={
+                    element[1].me && !this.state.teacher ? 'green' : 'black'
+                  }
                   fluid={index >= 3}
                 >
                   <Card.Content>
@@ -104,7 +122,8 @@ export default class LeaderBoard extends React.Component {
                           <Icon
                             name="trophy"
                             className={
-                              this.state.trophyColors[index] + 'Trophy'
+                              this.state.trophyColors.get(element.ranking) +
+                              'Trophy'
                             }
                           />
                         </Menu.Item>

@@ -7,7 +7,7 @@ import {OK} from 'http-status-codes';
 import defaultUIConfig from '../../config/defaultUIConfig';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
-import viewHandler from '../../handlers/viewHandler';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
@@ -49,9 +49,7 @@ export default class TeacherExerciseOverview extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loading
-          ? viewHandler.getLoadingScreen()
-          : this.getExerciseTable(false)}
+        {this.state.loading ? getLoadingScreen() : this.getExerciseTable(false)}
         <NavLink to="/exercise">
           <Button
             color={defaultUIConfig.buttonColors.normal}

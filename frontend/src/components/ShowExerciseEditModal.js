@@ -35,7 +35,10 @@ export default class ShowExerciseEditModal extends React.Component {
       >
         <Modal.Header content="" />
         <Modal.Content>
-          <TeacherExercise exerciseId={this.state.exerciseId} />
+          <TeacherExercise
+            editExercise={true}
+            exerciseId={this.state.exerciseId}
+          />
         </Modal.Content>
         <Modal.Actions>
           <Button icon="check" content="OK, danke" onClick={this.close} />

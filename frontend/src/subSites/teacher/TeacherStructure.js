@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
-import getHome from '../../handlers/getHome';
+import getHome from '../../components/getHome';
 import UserSettings from '../../components/UserSettings';
 import TeacherExercise from './TeacherExercise';
 import TeacherExerciseOverview from './TeacherExerciseOverview';

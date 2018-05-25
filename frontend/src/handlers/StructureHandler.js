@@ -89,14 +89,24 @@ export default {
   },
 
   getStructurePaths(elements) {
-    return elements.map(element => (
-      <NavLink key={'navLink' + element.path} to={'/' + element.path}>
-        <Menu.Item
-          name={element.path}
-          icon={element.icon}
-          content={element.name}
-        />
-      </NavLink>
+    return elements.map(mainElement => (
+      <Menu.Item key={mainElement.name}>
+        <Menu.Header className="menuHeader" content={mainElement.name} />
+        <Menu.Menu>
+          {mainElement.subPaths.map(subElement => (
+            <NavLink
+              key={'NavLink' + subElement.path}
+              to={'/' + subElement.path}
+            >
+              <Menu.Item
+                className="menuItem"
+                icon={subElement.icon}
+                content={subElement.name}
+              />
+            </NavLink>
+          ))}
+        </Menu.Menu>
+      </Menu.Item>
     ));
   }
 };
