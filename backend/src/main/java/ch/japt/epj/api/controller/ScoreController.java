@@ -27,7 +27,6 @@ public class ScoreController implements ch.japt.epj.api.ScoreApi {
 
   @Override
   public ResponseEntity<ScoreDto> getScore(@Valid @PathVariable("id") Long id) {
-
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Long personId = ((CustomUserDetails) authentication.getPrincipal()).getPersonId();
     return new ResponseEntity<>(scoreModel.getScore(id, personId), HttpStatus.OK);
