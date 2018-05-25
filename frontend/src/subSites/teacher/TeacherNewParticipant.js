@@ -1,16 +1,18 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
-import {Form} from 'semantic-ui-react';
+import {Form, Grid} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
+import defaultUIConfig from '../../config/defaultUIConfig';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.participant,
       fireRedirect: false,
       firstName: '',
       lastName: '',
@@ -55,7 +57,19 @@ export default class TeacherNewParticipant extends React.Component {
             placeholder="Bitte geben Sie den Nachnamen des Schülers ein"
             required
           />
-          <Form.Button content="Submit" />
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.Button content="Submit" />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Button
+                  content="Abbrechen"
+                  onClick={() => this.setState({fireRedirect: true})}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
           {this.state.fireRedirect && (
             <Redirect to={{pathname: '/', state: {person: this.state}}} />
           )}

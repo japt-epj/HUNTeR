@@ -1,9 +1,9 @@
 package ch.japt.epj.model;
 
 import ch.japt.epj.library.ListConverter;
-import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.model.dto.RegPersonDto;
+import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.PersonRepository;
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -19,13 +19,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class PersonModel {
   private final PersonRepository persons;
-  private final ModelMapper mapper = new ModelMapper();
+  private final ModelMapper mapper = Mappings.personMapper();
 
   public PersonModel(@Autowired PersonRepository persons) {
     this.persons = persons;
-    mapper
-        .createTypeMap(Person.class, PersonDto.class)
-        .addMappings(m -> m.skip(PersonDto::setPassword));
   }
 
   public List<PersonDto> getPeople(List<Integer> ids) {

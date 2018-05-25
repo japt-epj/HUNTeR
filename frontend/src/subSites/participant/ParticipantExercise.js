@@ -6,21 +6,24 @@ import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
+import viewHandler from '../../handlers/viewHandler';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      executionId: this.props.location.state.exercise.executionId,
-      exerciseId: this.props.location.state.exercise.exerciseId,
-      name: this.props.location.state.exercise.name,
-      question: this.props.location.state.exercise.question,
-      options: [
-        this.props.location.state.exercise.answers[0].text,
-        this.props.location.state.exercise.answers[1].text,
-        this.props.location.state.exercise.answers[2].text,
-        this.props.location.state.exercise.answers[3].text
-      ],
+      executionId:
+        this.props.location.state !== undefined
+          ? this.props.location.state.executionId
+          : '',
+      exerciseId:
+        this.props.location.state !== undefined
+          ? this.props.location.state.exerciseId
+          : '',
+      name: '',
+      exercise: {},
+      question: '',
+      options: [],
       answerId: -1,
       fireRedirect: false
     };
@@ -30,39 +33,65 @@ export default class ParticipantExercise extends React.Component {
     this.getJSONHeader = APIHandler.getJSONHeader;
   }
 
+  componentDidMount() {
+    if (this.state.exerciseId !== '') {
+      APIHandler.getExerciseArray(this.state.exerciseId).then(resData => {
+        if (resData.status === 200) {
+          this.setState({
+            exercise: resData.data[0]
+          });
+        }
+      });
+    }
+  }
+
   render() {
     return (
       <div>
-        {this.state.executionId !== undefined ? (
-          <Grid padded>
-            <Form onSubmit={this.handleSubmit}>
-              <Grid.Row>
-                <Header content={this.state.name} />
-              </Grid.Row>
-              <Grid.Row>{this.state.question}</Grid.Row>
-              <Grid.Row>
-                {this.state.options.map((element, index) => {
-                  return (
-                    <Form.Radio
-                      value={index}
-                      label={'Antwort ' + (index + 1) + ' : ' + element}
-                      onChange={this.handleSelectChange}
-                      checked={this.state.answerId === index}
-                    />
-                  );
-                })}
-                <Form.Button content="Submit" />
-              </Grid.Row>
-            </Form>
-            {this.state.fireRedirect && (
-              <Redirect
-                to={{
-                  pathname: 'nextLocation',
-                  state: {executionId: this.state.executionId}
-                }}
-              />
+        {this.state.executionId !== '' ? (
+          <div>
+            {this.state.exercise.answers === undefined ? (
+              viewHandler.getLoadingScreen()
+            ) : (
+              <Grid padded>
+                <Form onSubmit={this.handleSubmit}>
+                  <Grid.Row>
+                    <Header content={this.state.exercise.name} />
+                  </Grid.Row>
+                  <Grid.Row>{this.state.exercise.question}</Grid.Row>
+                  <Grid.Row>
+                    <Grid padded>
+                      {this.state.exercise.answers.map((element, index) => {
+                        return (
+                          <Grid.Row key={element.text}>
+                            <Form.Radio
+                              value={index}
+                              label={
+                                'Antwort ' + (index + 1) + ' : ' + element.text
+                              }
+                              onChange={this.handleSelectChange}
+                              checked={this.state.answerId === index}
+                            />
+                          </Grid.Row>
+                        );
+                      })}
+                      <Grid.Row>
+                        <Form.Button content="Submit" />
+                      </Grid.Row>
+                    </Grid>
+                  </Grid.Row>
+                </Form>
+                {this.state.fireRedirect && (
+                  <Redirect
+                    to={{
+                      pathname: 'nextLocation',
+                      state: {executionId: this.state.executionId}
+                    }}
+                  />
+                )}
+              </Grid>
             )}
-          </Grid>
+          </div>
         ) : (
           <NavLink to="/scan">
             <Message

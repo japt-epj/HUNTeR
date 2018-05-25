@@ -35,4 +35,8 @@ public class Answer {
   public String toString() {
     return text;
   }
+
+  public long getAnswerId() {
+    return answerId;
+  }
 }
