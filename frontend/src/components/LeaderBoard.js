@@ -76,6 +76,7 @@ export default class LeaderBoard extends React.Component {
         <Grid.Row>
           <Dropdown
             fluid
+            search
             selection
             closeOnBlur
             scrolling
