@@ -41,9 +41,9 @@ public class ExerciseModel {
   public List<NewExerciseDto> getExercises(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
     Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
-    List<NewExerciseDto> exercises = mapper.map(this.exercises.findAll(longs), dtoList);
-    exercises.forEach(exerciseDto -> exerciseDto.getAnswers().forEach(s -> s.setChecked(false)));
-    return exercises;
+    List<NewExerciseDto> exerciseDtos = mapper.map(this.exercises.findAll(longs), dtoList);
+    exerciseDtos.forEach(exerciseDto -> exerciseDto.getAnswers().forEach(s -> s.setChecked(false)));
+    return exerciseDtos;
   }
 
   public Optional<ExerciseDto> getExercise(Long id) {

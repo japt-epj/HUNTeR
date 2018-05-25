@@ -8,7 +8,6 @@ import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.NextExerciseLocationDto;
 import ch.japt.epj.repository.ExecutionRepository;
-import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.ResponseRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +19,11 @@ import org.springframework.stereotype.Component;
 public class LocationModel {
 
   private final ResponseRepository responses;
-  private final PersonRepository persons;
   private final ExecutionRepository executions;
 
   public LocationModel(
-      @Autowired ResponseRepository responses,
-      @Autowired PersonRepository persons,
-      @Autowired ExecutionRepository executions) {
+      @Autowired ResponseRepository responses, @Autowired ExecutionRepository executions) {
     this.responses = responses;
-    this.persons = persons;
     this.executions = executions;
   }
 
@@ -39,11 +34,10 @@ public class LocationModel {
       return null;
     }
     List<Exercise> solvedExercises = getSolvedExercisesByPersonId(personId);
-    locations = filterLocationsBySolvedExercises(locations, solvedExercises);
-    return createExerciseLocationDto(locations);
+    return createExerciseLocationDto(filterLocationsBySolvedExercises(locations, solvedExercises));
   }
 
-  private NextExerciseLocationDto createExerciseLocationDto(List<Location> locations) {
+  private static NextExerciseLocationDto createExerciseLocationDto(List<Location> locations) {
     Location nextLocationToGo = locations.get(0);
     Exercise nextExerciseToDo = nextLocationToGo.getExercise();
     NextExerciseLocationDto dto = new NextExerciseLocationDto();
@@ -53,7 +47,7 @@ public class LocationModel {
     return dto;
   }
 
-  private List<Location> filterLocationsBySolvedExercises(
+  private static List<Location> filterLocationsBySolvedExercises(
       List<Location> locations, List<Exercise> solvedExercises) {
     locations.removeIf(location -> solvedExercises.contains(location.getExercise()));
     return locations;
@@ -87,7 +81,7 @@ public class LocationModel {
     return locations;
   }
 
-  public ArrayList<NextExerciseLocationDto> getExerciseLocations() {
+  public List<NextExerciseLocationDto> getExerciseLocations() {
     ArrayList<NextExerciseLocationDto> locations = new ArrayList<>();
     executions
         .findAll()

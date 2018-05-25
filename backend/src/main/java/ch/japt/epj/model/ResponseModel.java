@@ -54,7 +54,7 @@ public class ResponseModel {
             });
   }
 
-  private boolean isFirstAnswer(Execution execution, Response response) {
+  private static boolean isFirstAnswer(Execution execution, Response response) {
     Long currentPersonId = PersonHandler.getCurrentPersonId();
     Long exerciseId = response.getExercise().getExerciseId();
     return (execution
