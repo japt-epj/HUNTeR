@@ -5,6 +5,7 @@ import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.ScoreDto;
 import ch.japt.epj.repository.ExecutionRepository;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -24,19 +25,25 @@ public class ScoreModel {
   }
 
   public ScoreDto getScore(Long executionId, Long personId) {
-    Map<String, Pair<Integer, Boolean>> scoreMap = new HashMap<>();
+    Map<String, Pair<Double, Boolean>> scoreMap = new HashMap<>();
     Execution execution =
         executions
             .findByExecutionId(executionId)
             .orElseThrow(() -> new IllegalArgumentException("Illegal executionId"));
-
+    Integer numberOfTasks = execution.getQuiz().getTasks().size();
     for (Person participant : execution.getParticipants()) {
-      Stream<Response> responses = execution.getResponses().stream().distinct();
-      Integer rightAnswers =
-          Long.valueOf(responses.filter(response -> correctResponse(response, participant)).count())
-              .intValue();
+      Collection<Response> responses = execution.getResponses();
+      Stream<Response> responsesStream = responses.stream().distinct();
+      Double rightAnswers =
+          Long.valueOf(
+                  responsesStream
+                      .filter(response -> correctResponse(response, participant))
+                      .count())
+              .doubleValue();
       Boolean isEqualPerson = personId.equals(participant.getPersonId());
-      scoreMap.put(Long.toString(participant.getPersonId()), Pair.of(rightAnswers, isEqualPerson));
+      scoreMap.put(
+          Long.toString(participant.getPersonId()),
+          Pair.of(rightAnswers / numberOfTasks, isEqualPerson));
     }
     return mapper.map(scoreMap, ScoreDto.class);
   }
