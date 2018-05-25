@@ -11,16 +11,16 @@ public class Answer {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long answerId;
 
-  private String answer;
+  private String text;
 
   private boolean checked;
 
-  public String getAnswer() {
-    return answer;
+  public String getText() {
+    return text;
   }
 
-  public void setAnswer(String answer) {
-    this.answer = answer;
+  public void setText(String text) {
+    this.text = text;
   }
 
   public boolean isChecked() {
@@ -33,7 +33,7 @@ public class Answer {
 
   @Override
   public String toString() {
-    return answer;
+    return text;
   }
 
   public long getAnswerId() {
