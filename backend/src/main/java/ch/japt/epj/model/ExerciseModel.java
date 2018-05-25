@@ -38,10 +38,12 @@ public class ExerciseModel {
         .map(exercise -> mapper.map(exercise, ExerciseDto.class));
   }
 
-  public List<ExerciseDto> getExercises(List<Integer> ids) {
+  public List<NewExerciseDto> getExercises(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
-    Type dtoList = new TypeToken<List<ExerciseDto>>() {}.getType();
-    return mapper.map(exercises.findAll(longs), dtoList);
+    Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
+    List<NewExerciseDto> exerciseDtos = mapper.map(this.exercises.findAll(longs), dtoList);
+    exerciseDtos.forEach(exerciseDto -> exerciseDto.getAnswers().forEach(s -> s.setChecked(false)));
+    return exerciseDtos;
   }
 
   public Optional<ExerciseDto> getExercise(Long id) {

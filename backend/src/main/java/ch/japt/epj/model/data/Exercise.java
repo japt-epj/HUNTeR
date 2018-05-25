@@ -2,6 +2,7 @@ package ch.japt.epj.model.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 import javax.persistence.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -69,5 +70,12 @@ public class Exercise {
 
   public void addQuiz(Quiz quiz) {
     this.quizzes.add(quiz);
+  }
+
+  public Collection<Long> getAnswerIds() {
+    return answerTemplates
+        .stream()
+        .map(Answer::getAnswerId)
+        .collect(Collectors.toCollection(ArrayList::new));
   }
 }

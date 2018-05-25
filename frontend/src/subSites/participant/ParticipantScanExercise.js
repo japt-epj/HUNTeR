@@ -3,7 +3,6 @@ import {Redirect} from 'react-router';
 
 import {Message} from 'semantic-ui-react';
 
-import APIHandler from '../../handlers/APIHandler';
 import QrReader from 'react-qr-reader';
 import ModalHandler from '../../handlers/ModalHandler';
 import defaultUIConfig from '../../config/defaultUIConfig';
@@ -16,7 +15,7 @@ export default class ParticipantScanExercise extends React.Component {
       delay: defaultDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
-      exercise: '',
+      exerciseId: '',
       scanError: false,
       showAgreement: defaultUIConfig.showAgreement,
       showSuccess: false,
@@ -37,35 +36,20 @@ export default class ParticipantScanExercise extends React.Component {
       jsonData !== undefined &&
       jsonData.coordinates !== undefined
     ) {
-      APIHandler.getExerciseArray(jsonData.exerciseId, 'exercise').then(
-        resData => {
-          if (resData.status === 200) {
-            let exercise = resData.data[0];
-            exercise.answers.forEach(function(element, index, arrayObject) {
-              arrayObject[index] = {text: element, checked: false};
-            });
-            this.setState({
-              exercise: {
-                executionId: jsonData.executionId,
-                exerciseId: exercise.id,
-                name: exercise.name,
-                question: exercise.question,
-                answers: exercise.answers
-              }
-            });
-            setTimeout(
-              () => this.setState({fireRedirect: true, showSuccess: false}),
-              defaultUIConfig.defaultTimeoutTime
-            );
-          } else {
-            this.setState({scanError: true});
-            this.setState({
-              displayText:
-                'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
-            });
-          }
-        }
+      this.setState({
+        executionId: jsonData.executionId,
+        exerciseId: jsonData.exerciseId
+      });
+      setTimeout(
+        () => this.setState({fireRedirect: true, showSuccess: false}),
+        defaultUIConfig.defaultTimeoutTime
       );
+    } else {
+      this.setState({scanError: true});
+      this.setState({
+        displayText:
+          'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+      });
     }
   };
 
@@ -109,7 +93,10 @@ export default class ParticipantScanExercise extends React.Component {
           <Redirect
             to={{
               pathname: 'exercise',
-              state: {exercise: this.state.exercise}
+              state: {
+                exerciseId: this.state.exerciseId,
+                executionId: this.state.executionId
+              }
             }}
           />
         )}

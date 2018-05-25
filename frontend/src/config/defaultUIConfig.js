@@ -3,7 +3,8 @@ import {isMobile} from 'react-device-detect';
 let defaultUIConfig = {
   buttonColors: {
     normal: 'green',
-    download: 'orange'
+    download: 'orange',
+    show: 'blue'
   },
   paginationColor: 'green',
   defaultNumbers: {
@@ -27,6 +28,11 @@ let defaultUIConfig = {
       showModal: false,
       title: 'Ausführung erstellt',
       content: 'Die Ausführung wurde erfolgreich erstellt'
+    },
+    participant: {
+      showModal: false,
+      title: 'Schüler erstellt',
+      content: 'Der Schüler wurde erfolgreich erstellt'
     }
   },
   showAgreement:
