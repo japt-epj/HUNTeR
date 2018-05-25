@@ -15,7 +15,7 @@ export default class ParticipantScanExercise extends React.Component {
       delay: defaultDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
-      exercise: '',
+      exerciseId: '',
       scanError: false,
       showAgreement: defaultUIConfig.showAgreement,
       showSuccess: false,
@@ -93,7 +93,10 @@ export default class ParticipantScanExercise extends React.Component {
           <Redirect
             to={{
               pathname: 'exercise',
-              state: {exercise: this.state.exercise}
+              state: {
+                exerciseId: this.state.exerciseId,
+                executionId: this.state.executionId
+              }
             }}
           />
         )}

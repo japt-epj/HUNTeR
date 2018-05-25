@@ -6,6 +6,7 @@ import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
+import viewHandler from '../../handlers/viewHandler';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class ParticipantExercise extends React.Component {
           ? this.props.location.state.exerciseId
           : '',
       name: '',
+      exercise: {},
       question: '',
       options: [],
       answerId: -1,
@@ -35,16 +37,8 @@ export default class ParticipantExercise extends React.Component {
     if (this.state.exerciseId !== '') {
       APIHandler.getExerciseArray(this.state.exerciseId).then(resData => {
         if (resData.status === 200) {
-          let exercise = resData.data[0];
-          exercise.answers.forEach(function(element, index, arrayObject) {
-            arrayObject[index] = {text: element, checked: false};
-          });
           this.setState({
-            exercise: {
-              name: exercise.name,
-              question: exercise.question,
-              answers: exercise.answers
-            }
+            exercise: resData.data[0]
           });
         }
       });
@@ -55,39 +49,49 @@ export default class ParticipantExercise extends React.Component {
     return (
       <div>
         {this.state.executionId !== '' ? (
-          <Grid padded>
-            <Form onSubmit={this.handleSubmit}>
-              <Grid.Row>
-                <Header content={this.state.name} />
-              </Grid.Row>
-              <Grid.Row>{this.state.question}</Grid.Row>
-              <Grid.Row>
-                <Grid padded>
+          <div>
+            {this.state.exercise.answers === undefined ? (
+              viewHandler.getLoadingScreen()
+            ) : (
+              <Grid padded>
+                <Form onSubmit={this.handleSubmit}>
                   <Grid.Row>
-                    {this.state.options.map((element, index) => {
-                      return (
-                        <Form.Radio
-                          value={index}
-                          label={'Antwort ' + (index + 1) + ' : ' + element}
-                          onChange={this.handleSelectChange}
-                          checked={this.state.answerId === index}
-                        />
-                      );
-                    })}
-                    <Form.Button content="Submit" />
+                    <Header content={this.state.exercise.name} />
                   </Grid.Row>
-                </Grid>
-              </Grid.Row>
-            </Form>
-            {this.state.fireRedirect && (
-              <Redirect
-                to={{
-                  pathname: 'nextLocation',
-                  state: {executionId: this.state.executionId}
-                }}
-              />
+                  <Grid.Row>{this.state.exercise.question}</Grid.Row>
+                  <Grid.Row>
+                    <Grid padded>
+                      {this.state.exercise.answers.map((element, index) => {
+                        return (
+                          <Grid.Row key={element.text}>
+                            <Form.Radio
+                              value={index}
+                              label={
+                                'Antwort ' + (index + 1) + ' : ' + element.text
+                              }
+                              onChange={this.handleSelectChange}
+                              checked={this.state.answerId === index}
+                            />
+                          </Grid.Row>
+                        );
+                      })}
+                      <Grid.Row>
+                        <Form.Button content="Submit" />
+                      </Grid.Row>
+                    </Grid>
+                  </Grid.Row>
+                </Form>
+                {this.state.fireRedirect && (
+                  <Redirect
+                    to={{
+                      pathname: 'nextLocation',
+                      state: {executionId: this.state.executionId}
+                    }}
+                  />
+                )}
+              </Grid>
             )}
-          </Grid>
+          </div>
         ) : (
           <NavLink to="/scan">
             <Message
