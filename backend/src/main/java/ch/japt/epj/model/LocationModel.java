@@ -33,45 +33,19 @@ public class LocationModel {
     this.executions = executions;
   }
 
-  public NextExerciseLocationDto getExerciseLocation(long id) {
-    ArrayList<Exercise> solvedExercises = new ArrayList<>();
-    ArrayList<Response> allResponses = new ArrayList<>();
-    responses.findAll().forEach(allResponses::add);
-    Long personId =
-        ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-            .getPersonId();
-    persons
-        .findByPersonId(personId)
-        .ifPresent(
-            p ->
-                solvedExercises.addAll(
-                    allResponses
-                        .stream()
-                        .filter(response -> response.getPerson().getPersonId() == p.getPersonId())
-                        .map(Response::getExercise)
-                        .collect(Collectors.toCollection(ArrayList::new))));
-
-    ArrayList<Location> allLocationsSorted = new ArrayList<>();
-    executions
-        .findByExecutionId(id)
-        .ifPresent(
-            execution1 -> {
-              if (execution1
-                  .getParticipants()
-                  .stream()
-                  .map(Person::getPersonId)
-                  .anyMatch(i -> i.equals(personId))) {
-                allLocationsSorted.addAll(
-                    LocationSorter.nearestNeighbor(execution1.getQuiz().getLocations()));
-              }
-            });
-    if (allLocationsSorted.isEmpty()) {
+  public NextExerciseLocationDto getExerciseLocation(long executionId) {
+    Long personId = getCurrentPersonId();
+    List<Location> locations = getSortedLocationsByExecutionId(personId, executionId);
+    if (locations.isEmpty()) {
       return null;
     }
-    ArrayList<Location> filteredAndSortedLocations = new ArrayList<>(allLocationsSorted);
-    filteredAndSortedLocations.removeIf(
-        location -> solvedExercises.contains(location.getExercise()));
-    Location nextLocationToGo = filteredAndSortedLocations.get(0);
+    List<Exercise> solvedExercises = getSolvedExercisesByPersonId(personId);
+    locations = filterLocationsBySolvedExercises(locations, solvedExercises);
+    return createExerciseLocationDto(locations);
+  }
+
+  private NextExerciseLocationDto createExerciseLocationDto(List<Location> locations) {
+    Location nextLocationToGo = locations.get(0);
     Exercise nextExerciseToDo = nextLocationToGo.getExercise();
     NextExerciseLocationDto dto = new NextExerciseLocationDto();
     dto.setExerciseTitle(nextExerciseToDo.getName());
@@ -80,7 +54,47 @@ public class LocationModel {
     return dto;
   }
 
-  public List<NextExerciseLocationDto> getExerciseLocations() {
+  private List<Location> filterLocationsBySolvedExercises(
+      List<Location> locations, List<Exercise> solvedExercises) {
+    locations.removeIf(location -> solvedExercises.contains(location.getExercise()));
+    return locations;
+  }
+
+  private Long getCurrentPersonId() {
+    return ((CustomUserDetails)
+            SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+        .getPersonId();
+  }
+
+  private List<Exercise> getSolvedExercisesByPersonId(Long personId) {
+    ArrayList<Response> allResponses = new ArrayList<>();
+    responses.findAll().forEach(allResponses::add);
+    return allResponses
+        .stream()
+        .filter(response -> personId.equals(response.getPerson().getPersonId()))
+        .map(Response::getExercise)
+        .collect(Collectors.toList());
+  }
+
+  private List<Location> getSortedLocationsByExecutionId(Long personId, Long executionId) {
+    List<Location> locations = new ArrayList<>();
+    executions
+        .findByExecutionId(executionId)
+        .ifPresent(
+            execution -> {
+              if (execution
+                  .getParticipants()
+                  .stream()
+                  .map(Person::getPersonId)
+                  .anyMatch(i -> i.equals(personId))) {
+                locations.addAll(
+                    LocationSorter.nearestNeighbor(execution.getQuiz().getLocations()));
+              }
+            });
+    return locations;
+  }
+
+  public ArrayList<NextExerciseLocationDto> getExerciseLocations() {
     ArrayList<NextExerciseLocationDto> locations = new ArrayList<>();
     executions
         .findAll()
