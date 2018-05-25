@@ -39,6 +39,27 @@ export default {
       .catch(err => console.warn(err));
   },
 
+  getLeaderBoard(executionId) {
+    let requestURL = pathConfig.apiURL + 'score/' + executionId;
+    return axios
+      .get(requestURL, {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.warn(err));
+  },
+
+  getExecutions(executionId) {
+    let requestURL =
+      pathConfig.apiURL +
+      'execution?limit=' +
+      defaultUIConfig.defaultExecutionLimit;
+    return axios
+      .get(requestURL, {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.warn(err));
+  },
+
   getNextLocations(executionId) {
     let requestURL = pathConfig.apiURL + 'location/' + executionId;
     return axios

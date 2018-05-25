@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "Hunter API specification"
+  description: "HUNTeR API specification"
   version: "o.0.1"
-  title: "Hunter Swagger specification"
+  title: "HUNTeR Swagger specification"
   termsOfService: "http://swagger.io/terms/"
   license:
     name: "Apache 2.0"
@@ -569,6 +569,29 @@ paths:
         405:
           description: "Invalid input"
 
+
+  /score/{id}:
+    get:
+      tags:
+      - "score"
+      summary: "Gets score for an execution"
+      description: ""
+      operationId: "getScore"
+      produces:
+       - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        type: "integer"
+        format: "int64"
+        description: "execution id"
+      responses:
+        200:
+          description: "Score found"
+          schema:
+            $ref: "#/definitions/Score"
+
   /location/{id}:
     get:
       tags:
@@ -605,6 +628,7 @@ paths:
             items:
               $ref: "#/definitions/NextExerciseLocation"
 
+
 securityDefinitions:
   bearerAuth:
     type: "apiKey"
@@ -614,6 +638,8 @@ securityDefinitions:
     type: "apiKey"
     name: "api_key"
     in: "header"
+
+
 definitions:
 
   Person:
@@ -854,6 +880,23 @@ definitions:
         type: "string"
       password:
         type: "string"
+
+  Score:
+    type: "object"
+    additionalProperties:
+      $ref: "#/definitions/ScoreValue"
+
+  ScoreValue:
+    type: "object"
+    properties:
+      participantName:
+        type: "string"
+      participantScore:
+        type: "number"
+        format: "double"
+      isParticipantMe:
+        type: "boolean"
+
 
 externalDocs:
   description: "Find out more about Swagger"

@@ -12,6 +12,7 @@ let defaultUIConfig = {
     exerciseLimitPerPage: 5,
     defaultZoomSize: 19
   },
+  defaultExecutionLimit: 200,
   defaultTimeoutTime: 2000,
   defaultSuccessMessages: {
     exercise: {
