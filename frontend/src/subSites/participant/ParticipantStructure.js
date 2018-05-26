@@ -4,14 +4,14 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
-import getHome from '../../handlers/getHome';
+import getHome from '../../components/getHome';
 import UserSettings from '../../components/UserSettings';
 import ParticipantScanExercise from './ParticipantScanExercise';
 import LeaderBoard from '../../components/LeaderBoard';
 import ParticipantExercise from './ParticipantExercise';
 
 import Logout from '../Logout';
-import Data from '../../data/Data';
+import DefaultUIPaths from '../../config/DefaultUIPaths';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ParticipantNextLocation from './ParticipantNextLocation';
@@ -38,13 +38,15 @@ export default class ParticipantStructure extends React.Component {
           <Grid.Row className="gridContent">
             <Grid.Column>
               <Sidebar.Pushable as={Segment}>
-                {this.getSideBar(Data.getPathsParticipant())}
+                {this.getSideBar(DefaultUIPaths.getPathsParticipant())}
                 <Sidebar.Pusher onClick={this.hideSidebar}>
                   <Switch>
                     <Route
                       exact
                       path="/"
-                      render={props => getHome(Data.getPathsParticipant())}
+                      render={props =>
+                        getHome(DefaultUIPaths.getPathsParticipant())
+                      }
                     />
                     <Route path="/settings" component={UserSettings} />
                     <Route path="/scan" component={ParticipantScanExercise} />
