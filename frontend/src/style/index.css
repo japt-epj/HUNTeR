@@ -41,7 +41,7 @@ html {
 }
 
 .ui.card > .content > .header > .ui.text.menu {
-    margin: 0 !important;
+    margin: -0.5rem !important;
 }
 
 .ui.card > .content > .description {
@@ -59,6 +59,10 @@ html {
 
 .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.visible.sidebar.menu, .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.animating.sidebar.menu {
     background: rgba(32, 192, 40, 0.7);
+}
+
+.userScoreName{
+  font-weight: bold;
 }
 
 .goldenTrophy {

@@ -122,8 +122,8 @@ export default {
 
   getMobileError() {
     const message =
-      'Nutzen Sie das Smartphone nur für das Scannen für QR-Code Standorten. Anderenfalls nutzen Sie' +
-      'bitte ein Gerät mit besserer Auflösung für das Arbeiten mit der TeacherSeite.';
+      'Nutzen Sie das Smartphone nur für das Scannen für QR-Code Standorten. Anderenfalls nutzen Sie ' +
+      'bitte ein Gerät mit besserer Auflösung für das Arbeiten mit der Teacher-Seite.';
     return (
       <Modal dimmer="blurring" open>
         <Header icon="mobile" content="Mobiles Gerät erkannt" />

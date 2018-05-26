@@ -25,6 +25,11 @@ export default {
         name: 'Navigation zu einem QR-Code Standort',
         icon: 'camera retro'
       },
+      {
+        path: 'participantLeaderBoard',
+        name: 'Aktuelles Leaderboard einer Execution ausgeben',
+        icon: 'browser'
+      },
       {path: 'newUser', name: 'Schüler erstellen', icon: 'add user'},
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
@@ -52,8 +57,8 @@ export default {
       },
       {
         path: 'score',
-        name: 'Aktueller ParticipantScore',
-        component: 'ParticipantScore',
+        name: 'Aktuelles Leaderboard',
+        component: 'ParticipantLeaderBoard',
         icon: 'trophy'
       },
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}

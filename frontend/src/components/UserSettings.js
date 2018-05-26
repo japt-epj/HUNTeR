@@ -16,6 +16,7 @@ export default class UserSettings extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
+      school: '',
       newPassword: '',
       newPasswordRepeated: '',
       showPasswordError: false
@@ -28,12 +29,13 @@ export default class UserSettings extends React.Component {
 
   componentDidMount() {
     APIHandler.getInformation().then(resData => {
-      let personInformation = resData.data;
+      const personInformation = resData.data;
       this.setState({
         id: personInformation.id,
         firstName: personInformation.firstName,
         lastName: personInformation.lastName,
         email: personInformation.email,
+        school: personInformation.schools[0].name,
         loading: false
       });
     });
@@ -75,7 +77,7 @@ export default class UserSettings extends React.Component {
           <Form.Input
             label="Lehranstalt"
             type="text"
-            defaultValue={'HSR'}
+            value={this.state.school}
             disabled
           />
           <Form.Input

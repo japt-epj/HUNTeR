@@ -38,10 +38,10 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
             jsonPath("$[0].question")
                 .value(
                     "Wenn das Wetter gut ist, wird der Bauer bestimmt den Eber, das Ferkel und..."))
-        .andExpect(jsonPath("$[0].answers[0]").value("...einen draufmachen"))
-        .andExpect(jsonPath("$[0].answers[1]").value("...die Nacht durchzechen"))
-        .andExpect(jsonPath("$[0].answers[2]").value("...die Sau rauslassen"))
-        .andExpect(jsonPath("$[0].answers[3]").value("...auf die Kacke hauen"));
+        .andExpect(jsonPath("$[0].answers[0].text").value("...einen draufmachen"))
+        .andExpect(jsonPath("$[0].answers[1].text").value("...die Nacht durchzechen"))
+        .andExpect(jsonPath("$[0].answers[2].text").value("...die Sau rauslassen"))
+        .andExpect(jsonPath("$[0].answers[3].text").value("...auf die Kacke hauen"));
   }
 
   @Test
