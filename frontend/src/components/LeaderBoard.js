@@ -3,6 +3,7 @@ import {OK} from 'http-status-codes';
 
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
+import defaultUIConfig from '../config/defaultUIConfig';
 import APIHandler from '../handlers/APIHandler';
 import getLoadingScreen from './getLoadingScreen';
 
@@ -54,9 +55,6 @@ export default class LeaderBoard extends React.Component {
     if (this.state.teacher) {
       leaderBoard = leaderBoard.concat(scoreList);
     } else if (!leaderBoard.some(element => element[1].me)) {
-      let trophyColors = new Map(this.state.trophyColors);
-      trophyColors.set(4, 'red');
-      this.setState({trophyColors});
       leaderBoard = leaderBoard.concat(
         scoreList.filter(element => element[1].me)
       );
@@ -77,8 +75,12 @@ export default class LeaderBoard extends React.Component {
         element.ranking = rankingStartPosition;
         return element;
       });
-    let leaderBoard = scoreList.splice(0, 3);
+    let leaderBoard = scoreList.splice(0, defaultUIConfig.maxTrophyValue);
     return {leaderBoard, scoreList};
+  };
+
+  getScore = rankingValue => {
+    return rankingValue * 100 + '%';
   };
 
   changeExecutionState = (event, data) => {
@@ -112,24 +114,26 @@ export default class LeaderBoard extends React.Component {
                   color={
                     element[1].me && !this.state.teacher ? 'green' : 'black'
                   }
-                  fluid={index >= 3}
+                  fluid={index >= defaultUIConfig.maxTrophyValue}
                 >
                   <Card.Content>
                     <Card.Header>
                       <Menu text>
                         <Menu.Item content={'Rang: ' + element.ranking} />
-                        <Menu.Item>
-                          <Icon
-                            name="trophy"
-                            className={
-                              this.state.trophyColors.get(element.ranking) +
-                              'Trophy'
-                            }
-                          />
-                        </Menu.Item>
+                        {element.ranking <= defaultUIConfig.maxTrophyValue && (
+                          <Menu.Item>
+                            <Icon
+                              name="trophy"
+                              className={
+                                this.state.trophyColors.get(element.ranking) +
+                                'Trophy'
+                              }
+                            />
+                          </Menu.Item>
+                        )}
                         <Menu.Item
                           position="right"
-                          content={element[1].userScore * 100 + '%'}
+                          content={this.getScore(element[1].userScore)}
                         />
                       </Menu>
                     </Card.Header>
