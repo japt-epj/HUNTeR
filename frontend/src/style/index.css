@@ -74,13 +74,11 @@ html {
 .menuItem{
     font-weight: lighter !important;
     font-style: italic !important;
-    margin-right: 1rem;
 }
 
 .menuItem:hover{
     background: rgba(32, 192, 40, 0.1) !important;
-    margin-left: 1rem;
-    margin-right: 0;
+    padding-left: 2rem !important;
 }
 
 .sideMenuHeader {
@@ -96,8 +94,8 @@ html {
 }
 
 .sideMenuItem:hover{
-    background: rgba(32, 192, 40, 0.6) !important;
-    margin-left: 0.5rem;
+    background: rgba(32, 192, 40, 0.3) !important;
+    padding-left: 1.5rem !important;
 }
 
 .userScoreName{
