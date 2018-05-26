@@ -78,6 +78,10 @@ public class Person {
     schools.add(school);
   }
 
+  public Collection<School> getSchools() {
+    return schools;
+  }
+
   public void addQuiz(Quiz quiz) {
     quizzes.add(quiz);
   }
