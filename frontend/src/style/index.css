@@ -68,14 +68,23 @@ html {
 
 .menuHeader {
     font-weight: bolder !important;
+    color: #20c028;
 }
 
 .menuItem{
     font-weight: lighter !important;
     font-style: italic !important;
+    margin-right: 1rem;
+}
+
+.menuItem:hover{
+    background: rgba(32, 192, 40, 0.1) !important;
+    margin-left: 1rem;
+    margin-right: 0;
 }
 
 .sideMenuHeader {
+    margin-top: 1rem !important;
     color: white !important;
     font-weight: bolder !important;
 }
@@ -84,6 +93,11 @@ html {
     color: white !important;
     font-weight: lighter !important;
     font-style: italic !important;
+}
+
+.sideMenuItem:hover{
+    background: rgba(32, 192, 40, 0.6) !important;
+    margin-left: 0.5rem;
 }
 
 .userScoreName{
