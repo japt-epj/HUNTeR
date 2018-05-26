@@ -11,7 +11,7 @@ import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
-import viewHandler from '../../handlers/viewHandler';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
@@ -198,7 +198,7 @@ export default class TeacherQuiz extends React.Component {
                         <Modal.Header content="Aufgaben hinzufügen" />
                         <Modal.Content scrolling>
                           {this.state.loading
-                            ? viewHandler.getLoadingScreen()
+                            ? getLoadingScreen()
                             : this.getExerciseTable(true)}
                         </Modal.Content>
                       </Modal>
@@ -244,7 +244,7 @@ export default class TeacherQuiz extends React.Component {
               <Grid.Column>
                 <Form.Button content="Submit" />
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column floated="right">
                 <Form.Button
                   content="Abbrechen"
                   onClick={() => this.setState({fireRedirect: true})}

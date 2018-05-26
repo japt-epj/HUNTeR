@@ -6,7 +6,7 @@ import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
-import viewHandler from '../../handlers/viewHandler';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ export default class ParticipantExercise extends React.Component {
         {this.state.executionId !== '' ? (
           <div>
             {this.state.exercise.answers === undefined ? (
-              viewHandler.getLoadingScreen()
+              getLoadingScreen()
             ) : (
               <Grid padded>
                 <Form onSubmit={this.handleSubmit}>

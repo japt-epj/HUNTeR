@@ -17,7 +17,10 @@ export default class TeacherExercise extends React.Component {
       successMessage: defaultUIConfig.defaultSuccessMessages.exercise,
       formOK: true,
       fireRedirect: false,
-      exerciseId: this.props !== undefined ? this.props.exerciseId : '',
+      editExercise:
+        this.props.editExercise !== undefined ? this.props.editExercise : false,
+      exerciseId:
+        this.props.exerciseId !== undefined ? this.props.exerciseId : '',
       name: '',
       question: '',
       answer0: '',
@@ -37,7 +40,9 @@ export default class TeacherExercise extends React.Component {
   }
 
   componentDidMount() {
-    this.getExercise(this.state.exerciseId);
+    if (this.state.editExercise) {
+      this.getExercise(this.state.exerciseId);
+    }
   }
 
   getExercise = exerciseId => {
@@ -123,7 +128,7 @@ export default class TeacherExercise extends React.Component {
             <Grid.Column>
               <Form.Button content="Submit" />
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column floated="right">
               <Form.Button
                 content="Abbrechen"
                 onClick={() => this.setState({fireRedirect: true})}
