@@ -1,5 +1,16 @@
-export default {
-  getPathsTeacher() {
+export default class defaultUIPaths {
+  static getPersonalPaths() {
+    return [
+      {
+        path: 'settings',
+        name: 'Persönliches',
+        icon: 'setting'
+      },
+      {path: 'logout', name: 'Ausloggen', icon: 'log out'}
+    ];
+  }
+
+  static getPathsTeacher() {
     return [
       {
         name: 'Verwaltung von Aufgaben',
@@ -52,15 +63,12 @@ export default {
       },
       {
         name: 'Konto-Einstellungen',
-        subPaths: [
-          {path: 'settings', name: 'Persönliches', icon: 'setting'},
-          {path: 'logout', name: 'Ausloggen', icon: 'log out'}
-        ]
+        subPaths: this.getPersonalPaths()
       }
     ];
-  },
+  }
 
-  getPathsParticipant() {
+  static getPathsParticipant() {
     return [
       {
         name: 'Aufgabe lösen',
@@ -89,15 +97,8 @@ export default {
       },
       {
         name: 'Konto-Einstellungen',
-        subPaths: [
-          {
-            path: 'settings',
-            name: 'Persönliches',
-            icon: 'setting'
-          },
-          {path: 'logout', name: 'Ausloggen', icon: 'log out'}
-        ]
+        subPaths: this.getPersonalPaths()
       }
     ];
   }
-};
+}
