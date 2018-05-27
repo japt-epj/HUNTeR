@@ -1,12 +1,12 @@
 $defaultFontSize: 16px;
 
-$gold-color: gold;
-$silver-color: silver;
-$bronze-color: #cc8e34;
-$menuItem-Color: black;
-$sideMenu-Color: white;
-$hunter-hexColor: #20c028;
-$hunter-hexErrorColor: #36c22f;
+$goldColor: gold;
+$silverColor: silver;
+$bronzeColor: #cc8e34;
+$menuItemColor: black;
+$sideMenuColor: white;
+$hunterColor: #20c028;
+$hunterErrorColor: #36c22f;
 
 $menuItemHoverTransparency: 0.1;
 $sideMenuTransparency: 0.7;
@@ -84,12 +84,12 @@ a,
 
 .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin {
   &.visible.sidebar.menu {
-    color: $sideMenu-Color;
-    background: rgba($hunter-hexColor, $sideMenuTransparency);
+    color: $sideMenuColor;
+    background: rgba($hunterColor, $sideMenuTransparency);
   }
   &.animating.sidebar.menu {
-    color: $sideMenu-Color;
-    background: rgba($hunter-hexColor, $sideMenuTransparency);
+    color: $sideMenuColor;
+    background: rgba($hunterColor, $sideMenuTransparency);
   }
 }
 
@@ -99,32 +99,37 @@ a,
 }
 
 .menuHeader {
-  color: $hunter-hexColor;
+  color: $hunterColor !important;
   font-weight: bolder !important;
+  padding: 0 0 0.5rem 0 !important;
+  > .ui.grid > .equal.width.row > .right.aligned.one.wide.column{
+    padding: 0 0.5rem 0 0.5rem !important;
+    color: $hunterColor !important;
+  }
 }
 
 .menuItem {
-  color: $menuItem-Color !important;
+  color: $menuItemColor !important;
   font-weight: lighter !important;
   font-style: italic !important;
   &:hover {
-    background: rgba($hunter-hexColor, $menuItemHoverTransparency) !important;
+    background: rgba($hunterColor, $menuItemHoverTransparency) !important;
     padding-left: $menuItemHoverPadding !important;
   }
 }
 
 .sideMenuHeader {
-  color: $sideMenu-Color !important;
+  color: $sideMenuColor !important;
   margin-top: $sideMenuHeaderMargin !important;
   font-weight: bolder !important;
 }
 
 .sideMenuItem {
-  color: $sideMenu-Color !important;
+  color: $sideMenuColor !important;
   font-weight: lighter !important;
   font-style: italic !important;
   &:hover {
-    background: rgba($hunter-hexColor, $sideMenuItemHoverTransparency) !important;
+    background: rgba($hunterColor, $sideMenuItemHoverTransparency) !important;
     padding-left: $sideMenuItemHoverPadding !important;
   }
 }
@@ -134,17 +139,17 @@ a,
 }
 
 .goldenTrophy {
-  color: $gold-color;
+  color: $goldColor;
 }
 
 .silverTrophy {
-  color: $silver-color;
+  color: $silverColor;
 }
 
 .bronzeTrophy {
-  color: $bronze-color;
+  color: $bronzeColor;
 }
 
 .errorBackground {
-  background: $hunter-hexErrorColor;
+  background: $hunterErrorColor;
 }
