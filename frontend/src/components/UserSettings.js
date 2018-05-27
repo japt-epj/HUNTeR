@@ -16,10 +16,7 @@ export default class UserSettings extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      school: '',
-      newPassword: '',
-      newPasswordRepeated: '',
-      showPasswordError: false
+      school: ''
     };
     this.handleSubmit = FormHandler.handleEditParticipant.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
@@ -81,30 +78,6 @@ export default class UserSettings extends React.Component {
             value={this.state.school}
             disabled
           />
-          <Form.Input
-            label="Neues Passwort"
-            type="password"
-            value={this.state.newPassword}
-            name="newPassword"
-            onChange={this.handleChange}
-            error={this.state.showPasswordError}
-          />
-          <Form.Input
-            label="Neues Passwort erneut eingeben"
-            type="password"
-            value={this.state.newPasswordRepeated}
-            name="newPasswordRepeated"
-            onChange={this.handleChange}
-            error={this.state.showPasswordError}
-          />
-
-          {this.state.showPasswordError && (
-            <Message
-              header="Passwörter sind nicht identisch"
-              icon="key"
-              error
-            />
-          )}
           <Form.Button content="Daten ändern" />
         </Form>
         {this.state.fireRedirect && <Redirect to={{pathname: '/'}} />}
