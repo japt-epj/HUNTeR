@@ -27,9 +27,11 @@ public interface ExecutionRepository extends PagingAndSortingRepository<Executio
 
   //      + "SUM(CASE WHEN answer.checked = true THEN 1 ELSE 0 END) "
   @Query(
-      "SELECT p.personId, p.firstName, p.lastName FROM Response r "
-          + "INNER JOIN r.person p INNER JOIN r.answerFromPerson "
-          + "JOIN Execution e ON r MEMBER OF e.responses AND e.executionId = ?1")
+      "SELECT p.personId, p.firstName, p.lastName "
+          + "FROM Response r "
+          + "INNER JOIN r.person p "
+          + "INNER JOIN r.answerFromPerson a "
+          + "INNER JOIN Execution e ON r MEMBER OF e.responses AND e.executionId = ?1")
   //          + "INNER JOIN Execution e WHERE r MEMBER OF e.responses AND e.executionId = ?1 ")
   //          + "GROUP BY p.personId, p.firstName, p.lastName")
   List<?> getAggregatedScore2(Long executionId);
