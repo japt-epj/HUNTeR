@@ -65,12 +65,12 @@ export default class ParticipantExercise extends React.Component {
                         return (
                           <Grid.Row key={element.text}>
                             <Form.Radio
-                              value={index}
+                              value={element.answerId}
                               label={
                                 'Antwort ' + (index + 1) + ' : ' + element.text
                               }
                               onChange={this.handleSelectChange}
-                              checked={this.state.answerId === index}
+                              checked={this.state.answerId === element.answerId}
                             />
                           </Grid.Row>
                         );
