@@ -51,8 +51,12 @@ a,
   box-shadow: none !important; }
 
 .menuHeader {
-  color: #20c028;
-  font-weight: bolder !important; }
+  color: #20c028 !important;
+  font-weight: bolder !important;
+  padding: 0 0 0.5rem 0 !important; }
+  .menuHeader > .ui.grid > .equal.width.row > .right.aligned.one.wide.column {
+    padding: 0 0.5rem 0 0.5rem !important;
+    color: #20c028 !important; }
 
 .menuItem {
   color: black !important;
