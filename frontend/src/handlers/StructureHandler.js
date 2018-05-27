@@ -76,7 +76,7 @@ export default {
       <Sidebar
         as={Menu}
         animation="overlay"
-        width="thin"
+        width="wide"
         direction="right"
         visible={this.state.visible}
         icon="labeled"

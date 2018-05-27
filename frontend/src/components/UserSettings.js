@@ -1,25 +1,24 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Form, Message} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
 import ModalHandler from '../handlers/ModalHandler';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.settings,
       showModal: false,
       loading: true,
       fireRedirect: false,
       firstName: '',
       lastName: '',
       email: '',
-      school: '',
-      newPassword: '',
-      newPasswordRepeated: '',
-      showPasswordError: false
+      school: ''
     };
     this.handleSubmit = FormHandler.handleEditParticipant.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
@@ -30,7 +29,6 @@ export default class UserSettings extends React.Component {
   componentDidMount() {
     APIHandler.getInformation().then(resData => {
       const personInformation = resData.data;
-      console.log(personInformation);
       this.setState({
         id: personInformation.id,
         firstName: personInformation.firstName,
@@ -49,6 +47,8 @@ export default class UserSettings extends React.Component {
   render() {
     return (
       <div>
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {this.state.showModal && this.getSettingChanging()}
         <Form onSubmit={this.onSubmit} loading={this.state.loading}>
           <Form.Input
@@ -72,8 +72,7 @@ export default class UserSettings extends React.Component {
             type="email"
             value={this.state.email}
             name="email"
-            onChange={this.handleChange}
-            required
+            disabled
           />
           <Form.Input
             label="Lehranstalt"
@@ -81,30 +80,6 @@ export default class UserSettings extends React.Component {
             value={this.state.school}
             disabled
           />
-          <Form.Input
-            label="Neues Passwort"
-            type="password"
-            value={this.state.newPassword}
-            name="newPassword"
-            onChange={this.handleChange}
-            error={this.state.showPasswordError}
-          />
-          <Form.Input
-            label="Neues Passwort erneut eingeben"
-            type="password"
-            value={this.state.newPasswordRepeated}
-            name="newPasswordRepeated"
-            onChange={this.handleChange}
-            error={this.state.showPasswordError}
-          />
-
-          {this.state.showPasswordError && (
-            <Message
-              header="Passwörter sind nicht identisch"
-              icon="key"
-              error
-            />
-          )}
           <Form.Button content="Daten ändern" />
         </Form>
         {this.state.fireRedirect && <Redirect to={{pathname: '/'}} />}

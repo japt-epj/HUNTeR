@@ -18,7 +18,7 @@ export default class ParticipantScanExercise extends React.Component {
       exerciseId: '',
       scanError: false,
       showAgreement: defaultUIConfig.showAgreement,
-      showSuccess: false,
+      successMessage: defaultUIConfig.defaultSuccessMessages.scan,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
@@ -36,12 +36,15 @@ export default class ParticipantScanExercise extends React.Component {
       jsonData !== undefined &&
       jsonData.coordinates !== undefined
     ) {
+      let successMessage = {...this.state.successMessage};
+      successMessage.showModal = true;
       this.setState({
+        successMessage,
         executionId: jsonData.executionId,
         exerciseId: jsonData.exerciseId
       });
       setTimeout(
-        () => this.setState({fireRedirect: true, showSuccess: false}),
+        () => this.setState({fireRedirect: true}),
         defaultUIConfig.defaultTimeoutTime
       );
     } else {
@@ -71,7 +74,8 @@ export default class ParticipantScanExercise extends React.Component {
   render() {
     return (
       <div>
-        {this.state.showSuccess && ModalHandler.getScanSuccess()}
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {this.state.showAgreement ? (
           this.getAgreement()
         ) : (
