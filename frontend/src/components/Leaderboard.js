@@ -64,11 +64,11 @@ export default class Leaderboard extends React.Component {
 
   calculateLeaderboard = scoreData => {
     let rankingStartPosition = 1;
-    let rankingCurrentScore = 0;
+    let rankingCurrentScore = -1;
     const scoreList = this.sortLeaderboard(scoreData).map((element, index) => {
       if (element[1].userScore !== rankingCurrentScore) {
-        rankingCurrentScore = element[1].userScore;
         rankingStartPosition += 1;
+        rankingCurrentScore = element[1].userScore;
       }
       element.ranking = rankingStartPosition;
       return element;
