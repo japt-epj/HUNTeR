@@ -167,7 +167,7 @@ export default class TeacherQuiz extends React.Component {
               <Grid.Column>
                 <Form.Input
                   fluid
-                  label="Name"
+                  label="Name des Quiz"
                   name="name"
                   value={this.state.name}
                   onChange={this.handleChange}
@@ -240,11 +240,11 @@ export default class TeacherQuiz extends React.Component {
                 </LeafletMap>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row columns="equal">
               <Grid.Column>
                 <Form.Button content="Submit" />
               </Grid.Column>
-              <Grid.Column floated="right">
+              <Grid.Column textAlign="right">
                 <Form.Button
                   content="Abbrechen"
                   onClick={() => this.setState({fireRedirect: true})}
