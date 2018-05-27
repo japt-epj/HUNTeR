@@ -122,20 +122,14 @@ export default {
   },
 
   handleEditParticipant() {
-    if (this.state.newPassword === this.state.newPasswordRepeated) {
-      this.putData(
-        {
-          id: this.state.id,
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          email: this.state.email,
-          password: this.state.newPassword
-        },
-        'person'
-      );
-      this.setState({fireRedirect: true});
-    } else {
-      this.setState({showPasswordError: true});
-    }
+    this.putData(
+      {
+        id: this.state.id,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName
+      },
+      'person'
+    );
+    this.setState({fireRedirect: true});
   }
 };
