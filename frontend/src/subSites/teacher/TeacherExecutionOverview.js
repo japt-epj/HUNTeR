@@ -54,7 +54,7 @@ export default class TeacherExecutionOverview extends React.Component {
             color="green"
             icon="add square"
             labelPosition="right"
-            label="Ausführung hinzufügen"
+            label="Durchführung hinzufügen"
           />
         </NavLink>
       </div>
