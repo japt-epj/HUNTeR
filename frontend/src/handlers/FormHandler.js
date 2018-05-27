@@ -106,7 +106,7 @@ export default {
               'HUNTeR-Redirect',
               redirectData.headers['x-hunter-redirect']
             );
-            this.setState({fireRedirect: true, showSuccess: false});
+            this.setState({fireRedirect: true});
           });
         }, defaultUIConfig.defaultTimeoutTime);
       } else {
