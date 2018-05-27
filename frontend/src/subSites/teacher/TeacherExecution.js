@@ -131,7 +131,7 @@ export default class TeacherExecution extends React.Component {
           ModalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError(
-            'Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet.'
+            'Kein Quiz ausgewählt oder keine Teilnehmer der Durchführung zugeordnet.'
           )}
         <Form onSubmit={this.handleSubmit}>
           <Grid>
@@ -139,7 +139,7 @@ export default class TeacherExecution extends React.Component {
               <Grid.Column>
                 <Form.Input
                   fluid
-                  label="Name"
+                  label="Name der Durchführung"
                   name="name"
                   value={this.state.name}
                   onChange={this.handleChange}
@@ -218,11 +218,11 @@ export default class TeacherExecution extends React.Component {
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row columns="equal">
               <Grid.Column>
                 <Form.Button content="Submit" />
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column textAlign="right">
                 <Form.Button
                   content="Abbrechen"
                   onClick={() => this.setState({fireRedirect: true})}

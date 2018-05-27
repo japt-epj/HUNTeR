@@ -7,7 +7,7 @@ import '../../style/index.css';
 import getHome from '../../components/getHome';
 import UserSettings from '../../components/UserSettings';
 import ParticipantScanExercise from './ParticipantScanExercise';
-import LeaderBoard from '../../components/LeaderBoard';
+import Leaderboard from '../../components/Leaderboard';
 import ParticipantExercise from './ParticipantExercise';
 
 import Logout from '../Logout';
@@ -54,7 +54,7 @@ export default class ParticipantStructure extends React.Component {
                       path="/nextLocation"
                       component={ParticipantNextLocation}
                     />
-                    <Route path="/score" component={LeaderBoard} />
+                    <Route path="/score" component={Leaderboard} />
                     <Route path="/exercise" component={ParticipantExercise} />
                     <Route
                       path="/logout"

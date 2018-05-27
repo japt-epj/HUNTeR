@@ -7,13 +7,13 @@ import defaultUIConfig from '../config/defaultUIConfig';
 import APIHandler from '../handlers/APIHandler';
 import getLoadingScreen from './getLoadingScreen';
 
-export default class LeaderBoard extends React.Component {
+export default class Leaderboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
       trophyColors: new Map([[1, 'golden'], [2, 'silver'], [3, 'bronze']]),
-      leaderBoard: [],
+      leaderboard: [],
       executionId: 1,
       executions: [],
       execution: 'execution1',
@@ -23,7 +23,7 @@ export default class LeaderBoard extends React.Component {
 
   componentDidMount() {
     this.getExecutions();
-    this.getLeaderBoard(this.state.executionId);
+    this.getLeaderboard(this.state.executionId);
   }
 
   getExecutions = () => {
@@ -41,31 +41,31 @@ export default class LeaderBoard extends React.Component {
     });
   };
 
-  getLeaderBoard = executionId => {
-    APIHandler.getLeaderBoard(executionId).then(resData => {
+  getLeaderboard = executionId => {
+    APIHandler.getLeaderboard(executionId).then(resData => {
       if (resData.status === OK) {
-        let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
-        leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
-        this.setState({leaderBoard, loading: false});
+        let {leaderboard, scoreList} = this.calculateLeaderboard(resData.data);
+        leaderboard = this.checkMoreParticipants(leaderboard, scoreList);
+        this.setState({leaderboard, loading: false});
       }
     });
   };
 
-  checkMoreParticipants = (leaderBoard, scoreList) => {
+  checkMoreParticipants = (leaderboard, scoreList) => {
     if (this.state.teacher) {
-      leaderBoard = leaderBoard.concat(scoreList);
-    } else if (!leaderBoard.some(element => element[1].me)) {
-      leaderBoard = leaderBoard.concat(
+      leaderboard = leaderboard.concat(scoreList);
+    } else if (!leaderboard.some(element => element[1].me)) {
+      leaderboard = leaderboard.concat(
         scoreList.filter(element => element[1].me)
       );
     }
-    return leaderBoard;
+    return leaderboard;
   };
 
-  calculateLeaderBoard = scoreData => {
+  calculateLeaderboard = scoreData => {
     let rankingStartPosition = 0;
     let rankingCurrentScore = 0;
-    const scoreList = this.sortLeaderBoard(scoreData).map((element, index) => {
+    const scoreList = this.sortLeaderboard(scoreData).map((element, index) => {
       if (element[1].userScore !== rankingCurrentScore) {
         rankingCurrentScore = element[1].userScore;
         rankingStartPosition += 1;
@@ -73,11 +73,11 @@ export default class LeaderBoard extends React.Component {
       element.ranking = rankingStartPosition;
       return element;
     });
-    let leaderBoard = scoreList.splice(0, defaultUIConfig.maxTrophyValue);
-    return {leaderBoard, scoreList};
+    let leaderboard = scoreList.splice(0, defaultUIConfig.maxTrophyValue);
+    return {leaderboard, scoreList};
   };
 
-  sortLeaderBoard = scoreData => {
+  sortLeaderboard = scoreData => {
     return Object.entries(scoreData).sort(
       (a, b) => a[1].userScore < b[1].userScore || b[1].me
     );
@@ -89,7 +89,7 @@ export default class LeaderBoard extends React.Component {
 
   changeExecutionState = (event, data) => {
     this.setState({loading: true, executionId: data.value});
-    this.getLeaderBoard(data.value);
+    this.getLeaderboard(data.value);
   };
 
   render() {
@@ -112,7 +112,7 @@ export default class LeaderBoard extends React.Component {
             getLoadingScreen()
           ) : (
             <Card.Group centered>
-              {this.state.leaderBoard.map((element, index) => (
+              {this.state.leaderboard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
                   color={element[1].me && !this.state.teacher ? 'green' : null}

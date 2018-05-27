@@ -21,7 +21,7 @@ import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ModalHandler from '../../handlers/ModalHandler';
 import defaultUIConfig from '../../config/defaultUIConfig';
-import LeaderBoard from '../../components/LeaderBoard';
+import Leaderboard from '../../components/Leaderboard';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {
@@ -84,8 +84,8 @@ export default class TeacherStructure extends React.Component {
                         component={TeacherNewParticipant}
                       />
                       <Route
-                        path="/participantLeaderBoard"
-                        component={LeaderBoard}
+                        path="/participantLeaderboard"
+                        component={Leaderboard}
                       />
                       <Route
                         path="/logout"
