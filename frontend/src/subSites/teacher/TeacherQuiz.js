@@ -240,11 +240,11 @@ export default class TeacherQuiz extends React.Component {
                 </LeafletMap>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row columns="equal">
               <Grid.Column>
                 <Form.Button content="Submit" />
               </Grid.Column>
-              <Grid.Column floated="right">
+              <Grid.Column textAlign="right">
                 <Form.Button
                   content="Abbrechen"
                   onClick={() => this.setState({fireRedirect: true})}
