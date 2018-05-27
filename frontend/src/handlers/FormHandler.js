@@ -126,10 +126,10 @@ export default {
       {
         id: this.state.id,
         firstName: this.state.firstName,
-        lastName: this.state.lastName
+        lastName: this.state.lastName,
+        email: this.state.email
       },
       'person'
     );
-    this.setState({fireRedirect: true});
   }
 };

@@ -5,11 +5,13 @@ import {Form} from 'semantic-ui-react';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
 import ModalHandler from '../handlers/ModalHandler';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.settings,
       showModal: false,
       loading: true,
       fireRedirect: false,
@@ -27,7 +29,6 @@ export default class UserSettings extends React.Component {
   componentDidMount() {
     APIHandler.getInformation().then(resData => {
       const personInformation = resData.data;
-      console.log(personInformation);
       this.setState({
         id: personInformation.id,
         firstName: personInformation.firstName,
@@ -46,6 +47,8 @@ export default class UserSettings extends React.Component {
   render() {
     return (
       <div>
+        {this.state.successMessage.showModal &&
+          ModalHandler.getCreationSuccess(this.state.successMessage)}
         {this.state.showModal && this.getSettingChanging()}
         <Form onSubmit={this.onSubmit} loading={this.state.loading}>
           <Form.Input
