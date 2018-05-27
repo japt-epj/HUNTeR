@@ -32,6 +32,12 @@ export default class InfoPage extends React.Component {
           'Ausführungen werden Studenten zugewiesen. Ausführungen sind zudem mit einem zeitlichen Faktor limitiert.'
       },
       {
+        title: 'QR-Codes verteilen',
+        icon: 'map',
+        description:
+          'Bei den Ausführungen können QR-Code-Listen ausgedruckt werden. Als Lehrer können diese eingescannt werden um die Position zu bestimmen und den QR-Code am richtigen Ort zu deponieren.'
+      },
+      {
         title: 'LeaderBoard',
         icon: 'trophy',
         description:
