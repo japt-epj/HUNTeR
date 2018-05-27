@@ -54,10 +54,6 @@ public class School {
     locations.add(location);
   }
 
-  public void removeLocation(Location location) {
-    locations.remove(location);
-  }
-
   public long getSchoolId() {
     return schoolId;
   }

@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Profile;
 @Profile("standalone")
 @Configuration
 public class HttpRedirectConfig {
+  private static final int API_PORT = 8080;
+  private static final int LOCAL_HTTPS = 8443;
+
   @Bean
   public EmbeddedServletContainerFactory servletContainer() {
     TomcatEmbeddedServletContainerFactory tomcat =
@@ -35,9 +38,9 @@ public class HttpRedirectConfig {
   private Connector initiateHttpConnector() {
     Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
     connector.setScheme("http");
-    connector.setPort(8080);
+    connector.setPort(API_PORT);
     connector.setSecure(false);
-    connector.setRedirectPort(8443);
+    connector.setRedirectPort(LOCAL_HTTPS);
     return connector;
   }
 }
