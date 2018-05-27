@@ -7,11 +7,14 @@ import {Form, Grid, Header, Message} from 'semantic-ui-react';
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
+import ModalHandler from '../../handlers/ModalHandler';
+import defaultUIConfig from '../../config/defaultUIConfig';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      successMessage: defaultUIConfig.defaultSuccessMessages.response,
       executionId:
         this.props.location.state !== undefined
           ? this.props.location.state.executionId
@@ -50,6 +53,8 @@ export default class ParticipantExercise extends React.Component {
       <div>
         {this.state.executionId !== '' ? (
           <div>
+            {this.state.successMessage.showModal &&
+              ModalHandler.getCreationSuccess(this.state.successMessage)}
             {this.state.exercise.answers === undefined ? (
               getLoadingScreen()
             ) : (
