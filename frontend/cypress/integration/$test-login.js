@@ -16,41 +16,41 @@ describe('Login tests', function() {
 
   it('Login test with participant credentials', function() {
     setViewport('iphone-6/7/8');
-    const loginCredentials = Credentials.getParticipantCredentials();
+    const loginCredentials = Credentials.getParticipantCredentials().HSR;
 
     login(loginCredentials);
-    Logout.getParticipantLogout(loginCredentials);
+    Logout.getLogout(loginCredentials);
   });
 
   it('Redirecting test with participant credentials', function() {
     setViewport('iphone-6/7/8');
-    const loginCredentials = Credentials.getParticipantCredentials();
+    const loginCredentials = Credentials.getParticipantCredentials().HSR;
 
     login(loginCredentials);
     cy.visit(Cypress.env('baseUrl'));
     cy
       .url()
       .should('equal', Cypress.env('baseUrl') + `/${loginCredentials.role}`);
-    Logout.getParticipantLogout(loginCredentials);
+    Logout.getLogout(loginCredentials);
   });
 
   it('Login test with teacher credentials', function() {
     setViewport('iphone-6/7/8');
-    const loginCredentials = Credentials.getTeacherCredentials();
+    const loginCredentials = Credentials.getTeacherCredentials().HSR;
 
     login(loginCredentials);
-    Logout.getTeacherLogout(loginCredentials);
+    Logout.getLogout(loginCredentials);
   });
 
   it('Redirecting test with teacher credentials', function() {
     setViewport('iphone-6/7/8');
-    const loginCredentials = Credentials.getTeacherCredentials();
+    const loginCredentials = Credentials.getTeacherCredentials().HSR;
 
     login(loginCredentials);
     cy.visit(Cypress.env('baseUrl'));
     cy
       .url()
       .should('equal', Cypress.env('baseUrl') + `/${loginCredentials.role}`);
-    Logout.getTeacherLogout(loginCredentials);
+    Logout.getLogout(loginCredentials);
   });
 });

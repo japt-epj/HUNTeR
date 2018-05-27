@@ -1,12 +1,7 @@
 import Credentials from './Credentials';
 
 export default {
-  getTeacherLogout(loginCredentials) {
-    this.getTestsBeforeLogout(loginCredentials.role);
-    this.getTestsAfterLogout();
-  },
-
-  getParticipantLogout(loginCredentials) {
+  getLogout(loginCredentials) {
     this.getTestsBeforeLogout(loginCredentials.role);
     this.getTestsAfterLogout();
   },
