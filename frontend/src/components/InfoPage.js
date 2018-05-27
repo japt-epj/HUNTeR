@@ -29,17 +29,17 @@ export default class InfoPage extends React.Component {
           'muss zudem ein Standort zugewiesen werden.'
       },
       {
-        title: 'Ausführung',
+        title: 'Durchführung',
         icon: 'add user',
         description:
-          'Ausführungen werden Studenten zugewiesen. Ausführungen sind ' +
-          'zudem mit einem zeitlichen Faktor limitiert.'
+          'Durchführungen werden Teilnehmern zugewiesen. Durchführungen ' +
+          'sind zudem mit einem zeitlichen Faktor limitiert.'
       },
       {
         title: 'Verteilen',
         icon: 'map',
         description:
-          'Bei den Ausführungen können QR-Code-Listen ausgedruckt ' +
+          'Bei den Durchführungen können QR-Code-Listen ausgedruckt ' +
           'werden. Als Lehrer können diese eingescannt werden um ' +
           'die Position zu bestimmen und den QR-Code am richtigen ' +
           'Ort zu deponieren.'
@@ -48,16 +48,16 @@ export default class InfoPage extends React.Component {
         title: 'Lösen',
         icon: 'retro camera',
         description:
-          'Studenten können nun die verteilten QR-Codes per Smartphone ' +
+          'Teilnehmer können nun die verteilten QR-Codes per Smartphone ' +
           'einscannen und danach die Aufgabe lösen.'
       },
       {
         title: 'Leaderboard',
         icon: 'trophy',
         description:
-          'Nachdem ein jeweiliger Student ein QR-Code gefunden hat kann ' +
+          'Nachdem ein jeweiliger Teilnehmer ein QR-Code gefunden hat kann ' +
           'er diesen einscannen und die Aufgabe lösen. Das aktuelle ' +
-          'Ergebnis der Studenten, welche einer Ausführung zugewiesen' +
+          'Ergebnis der Teilnehmer, welche einer Durchführung zugewiesen' +
           'sind, werden in einem Leaderboard widergespiegelt.'
       }
     ];

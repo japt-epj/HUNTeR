@@ -28,13 +28,13 @@ let defaultUIConfig = {
     },
     execution: {
       showModal: false,
-      title: 'Ausführung erstellt',
-      content: 'Die Ausführung wurde erfolgreich erstellt'
+      title: 'Durchführung erstellt',
+      content: 'Die Durchführung wurde erfolgreich erstellt'
     },
     participant: {
       showModal: false,
-      title: 'Schüler erstellt',
-      content: 'Der Schüler wurde erfolgreich erstellt'
+      title: 'Teilnehmer erstellt',
+      content: 'Der Teilnehmer wurde erfolgreich erstellt'
     }
   },
   showAgreement:

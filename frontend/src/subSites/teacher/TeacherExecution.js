@@ -131,7 +131,7 @@ export default class TeacherExecution extends React.Component {
           ModalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError(
-            'Kein Quiz ausgewählt oder keine Schüler der Execution zugeordnet.'
+            'Kein Quiz ausgewählt oder keine Teilnehmer der Durchführung zugeordnet.'
           )}
         <Form onSubmit={this.handleSubmit}>
           <Grid>
