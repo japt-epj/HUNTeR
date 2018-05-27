@@ -20,10 +20,8 @@ export default {
   },
 
   handleExerciseSubmit() {
-    const minAnswerId = 0;
-    const maxAnswerId = 3;
-    let isACheckboxSet =
-      this.state.answerId >= minAnswerId && this.state.answerId <= maxAnswerId;
+    const minAnswerId = 1;
+    let isACheckboxSet = this.state.answerId >= minAnswerId;
     if (isACheckboxSet) {
       if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
         this.postData(DataHandler.prepareTeacherData(this.state), 'exercise');
