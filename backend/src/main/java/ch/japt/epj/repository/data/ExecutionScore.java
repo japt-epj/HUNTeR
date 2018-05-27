@@ -2,31 +2,31 @@ package ch.japt.epj.repository.data;
 
 public class ExecutionScore {
   private final Long id;
-  private final String name;
-  private final Double score;
-  private final Boolean currentParticipant;
+  private final String participantName;
+  private final Double participantScore;
+  private final Boolean isParticipantMe;
 
   public ExecutionScore(
       Long id, String firstName, String lastName, Double score, Boolean currentParticipant) {
     this.id = id;
-    this.name = firstName + " " + lastName;
-    this.score = score;
-    this.currentParticipant = currentParticipant;
+    this.participantName = firstName + " " + lastName;
+    this.participantScore = score;
+    this.isParticipantMe = currentParticipant;
   }
 
   public Long getId() {
     return id;
   }
 
-  public String getName() {
-    return name;
+  public String getParticipantName() {
+    return participantName;
   }
 
-  public Double getScore() {
-    return score;
+  public Double getParticipantScore() {
+    return participantScore;
   }
 
-  public Boolean getCurrentParticipant() {
-    return currentParticipant;
+  public Boolean getIsParticipantMe() {
+    return isParticipantMe;
   }
 }
