@@ -36,7 +36,7 @@ export default class ShowInformationModal extends React.Component {
         }
       >
         <Modal.Header className="infoHeader" content="Informationsseite" />
-        <Modal.Content>
+        <Modal.Content scrolling>
           <InfoPage />
         </Modal.Content>
         <Modal.Actions>
