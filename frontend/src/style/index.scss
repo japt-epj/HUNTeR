@@ -1,15 +1,27 @@
 $defaultFontSize: 16px;
 
+$gold-color: gold;
+$silver-color: silver;
+$bronze-color: #cc8e34;
+$menuItem-Color: black;
+$sideMenu-Color: white;
 $hunter-hexColor: #20c028;
 $hunter-hexErrorColor: #36c22f;
-$bronze-color: #cc8e34;
-$sideMenu-Color: white;
+
+$menuItemHoverTransparency: 0.1;
+$sideMenuTransparency: 0.7;
+$sideMenuItemHoverTransparency: 0.5;
+
+$menuItemHoverPadding: 2rem;
+$sideMenuHeaderMargin: 1rem;
+$sideMenuItemHoverPadding: 1.5rem;
 
 $gridHeader-MinHeight: 35px;
 $gridHeader-MaxHeight: 60px;
 $gridHeaderImage-MinHeight: 30px;
 $gridHeaderImage-MaxHeight: 55px;
 
+$leaflet-ContentHeightWidth: 100%;
 $leaflet-Height: 60vh;
 $dateTimePicker-Height: 40vh;
 $siteGrid-Height: 100vh;
@@ -27,8 +39,8 @@ html {
 }
 
 .leaflet-container {
-  height: 100%;
-  width: 100%;
+  height: $leaflet-ContentHeightWidth;
+  width: $leaflet-ContentHeightWidth;
 }
 
 .siteGrid {
@@ -54,19 +66,13 @@ a,
   min-height: calc(100vh - #{$gridHeader-MaxHeight}) !important;
 }
 
-.ui.segment {
-  border: none !important;
-  box-shadow: none !important;
-}
-
 .ui.card {
-  margin: 0.5em !important;
+  margin: 0.5rem !important;
 
   > .content {
-    padding: 0.5em !important;
+    padding: 0.5rem !important;
 
     > .description {
-      margin-left: 1em !important;
       margin-top: 0 !important;
     }
 
@@ -76,33 +82,40 @@ a,
   }
 }
 
-.ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.visible.sidebar.menu,
-.ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.animating.sidebar.menu {
-  background: rgba($hunter-hexColor, 0.7);
-  color: $sideMenu-Color;
+.ui.inverted.vertical.labeled.icon.ui.overlay.right.thin {
+  &.visible.sidebar.menu {
+    color: $sideMenu-Color;
+    background: rgba($hunter-hexColor, $sideMenuTransparency);
+  }
+  &.animating.sidebar.menu {
+    color: $sideMenu-Color;
+    background: rgba($hunter-hexColor, $sideMenuTransparency);
+  }
 }
 
-.ui.vertical.menu, .item {
-  color: black !important;
+.ui.segment {
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .menuHeader {
-  font-weight: bolder !important;
   color: $hunter-hexColor;
+  font-weight: bolder !important;
 }
 
 .menuItem {
+  color: $menuItem-Color !important;
   font-weight: lighter !important;
   font-style: italic !important;
   &:hover {
-    background: rgba($hunter-hexColor, 0.1) !important;
-    padding-left: 2rem !important;
+    background: rgba($hunter-hexColor, $menuItemHoverTransparency) !important;
+    padding-left: $menuItemHoverPadding !important;
   }
 }
 
 .sideMenuHeader {
-  margin-top: 1rem !important;
   color: $sideMenu-Color !important;
+  margin-top: $sideMenuHeaderMargin !important;
   font-weight: bolder !important;
 }
 
@@ -111,8 +124,8 @@ a,
   font-weight: lighter !important;
   font-style: italic !important;
   &:hover {
-    background: rgba($hunter-hexColor, 0.3) !important;
-    padding-left: 1.5rem !important;
+    background: rgba($hunter-hexColor, $sideMenuItemHoverTransparency) !important;
+    padding-left: $sideMenuItemHoverPadding !important;
   }
 }
 
@@ -121,11 +134,11 @@ a,
 }
 
 .goldenTrophy {
-  color: gold;
+  color: $gold-color;
 }
 
 .silverTrophy {
-  color: silver;
+  color: $silver-color;
 }
 
 .bronzeTrophy {
