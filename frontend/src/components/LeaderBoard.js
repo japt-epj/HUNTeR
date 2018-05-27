@@ -65,22 +65,26 @@ export default class LeaderBoard extends React.Component {
   calculateLeaderBoard = scoreData => {
     let rankingStartPosition = 0;
     let rankingCurrentScore = 0;
-    const scoreList = Object.entries(scoreData)
-      .sort((a, b) => a[1].userScore < b[1].userScore)
-      .map((element, index) => {
-        if (element.userScore !== rankingCurrentScore) {
-          rankingCurrentScore = element.userScore;
-          rankingStartPosition += 1;
-        }
-        element.ranking = rankingStartPosition;
-        return element;
-      });
+    const scoreList = this.sortLeaderBoard(scoreData).map((element, index) => {
+      if (element[1].userScore !== rankingCurrentScore) {
+        rankingCurrentScore = element[1].userScore;
+        rankingStartPosition += 1;
+      }
+      element.ranking = rankingStartPosition;
+      return element;
+    });
     let leaderBoard = scoreList.splice(0, defaultUIConfig.maxTrophyValue);
     return {leaderBoard, scoreList};
   };
 
+  sortLeaderBoard = scoreData => {
+    return Object.entries(scoreData).sort(
+      (a, b) => a[1].userScore < b[1].userScore || b[1].me
+    );
+  };
+
   getScore = rankingValue => {
-    return rankingValue * 100 + '%';
+    return (rankingValue * 100).toFixed(2) + '%';
   };
 
   changeExecutionState = (event, data) => {
@@ -111,9 +115,7 @@ export default class LeaderBoard extends React.Component {
               {this.state.leaderBoard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
-                  color={
-                    element[1].me && !this.state.teacher ? 'green' : 'black'
-                  }
+                  color={element[1].me && !this.state.teacher ? 'green' : null}
                   fluid={index >= defaultUIConfig.maxTrophyValue}
                 >
                   <Card.Content>
