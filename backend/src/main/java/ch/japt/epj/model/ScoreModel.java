@@ -5,6 +5,7 @@ import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.ScoreDto;
 import ch.japt.epj.repository.ExecutionRepository;
+import ch.japt.epj.repository.data.ExecutionScore;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class ScoreModel {
   }
 
   public ScoreDto getScore(Long executionId, Long personId) {
-    List<?> aggregatedScore = executions.getAggregatedScore(executionId, personId);
+    List<ExecutionScore> aggregation = executions.getAggregatedScore(executionId, personId);
 
     Map<String, ScoreValue> scoreMap = new HashMap<>();
     Execution execution =
