@@ -24,7 +24,7 @@ public class ScoreModel {
         executions
             .getAggregatedScore(executionId, personId)
             .stream()
-            .collect(Collectors.toMap(ExecutionScore::getParticipantName, p -> p));
+            .collect(Collectors.toMap(ExecutionScore::getUserName, p -> p));
 
     return mapper.map(map, ScoreDto.class);
   }

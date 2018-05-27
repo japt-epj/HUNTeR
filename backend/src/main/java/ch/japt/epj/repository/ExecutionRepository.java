@@ -14,7 +14,7 @@ public interface ExecutionRepository extends PagingAndSortingRepository<Executio
 
   @Query(
       "SELECT NEW ch.japt.epj.repository.data.ExecutionScore(p.personId, p.firstName, p.lastName, "
-          + "SUM(CASE WHEN a.checked = true THEN 1 ELSE 0 END) / (SIZE(e.quiz.exercises) * 1.0) * 100 as score,"
+          + "SUM(CASE WHEN a.checked = true THEN 1 ELSE 0 END) / (SIZE(e.quiz.exercises) * 1.0) as score,"
           + "CASE WHEN p.personId = ?2 THEN true ELSE false END) "
           + "FROM Response r "
           + "INNER JOIN r.person p "
