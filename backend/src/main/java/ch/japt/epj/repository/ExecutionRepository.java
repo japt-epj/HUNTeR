@@ -25,14 +25,12 @@ public interface ExecutionRepository extends PagingAndSortingRepository<Executio
   )
   List<?> getAggregatedScore(Long executionId);
 
-  //      + "SUM(CASE WHEN answer.checked = true THEN 1 ELSE 0 END) "
   @Query(
-      "SELECT p.personId, p.firstName, p.lastName "
+      "SELECT p.personId, p.firstName, p.lastName, SUM(CASE WHEN a.checked = true THEN 1 ELSE 0 END) "
           + "FROM Response r "
           + "INNER JOIN r.person p "
           + "INNER JOIN r.answerFromPerson a "
-          + "INNER JOIN Execution e ON r MEMBER OF e.responses AND e.executionId = ?1")
-  //          + "INNER JOIN Execution e WHERE r MEMBER OF e.responses AND e.executionId = ?1 ")
-  //          + "GROUP BY p.personId, p.firstName, p.lastName")
+          + "INNER JOIN Execution e ON r MEMBER OF e.responses AND e.executionId = ?1 "
+          + "GROUP BY p.personId")
   List<?> getAggregatedScore2(Long executionId);
 }
