@@ -30,7 +30,7 @@
     "copy": "cpx \"build/**/\" \"target/classes/META-INF/resources/webjars/frontend/\"",
     "precise-commits": "./node_modules/.bin/precise-commits src",
     "prettier": "find src -name '*.js' -exec ./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing --jsx-bracket-same-line {} \\;",
-    "cypress:install": "npm install cypress",
+    "cypress:install": "npm install cypress --no-save",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run  --browser canary"
   },
