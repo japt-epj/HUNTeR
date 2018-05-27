@@ -15,8 +15,6 @@ public class Person {
 
   private String lastName;
 
-  private boolean isCreator;
-
   private String email;
 
   private String password;
@@ -76,28 +74,16 @@ public class Person {
     this.email = email;
   }
 
-  public boolean isCreator() {
-    return isCreator;
-  }
-
-  public void setCreator(boolean creator) {
-    isCreator = creator;
-  }
-
   public void addSchool(School school) {
     schools.add(school);
   }
 
-  public void removeSchool(School school) {
-    schools.remove(school);
+  public Collection<School> getSchools() {
+    return schools;
   }
 
   public void addQuiz(Quiz quiz) {
     quizzes.add(quiz);
-  }
-
-  public void removeQuiz(Quiz quiz) {
-    quizzes.remove(quiz);
   }
 
   public String getPassword() {

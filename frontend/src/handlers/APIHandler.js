@@ -1,34 +1,67 @@
 import axios from 'axios';
 import fileDownload from 'js-file-download';
+import {OK, UNAUTHORIZED} from 'http-status-codes';
 
-import config from '../config/config';
-
+import pathConfig from '../config/pathConfig';
 import getAxiosHeader from './getAxiosHeader';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getExerciseArray(exerciseIDs) {
     return axios
-      .get(config.apiURL + 'exercise/' + exerciseIDs, {
+      .get(pathConfig.apiURL + 'exercise/' + exerciseIDs, {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
   },
 
-  downloadQRCode(exerciseID) {
+  downloadExecutionQRCodePDF(executionID) {
     return axios
-      .get(config.apiURL + 'qrCode/' + exerciseID, {
-        headers: getAxiosHeader('image/png'),
+      .get(pathConfig.apiURL + 'quiz/' + executionID + '/print', {
+        headers: getAxiosHeader('application/pdf'),
         responseType: 'arraybuffer'
       })
-      .then(res => fileDownload(res.data, 'qrCode' + exerciseID + '.png'))
+      .then(res =>
+        fileDownload(res.data, 'qrCodes-execution' + executionID + '.pdf')
+      )
       .catch(err => console.warn(err));
   },
 
-  getPaginatedElements(path, page, limit) {
-    let requestURL = config.apiURL + path + '/';
-    if (page !== undefined && limit !== undefined) {
-      requestURL += '?page=' + (page - 1) + '&limit=' + limit;
+  getPaginatedElements(path, page) {
+    let requestURL = pathConfig.apiURL + path + '/';
+    if (typeof page === 'number') {
+      requestURL += '?page=' + (page - 1);
     }
+    return axios
+      .get(requestURL, {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.warn(err));
+  },
+
+  getLeaderBoard(executionId) {
+    let requestURL = pathConfig.apiURL + 'score/' + executionId;
+    return axios
+      .get(requestURL, {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.warn(err));
+  },
+
+  getExecutions(executionId) {
+    let requestURL =
+      pathConfig.apiURL +
+      'execution?limit=' +
+      defaultUIConfig.defaultExecutionLimit;
+    return axios
+      .get(requestURL, {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.warn(err));
+  },
+
+  getNextLocations(executionId) {
+    let requestURL = pathConfig.apiURL + 'location/' + executionId;
     return axios
       .get(requestURL, {
         headers: getAxiosHeader('application/json')
@@ -38,24 +71,24 @@ export default {
 
   postData(data, path) {
     axios
-      .post(config.apiURL + path + '/', data, {
+      .post(pathConfig.apiURL + path + '/', data, {
         headers: getAxiosHeader('application/json')
       })
       .then(() => {
         let successMessage = {...this.state.successMessage};
         successMessage.showModal = true;
         this.setState({successMessage});
-        setTimeout(() => {
-          this.setState({fireRedirect: true});
-        }, 2500);
-      })
-      .catch(err => console.error('Error:', err));
+        setTimeout(
+          () => this.setState({fireRedirect: true}),
+          defaultUIConfig.defaultTimeoutTime
+        );
+      });
   },
 
   postLoginData(data) {
     return axios
       .post(
-        config.apiURL + 'auth/login/',
+        pathConfig.apiURL + 'auth/login/',
         {
           email: data.email,
           password: data.password
@@ -63,46 +96,24 @@ export default {
         {
           headers: getAxiosHeader('application/json'),
           validateStatus: function(status) {
-            return status === 401 || (status >= 200 && status < 300);
+            return status === UNAUTHORIZED || status === OK;
           }
         }
       )
       .catch(err => console.error('Error:', err));
   },
 
-  prepareTeacherData(data) {
-    return {
-      name: data.name,
-      question: data.question,
-      answers: [
-        {text: data.answer0},
-        {text: data.answer1},
-        {text: data.answer2},
-        {text: data.answer3}
-      ],
-      correctAnswer: data.answerId
-    };
-  },
-
-  prepareParticipantData(data) {
-    return {
-      participantId: data.participantId,
-      exerciseId: data.exerciseId,
-      answerId: data.answerId
-    };
-  },
-
   redirectAfterLogin() {
     return axios
-      .get(config.apiURL + 'auth/entryPoint', {
+      .get(pathConfig.apiURL + 'auth/entryPoint', {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error(err));
   },
 
-  getParticipant(participantId) {
+  getInformation() {
     return axios
-      .get(config.apiURL + 'person/' + participantId, {
+      .get(pathConfig.apiURL + 'person/current', {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
@@ -110,14 +121,18 @@ export default {
 
   putData(data, path) {
     axios
-      .put(config.apiURL + path + '/', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      .put(pathConfig.apiURL + path + '/', data, {
+        headers: getAxiosHeader('application/json')
       })
       .catch(err => console.error('Error:', err))
       .then(() => {
-        this.setState({fireRedirect: true});
+        let successMessage = {...this.state.successMessage};
+        successMessage.showModal = true;
+        this.setState({successMessage});
+        setTimeout(
+          () => this.setState({fireRedirect: true}),
+          defaultUIConfig.defaultTimeoutTime
+        );
       });
   }
 };

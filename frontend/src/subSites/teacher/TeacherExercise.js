@@ -1,25 +1,26 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Form, Table} from 'semantic-ui-react';
+import {Form, Grid, Table} from 'semantic-ui-react';
 
+import defaultUIConfig from '../../config/defaultUIConfig';
 import FormHandler from '../../handlers/FormHandler';
 import TableHandler from '../../handlers/TableHandler';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
+import {OK} from 'http-status-codes/index';
 
 export default class TeacherExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: {
-        showModal: false,
-        title: 'Aufgabe erstellt',
-        content: 'Die Aufgabe wurde erfolgreich erstellt'
-      },
+      successMessage: defaultUIConfig.defaultSuccessMessages.exercise,
       formOK: true,
       fireRedirect: false,
-      exerciseId: '',
+      editExercise:
+        this.props.editExercise !== undefined ? this.props.editExercise : false,
+      exerciseId:
+        this.props.exerciseId !== undefined ? this.props.exerciseId : '',
       name: '',
       question: '',
       answer0: '',
@@ -37,6 +38,33 @@ export default class TeacherExercise extends React.Component {
     this.getJSONHeader = APIHandler.getJSONHeader;
     this.getFormError = ModalHandler.getFormError.bind(this);
   }
+
+  componentDidMount() {
+    if (this.state.editExercise) {
+      this.getExercise(this.state.exerciseId);
+    }
+  }
+
+  getExercise = exerciseId => {
+    APIHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
+      if (resData.status === OK) {
+        const exerciseData = resData.data[0];
+        const answerId = exerciseData.answers
+          .map(element => element.checked)
+          .indexOf(true);
+        console.log(answerId);
+        this.setState({
+          answer0: exerciseData.answers[0].text,
+          answer1: exerciseData.answers[1].text,
+          answer2: exerciseData.answers[2].text,
+          answer3: exerciseData.answers[3].text,
+          answerId,
+          question: exerciseData.question,
+          name: exerciseData.name
+        });
+      }
+    });
+  };
 
   render() {
     return (
@@ -96,7 +124,17 @@ export default class TeacherExercise extends React.Component {
                 ))}
             </Table.Body>
           </Table>
-          <Form.Button content="Submit" />
+          <Grid>
+            <Grid.Column>
+              <Form.Button content="Submit" />
+            </Grid.Column>
+            <Grid.Column floated="right">
+              <Form.Button
+                content="Abbrechen"
+                onClick={() => this.setState({fireRedirect: true})}
+              />
+            </Grid.Column>
+          </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
       </div>

@@ -6,22 +6,24 @@ import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
 import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      exerciseId: this.props.location.state.exercise.id,
-      //TODO: Send the execution Id from server to send the response back to the correct execution
-      executionId: 1,
-      name: this.props.location.state.exercise.name,
-      question: this.props.location.state.exercise.question,
-      options: [
-        this.props.location.state.exercise.answers[0].text,
-        this.props.location.state.exercise.answers[1].text,
-        this.props.location.state.exercise.answers[2].text,
-        this.props.location.state.exercise.answers[3].text
-      ],
+      executionId:
+        this.props.location.state !== undefined
+          ? this.props.location.state.executionId
+          : '',
+      exerciseId:
+        this.props.location.state !== undefined
+          ? this.props.location.state.exerciseId
+          : '',
+      name: '',
+      exercise: {},
+      question: '',
+      options: [],
       answerId: -1,
       fireRedirect: false
     };
@@ -31,43 +33,76 @@ export default class ParticipantExercise extends React.Component {
     this.getJSONHeader = APIHandler.getJSONHeader;
   }
 
-  render() {
-    if (this.state !== null) {
-      return (
-        <Form onSubmit={this.handleSubmit}>
-          <Grid.Row>
-            <Header content={this.state.name} />
-            {this.state.question}
-          </Grid.Row>
-          <Grid.Row>
-            {this.state.options.map((element, index) => {
-              return (
-                <Form.Radio
-                  value={index}
-                  label={'Antwort ' + (index + 1) + ' : ' + element}
-                  onChange={this.handleSelectChange}
-                  checked={this.state.answerId === index}
-                />
-              );
-            })}
-          </Grid.Row>
-          <Grid.Row>
-            <Form.Button content="Submit" />
-          </Grid.Row>
-          {this.state.fireRedirect && <Redirect to="/" />}
-        </Form>
-      );
-    } else {
-      return (
-        <NavLink to="/scan">
-          <Message
-            icon="camera retro"
-            size="mini"
-            header="Bitte zuerst eine Aufgabe mit der Scan Funktion scannen."
-            error
-          />
-        </NavLink>
-      );
+  componentDidMount() {
+    if (this.state.exerciseId !== '') {
+      APIHandler.getExerciseArray(this.state.exerciseId).then(resData => {
+        if (resData.status === 200) {
+          this.setState({
+            exercise: resData.data[0]
+          });
+        }
+      });
     }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.executionId !== '' ? (
+          <div>
+            {this.state.exercise.answers === undefined ? (
+              getLoadingScreen()
+            ) : (
+              <Grid padded>
+                <Form onSubmit={this.handleSubmit}>
+                  <Grid.Row>
+                    <Header content={this.state.exercise.name} />
+                  </Grid.Row>
+                  <Grid.Row>{this.state.exercise.question}</Grid.Row>
+                  <Grid.Row>
+                    <Grid padded>
+                      {this.state.exercise.answers.map((element, index) => {
+                        return (
+                          <Grid.Row key={element.text}>
+                            <Form.Radio
+                              value={element.answerId}
+                              label={
+                                'Antwort ' + (index + 1) + ' : ' + element.text
+                              }
+                              onChange={this.handleSelectChange}
+                              checked={this.state.answerId === element.answerId}
+                            />
+                          </Grid.Row>
+                        );
+                      })}
+                      <Grid.Row>
+                        <Form.Button content="Submit" />
+                      </Grid.Row>
+                    </Grid>
+                  </Grid.Row>
+                </Form>
+                {this.state.fireRedirect && (
+                  <Redirect
+                    to={{
+                      pathname: 'nextLocation',
+                      state: {executionId: this.state.executionId}
+                    }}
+                  />
+                )}
+              </Grid>
+            )}
+          </div>
+        ) : (
+          <NavLink to="/scan">
+            <Message
+              icon="camera retro"
+              size="mini"
+              header="Bitte zuerst eine Aufgabe mit der Scan Funktion scannen."
+              error
+            />
+          </NavLink>
+        )}
+      </div>
+    );
   }
 }

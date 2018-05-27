@@ -27,6 +27,7 @@ public class QrController implements QrCodeApi {
       @Valid @PathVariable("id") Integer id,
       @Valid @RequestParam(value = "scale", defaultValue = "20") Integer scale,
       @Valid @RequestParam(value = "border", defaultValue = "2") Integer border) {
+
     return model
         .generateCode(id, scale, border)
         .map(b -> new ResponseEntity<>(b, HttpStatus.OK))
