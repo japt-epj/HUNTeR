@@ -1,0 +1,132 @@
+$hunter-hexColor: #20c028;
+$hunter-hexErrorColor: #36c22f;
+$bronze-color: #cc8e34;
+
+$gridHeader-MinHeight: 35px;
+$gridHeader-MaxHeight: 60px;
+$gridHeaderImage-MinHeight: 30px;
+$gridHeaderImage-MaxHeight: 55px;
+
+html {
+  font-size: 16px !important;
+}
+
+#mapContainer {
+  height: 60vh;
+}
+
+#dateTimePickerContainer {
+  height: 40vh;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.siteGrid {
+  height: 100vh;
+}
+
+.left.aligned.column,
+a,
+.logoImage,
+.right.aligned.column {
+  height: calc(100% * 1.2) !important;
+  min-height: $gridHeaderImage-MinHeight !important;
+  max-height: $gridHeaderImage-MaxHeight !important;
+}
+
+.gridHeader {
+  min-height: $gridHeader-MinHeight !important;
+  max-height: $gridHeader-MaxHeight !important;
+}
+
+.gridContent {
+  max-height: calc(100vh - #{$gridHeader-MinHeight}) !important;
+  min-height: calc(100vh - #{$gridHeader-MaxHeight}) !important;
+}
+
+.ui.segment {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ui.card {
+  margin: 0.5em !important;
+
+  > .content {
+    padding: 0.5em !important;
+
+    > .description {
+      margin-left: 1em !important;
+      margin-top: 0 !important;
+    }
+
+    > .header > .ui.text.menu {
+      margin: -0.5rem 1rem !important;
+    }
+  }
+}
+
+.ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.visible.sidebar.menu,
+.ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.animating.sidebar.menu {
+  background: rgba($hunter-hexColor, 0.7);
+  color: white;
+}
+
+.ui.massive.fluid.vertical.menu,
+.ui.vertical.menu,
+.item {
+  color: black !important;
+}
+
+.menuHeader {
+  font-weight: bolder !important;
+  color: $hunter-hexColor;
+}
+
+.menuItem {
+  font-weight: lighter !important;
+  font-style: italic !important;
+  &:hover {
+    background: rgba($hunter-hexColor, 0.1) !important;
+    padding-left: 2rem !important;
+  }
+}
+
+.sideMenuHeader {
+  margin-top: 1rem !important;
+  color: white !important;
+  font-weight: bolder !important;
+}
+
+.sideMenuItem {
+  color: white !important;
+  font-weight: lighter !important;
+  font-style: italic !important;
+  &:hover {
+    background: rgba($hunter-hexColor, 0.3) !important;
+    padding-left: 1.5rem !important;
+  }
+}
+
+.userScoreName {
+  font-weight: bold;
+}
+
+.goldenTrophy {
+  color: gold;
+}
+
+.silverTrophy {
+  color: silver;
+}
+
+.bronzeTrophy {
+  color: $bronze-color;
+}
+
+.errorBackground {
+  background: $hunter-hexErrorColor;
+}
