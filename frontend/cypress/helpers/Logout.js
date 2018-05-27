@@ -12,8 +12,17 @@ export default {
   },
 
   getTestsBeforeLogout(role) {
+    let logoutPosition;
+    if (role === 'teacher') {
+      logoutPosition = 5;
+    } else if (role === 'participant') {
+      logoutPosition = 3;
+    }
+
     cy
-      .get(`.pusher > .ui > [href="/${role}/logout"] > .item`)
+      .get(
+        `.pusher > .ui > :nth-child(${logoutPosition}) > .menu > [href="/${role}/logout"] > .item`
+      )
       .click()
       .should(() => {
         this.getLogoutTokenClearingTest();

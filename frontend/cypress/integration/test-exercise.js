@@ -12,13 +12,19 @@ describe('Exercise tests', function() {
 
   afterEach(function() {
     const loginCredentials = Credentials.getTeacherCredentials();
+
+    cy.get('.grid > :nth-child(1) > .field > .ui').click();
     Logout.getTeacherLogout(loginCredentials);
   });
 
   it('Create new exercise', function() {
     const loginCredentials = Credentials.getTeacherCredentials();
 
-    cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
+    cy
+      .get(
+        '.pusher > .ui > :nth-child(1) > .menu > [href="/teacher/exercise"] > .item'
+      )
+      .click();
     const exerciseTitle =
       '$CypressTest - Nordische Peripheriebegriffe - ' +
       Math.floor(Math.random() * Math.floor(10000));
@@ -38,13 +44,16 @@ describe('Exercise tests', function() {
       .get(':nth-child(4) > :nth-child(2) > .required > .ui > input')
       .type('Skandinavier');
     cy.get('tbody > :nth-child(4) > :nth-child(3) > .field > .ui').click();
-    cy.get(':nth-child(4) > .ui').click();
   });
 
   it('Create new exercise with error', function() {
     const loginCredentials = Credentials.getTeacherCredentials();
 
-    cy.get('.pusher > .ui > [href="/teacher/exercise"] > .item').click();
+    cy
+      .get(
+        '.pusher > .ui > :nth-child(1) > .menu > [href="/teacher/exercise"] > .item'
+      )
+      .click();
     cy
       .get('.form > :nth-child(1) > .ui > input')
       .type('CypressTest - Prüfungsangst');
@@ -68,6 +77,5 @@ describe('Exercise tests', function() {
     cy.get(':nth-child(4) > .ui').click();
     cy.get('.actions > .ui').click();
     cy.get('tbody > :nth-child(3) > :nth-child(3) > .field > .ui').click();
-    cy.get(':nth-child(4) > .ui').click();
   });
 });
