@@ -39,7 +39,7 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  getLeaderBoard(executionId) {
+  getLeaderboard(executionId) {
     let requestURL = pathConfig.apiURL + 'score/' + executionId;
     return axios
       .get(requestURL, {

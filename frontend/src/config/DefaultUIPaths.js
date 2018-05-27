@@ -1,4 +1,6 @@
 export default class defaultUIPaths {
+  static defaultInfoIcon = 'info';
+
   static getPersonalPaths() {
     return [
       {
@@ -14,6 +16,7 @@ export default class defaultUIPaths {
     return [
       {
         name: 'Verwaltung von Aufgaben',
+        icon: this.defaultInfoIcon,
         subPaths: [
           {path: 'exercise', name: 'Aufgabe erstellen', icon: 'tasks'},
           {
@@ -25,6 +28,7 @@ export default class defaultUIPaths {
       },
       {
         name: 'Verwaltung von Quizzes',
+        icon: this.defaultInfoIcon,
         subPaths: [
           {path: 'quiz', name: 'Quiz erstellen', icon: 'tasks'},
           {
@@ -35,12 +39,13 @@ export default class defaultUIPaths {
         ]
       },
       {
-        name: 'Verwaltung von Ausführungen',
+        name: 'Verwaltung von Durchführungen',
+        icon: this.defaultInfoIcon,
         subPaths: [
-          {path: 'execution', name: 'Ausführung erstellen', icon: 'calendar'},
+          {path: 'execution', name: 'Durchführung erstellen', icon: 'calendar'},
           {
             path: 'executionOverview',
-            name: 'Übersicht der Ausführungen',
+            name: 'Übersicht der Durchführungen',
             icon: 'stack exchange'
           },
           {
@@ -51,14 +56,15 @@ export default class defaultUIPaths {
         ]
       },
       {
-        name: 'Verwaltung von Studenten',
+        name: 'Verwaltung von Teilnehmern',
+        icon: this.defaultInfoIcon,
         subPaths: [
           {
-            path: 'participantLeaderBoard',
+            path: 'participantLeaderboard',
             name: 'Aktuelles Leaderboard',
             icon: 'browser'
           },
-          {path: 'newUser', name: 'Schüler erstellen', icon: 'add user'}
+          {path: 'newUser', name: 'Teilnehmer erstellen', icon: 'add user'}
         ]
       },
       {
@@ -72,6 +78,7 @@ export default class defaultUIPaths {
     return [
       {
         name: 'Aufgabe lösen',
+        icon: this.defaultInfoIcon,
         subPaths: [
           {
             path: 'nextLocation',
@@ -86,7 +93,8 @@ export default class defaultUIPaths {
         ]
       },
       {
-        name: 'LeaderBoard',
+        name: 'Leaderboard',
+        icon: this.defaultInfoIcon,
         subPaths: [
           {
             path: 'score',
