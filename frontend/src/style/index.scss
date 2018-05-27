@@ -14,7 +14,7 @@ $sideMenuItemHoverTransparency: 0.5;
 
 $menuItemHoverPadding: 2rem;
 $sideMenuHeaderMargin: 1rem;
-$sideMenuItemHoverPadding: 1.5rem;
+$sideMenuItemHoverPadding: 2rem;
 
 $gridHeader-MinHeight: 35px;
 $gridHeader-MaxHeight: 60px;
@@ -82,7 +82,7 @@ a,
   }
 }
 
-.ui.inverted.vertical.labeled.icon.ui.overlay.right.thin {
+.ui.inverted.vertical.labeled.icon.ui.overlay.right.wide {
   &.visible.sidebar.menu {
     color: $sideMenuColor;
     background: rgba($hunterColor, $sideMenuTransparency);
