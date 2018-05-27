@@ -84,7 +84,7 @@ export default class LeaderBoard extends React.Component {
   };
 
   getScore = rankingValue => {
-    return rankingValue * 100 + '%';
+    return (rankingValue * 100).toFixed(2) + '%';
   };
 
   changeExecutionState = (event, data) => {
