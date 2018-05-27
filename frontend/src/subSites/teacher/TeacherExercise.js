@@ -76,7 +76,7 @@ export default class TeacherExercise extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             fluid
-            label="Name"
+            label="Name der Aufgabe"
             name="name"
             value={this.state.name}
             onChange={this.handleChange}
@@ -84,7 +84,7 @@ export default class TeacherExercise extends React.Component {
             required
           />
           <Form.TextArea
-            label="Aufgabenfrage"
+            label="Frage der Aufgabe"
             name="question"
             value={this.state.question}
             onChange={this.handleChange}

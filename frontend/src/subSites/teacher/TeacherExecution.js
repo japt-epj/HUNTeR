@@ -139,7 +139,7 @@ export default class TeacherExecution extends React.Component {
               <Grid.Column>
                 <Form.Input
                   fluid
-                  label="Name"
+                  label="Name der Durchführung"
                   name="name"
                   value={this.state.name}
                   onChange={this.handleChange}
