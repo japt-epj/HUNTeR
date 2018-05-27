@@ -16,7 +16,7 @@ export default function getHome(paths) {
                 <Grid.Row columns="equal">
                   <Grid.Column>{mainElement.name}</Grid.Column>
                   <Grid.Column width={1} textAlign="right">
-                    <ShowInformationModal anchor={mainElement.name} />
+                    <ShowInformationModal />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

@@ -9,7 +9,6 @@ export default class ShowInformationModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      anchor: this.props.anchor,
       open: false
     };
   }
@@ -36,9 +35,9 @@ export default class ShowInformationModal extends React.Component {
           />
         }
       >
-        <Modal.Header content="Informationsseite" />
+        <Modal.Header className="infoHeader" content="Informationsseite" />
         <Modal.Content>
-          <InfoPage anchor={this.state.anchor} />
+          <InfoPage />
         </Modal.Content>
         <Modal.Actions>
           <Button icon="check" content="OK, danke" onClick={this.close} />

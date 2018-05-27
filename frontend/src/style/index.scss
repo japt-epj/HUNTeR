@@ -101,7 +101,7 @@ a,
 .menuHeader {
   color: $hunterColor !important;
   font-weight: bolder !important;
-  padding: 0 0 0.5rem 0 !important;
+  padding: 0 !important;
   > .ui.grid > .equal.width.row > .right.aligned.one.wide.column{
     padding: 0 0.5rem 0 0.5rem !important;
     color: $hunterColor !important;
@@ -133,6 +133,18 @@ a,
     padding-left: $sideMenuItemHoverPadding !important;
   }
 }
+
+.infoHeader, .ui.container > .ui.header{
+  color: $hunterColor !important;
+}
+
+.step {
+  color: $hunterColor !important;
+  padding: 1rem !important;
+  font-size: 0.8rem !important;
+}
+
+
 
 .userScoreName {
   font-weight: bold;
