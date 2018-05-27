@@ -7,7 +7,7 @@ import defaultUIConfig from '../config/defaultUIConfig';
 import APIHandler from '../handlers/APIHandler';
 import getLoadingScreen from './getLoadingScreen';
 
-export default class LeaderBoard extends React.Component {
+export default class Leaderboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ export default class LeaderBoard extends React.Component {
 
   componentDidMount() {
     this.getExecutions();
-    this.getLeaderBoard(this.state.executionId);
+    this.getLeaderboard(this.state.executionId);
   }
 
   getExecutions = () => {
@@ -41,10 +41,10 @@ export default class LeaderBoard extends React.Component {
     });
   };
 
-  getLeaderBoard = executionId => {
-    APIHandler.getLeaderBoard(executionId).then(resData => {
+  getLeaderboard = executionId => {
+    APIHandler.getLeaderboard(executionId).then(resData => {
       if (resData.status === OK) {
-        let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
+        let {leaderBoard, scoreList} = this.calculateLeaderboard(resData.data);
         leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
         this.setState({leaderBoard, loading: false});
       }
@@ -62,7 +62,7 @@ export default class LeaderBoard extends React.Component {
     return leaderBoard;
   };
 
-  calculateLeaderBoard = scoreData => {
+  calculateLeaderboard = scoreData => {
     let rankingStartPosition = 0;
     let rankingCurrentScore = 0;
     const scoreList = Object.entries(scoreData)
@@ -85,7 +85,7 @@ export default class LeaderBoard extends React.Component {
 
   changeExecutionState = (event, data) => {
     this.setState({loading: true, executionId: data.value});
-    this.getLeaderBoard(data.value);
+    this.getLeaderboard(data.value);
   };
 
   render() {

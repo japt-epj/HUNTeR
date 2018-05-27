@@ -69,8 +69,7 @@ export default class UserSettings extends React.Component {
             type="email"
             value={this.state.email}
             name="email"
-            onChange={this.handleChange}
-            required
+            disabled
           />
           <Form.Input
             label="Lehranstalt"
