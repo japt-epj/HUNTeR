@@ -167,7 +167,7 @@ export default class TeacherQuiz extends React.Component {
               <Grid.Column>
                 <Form.Input
                   fluid
-                  label="Name"
+                  label="Name des Quiz"
                   name="name"
                   value={this.state.name}
                   onChange={this.handleChange}
