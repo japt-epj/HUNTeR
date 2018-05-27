@@ -3,7 +3,6 @@ package ch.japt.epj.model;
 import ch.japt.epj.model.dto.ScoreDto;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.data.ExecutionScore;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
@@ -21,12 +20,12 @@ public class ScoreModel {
   }
 
   public ScoreDto getScore(Long executionId, Long personId) {
-    List<ExecutionScore> aggregation = executions.getAggregatedScore(executionId, personId);
-
     Map<String, ExecutionScore> map =
-        aggregation.stream().collect(Collectors.toMap(ExecutionScore::getParticipantName, p -> p));
+        executions
+            .getAggregatedScore(executionId, personId)
+            .stream()
+            .collect(Collectors.toMap(ExecutionScore::getParticipantName, p -> p));
 
-    ScoreDto result = mapper.map(map, ScoreDto.class);
-    return result;
+    return mapper.map(map, ScoreDto.class);
   }
 }
