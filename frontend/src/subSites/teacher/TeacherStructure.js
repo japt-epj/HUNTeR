@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
-import getHome from '../../handlers/getHome';
+import getHome from '../../components/getHome';
 import UserSettings from '../../components/UserSettings';
 import TeacherExercise from './TeacherExercise';
 import TeacherExerciseOverview from './TeacherExerciseOverview';
@@ -16,7 +16,7 @@ import TeacherExecutionOverview from './TeacherExecutionOverview';
 import TeacherNavigation from './TeacherNavigation';
 
 import Logout from '../Logout';
-import Data from '../../data/Data';
+import DefaultUIPaths from '../../config/DefaultUIPaths';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ModalHandler from '../../handlers/ModalHandler';
@@ -49,13 +49,15 @@ export default class TeacherStructure extends React.Component {
             <Grid.Row className="gridContent">
               <Grid.Column>
                 <Sidebar.Pushable as={Segment}>
-                  {this.getSideBar(Data.getPathsTeacher())}
+                  {this.getSideBar(DefaultUIPaths.getPathsTeacher())}
                   <Sidebar.Pusher onClick={this.hideSidebar}>
                     <Switch>
                       <Route
                         exact
                         path="/"
-                        render={props => getHome(Data.getPathsTeacher())}
+                        render={props =>
+                          getHome(DefaultUIPaths.getPathsTeacher())
+                        }
                       />
                       <Route path="/settings" component={UserSettings} />
                       <Route path="/exercise" component={TeacherExercise} />

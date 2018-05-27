@@ -36,7 +36,7 @@ export default {
           <Header
             size="medium"
             color={defaultUIConfig.buttonColors.normal}
-            content={'Pathname'}
+            content="HUNTeR"
           />
         </Grid.Column>
         <Grid.Column textAlign="right">
@@ -89,14 +89,24 @@ export default {
   },
 
   getStructurePaths(elements) {
-    return elements.map(element => (
-      <NavLink key={'navLink' + element.path} to={'/' + element.path}>
-        <Menu.Item
-          name={element.path}
-          icon={element.icon}
-          content={element.name}
-        />
-      </NavLink>
+    return elements.map(mainElement => (
+      <Menu.Item key={mainElement.name}>
+        <Menu.Header className="sideMenuHeader" content={mainElement.name} />
+        <Menu.Menu>
+          {mainElement.subPaths.map(subElement => (
+            <NavLink
+              key={'NavLink' + subElement.path}
+              to={'/' + subElement.path}
+            >
+              <Menu.Item
+                className="sideMenuItem"
+                icon={subElement.icon}
+                content={subElement.name}
+              />
+            </NavLink>
+          ))}
+        </Menu.Menu>
+      </Menu.Item>
     ));
   }
 };

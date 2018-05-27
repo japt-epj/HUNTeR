@@ -5,7 +5,7 @@ import {Button} from 'semantic-ui-react';
 
 import ExecutionHandler from '../../handlers/ExecutionHandler';
 import APIHandler from '../../handlers/APIHandler';
-import viewHandler from '../../handlers/viewHandler';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExecutionOverview extends React.Component {
   constructor(props) {
@@ -48,9 +48,7 @@ export default class TeacherExecutionOverview extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loading
-          ? viewHandler.getLoadingScreen()
-          : this.getExecutionTable()}
+        {this.state.loading ? getLoadingScreen() : this.getExecutionTable()}
         <NavLink to="/execution">
           <Button
             color="green"
