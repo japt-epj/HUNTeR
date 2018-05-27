@@ -14,6 +14,7 @@ let defaultUIConfig = {
   },
   defaultExecutionLimit: 200,
   defaultTimeoutTime: 2000,
+  maxTrophyValue: 3,
   defaultSuccessMessages: {
     exercise: {
       showModal: false,
