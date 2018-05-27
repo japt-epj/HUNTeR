@@ -22,11 +22,35 @@ describe('Login tests', function() {
     Logout.getParticipantLogout(loginCredentials);
   });
 
+  it('Redirecting test with participant credentials', function() {
+    setViewport('iphone-6/7/8');
+    const loginCredentials = Credentials.getParticipantCredentials();
+
+    login(loginCredentials);
+    cy.visit(Cypress.env('baseUrl'));
+    cy
+      .url()
+      .should('equal', Cypress.env('baseUrl') + `/${loginCredentials.role}`);
+    Logout.getParticipantLogout(loginCredentials);
+  });
+
   it('Login test with teacher credentials', function() {
     setViewport('iphone-6/7/8');
     const loginCredentials = Credentials.getTeacherCredentials();
 
     login(loginCredentials);
+    Logout.getTeacherLogout(loginCredentials);
+  });
+
+  it('Redirecting test with teacher credentials', function() {
+    setViewport('iphone-6/7/8');
+    const loginCredentials = Credentials.getTeacherCredentials();
+
+    login(loginCredentials);
+    cy.visit(Cypress.env('baseUrl'));
+    cy
+      .url()
+      .should('equal', Cypress.env('baseUrl') + `/${loginCredentials.role}`);
     Logout.getTeacherLogout(loginCredentials);
   });
 });

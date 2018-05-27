@@ -12,19 +12,18 @@ describe('Exercise tests', function() {
 
   afterEach(function() {
     const loginCredentials = Credentials.getTeacherCredentials();
+
+    cy.get('.grid > :nth-child(1) > .field > .ui').click();
     Logout.getTeacherLogout(loginCredentials);
   });
 
-  it('Create new quiz', function() {
+  it('Check leaderboard', function() {
     const loginCredentials = Credentials.getTeacherCredentials();
 
-    cy.get('.pusher > .ui > [href="/teacher/quiz"] > .item').click();
-
-    const exerciseTitle =
-      '$Natur - ' + Math.floor(Math.random() * Math.floor(10000));
-    cy.get('input').type(exerciseTitle);
-    cy.get(':nth-child(3) > :nth-child(1) > div').click();
-    cy.get('tbody > tr > td > div:first').click();
-    cy.get('.page').click();
+    cy
+      .get(
+        '.pusher > .ui > :nth-child(4) > .menu > [href="/teacher/participantLeaderBoard"] > .item'
+      )
+      .click();
   });
 });
