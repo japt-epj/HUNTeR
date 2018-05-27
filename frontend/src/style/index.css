@@ -80,7 +80,8 @@ a,
     padding-left: 1.5rem !important; }
 
 .infoHeader, .ui.container > .ui.header {
-  color: #20c028 !important; }
+  color: #20c028 !important;
+  margin-bottom: 0.5rem; }
 
 .step {
   color: #20c028 !important;
