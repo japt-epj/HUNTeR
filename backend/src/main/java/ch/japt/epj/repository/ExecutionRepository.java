@@ -27,7 +27,7 @@ public interface ExecutionRepository extends PagingAndSortingRepository<Executio
 
   @Query(
       "SELECT p.personId, p.firstName, p.lastName, "
-          + "SUM(CASE WHEN a.checked = true THEN 1 ELSE 0 END) / COUNT(es) * 100 "
+          + "SUM(CASE WHEN a.checked = true THEN 1 ELSE 0 END) / (COUNT(es) * 1.0) * 100 "
           + "FROM Response r "
           + "INNER JOIN r.person p "
           + "INNER JOIN r.answerFromPerson a "
