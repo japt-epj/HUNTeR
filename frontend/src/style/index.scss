@@ -1,22 +1,29 @@
+$defaultFontSize: 16px;
+
 $hunter-hexColor: #20c028;
 $hunter-hexErrorColor: #36c22f;
 $bronze-color: #cc8e34;
+$sideMenu-Color: white;
 
 $gridHeader-MinHeight: 35px;
 $gridHeader-MaxHeight: 60px;
 $gridHeaderImage-MinHeight: 30px;
 $gridHeaderImage-MaxHeight: 55px;
 
+$leaflet-Height: 60vh;
+$dateTimePicker-Height: 40vh;
+$siteGrid-Height: 100vh;
+
 html {
-  font-size: 16px !important;
+  font-size: $defaultFontSize !important;
 }
 
 #mapContainer {
-  height: 60vh;
+  height: $leaflet-Height;
 }
 
 #dateTimePickerContainer {
-  height: 40vh;
+  height: $dateTimePicker-Height;
 }
 
 .leaflet-container {
@@ -25,7 +32,7 @@ html {
 }
 
 .siteGrid {
-  height: 100vh;
+  height: $siteGrid-Height;
 }
 
 .left.aligned.column,
@@ -72,12 +79,10 @@ a,
 .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.visible.sidebar.menu,
 .ui.inverted.vertical.labeled.icon.ui.overlay.right.thin.animating.sidebar.menu {
   background: rgba($hunter-hexColor, 0.7);
-  color: white;
+  color: $sideMenu-Color;
 }
 
-.ui.massive.fluid.vertical.menu,
-.ui.vertical.menu,
-.item {
+.ui.vertical.menu, .item {
   color: black !important;
 }
 
@@ -97,12 +102,12 @@ a,
 
 .sideMenuHeader {
   margin-top: 1rem !important;
-  color: white !important;
+  color: $sideMenu-Color !important;
   font-weight: bolder !important;
 }
 
 .sideMenuItem {
-  color: white !important;
+  color: $sideMenu-Color !important;
   font-weight: lighter !important;
   font-style: italic !important;
   &:hover {
