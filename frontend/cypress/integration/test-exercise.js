@@ -6,20 +6,17 @@ import Logout from '../helpers/Logout';
 describe('Exercise tests', function() {
   beforeEach(function() {
     setViewport('iphone-6/7/8+');
-    const loginCredentials = Credentials.getTeacherCredentials();
+    const loginCredentials = Credentials.getTeacherCredentials().HSR;
     login(loginCredentials);
   });
 
   afterEach(function() {
-    const loginCredentials = Credentials.getTeacherCredentials();
-
+    const loginCredentials = Credentials.getTeacherCredentials().HSR;
     cy.get('.grid > :nth-child(1) > .field > .ui').click();
-    Logout.getTeacherLogout(loginCredentials);
+    Logout.getLogout(loginCredentials);
   });
 
   it('Create new exercise', function() {
-    const loginCredentials = Credentials.getTeacherCredentials();
-
     cy
       .get(
         '.pusher > .ui > :nth-child(1) > .menu > [href="/teacher/exercise"] > .item'
@@ -47,8 +44,6 @@ describe('Exercise tests', function() {
   });
 
   it('Create new exercise with error', function() {
-    const loginCredentials = Credentials.getTeacherCredentials();
-
     cy
       .get(
         '.pusher > .ui > :nth-child(1) > .menu > [href="/teacher/exercise"] > .item'
