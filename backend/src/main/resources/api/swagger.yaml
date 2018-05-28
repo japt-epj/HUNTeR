@@ -145,42 +145,6 @@ paths:
             items:
               $ref: "#/definitions/NewExercise"
 
-  /qrCode/{id}:
-    get:
-      tags:
-      - "qrCode"
-      summary: "Get QRCode"
-      description: "Get QRCode by ID. This can only be done by an logged in person."
-      operationId: "getQRCode"
-      produces:
-      - "image/png"
-      parameters:
-      - in: "path"
-        name: "id"
-        required: true
-        type: "integer"
-        description: "Get QR Code image"
-      - in: "query"
-        name: "scale"
-        required: false
-        type: "integer"
-        description: "Scaling of generated qr code"
-        default: 20
-      - in: "query"
-        name: "border"
-        required: false
-        type: "integer"
-        description: "Border size relative to qr image"
-        default: 2
-      responses:
-        200:
-          description: "QRCode in PNG format"
-          schema:
-            type: string
-            format: binary
-        404:
-          description: "QRCode not found"
-
   /person/{id}:
     get:
       tags:
@@ -551,7 +515,7 @@ paths:
     get:
       tags:
         - "execution"
-      summary: "Print out execution"
+      summary: "Print out execution QR codes"
       description: "Print out an execution for distributing way points that can be scanned"
       produces:
       - "application/pdf"

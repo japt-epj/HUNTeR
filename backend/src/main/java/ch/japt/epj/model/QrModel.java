@@ -11,19 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class QrModel {
 
-  private final ExerciseRepository exercises;
   private final ExecutionRepository executions;
 
-  public QrModel(
-      @Autowired ExerciseRepository exercises, @Autowired ExecutionRepository executions) {
-    this.exercises = exercises;
+  public QrModel(@Autowired ExecutionRepository executions) {
     this.executions = executions;
-  }
-
-  public Optional<byte[]> generateCode(Number id, Integer scale, Integer border) {
-    return exercises
-        .findByExerciseId(id.longValue())
-        .flatMap(t -> QrGenerator.makeQr(String.valueOf(t.getExerciseId()), scale, border));
   }
 
   public Optional<byte[]> generatePdf(Number id) {
