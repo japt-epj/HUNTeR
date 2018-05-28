@@ -42,7 +42,6 @@ public class PersonModel {
         .findByPersonId(body.getId())
         .ifPresent(
             person -> {
-              person.setEmail(body.getEmail());
               person.setFirstName(body.getFirstName());
               person.setLastName(body.getLastName());
               persons.save(person);
