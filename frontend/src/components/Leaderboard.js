@@ -64,7 +64,7 @@ export default class Leaderboard extends React.Component {
 
   calculateLeaderboard = scoreData => {
     let rankingStartPosition = 0;
-    let rankingCurrentScore = 0;
+    let rankingCurrentScore = -1;
     const scoreList = this.sortLeaderboard(scoreData).map((element, index) => {
       if (element[1].userScore !== rankingCurrentScore) {
         rankingCurrentScore = element[1].userScore;
@@ -79,7 +79,10 @@ export default class Leaderboard extends React.Component {
 
   sortLeaderboard = scoreData => {
     return Object.entries(scoreData).sort(
-      (a, b) => a[1].userScore < b[1].userScore || b[1].me
+      (a, b) =>
+        a[1].userScore < b[1].userScore ||
+        a[1].userScore === b[1].userScore ||
+        a[1].me
     );
   };
 
