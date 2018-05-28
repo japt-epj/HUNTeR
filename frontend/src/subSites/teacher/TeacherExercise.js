@@ -31,6 +31,7 @@ export default class TeacherExercise extends React.Component {
       answersAllowed: 4
     };
 
+    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
@@ -124,7 +125,7 @@ export default class TeacherExercise extends React.Component {
                 ))}
             </Table.Body>
           </Table>
-          <Grid>{TableHandler.getSubmitCancelButton()}</Grid>
+          <Grid>{this.getSubmitCancelButton()}</Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
       </div>

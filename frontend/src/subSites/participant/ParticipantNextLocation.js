@@ -143,7 +143,7 @@ export default class ParticipantNextLocation extends React.Component {
         </Grid.Row>
         <Grid.Row centered>
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             content={'Standort aktualisieren'}
             icon="marker"
             onClick={this.locate}

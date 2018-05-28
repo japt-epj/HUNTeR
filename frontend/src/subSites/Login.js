@@ -36,7 +36,7 @@ export default class Login extends React.Component {
           {StructureHandler.getLoginHeader()}
           <Grid.Row className="gridContent" columns="equal">
             <Grid.Column />
-            <Grid.Column width={isMobile ? 12 : 8}>
+            <Grid.Column width={isMobile ? 13 : 8}>
               {this.state.showLoginError && (
                 <Message
                   icon="sign in"

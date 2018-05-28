@@ -3,6 +3,7 @@ import {isMobile} from 'react-device-detect';
 let defaultUIConfig = {
   buttonColors: {
     normal: 'green',
+    cancel: 'red',
     download: 'orange',
     show: 'blue'
   },

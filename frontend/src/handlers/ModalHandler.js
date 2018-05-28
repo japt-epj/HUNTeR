@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Button, Header, Modal} from 'semantic-ui-react';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getLoginSuccess() {
@@ -49,7 +50,7 @@ export default {
         <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben" />
         <Modal.Actions>
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             labelPosition="right"
             icon="point"
             content="OK, ich habe verstanden"
@@ -71,7 +72,7 @@ export default {
         <Modal.Content>Daten wirklich ändern</Modal.Content>
         <Modal.Actions>
           <Button
-            negative
+            color={defaultUIConfig.buttonColors.cancel}
             type="button"
             labelPosition="right"
             icon="cancel"
@@ -84,7 +85,7 @@ export default {
             }
           />
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             type="submit"
             labelPosition="right"
             icon="checkmark"
@@ -109,7 +110,7 @@ export default {
         <Modal.Content content={errorText} />
         <Modal.Actions>
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             labelPosition="right"
             icon="pencil"
             content="OK, ich habe verstanden"
@@ -130,7 +131,7 @@ export default {
         <Modal.Content content={message} />
         <Modal.Actions>
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({showMobileError: false});

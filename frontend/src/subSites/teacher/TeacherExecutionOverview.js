@@ -6,6 +6,7 @@ import {Button} from 'semantic-ui-react';
 import ExecutionHandler from '../../handlers/ExecutionHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
+import defaultUIConfig from '../../config/defaultUIConfig';
 
 export default class TeacherExecutionOverview extends React.Component {
   constructor(props) {
@@ -51,10 +52,10 @@ export default class TeacherExecutionOverview extends React.Component {
         {this.state.loading ? getLoadingScreen() : this.getExecutionTable()}
         <NavLink to="/execution">
           <Button
-            color="green"
+            color={defaultUIConfig.buttonColors.normal}
             icon="add square"
             labelPosition="right"
-            label="Durchführung hinzufügen"
+            label="Neue Durchführung erstellen"
           />
         </NavLink>
       </div>

@@ -20,7 +20,7 @@ export default {
               <Table.Row key={'TableRow' + element.id}>
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
-                <Table.Cell collapsing>
+                <Table.Cell collapsing textAlign="center">
                   <Button
                     color={defaultUIConfig.buttonColors.download}
                     icon="download"

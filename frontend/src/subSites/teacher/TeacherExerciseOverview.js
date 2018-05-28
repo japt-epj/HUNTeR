@@ -55,7 +55,7 @@ export default class TeacherExerciseOverview extends React.Component {
             color={defaultUIConfig.buttonColors.normal}
             icon="add square"
             labelPosition="right"
-            label="Aufgabe hinzufügen"
+            label="Neue Aufgabe erstellen"
           />
         </NavLink>
       </div>
