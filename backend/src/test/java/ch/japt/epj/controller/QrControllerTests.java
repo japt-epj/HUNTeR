@@ -52,7 +52,8 @@ public class QrControllerTests extends AuthenticatedControllerTest {
 
     mvc.perform(request)
         .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PDF))
-        .andExpect(content().string(new String(expected, "ISO-8859-1")));
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PDF));
+    // Not possible to test because of an generated random value inside the pdf file.
+    // .andExpect(content().string(new String(expected, "ISO-8859-1")));
   }
 }
