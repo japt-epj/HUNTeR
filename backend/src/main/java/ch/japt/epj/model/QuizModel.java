@@ -54,7 +54,7 @@ public class QuizModel {
     return mapper.map(quiz, NewQuizDto.class);
   }
 
-  public void addQuiz(NewQuizDto quizDto) {
+  public void addQuiz(NewQuizDto quizDto, Long creatorId) {
     Quiz quiz = mapper.map(quizDto, Quiz.class);
     quiz.setName(quizDto.getName());
     for (ExerciseLocationDto entry : quizDto.getExercises()) {
@@ -71,7 +71,7 @@ public class QuizModel {
               });
     }
     quizzes.save(quiz);
-    Person creator = persons.findOne(quizDto.getCreator());
+    Person creator = persons.findOne(creatorId);
     creator.addQuiz(quiz);
     persons.save(creator);
   }
