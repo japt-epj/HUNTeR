@@ -50,6 +50,7 @@ export default class TeacherExecution extends React.Component {
     this.handleSelection = ParticipantHandler.handleSelection.bind(this);
     this.getQuizTable = QuizHandler.getQuizTable.bind(this);
 
+    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.handleQuizSelectChange = FormHandler.handleQuizSelectChange.bind(this);
@@ -157,7 +158,6 @@ export default class TeacherExecution extends React.Component {
                     <Button
                       color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
-                      positive
                       labelPosition="right"
                       label="Quiz für die Durchführung auswählen"
                       onClick={this.resetPageNumber}
@@ -180,7 +180,6 @@ export default class TeacherExecution extends React.Component {
                     <Button
                       color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
-                      positive
                       labelPosition="right"
                       label="Benutzer zur Durchführung hinzufügen"
                       onClick={this.resetPageNumber}
@@ -219,7 +218,7 @@ export default class TeacherExecution extends React.Component {
                 />
               </Grid.Column>
             </Grid.Row>
-            {TableHandler.getSubmitCancelButton()}
+            {this.getSubmitCancelButton()}
           </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>

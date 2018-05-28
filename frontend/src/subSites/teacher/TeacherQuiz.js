@@ -57,6 +57,7 @@ export default class TeacherQuiz extends React.Component {
     this.resetPageNumber = this.resetPageNumber.bind(this);
     this.getExercises = this.getExercises.bind(this);
 
+    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
@@ -188,7 +189,6 @@ export default class TeacherQuiz extends React.Component {
                           <Button
                             color={defaultUIConfig.buttonColors.normal}
                             icon="add square"
-                            positive
                             labelPosition="right"
                             label="Aufgabe hinzufügen"
                             onClick={this.resetPageNumber}
@@ -241,7 +241,7 @@ export default class TeacherQuiz extends React.Component {
                 </LeafletMap>
               </Grid.Column>
             </Grid.Row>
-            {TableHandler.getSubmitCancelButton()}
+            {this.getSubmitCancelButton()}
           </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
