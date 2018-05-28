@@ -17,7 +17,7 @@ export default {
 
   downloadExecutionQRCodePDF(executionID) {
     return axios
-      .get(pathConfig.apiURL + 'quiz/' + executionID + '/print', {
+      .get(pathConfig.apiURL + 'execution/' + executionID + '/print', {
         headers: getAxiosHeader('application/pdf'),
         responseType: 'arraybuffer'
       })
