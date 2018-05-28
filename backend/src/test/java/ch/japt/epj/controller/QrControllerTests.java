@@ -36,7 +36,7 @@ public class QrControllerTests extends AuthenticatedControllerTest {
   }
 
   @Test
-  public void getQrCodeInPdf() throws Exception {
+  public void pdfStringsTest() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution/2/print")
             .header("Authorization", completeToken)
@@ -54,11 +54,11 @@ public class QrControllerTests extends AuthenticatedControllerTest {
 
     String[] searchStrings = {
       "Lebensmittel",
-      "Was kommt in Ostasien häufig auf den Tisch?",
       "Wurzeln",
+      "Asiatische Köstlichkeiten",
+      "Was kommt in Ostasien häufig auf den Tisch?",
       "Die aus Ostasien stammende Staude Zingiber officinalis",
       "ist hierzulande bekannt als ...?",
-      "Asiatische Köstlichkeiten",
       "Welche chinesische Köstlichkeit ist auch bei uns als",
       "warme Vorspeise beliebt?"
     };
