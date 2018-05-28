@@ -16,8 +16,8 @@ public class AuthenticatedControllerTest {
 
   @Before
   public void getToken() {
-    String validEmail = "jonas.kugler@hsr.ch";
-    String validPassword = "jonas";
+    String validEmail = "tobias.saladin@hsr.ch";
+    String validPassword = "tobias";
     Authentication authentication =
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(validEmail, validPassword));
