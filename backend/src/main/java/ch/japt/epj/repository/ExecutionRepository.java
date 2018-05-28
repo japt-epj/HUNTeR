@@ -14,12 +14,21 @@ public interface ExecutionRepository extends PagingAndSortingRepository<Executio
 
   @Query(
       "SELECT NEW ch.japt.epj.repository.data.ExecutionScore(p.personId, p.firstName, p.lastName, "
-          + "SUM(CASE WHEN a.checked = true THEN 1 ELSE 0 END) / (SIZE(e.quiz.exercises) * 1.0) as score,"
+          + "SUM(CASE WHEN r.answerFromPerson.checked = true THEN 1 ELSE 0 END) "
+          + "/ (SIZE(e.quiz.exercises) * 1.0), "
           + "CASE WHEN p.personId = ?2 THEN true ELSE false END) "
-          + "FROM Response r "
-          + "INNER JOIN r.person p "
-          + "INNER JOIN r.answerFromPerson a "
-          + "INNER JOIN Execution e ON r MEMBER OF e.responses AND e.executionId = ?1 "
-          + "GROUP BY p.personId ")
-  List<ExecutionScore> getAggregatedScore(Long executionId, Long personId);
+          + "FROM Person p "
+          + "INNER JOIN Execution e ON p MEMBER OF e.participants AND e.executionId = ?1 "
+          + "INNER JOIN Response r ON r MEMBER OF e.responses AND r.person.personId = p.personId "
+          + "GROUP BY p.personId")
+  List<ExecutionScore> aggregateScores(Long executionId, Long personId);
+
+  @Query(
+      "SELECT NEW ch.japt.epj.repository.data.ExecutionScore(p.personId, p.firstName, p.lastName, "
+          + "0.0,"
+          + "CASE WHEN p.personId = ?2 THEN true ELSE false END) "
+          + "FROM Person p "
+          + "INNER JOIN Execution e ON p MEMBER OF e.participants AND e.executionId = ?1 "
+          + "GROUP BY p.personId")
+  List<ExecutionScore> allScores(Long executionId, Long personId);
 }

@@ -20,12 +20,20 @@ public class ScoreModel {
   }
 
   public ScoreDto getScore(Long executionId, Long personId) {
-    Map<String, ExecutionScore> map =
+    Map<String, ExecutionScore> scores =
         executions
-            .getAggregatedScore(executionId, personId)
+            .allScores(executionId, personId)
             .stream()
-            .collect(Collectors.toMap(ExecutionScore::getUserName, p -> p));
+            .collect(Collectors.toMap(ExecutionScore::getId, p -> p));
+    Map<String, ExecutionScore> aggregated =
+        executions
+            .aggregateScores(executionId, personId)
+            .stream()
+            .collect(Collectors.toMap(ExecutionScore::getId, p -> p));
 
-    return mapper.map(map, ScoreDto.class);
+    scores.putAll(aggregated);
+
+    ScoreDto map = mapper.map(scores, ScoreDto.class);
+    return map;
   }
 }

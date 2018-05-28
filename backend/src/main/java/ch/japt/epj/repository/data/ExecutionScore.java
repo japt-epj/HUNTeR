@@ -14,8 +14,8 @@ public class ExecutionScore {
     this.currentUser = currentParticipant;
   }
 
-  public Long getId() {
-    return id;
+  public String getId() {
+    return id.toString();
   }
 
   public String getUserName() {
