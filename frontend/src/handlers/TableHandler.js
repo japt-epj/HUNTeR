@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Checkbox, Table} from 'semantic-ui-react';
+import {Checkbox, Form, Grid, Table} from 'semantic-ui-react';
 
 export default {
   getTableHeader(cellValues) {
@@ -21,6 +21,22 @@ export default {
           checked={bulkCheckboxes.indexOf('BulkCheckbox' + pageNumber) !== -1}
         />
       </Table.HeaderCell>
+    );
+  },
+
+  getSubmitCancelButton() {
+    return (
+      <Grid.Row columns="equal">
+        <Grid.Column>
+          <Form.Button content="Submit" />
+        </Grid.Column>
+        <Grid.Column textAlign="right">
+          <Form.Button
+            content="Abbrechen"
+            onClick={() => this.setState({fireRedirect: true})}
+          />
+        </Grid.Column>
+      </Grid.Row>
     );
   }
 };

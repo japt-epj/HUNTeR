@@ -124,19 +124,7 @@ export default class TeacherExercise extends React.Component {
                 ))}
             </Table.Body>
           </Table>
-          <Grid>
-            <Grid.Row columns="equal">
-              <Grid.Column>
-                <Form.Button content="Submit" />
-              </Grid.Column>
-              <Grid.Column textAlign="right">
-                <Form.Button
-                  content="Abbrechen"
-                  onClick={() => this.setState({fireRedirect: true})}
-                />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <Grid>{TableHandler.getSubmitCancelButton()}</Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
       </div>

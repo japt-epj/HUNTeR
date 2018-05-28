@@ -15,6 +15,7 @@ import QuizHandler from '../../handlers/QuizHandler';
 import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
+import TableHandler from '../../handlers/TableHandler';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
@@ -218,17 +219,7 @@ export default class TeacherExecution extends React.Component {
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row columns="equal">
-              <Grid.Column>
-                <Form.Button content="Submit" />
-              </Grid.Column>
-              <Grid.Column textAlign="right">
-                <Form.Button
-                  content="Abbrechen"
-                  onClick={() => this.setState({fireRedirect: true})}
-                />
-              </Grid.Column>
-            </Grid.Row>
+            {TableHandler.getSubmitCancelButton()}
           </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
