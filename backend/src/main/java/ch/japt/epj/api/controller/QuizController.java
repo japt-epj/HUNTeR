@@ -5,6 +5,7 @@ import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.QrModel;
 import ch.japt.epj.model.QuizModel;
 import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.security.CustomUserDetails;
 import io.swagger.annotations.Api;
 import java.util.List;
 import javax.validation.Valid;
@@ -14,6 +15,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +37,9 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
 
   @Override
   public ResponseEntity<Void> addQuiz(@Valid @RequestBody NewQuizDto body) {
-    quizModel.addQuiz(body);
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    long creatorId = ((CustomUserDetails) authentication.getPrincipal()).getPersonId();
+    quizModel.addQuiz(body, creatorId);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 

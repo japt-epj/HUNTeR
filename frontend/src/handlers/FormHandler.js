@@ -61,9 +61,7 @@ export default {
                 lng: this.state.selectedPositions.get(key).lng
               };
             }
-          ),
-          //TODO: Get currentPersonId and post
-          creator: Math.floor(Math.random() * 15) + 1
+          )
         },
         'quiz'
       );
