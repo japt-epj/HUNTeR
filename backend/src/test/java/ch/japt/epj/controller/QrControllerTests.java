@@ -30,7 +30,7 @@ public class QrControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/qrCode/20000")
             .header("Authorization", completeToken)
-            .accept(MediaType.IMAGE_PNG);
+            .accept(MediaType.APPLICATION_PDF);
 
     mvc.perform(request).andExpect(status().isNotFound());
   }
@@ -42,12 +42,17 @@ public class QrControllerTests extends AuthenticatedControllerTest {
             .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_PDF);
 
-    Path filePath = Paths.get("src/main/resources/test-files/qrCodes-execution2.pdf");
-    byte[] expected = Files.readAllBytes(filePath);
+    byte[] expected = null;
+    try {
+      Path filePath = Paths.get("src/main/resources/test-files/qrCodes-execution2.pdf");
+      expected = Files.readAllBytes(filePath);
+    } catch (Exception e){
+      System.out.println(e.getMessage());
+    }
 
     mvc.perform(request)
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PDF))
-        .andExpect(content().bytes(expected));
+        .andExpect(content().string(new String(expected, "ISO-8859-1")));
   }
 }
