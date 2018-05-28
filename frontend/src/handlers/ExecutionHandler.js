@@ -1,5 +1,4 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 
 import {Button, Pagination, Table} from 'semantic-ui-react';
 
@@ -9,7 +8,7 @@ import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   getExecutionTable() {
-    let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Codes herunterladen'];
+    let headerElements = ['Name', 'ID', 'QR-Codes herunterladen'];
     return (
       <Table>
         <Table.Header>
@@ -22,13 +21,8 @@ export default {
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing>
-                  <NavLink to={'/execution'}>
-                    <Button color="green" icon="edit" basic />
-                  </NavLink>
-                </Table.Cell>
-                <Table.Cell collapsing>
                   <Button
-                    color="orange"
+                    color={defaultUIConfig.buttonColors.download}
                     icon="download"
                     basic
                     onClick={() =>
