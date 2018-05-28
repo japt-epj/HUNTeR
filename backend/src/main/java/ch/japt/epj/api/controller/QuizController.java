@@ -10,8 +10,6 @@ import io.swagger.annotations.Api;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api")
 public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   private final QuizModel quizModel;
-  private final QrModel qrModel;
 
   public QuizController(@Autowired QuizModel quizModel, @Autowired QrModel qrModel) {
     this.quizModel = quizModel;
-    this.qrModel = qrModel;
   }
 
   @Override
@@ -46,14 +42,6 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   @Override
   public ResponseEntity<List<NewQuizDto>> quizIdGet(@Valid @PathVariable("id") List<Integer> id) {
     return new ResponseEntity<>(quizModel.getQuizzes(id), HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<Resource> quizIdPrintGet(@Valid @PathVariable("id") Integer id) {
-    return qrModel
-        .generatePdf(id)
-        .map(b -> new ResponseEntity<Resource>(new ByteArrayResource(b), HttpStatus.OK))
-        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
   @Override

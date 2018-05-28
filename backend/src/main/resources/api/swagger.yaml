@@ -412,28 +412,6 @@ paths:
         405:
           description: "Invalid input"
 
-  /quiz/{id}/print:
-    get:
-      tags:
-        - "quiz"
-      summary: "Print out quiz"
-      description: "Print out a quiz for distributing way points that can be scanned"
-      produces:
-      - "application/pdf"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "ID of quiz to print"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "Success"
-          schema:
-            type: file
-        401:
-          description: "Not Found"
-
   /response:
     post:
       tags:
@@ -569,6 +547,27 @@ paths:
         405:
           description: "Invalid input"
 
+  /execution/{id}/print:
+    get:
+      tags:
+        - "execution"
+      summary: "Print out execution"
+      description: "Print out an execution for distributing way points that can be scanned"
+      produces:
+      - "application/pdf"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of execution to print"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: file
+        401:
+          description: "Not Found"
 
   /score/{id}:
     get:
