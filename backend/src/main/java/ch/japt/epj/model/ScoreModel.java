@@ -22,7 +22,8 @@ public class ScoreModel {
 
   public ScoreDto getScore(Long executionId, Long personId) {
     Map<String, ExecutionScore> scores = makeMap(executions.allScores(executionId, personId));
-    Map<String, ExecutionScore> aggregated = makeMap(executions.allScores(executionId, personId));
+    Map<String, ExecutionScore> aggregated =
+        makeMap(executions.aggregateScores(executionId, personId));
     scores.putAll(aggregated);
     ScoreDto map = mapper.map(scores, ScoreDto.class);
     return map;
