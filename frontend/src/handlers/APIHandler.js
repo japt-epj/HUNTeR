@@ -74,7 +74,6 @@ export default {
       .post(pathConfig.apiURL + path + '/', data, {
         headers: getAxiosHeader('application/json')
       })
-      .catch(err => console.error('Error:', err))
       .then(() => {
         let successMessage = {...this.state.successMessage};
         successMessage.showModal = true;
