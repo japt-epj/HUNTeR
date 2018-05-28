@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,27 +34,32 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi, Pagina
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> addExecution(@Valid @RequestBody NewExecutionDto body) {
     executionModel.addExecution(body);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<ExecutionDto> executionIdGet(@PathVariable("id") Integer id) {
     return new ResponseEntity<>(executionModel.getExecution(id.longValue()), HttpStatus.OK);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> updateExecution(NewExecutionDto body) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> updateExecutionWithForm(Long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Resource> executionIdPrintGet(@Valid @PathVariable("id") Integer id) {
     return qrModel
         .generatePdf(id)
@@ -62,6 +68,7 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi, Pagina
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Page<ExecutionDto>> executionGet(
       @Valid @RequestParam(value = "page", defaultValue = "0") int page,
       @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
