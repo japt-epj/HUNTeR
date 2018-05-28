@@ -38,7 +38,7 @@ public class QrControllerTests extends AuthenticatedControllerTest {
   @Test
   public void pdfStringsTest() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/execution/2/print")
+        MockMvcRequestBuilders.get("/api/execution/6/print")
             .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_PDF);
 
@@ -53,14 +53,10 @@ public class QrControllerTests extends AuthenticatedControllerTest {
     PDDocument document = PDDocument.load(responseData);
 
     String[] searchStrings = {
-      "Lebensmittel",
-      "Wurzeln",
-      "Asiatische Köstlichkeiten",
-      "Was kommt in Ostasien häufig auf den Tisch?",
-      "Die aus Ostasien stammende Staude Zingiber officinalis",
-      "ist hierzulande bekannt als ...?",
-      "Welche chinesische Köstlichkeit ist auch bei uns als",
-      "warme Vorspeise beliebt?"
+      "Sexualkunde",
+      "Zweisamkeit",
+      "Was machte Reinhold Messner mit dem Mount Everest?",
+      "Eines muss man den Karibikbewohnern wirklich lassen:"
     };
 
     searchText(document, searchStrings);
