@@ -1,7 +1,7 @@
 import React from 'react';
 import TableHandler from './TableHandler';
-import {Form, Pagination, Table} from 'semantic-ui-react';
-import defaultUIConfig from '../config/defaultUIConfig';
+import {Form, Table} from 'semantic-ui-react';
+import PaginationHandler from './PaginationHandler';
 
 export default {
   getQuizTable(checkboxNeeded) {
@@ -32,20 +32,12 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length + checkboxNeeded}>
-              <Pagination
-                totalPages={this.state.maxPageQuiz}
-                activePage={this.state.pageNumber}
-                onPageChange={this.handlePageChangeQuizzes}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: this.state.maxPageQuiz,
+          activePage: this.state.pageNumber,
+          onPageChange: this.handlePageChangeQuizzes,
+          width: headerElements.length + checkboxNeeded
+        })}
       </Table>
     );
   }

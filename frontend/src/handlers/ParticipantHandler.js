@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Checkbox, Pagination, Table} from 'semantic-ui-react';
+import {Checkbox, Table} from 'semantic-ui-react';
 import TableHandler from './TableHandler';
-import defaultUIConfig from '../config/defaultUIConfig';
+import PaginationHandler from './PaginationHandler';
 
 export default {
   handleSelection(event, checkbox) {
@@ -71,20 +71,12 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length + checkboxNeeded}>
-              <Pagination
-                totalPages={this.state.maxPageParticipant}
-                activePage={this.state.pageNumber}
-                onPageChange={this.handlePageChangeParticipants}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: this.state.maxPageParticipant,
+          activePage: this.state.pageNumber,
+          onPageChange: this.handlePageChangeParticipants,
+          width: headerElements.length + checkboxNeeded
+        })}
       </Table>
     );
   }

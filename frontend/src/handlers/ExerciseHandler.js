@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
+import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import defaultUIConfig from '../config/defaultUIConfig';
@@ -8,6 +8,7 @@ import ShowExerciseModal from '../components/ShowExerciseModal';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
 import ShowExerciseEditModal from '../components/ShowExerciseEditModal';
+import PaginationHandler from './PaginationHandler';
 
 export default {
   handleSelection(event, checkbox) {
@@ -126,29 +127,15 @@ export default {
             </Table.Row>
           ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length}>
-              <Pagination
-                totalPages={
-                  this.state.selectedCheckboxes.length % maxElementsPerPage ===
-                  0
-                    ? this.state.selectedCheckboxes.length / maxElementsPerPage
-                    : parseInt(
-                        this.state.selectedCheckboxes.length /
-                          maxElementsPerPage,
-                        10
-                      ) + 1
-                }
-                activePage={this.state.pageNumberSelectedExercises}
-                onPageChange={this.handlePageChangeSelected}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: PaginationHandler.calculateTotalPages(
+            this.state.selectedCheckboxes.length,
+            maxElementsPerPage
+          ),
+          activePage: this.state.pageNumberSelectedExercises,
+          onPageChange: this.handlePageChangeSelected,
+          width: headerElements.length
+        })}
       </Table>
     );
   },
@@ -195,20 +182,12 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length + checkboxNeeded}>
-              <Pagination
-                totalPages={this.state.maxPage}
-                activePage={this.state.pageNumber}
-                onPageChange={this.handlePageChangeExercises}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: this.state.maxPage,
+          activePage: this.state.pageNumber,
+          onPageChange: this.handlePageChangeExercises,
+          width: headerElements.length + checkboxNeeded
+        })}
       </Table>
     );
   }
