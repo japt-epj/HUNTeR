@@ -17,10 +17,10 @@ export default class TeacherExercise extends React.Component {
       successMessage: defaultUIConfig.defaultSuccessMessages.exercise,
       formOK: true,
       fireRedirect: false,
-      editExercise:
-        this.props.editExercise !== undefined ? this.props.editExercise : false,
-      exerciseId:
-        this.props.exerciseId !== undefined ? this.props.exerciseId : '',
+      editExercise: Boolean(this.props.editExercise)
+        ? this.props.editExercise
+        : false,
+      exerciseId: Boolean(this.props.exerciseId) ? this.props.exerciseId : '',
       name: '',
       question: '',
       answer0: '',

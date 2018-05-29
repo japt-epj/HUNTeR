@@ -46,8 +46,8 @@ export default {
   handleQuizSumbit() {
     if (
       this.state.selectedPositions.size !== 0 &&
-      Array.from(this.state.selectedPositions.keys()).every(
-        key => this.state.selectedPositions.get(key) !== undefined
+      Array.from(this.state.selectedPositions.keys()).every(key =>
+        Boolean(this.state.selectedPositions.get(key))
       )
     ) {
       this.postData(
@@ -73,7 +73,7 @@ export default {
   handleExecutionSumbit() {
     if (
       this.state.selectedParticipants.length !== 0 &&
-      this.state.selectedQuizId !== undefined
+      Boolean(this.state.selectedQuizId)
     ) {
       this.postData(
         {

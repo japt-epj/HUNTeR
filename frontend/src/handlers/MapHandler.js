@@ -5,7 +5,7 @@ import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   addPosition(element) {
-    if (this.state.map.currentExercise !== undefined) {
+    if (Boolean(this.state.map.currentExercise)) {
       let newPositions = this.state.selectedPositions;
       newPositions.set(this.state.map.currentExercise, this.state.map.location);
       this.setState({selectedPositions: newPositions});
@@ -13,7 +13,7 @@ export default {
     let map = {...this.state.map};
     map.currentExercise = element.id;
     map.popupText = element.name;
-    if (this.state.selectedPositions.get(element.id) === undefined) {
+    if (!Boolean(this.state.selectedPositions.get(element.id))) {
       map.location = this.state.map.location;
     } else {
       map.location = this.state.selectedPositions.get(element.id);
@@ -36,9 +36,9 @@ export default {
         ref={this.mapref}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {this.state.map.location !== undefined && (
+        {Boolean(this.state.map.location) && (
           <Marker position={this.state.map.location} icon={pointer}>
-            {this.state.map.popupText !== undefined && (
+            {Boolean(this.state.map.popupText) && (
               <Tooltip
                 direction="left"
                 offset={defaultUIConfig.map.icons.pointer.offset}

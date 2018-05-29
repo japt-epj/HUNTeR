@@ -100,7 +100,7 @@ export default {
             <Table.Row key={'TableRow' + element.id}>
               <Table.Cell content={element.name} />
               <Table.Cell collapsing>
-                {this.state.selectedPositions.get(element.id) !== undefined && (
+                {Boolean(this.state.selectedPositions.get(element.id)) && (
                   <Icon color="green" name="check" />
                 )}
               </Table.Cell>
