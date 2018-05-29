@@ -5,38 +5,47 @@ import TableHandler from './TableHandler';
 import PaginationHandler from './PaginationHandler';
 
 export default {
-  handleSelection(event, checkbox) {
+  handleSingleSelection(event, checkbox) {
     let selectedParticipants = [...this.state.selectedParticipants];
+    let bulkCheckboxes = [...this.state.bulkCheckboxes];
+    const currentBulkCheckboxId = 'BulkCheckbox' + this.state.pageNumber;
     if (checkbox.checked) {
-      if (checkbox.name.startsWith('Bulk')) {
-        this.state.participants.forEach(element => {
-          if (selectedParticipants.indexOf(element.id) === -1) {
-            selectedParticipants.push(element.id);
-          }
-        });
-        this.setState({bulkCheckbox: checkbox.id});
-      } else {
-        selectedParticipants.push(checkbox.id);
-      }
+      selectedParticipants.push(checkbox.id);
     } else {
-      if (checkbox.name.startsWith('Bulk')) {
-        this.state.participants.forEach(element => {
-          if (selectedParticipants.indexOf(element.id) !== -1) {
-            selectedParticipants.splice(
-              selectedParticipants.indexOf(element.id),
-              1
-            );
-          }
-        });
-        this.setState({bulkCheckbox: ''});
-      } else {
-        selectedParticipants.splice(
-          selectedParticipants.lastIndexOf(checkbox.id),
-          1
-        );
-      }
+      selectedParticipants.splice(
+        selectedParticipants.lastIndexOf(checkbox.id),
+        1
+      );
+      bulkCheckboxes.splice(
+        selectedParticipants.lastIndexOf(currentBulkCheckboxId),
+        1
+      );
     }
-    this.setState({selectedParticipants});
+    this.setState({selectedParticipants, bulkCheckboxes});
+  },
+
+  handleBulkSelection(event, checkbox) {
+    let selectedParticipants = [...this.state.selectedParticipants];
+    let bulkCheckboxes = [...this.state.bulkCheckboxes];
+    if (checkbox.checked) {
+      this.state.participants.forEach(element => {
+        if (selectedParticipants.indexOf(element.id) === -1) {
+          selectedParticipants.push(element.id);
+        }
+      });
+      bulkCheckboxes.push(checkbox.id);
+    } else {
+      this.state.participants.forEach(element => {
+        if (selectedParticipants.indexOf(element.id) !== -1) {
+          selectedParticipants.splice(
+            selectedParticipants.indexOf(element.id),
+            1
+          );
+        }
+      });
+      bulkCheckboxes.splice(selectedParticipants.lastIndexOf(checkbox.id), 1);
+    }
+    this.setState({selectedParticipants, bulkCheckboxes});
   },
 
   getParticipantTable(checkboxNeeded) {
@@ -48,8 +57,8 @@ export default {
             {checkboxNeeded &&
               TableHandler.getBulkCheckbox(
                 this.state.pageNumber,
-                this.state.bulkCheckbox,
-                this.handleSelection
+                this.state.bulkCheckboxes,
+                this.handleBulkSelection
               )}
             {TableHandler.getTableHeader(headerElements)}
           </Table.Row>
@@ -63,7 +72,7 @@ export default {
                     <Checkbox
                       id={element.id}
                       name={element.email}
-                      onChange={this.handleSelection}
+                      onChange={this.handleSingleSelection}
                       checked={
                         this.state.selectedParticipants.indexOf(element.id) !==
                         -1

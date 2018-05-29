@@ -26,7 +26,7 @@ export default class TeacherExecution extends React.Component {
       name: '',
       participants: [],
       quizzes: [],
-      bulkCheckbox: '',
+      bulkCheckboxes: [],
       selectedQuizId: undefined,
       selectedParticipants: [],
       loadingUser: true,
@@ -47,7 +47,12 @@ export default class TeacherExecution extends React.Component {
     this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(
       this
     );
-    this.handleSelection = ParticipantHandler.handleSelection.bind(this);
+    this.handleSingleSelection = ParticipantHandler.handleSingleSelection.bind(
+      this
+    );
+    this.handleBulkSelection = ParticipantHandler.handleBulkSelection.bind(
+      this
+    );
     this.getQuizTable = QuizHandler.getQuizTable.bind(this);
 
     this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
