@@ -144,7 +144,7 @@ export default {
             maxElementsPerPage
           ),
           activePage: this.state.pageNumberSelectedExercises,
-          onPageChange: this.handlePageChangeSelected,
+          onPageChange: this.handlePageChangeSelectedExercises,
           width: headerElements.length
         })}
       </Table>

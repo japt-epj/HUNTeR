@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Button, Header, Modal} from 'semantic-ui-react';
 import defaultUIConfig from '../config/defaultUIConfig';
+import getLoadingScreen from '../components/getLoadingScreen';
 
 export default {
   getLoginSuccess() {
@@ -137,6 +138,31 @@ export default {
             }}
           />
         </Modal.Actions>
+      </Modal>
+    );
+  },
+
+  getAddExerciseModal() {
+    return (
+      <Modal
+        size="fullscreen"
+        trigger={
+          <Button
+            color={defaultUIConfig.buttonColors.normal}
+            icon="add square"
+            labelPosition="right"
+            label="Aufgabe hinzufügen"
+            onClick={this.resetPageNumber}
+          />
+        }
+        closeIcon
+      >
+        <Modal.Header content="Aufgaben hinzufügen" />
+        <Modal.Content scrolling>
+          {this.state.loading
+            ? getLoadingScreen()
+            : this.getExerciseTable(true)}
+        </Modal.Content>
       </Modal>
     );
   }
