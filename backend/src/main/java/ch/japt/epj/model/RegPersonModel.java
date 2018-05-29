@@ -32,12 +32,12 @@ public class RegPersonModel {
 
   public void addPerson(RegPersonDto regPersonDto) {
     Person person = mapper.map(regPersonDto, Person.class);
-    person.setPassword(passwordEncoder.encode(person.getPassword()));
+    person.setPassword(passwordEncoder.encode(person.getFirstName().toLowerCase()));
     Role personRole =
         roles
-            .findByName(RoleName.ROLE_TEACHER)
+            .findByName(RoleName.ROLE_STUDENT)
             .orElseThrow(
-                () -> new IllegalArgumentException("Unable to assign teacher role to person."));
+                () -> new IllegalArgumentException("Unable to assign student role to person."));
     person.setRoles(Collections.singleton(personRole));
     persons.save(person);
   }

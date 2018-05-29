@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -59,6 +60,7 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> registerPerson(@Valid @RequestBody RegPersonDto body) {
     if (personRepository.existsByEmail(body.getEmail())) {
       return new ResponseEntity<>(HttpStatus.CONFLICT);

@@ -67,29 +67,15 @@ export default {
 
   getSettingChanging() {
     return (
-      <Modal open size="fullscreen" closeIcon>
+      <Modal open closeIcon>
         <Header icon="key" content="Daten ändern?" />
         <Modal.Content>Daten wirklich ändern</Modal.Content>
         <Modal.Actions>
           <Button
-            color={defaultUIConfig.buttonColors.cancel}
-            type="button"
-            labelPosition="right"
-            icon="cancel"
-            content="Nein"
-            onClick={() =>
-              this.setState({
-                formOK: false,
-                showModal: false
-              })
-            }
-          />
-          <Button
             color={defaultUIConfig.buttonColors.normal}
-            type="submit"
-            labelPosition="right"
+            labelPosition="left"
+            label="Ja"
             icon="checkmark"
-            content="Ja"
             onClick={() => {
               this.setState({
                 formOK: true,
@@ -97,6 +83,18 @@ export default {
               });
               this.handleSubmit();
             }}
+          />
+          <Button
+            color={defaultUIConfig.buttonColors.cancel}
+            labelPosition="left"
+            label="Nein"
+            icon="cancel"
+            onClick={() =>
+              this.setState({
+                formOK: false,
+                showModal: false
+              })
+            }
           />
         </Modal.Actions>
       </Modal>
