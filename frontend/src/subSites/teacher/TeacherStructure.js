@@ -55,9 +55,7 @@ export default class TeacherStructure extends React.Component {
                       <Route
                         exact
                         path="/"
-                        render={props =>
-                          getHome(DefaultUIPaths.getPathsTeacher())
-                        }
+                        render={() => getHome(DefaultUIPaths.getPathsTeacher())}
                       />
                       <Route path="/settings" component={UserSettings} />
                       <Route path="/exercise" component={TeacherExercise} />

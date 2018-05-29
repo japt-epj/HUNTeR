@@ -107,7 +107,7 @@ export default class TeacherQuiz extends React.Component {
     });
   };
 
-  handleZoom = event => {
+  handleZoom = () => {
     let map = {...this.state.map};
     map.zoom = this.mapref.current.leafletElement.getZoom();
     this.setState({map});

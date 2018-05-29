@@ -66,7 +66,7 @@ export default {
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({showAgreement: false});
-              window.sessionStorage.setItem('showAgreement', false);
+              window.sessionStorage.setItem('showAgreement', 'false');
               this.locate();
             }}
           />
@@ -143,7 +143,7 @@ export default {
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({showMobileError: false});
-              window.sessionStorage.setItem('showMobileError', false);
+              window.sessionStorage.setItem('showMobileError', 'false');
             }}
           />
         </Modal.Actions>

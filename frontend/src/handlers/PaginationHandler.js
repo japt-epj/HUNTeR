@@ -8,7 +8,7 @@ export default {
   calculateTotalPages(length, maxPerPage) {
     return length % maxPerPage === 0
       ? length / maxPerPage
-      : parseInt(length / maxPerPage, 10) + 1;
+      : Math.floor(length / maxPerPage) + 1;
   },
 
   getPagination(values) {

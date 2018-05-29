@@ -66,7 +66,7 @@ export default {
   updateSelection(values) {
     this.setState({
       bulkCheckboxes: values.bulkCheckboxes,
-      selectedCheckboxes: values.selectedCheckboxes.sort((a, b) => a > b),
+      selectedCheckboxes: values.selectedCheckboxes.sort((a, b) => b - a),
       selectedPositions: values.selectedPositions
     });
     APIHandler.getExerciseArray(

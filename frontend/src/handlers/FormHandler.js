@@ -100,9 +100,9 @@ export default {
         let now = new Date();
         window.localStorage.setItem(
           'HUNTeR-Token-Expiration',
-          now.setMilliseconds(
-            now.getMilliseconds() + resData.data.tokenLifetime
-          )
+          now
+            .setMilliseconds(now.getMilliseconds() + resData.data.tokenLifetime)
+            .toString()
         );
         this.setState({showSuccess: true});
         setTimeout(() => {
