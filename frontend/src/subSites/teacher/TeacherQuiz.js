@@ -40,6 +40,7 @@ export default class TeacherQuiz extends React.Component {
       }
     };
 
+    this.addPosition = MapHandler.addPosition.bind(this);
     this.defaultPageNumber = defaultUIConfig.defaultNumbers.pageNumber;
     this.exerciseLimitPerPage =
       defaultUIConfig.defaultNumbers.exerciseLimitPerPage;

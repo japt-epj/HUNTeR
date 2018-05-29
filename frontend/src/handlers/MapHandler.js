@@ -4,6 +4,23 @@ import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
 export default {
+  addPosition(element) {
+    if (this.state.map.currentExercise !== undefined) {
+      let newPositions = this.state.selectedPositions;
+      newPositions.set(this.state.map.currentExercise, this.state.map.location);
+      this.setState({selectedPositions: newPositions});
+    }
+    let map = {...this.state.map};
+    map.currentExercise = element.id;
+    map.popupText = element.name;
+    if (this.state.selectedPositions.get(element.id) === undefined) {
+      map.location = this.state.map.location;
+    } else {
+      map.location = this.state.selectedPositions.get(element.id);
+    }
+    this.setState({map: map});
+  },
+
   getQuizMap() {
     const image = L.icon({
       iconUrl: require('../images/icons/e-map.png'),
