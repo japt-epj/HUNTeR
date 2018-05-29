@@ -104,7 +104,10 @@ export default class TeacherExecution extends React.Component {
 
   resetPageNumber = event => {
     event.preventDefault();
-    this.setState({pageNumber: 1});
+    const defaultPageNumber = 1;
+    this.getParticipants(defaultPageNumber);
+    this.getQuizzes(defaultPageNumber);
+    this.setState({pageNumber: defaultPageNumber});
   };
 
   handleStartMomentChange = event => {

@@ -51,7 +51,11 @@ export default class TeacherQuiz extends React.Component {
     this.getSelectedExerciseTable = ExerciseHandler.getSelectedExerciseTable.bind(
       this
     );
-    this.handleSelection = ExerciseHandler.handleSelection.bind(this);
+    this.handleSingleSelection = ExerciseHandler.handleSingleSelection.bind(
+      this
+    );
+    this.handleBulkSelection = ExerciseHandler.handleBulkSelection.bind(this);
+    this.updateSelection = ExerciseHandler.updateSelection.bind(this);
     this.getJSONHeader = APIHandler.getJSONHeader;
     this.handlePageChangeExercises = this.handlePageChangeExercises.bind(this);
     this.resetPageNumber = this.resetPageNumber.bind(this);
@@ -89,7 +93,9 @@ export default class TeacherQuiz extends React.Component {
 
   resetPageNumber = event => {
     event.preventDefault();
-    this.setState({pageNumber: this.defaultPageNumber});
+    const defaultPageNumber = 1;
+    this.getExercises(defaultPageNumber);
+    this.setState({pageNumber: defaultPageNumber});
   };
 
   handleClick = event => {
