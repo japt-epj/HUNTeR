@@ -6,31 +6,37 @@ import PaginationHandler from './PaginationHandler';
 
 export default {
   handleSelection(event, checkbox) {
-    let newState = this.state.selectedParticipants;
+    let selectedParticipants = [...this.state.selectedParticipants];
     if (checkbox.checked) {
       if (checkbox.name.startsWith('Bulk')) {
         this.state.participants.forEach(element => {
-          if (newState.indexOf(element.id) === -1) {
-            newState.push(element.id);
+          if (selectedParticipants.indexOf(element.id) === -1) {
+            selectedParticipants.push(element.id);
           }
         });
         this.setState({bulkCheckbox: checkbox.id});
       } else {
-        newState.push(checkbox.id);
+        selectedParticipants.push(checkbox.id);
       }
     } else {
       if (checkbox.name.startsWith('Bulk')) {
         this.state.participants.forEach(element => {
-          if (newState.indexOf(element.id) !== -1) {
-            newState.splice(newState.indexOf(element.id), 1);
+          if (selectedParticipants.indexOf(element.id) !== -1) {
+            selectedParticipants.splice(
+              selectedParticipants.indexOf(element.id),
+              1
+            );
           }
         });
         this.setState({bulkCheckbox: ''});
       } else {
-        newState.splice(newState.lastIndexOf(checkbox.id), 1);
+        selectedParticipants.splice(
+          selectedParticipants.lastIndexOf(checkbox.id),
+          1
+        );
       }
     }
-    this.setState({selectedParticipants: newState});
+    this.setState({selectedParticipants});
   },
 
   getParticipantTable(checkboxNeeded) {
