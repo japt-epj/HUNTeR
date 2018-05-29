@@ -42,7 +42,7 @@ public class AuthControllerTests extends AuthenticatedControllerTest {
             .content(
                 "{\"id\":1,\"firstname\":\"Donald\",\"lastname\":\"Duck\",\"email\":\"donald.duck@disney.ch\"}");
 
-    mvc.perform(request).andExpect(status().isCreated());
+    mvc.perform(request).andExpect(status().is2xxSuccessful());
   }
 
   @Test
