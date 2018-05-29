@@ -39,7 +39,7 @@ public class AuthControllerTests extends AuthenticatedControllerTest {
         MockMvcRequestBuilders.post("/api/auth/register")
             .contentType(MediaType.APPLICATION_JSON)
             .content(
-                "{\"id\":1,\"firstname\":\"Donald\",\"lastname\":\"Duck\",\"email\":\"donald.duck@disney.ch\",\"password\":\"donald\"}");
+                "{\"id\":1,\"firstname\":\"Donald\",\"lastname\":\"Duck\",\"email\":\"donald.duck@disney.ch\"}");
 
     mvc.perform(request).andExpect(status().isCreated());
   }
