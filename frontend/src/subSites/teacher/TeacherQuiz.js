@@ -2,8 +2,6 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Form, Grid} from 'semantic-ui-react';
-import L from 'leaflet';
-import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 import {OK} from 'http-status-codes';
 
 import defaultUIConfig from '../../config/defaultUIConfig';
@@ -12,6 +10,7 @@ import APIHandler from '../../handlers/APIHandler';
 import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
+import MapHandler from '../../handlers/MapHandler';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
@@ -56,6 +55,7 @@ export default class TeacherQuiz extends React.Component {
     );
     this.handleBulkSelection = ExerciseHandler.handleBulkSelection.bind(this);
     this.updateSelection = ExerciseHandler.updateSelection.bind(this);
+    this.getQuizMap = MapHandler.getQuizMap.bind(this);
 
     this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
@@ -147,12 +147,6 @@ export default class TeacherQuiz extends React.Component {
   };
 
   render() {
-    const image = L.icon({
-      iconUrl: require('../../images/icons/e-map.png'),
-      iconSize: [50, 94],
-      iconAnchor: [50, 0]
-    });
-
     return (
       <div>
         {this.state.successMessage.showModal &&
@@ -192,32 +186,7 @@ export default class TeacherQuiz extends React.Component {
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
-              <Grid.Column>
-                <LeafletMap
-                  center={this.state.map.location || [0, 0]}
-                  onClick={this.handleClick}
-                  onLocationFound={this.handleLocation}
-                  zoom={this.state.map.zoom}
-                  onZoomEnd={this.handleZoom}
-                  ref={this.mapref}
-                >
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                  {this.state.map.location !== undefined && (
-                    <Marker position={this.state.map.location} icon={image}>
-                      {this.state.map.popupText !== undefined && (
-                        <Tooltip
-                          direction="left"
-                          offset={[-50, 75]}
-                          opacity={0.9}
-                          permanent
-                        >
-                          <span>{this.state.map.popupText}</span>
-                        </Tooltip>
-                      )}
-                    </Marker>
-                  )}
-                </LeafletMap>
-              </Grid.Column>
+              <Grid.Column>{this.getQuizMap()}</Grid.Column>
             </Grid.Row>
             {this.getSubmitCancelButton()}
           </Grid>
