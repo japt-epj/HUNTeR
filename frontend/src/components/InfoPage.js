@@ -83,7 +83,7 @@ export default class InfoPage extends React.Component {
             ))}
           </Step.Group>
         </Container>
-        {steps.map((element, index) => (
+        {steps.map(element => (
           <div key={element.title}>
             <Divider />
             <Container>

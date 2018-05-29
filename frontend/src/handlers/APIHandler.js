@@ -48,7 +48,7 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  getExecutions(executionId) {
+  getExecutions() {
     let requestURL =
       pathConfig.apiURL +
       'execution?limit=' +

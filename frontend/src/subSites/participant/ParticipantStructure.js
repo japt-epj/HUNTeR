@@ -44,7 +44,7 @@ export default class ParticipantStructure extends React.Component {
                     <Route
                       exact
                       path="/"
-                      render={props =>
+                      render={() =>
                         getHome(DefaultUIPaths.getPathsParticipant())
                       }
                     />

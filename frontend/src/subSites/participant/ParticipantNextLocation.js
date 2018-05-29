@@ -41,9 +41,9 @@ export default class ParticipantNextLocation extends React.Component {
 
   locate = () => this.mapref.current.leafletElement.locate();
 
-  promiceToLocation = promice => {
+  promiceToLocation = promise => {
     let locations = new Map(this.state.locations);
-    promice.then(resData => {
+    promise.then(resData => {
       const resDataArray =
         this.state.executionId === '' ? resData.data : new Array(resData.data);
       resDataArray.forEach(element => {
@@ -57,7 +57,7 @@ export default class ParticipantNextLocation extends React.Component {
     });
   };
 
-  handleZoom = event => {
+  handleZoom = () => {
     let map = {...this.state.map};
     map.zoom = this.mapref.current.leafletElement.getZoom();
     this.setState({map});
