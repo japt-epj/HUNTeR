@@ -76,14 +76,12 @@ let defaultUIConfig = {
       content: 'Der QR-Code hat eine passende Aufgabe gefunden.'
     }
   },
-  showAgreement:
-    window.sessionStorage.getItem('showAgreement') !== null
-      ? JSON.parse(window.sessionStorage.getItem('showAgreement'))
-      : true,
-  showMobileError:
-    window.sessionStorage.getItem('showMobileError') !== null
-      ? JSON.parse(window.sessionStorage.getItem('showMobileError'))
-      : isMobile
+  showAgreement: Boolean(window.sessionStorage.getItem('showAgreement'))
+    ? JSON.parse(window.sessionStorage.getItem('showAgreement'))
+    : true,
+  showMobileError: Boolean(window.sessionStorage.getItem('showMobileError'))
+    ? JSON.parse(window.sessionStorage.getItem('showMobileError'))
+    : isMobile
 };
 
 export default Object.freeze(Object.assign({}, defaultUIConfig));

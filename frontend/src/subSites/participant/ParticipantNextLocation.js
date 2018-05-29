@@ -14,10 +14,9 @@ export default class ParticipantNextLocation extends React.Component {
     const defaultZoomSize = 19;
     this.state = {
       showAgreement: defaultUIConfig.showAgreement,
-      executionId:
-        this.props.location.state !== undefined
-          ? this.props.location.state.executionId
-          : '',
+      executionId: Boolean(this.props.location.state)
+        ? this.props.location.state.executionId
+        : '',
       locations: new Map(),
       selectedPositions: new Map(),
       routing: false,
@@ -72,7 +71,7 @@ export default class ParticipantNextLocation extends React.Component {
 
   handleSelection = event => {
     let locations = new Map(this.state.locations);
-    if (!this.state.routing && event.target.options.id !== undefined) {
+    if (!this.state.routing && Boolean(event.target.options.id)) {
       locations = new Map([
         ['currentPosition', this.state.locations.get('currentPosition')],
         [

@@ -18,7 +18,7 @@ export default class Login extends React.Component {
       password: '',
       showSuccess: false,
       showLoginError: false,
-      fireRedirect: window.localStorage.getItem('HUNTeR-Redirect') !== null
+      fireRedirect: Boolean(window.localStorage.getItem('HUNTeR-Redirect'))
     };
 
     this.handleLoginSubmit = FormHandler.handleLoginSubmit.bind(this);
