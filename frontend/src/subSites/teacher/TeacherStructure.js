@@ -90,7 +90,7 @@ export default class TeacherStructure extends React.Component {
                       <Route
                         path="/logout"
                         render={() => {
-                          return Logout();
+                          return Logout.logout();
                         }}
                       />
                       <Route component={NotFound} />
