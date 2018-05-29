@@ -114,13 +114,19 @@ export default {
   },
 
   handleNewParticipantSubmit() {
-    this.postData(this.state, 'person');
+    this.postData(
+      {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email
+      },
+      'auth/register'
+    );
   },
 
   handleEditParticipant() {
     this.putData(
       {
-        id: this.state.id,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email

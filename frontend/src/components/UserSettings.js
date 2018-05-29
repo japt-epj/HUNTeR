@@ -1,11 +1,12 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {Form} from 'semantic-ui-react';
+import {Form, Grid} from 'semantic-ui-react';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
 import ModalHandler from '../handlers/ModalHandler';
 import defaultUIConfig from '../config/defaultUIConfig';
+import TableHandler from '../handlers/TableHandler';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
@@ -20,6 +21,8 @@ export default class UserSettings extends React.Component {
       email: '',
       school: ''
     };
+
+    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleEditParticipant.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.getSettingChanging = ModalHandler.getSettingChanging.bind(this);
@@ -30,7 +33,6 @@ export default class UserSettings extends React.Component {
     APIHandler.getInformation().then(resData => {
       const personInformation = resData.data;
       this.setState({
-        id: personInformation.id,
         firstName: personInformation.firstName,
         lastName: personInformation.lastName,
         email: personInformation.email,
@@ -80,7 +82,7 @@ export default class UserSettings extends React.Component {
             value={this.state.school}
             disabled
           />
-          <Form.Button content="Daten ändern" />
+          <Grid>{this.getSubmitCancelButton()}</Grid>
         </Form>
         {this.state.fireRedirect && <Redirect to={{pathname: '/'}} />}
       </div>

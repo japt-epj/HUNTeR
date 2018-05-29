@@ -2,7 +2,7 @@ package ch.japt.epj.model;
 
 import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.dto.PersonDto;
-import ch.japt.epj.model.dto.RegPersonDto;
+import ch.japt.epj.model.dto.UpdatePersonDto;
 import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.PersonRepository;
 import java.lang.reflect.Type;
@@ -14,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PersonModel {
   private final PersonRepository persons;
   private final ModelMapper mapper = Mappings.personMapper();
+  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   public PersonModel(@Autowired PersonRepository persons) {
     this.persons = persons;
@@ -37,9 +40,9 @@ public class PersonModel {
         .map(person -> mapper.map(person, PersonDto.class));
   }
 
-  public void updatePeople(RegPersonDto body) {
+  public void updatePeople(UpdatePersonDto body, Long personId) {
     persons
-        .findByPersonId(body.getId())
+        .findByPersonId(personId)
         .ifPresent(
             person -> {
               person.setFirstName(body.getFirstName());

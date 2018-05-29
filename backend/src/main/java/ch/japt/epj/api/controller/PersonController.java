@@ -5,7 +5,7 @@ import ch.japt.epj.api.PersonApi;
 import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.PersonModel;
 import ch.japt.epj.model.dto.PersonDto;
-import ch.japt.epj.model.dto.RegPersonDto;
+import ch.japt.epj.model.dto.UpdatePersonDto;
 import ch.japt.epj.security.CustomUserDetails;
 import ch.japt.epj.security.JwtTokenProvider;
 import io.swagger.annotations.Api;
@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PersonController implements PersonApi, PaginatedPerson {
 
   private final PersonModel personModel;
+  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   public PersonController(
       @Autowired PersonModel personModel, @Autowired JwtTokenProvider tokenProvider) {
@@ -62,8 +65,10 @@ public class PersonController implements PersonApi, PaginatedPerson {
   }
 
   @Override
-  public ResponseEntity<Void> updatePerson(@Valid @RequestBody RegPersonDto body) {
-    personModel.updatePeople(body);
+  public ResponseEntity<Void> updatePerson(@Valid @RequestBody UpdatePersonDto body) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    long personId = ((CustomUserDetails) authentication.getPrincipal()).getPersonId();
+    personModel.updatePeople(body, personId);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 }
