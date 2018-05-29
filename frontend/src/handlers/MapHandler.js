@@ -1,7 +1,7 @@
 import React from 'react';
 
-import L from 'leaflet';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
+import defaultUIConfig from '../config/defaultUIConfig';
 
 export default {
   addPosition(element) {
@@ -22,11 +22,7 @@ export default {
   },
 
   getQuizMap() {
-    const image = L.icon({
-      iconUrl: require('../images/icons/e-map.png'),
-      iconSize: [50, 94],
-      iconAnchor: [50, 0]
-    });
+    const pointer = defaultUIConfig.mapIcons.pointer;
 
     return (
       <LeafletMap
@@ -39,7 +35,7 @@ export default {
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {this.state.map.location !== undefined && (
-          <Marker position={this.state.map.location} icon={image}>
+          <Marker position={this.state.map.location} icon={pointer}>
             {this.state.map.popupText !== undefined && (
               <Tooltip
                 direction="left"
@@ -57,17 +53,8 @@ export default {
   },
 
   getParticipantMap() {
-    const pointer = L.icon({
-      iconUrl: require('../images/icons/e-map.png'),
-      iconSize: [50, 94],
-      iconAnchor: [50, 0]
-    });
-
-    const protagonist = L.icon({
-      iconUrl: require('../images/icons/protagonist.png'),
-      iconSize: [33, 92],
-      iconAnchor: [16, 46]
-    });
+    const pointer = defaultUIConfig.mapIcons.pointer;
+    const protagonist = defaultUIConfig.mapIcons.protagonist;
 
     return (
       <LeafletMap

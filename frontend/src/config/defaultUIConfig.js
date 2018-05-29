@@ -1,4 +1,5 @@
 import {isMobile} from 'react-device-detect';
+import L from 'leaflet';
 
 let defaultUIConfig = {
   buttonColors: {
@@ -6,6 +7,18 @@ let defaultUIConfig = {
     cancel: 'red',
     download: 'orange',
     show: 'blue'
+  },
+  mapIcons: {
+    pointer: L.icon({
+      iconUrl: require('../images/icons/e-map.png'),
+      iconSize: [50, 94],
+      iconAnchor: [50, 0]
+    }),
+    protagonist: L.icon({
+      iconPath: require('../images/icons/protagonist.png'),
+      iconSize: [33, 92],
+      iconAnchor: [16, 46]
+    })
   },
   paginationColor: 'green',
   defaultNumbers: {
