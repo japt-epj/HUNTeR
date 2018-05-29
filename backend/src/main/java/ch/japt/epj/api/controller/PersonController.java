@@ -7,7 +7,6 @@ import ch.japt.epj.model.PersonModel;
 import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.model.dto.UpdatePersonDto;
 import ch.japt.epj.security.CustomUserDetails;
-import ch.japt.epj.security.JwtTokenProvider;
 import io.swagger.annotations.Api;
 import java.util.List;
 import javax.validation.Valid;
@@ -18,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,10 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PersonController implements PersonApi, PaginatedPerson {
 
   private final PersonModel personModel;
-  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-  public PersonController(
-      @Autowired PersonModel personModel, @Autowired JwtTokenProvider tokenProvider) {
+  public PersonController(@Autowired PersonModel personModel) {
     this.personModel = personModel;
   }
 

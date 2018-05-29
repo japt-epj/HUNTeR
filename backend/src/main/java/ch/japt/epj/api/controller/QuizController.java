@@ -2,7 +2,6 @@ package ch.japt.epj.api.controller;
 
 import ch.japt.epj.api.PaginatedQuiz;
 import ch.japt.epj.library.SortParameterHandler;
-import ch.japt.epj.model.QrModel;
 import ch.japt.epj.model.QuizModel;
 import ch.japt.epj.model.dto.NewQuizDto;
 import ch.japt.epj.security.CustomUserDetails;
@@ -28,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   private final QuizModel quizModel;
 
-  public QuizController(@Autowired QuizModel quizModel, @Autowired QrModel qrModel) {
+  public QuizController(@Autowired QuizModel quizModel) {
     this.quizModel = quizModel;
   }
 
