@@ -53,7 +53,6 @@ export default class TeacherExercise extends React.Component {
         const answerId = exerciseData.answers
           .map(element => element.checked)
           .indexOf(true);
-        console.log(answerId);
         this.setState({
           answer0: exerciseData.answers[0].text,
           answer1: exerciseData.answers[1].text,

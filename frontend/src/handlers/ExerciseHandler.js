@@ -43,7 +43,6 @@ export default {
       this.state.exercises.forEach(element => {
         if (selectedCheckboxes.indexOf(element.id) === -1) {
           selectedCheckboxes.push(element.id);
-          console.log(selectedCheckboxes);
           selectedPositions.set(element.id, undefined);
         }
       });
@@ -70,12 +69,6 @@ export default {
       selectedCheckboxes: values.selectedCheckboxes.sort((a, b) => a > b),
       selectedPositions: values.selectedPositions
     });
-    console.log(
-      (this.state.pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage
-    );
-    console.log(
-      this.state.pageNumberSelectedExercises * this.exerciseLimitPerPage
-    );
     APIHandler.getExerciseArray(
       values.selectedCheckboxes.slice(
         (this.state.pageNumberSelectedExercises - 1) *
