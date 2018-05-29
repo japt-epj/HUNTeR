@@ -3,14 +3,22 @@ package ch.japt.epj.repository.data;
 public class ExecutionScore {
   private final Long id;
   private final String name;
-  private final Double score;
+  private final Long score;
   private final Boolean currentUser;
 
   public ExecutionScore(
-      Long id, String firstName, String lastName, Double score, Boolean currentParticipant) {
+      Long id, String firstName, String lastName, Long score, Boolean currentParticipant) {
     this.id = id;
     this.name = firstName + " " + lastName;
     this.score = score;
+    this.currentUser = currentParticipant;
+  }
+
+  public ExecutionScore(
+      Long id, String firstName, String lastName, Integer score, Boolean currentParticipant) {
+    this.id = id;
+    this.name = firstName + " " + lastName;
+    this.score = score.longValue();
     this.currentUser = currentParticipant;
   }
 
@@ -22,7 +30,7 @@ public class ExecutionScore {
     return name;
   }
 
-  public Double getUserScore() {
+  public Long getUserScore() {
     return score;
   }
 
