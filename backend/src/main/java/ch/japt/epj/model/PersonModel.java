@@ -14,15 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PersonModel {
   private final PersonRepository persons;
   private final ModelMapper mapper = Mappings.personMapper();
-  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   public PersonModel(@Autowired PersonRepository persons) {
     this.persons = persons;
