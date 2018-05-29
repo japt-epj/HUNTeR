@@ -97,6 +97,13 @@ export default {
           'HUNTeR-Token',
           resData.data.tokenType + ' ' + resData.data.token
         );
+        let now = new Date();
+        window.localStorage.setItem(
+          'HUNTeR-Token-Expiration',
+          now.setMilliseconds(
+            now.getMilliseconds() + resData.data.tokenLifetime
+          )
+        );
         this.setState({showSuccess: true});
         setTimeout(() => {
           this.redirectAfterLogin().then(redirectData => {

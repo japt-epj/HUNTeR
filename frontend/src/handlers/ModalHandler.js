@@ -17,8 +17,17 @@ export default {
   getLogoutSuccess() {
     return (
       <Modal dimmer="blurring" open>
-        <Header icon="sign in" content="Erfolgreich ausgeloggt" />
+        <Header icon="log out" content="Erfolgreich ausgeloggt" />
         <Modal.Content content="Sie haben sich erfolgreich ausgeloggt." />
+      </Modal>
+    );
+  },
+
+  getTokenExpiration() {
+    return (
+      <Modal dimmer="blurring" open>
+        <Header icon="sign out" content="Login ausgelaufen" />
+        <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein" />
       </Modal>
     );
   },
