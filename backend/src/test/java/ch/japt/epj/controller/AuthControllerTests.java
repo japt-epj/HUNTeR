@@ -37,6 +37,7 @@ public class AuthControllerTests extends AuthenticatedControllerTest {
   public void shouldRegisterPerson() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/auth/register")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
                 "{\"id\":1,\"firstname\":\"Donald\",\"lastname\":\"Duck\",\"email\":\"donald.duck@disney.ch\"}");
@@ -48,6 +49,7 @@ public class AuthControllerTests extends AuthenticatedControllerTest {
   public void shouldReturnConflictOnRegisterPerson() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/auth/register")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
                 "{\"id\":1,\"firstname\":\"Tobias\",\"lastname\":\"Saladin\",\"email\":\"tobias.saladin@hsr.ch\",\"password\":\"tobias\"}");
