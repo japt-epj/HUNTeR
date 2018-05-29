@@ -22,11 +22,13 @@ export default {
   },
 
   getQuizMap() {
-    const pointer = defaultUIConfig.mapIcons.pointer;
+    const pointer = defaultUIConfig.map.icons.pointer;
 
     return (
       <LeafletMap
-        center={this.state.map.location || [0, 0]}
+        center={
+          this.state.map.location || defaultUIConfig.map.defaultMapLocation
+        }
         onClick={this.handleClick}
         onLocationFound={this.handleLocation}
         zoom={this.state.map.zoom}
@@ -39,8 +41,8 @@ export default {
             {this.state.map.popupText !== undefined && (
               <Tooltip
                 direction="left"
-                offset={[-50, 75]}
-                opacity={0.9}
+                offset={defaultUIConfig.map.icons.pointer.offset}
+                opacity={defaultUIConfig.map.icons.opacity}
                 permanent
               >
                 <span>{this.state.map.popupText}</span>
@@ -53,12 +55,14 @@ export default {
   },
 
   getParticipantMap() {
-    const pointer = defaultUIConfig.mapIcons.pointer;
-    const protagonist = defaultUIConfig.mapIcons.protagonist;
+    const pointer = defaultUIConfig.map.icons.pointer;
+    const protagonist = defaultUIConfig.map.icons.protagonist;
 
     return (
       <LeafletMap
-        center={this.state.map.location || [0, 0]}
+        center={
+          this.state.map.location || defaultUIConfig.map.defaultMapLocation
+        }
         bounds={this.bounds()}
         onLocationFound={this.handleLocation}
         onClick={this.handleSelection}
@@ -77,8 +81,12 @@ export default {
           >
             <Tooltip
               direction="left"
-              offset={element === 'currentPosition' ? [-16, 0] : [-50, 75]}
-              opacity={0.9}
+              offset={
+                element === 'currentPosition'
+                  ? defaultUIConfig.map.icons.pointer.offset
+                  : defaultUIConfig.map.icons.protagonist.offset
+              }
+              opacity={defaultUIConfig.map.icons.opacity}
               permanent
             >
               <span>{element}</span>
