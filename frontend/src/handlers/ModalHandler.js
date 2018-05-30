@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {Button, Header, Modal} from 'semantic-ui-react';
+import defaultUIConfig from '../config/defaultUIConfig';
+import getLoadingScreen from '../components/getLoadingScreen';
 
 export default {
   getLoginSuccess() {
@@ -15,8 +17,17 @@ export default {
   getLogoutSuccess() {
     return (
       <Modal dimmer="blurring" open>
-        <Header icon="sign in" content="Erfolgreich ausgeloggt" />
+        <Header icon="log out" content="Erfolgreich ausgeloggt" />
         <Modal.Content content="Sie haben sich erfolgreich ausgeloggt." />
+      </Modal>
+    );
+  },
+
+  getTokenExpiration() {
+    return (
+      <Modal dimmer="blurring" open>
+        <Header icon="sign out" content="Login ausgelaufen" />
+        <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein" />
       </Modal>
     );
   },
@@ -49,13 +60,13 @@ export default {
         <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben" />
         <Modal.Actions>
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             labelPosition="right"
             icon="point"
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({showAgreement: false});
-              window.sessionStorage.setItem('showAgreement', false);
+              window.sessionStorage.setItem('showAgreement', 'false');
               this.locate();
             }}
           />
@@ -66,29 +77,15 @@ export default {
 
   getSettingChanging() {
     return (
-      <Modal open size="fullscreen" closeIcon>
+      <Modal open closeIcon>
         <Header icon="key" content="Daten ändern?" />
         <Modal.Content>Daten wirklich ändern</Modal.Content>
         <Modal.Actions>
           <Button
-            negative
-            type="button"
-            labelPosition="right"
-            icon="cancel"
-            content="Nein"
-            onClick={() =>
-              this.setState({
-                formOK: false,
-                showModal: false
-              })
-            }
-          />
-          <Button
-            positive
-            type="submit"
-            labelPosition="right"
+            color={defaultUIConfig.buttonColors.normal}
+            labelPosition="left"
+            label="Ja"
             icon="checkmark"
-            content="Ja"
             onClick={() => {
               this.setState({
                 formOK: true,
@@ -96,6 +93,18 @@ export default {
               });
               this.handleSubmit();
             }}
+          />
+          <Button
+            color={defaultUIConfig.buttonColors.cancel}
+            labelPosition="left"
+            label="Nein"
+            icon="cancel"
+            onClick={() =>
+              this.setState({
+                formOK: false,
+                showModal: false
+              })
+            }
           />
         </Modal.Actions>
       </Modal>
@@ -109,7 +118,7 @@ export default {
         <Modal.Content content={errorText} />
         <Modal.Actions>
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             labelPosition="right"
             icon="pencil"
             content="OK, ich habe verstanden"
@@ -130,14 +139,39 @@ export default {
         <Modal.Content content={message} />
         <Modal.Actions>
           <Button
-            positive
+            color={defaultUIConfig.buttonColors.normal}
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({showMobileError: false});
-              window.sessionStorage.setItem('showMobileError', false);
+              window.sessionStorage.setItem('showMobileError', 'false');
             }}
           />
         </Modal.Actions>
+      </Modal>
+    );
+  },
+
+  getAddExerciseModal() {
+    return (
+      <Modal
+        size="fullscreen"
+        trigger={
+          <Button
+            color={defaultUIConfig.buttonColors.normal}
+            icon="add square"
+            labelPosition="right"
+            label="Aufgabe hinzufügen"
+            onClick={this.resetPageNumber}
+          />
+        }
+        closeIcon
+      >
+        <Modal.Header content="Aufgaben hinzufügen" />
+        <Modal.Content scrolling>
+          {this.state.loading
+            ? getLoadingScreen()
+            : this.getExerciseTable(true)}
+        </Modal.Content>
       </Modal>
     );
   }

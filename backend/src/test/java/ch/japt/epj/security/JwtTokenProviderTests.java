@@ -23,8 +23,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @AutoConfigureMockMvc
 public class JwtTokenProviderTests {
 
-  private final String validEmail = "jonas.kugler@hsr.ch";
-  private final String validPassword = "jonas";
+  private final String validEmail = "tobias.saladin@hsr.ch";
+  private final String validPassword = "tobias";
 
   private final String invalidEmail = "test@test.ch";
   private final String invalidPassword = "testPW";

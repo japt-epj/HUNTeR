@@ -1,10 +1,34 @@
 import {isMobile} from 'react-device-detect';
+import L from 'leaflet';
 
 let defaultUIConfig = {
   buttonColors: {
     normal: 'green',
+    cancel: 'red',
     download: 'orange',
     show: 'blue'
+  },
+  map: {
+    icons: {
+      pointer: {
+        icon: L.icon({
+          iconUrl: require('../images/icons/e-map.png'),
+          iconSize: [50, 94],
+          iconAnchor: [50, 0]
+        }),
+        offset: [-50, 75]
+      },
+      protagonist: {
+        icon: L.icon({
+          iconPath: require('../images/icons/protagonist.png'),
+          iconSize: [33, 92],
+          iconAnchor: [16, 46]
+        }),
+        offset: [-16, 0]
+      },
+      opacity: 0.9
+    },
+    defaultMapLocation: [47.2233607, 8.8173627]
   },
   paginationColor: 'green',
   defaultNumbers: {
@@ -52,14 +76,12 @@ let defaultUIConfig = {
       content: 'Der QR-Code hat eine passende Aufgabe gefunden.'
     }
   },
-  showAgreement:
-    window.sessionStorage.getItem('showAgreement') !== null
-      ? JSON.parse(window.sessionStorage.getItem('showAgreement'))
-      : true,
-  showMobileError:
-    window.sessionStorage.getItem('showMobileError') !== null
-      ? JSON.parse(window.sessionStorage.getItem('showMobileError'))
-      : isMobile
+  showAgreement: Boolean(window.sessionStorage.getItem('showAgreement'))
+    ? JSON.parse(window.sessionStorage.getItem('showAgreement'))
+    : true,
+  showMobileError: Boolean(window.sessionStorage.getItem('showMobileError'))
+    ? JSON.parse(window.sessionStorage.getItem('showMobileError'))
+    : isMobile
 };
 
 export default Object.freeze(Object.assign({}, defaultUIConfig));

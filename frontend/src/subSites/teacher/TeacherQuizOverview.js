@@ -53,8 +53,13 @@ export default class TeacherQuizOverview extends React.Component {
     return (
       <div>
         {this.state.loadingQuiz ? getLoadingScreen() : this.getQuizTable(false)}
-        <NavLink to={'/quiz'}>
-          <Button basic positive content="Neues Quiz eröffnen" />
+        <NavLink to="/quiz">
+          <Button
+            color={defaultUIConfig.buttonColors.normal}
+            icon="add square"
+            labelPosition="right"
+            label="Neues Quiz erstellen"
+          />
         </NavLink>
       </div>
     );

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class ExerciseController implements ExerciseApi, PaginatedExercise {
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> addExercise(@Validated @RequestBody NewExerciseDto body) {
     exerciseModel.addExercise(body);
     return new ResponseEntity<>(HttpStatus.CREATED);
@@ -42,22 +44,26 @@ public class ExerciseController implements ExerciseApi, PaginatedExercise {
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<List<NewExerciseDto>> exerciseTeacherIdGet(
       @PathVariable("id") List<Integer> id) {
     return new ResponseEntity<>(exerciseModel.getExercisesForTeacher(id), HttpStatus.OK);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> updateExerciseWithForm(@Valid @PathVariable("id") Long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Page<ExerciseDto>> exerciseGet(
       @Valid @RequestParam(value = "page", defaultValue = "0") int page,
       @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,

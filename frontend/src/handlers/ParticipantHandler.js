@@ -1,36 +1,51 @@
 import React from 'react';
 
-import {Checkbox, Pagination, Table} from 'semantic-ui-react';
+import {Checkbox, Table} from 'semantic-ui-react';
 import TableHandler from './TableHandler';
-import defaultUIConfig from '../config/defaultUIConfig';
+import PaginationHandler from './PaginationHandler';
 
 export default {
-  handleSelection(event, checkbox) {
-    let newState = this.state.selectedParticipants;
+  handleSingleSelection(event, checkbox) {
+    let selectedParticipants = [...this.state.selectedParticipants];
+    let bulkCheckboxes = [...this.state.bulkCheckboxes];
+    const currentBulkCheckboxId = 'BulkCheckbox' + this.state.pageNumber;
     if (checkbox.checked) {
-      if (checkbox.name.startsWith('Bulk')) {
-        this.state.participants.forEach(element => {
-          if (newState.indexOf(element.id) === -1) {
-            newState.push(element.id);
-          }
-        });
-        this.setState({bulkCheckbox: checkbox.id});
-      } else {
-        newState.push(checkbox.id);
-      }
+      selectedParticipants.push(checkbox.id);
     } else {
-      if (checkbox.name.startsWith('Bulk')) {
-        this.state.participants.forEach(element => {
-          if (newState.indexOf(element.id) !== -1) {
-            newState.splice(newState.indexOf(element.id), 1);
-          }
-        });
-        this.setState({bulkCheckbox: ''});
-      } else {
-        newState.splice(newState.lastIndexOf(checkbox.id), 1);
-      }
+      selectedParticipants.splice(
+        selectedParticipants.lastIndexOf(checkbox.id),
+        1
+      );
+      bulkCheckboxes.splice(
+        selectedParticipants.lastIndexOf(currentBulkCheckboxId),
+        1
+      );
     }
-    this.setState({selectedParticipants: newState});
+    this.setState({selectedParticipants, bulkCheckboxes});
+  },
+
+  handleBulkSelection(event, checkbox) {
+    let selectedParticipants = [...this.state.selectedParticipants];
+    let bulkCheckboxes = [...this.state.bulkCheckboxes];
+    if (checkbox.checked) {
+      this.state.participants.forEach(element => {
+        if (selectedParticipants.indexOf(element.id) === -1) {
+          selectedParticipants.push(element.id);
+        }
+      });
+      bulkCheckboxes.push(checkbox.id);
+    } else {
+      this.state.participants.forEach(element => {
+        if (selectedParticipants.indexOf(element.id) !== -1) {
+          selectedParticipants.splice(
+            selectedParticipants.indexOf(element.id),
+            1
+          );
+        }
+      });
+      bulkCheckboxes.splice(selectedParticipants.lastIndexOf(checkbox.id), 1);
+    }
+    this.setState({selectedParticipants, bulkCheckboxes});
   },
 
   getParticipantTable(checkboxNeeded) {
@@ -42,8 +57,8 @@ export default {
             {checkboxNeeded &&
               TableHandler.getBulkCheckbox(
                 this.state.pageNumber,
-                this.state.bulkCheckbox,
-                this.handleSelection
+                this.state.bulkCheckboxes,
+                this.handleBulkSelection
               )}
             {TableHandler.getTableHeader(headerElements)}
           </Table.Row>
@@ -57,7 +72,7 @@ export default {
                     <Checkbox
                       id={element.id}
                       name={element.email}
-                      onChange={this.handleSelection}
+                      onChange={this.handleSingleSelection}
                       checked={
                         this.state.selectedParticipants.indexOf(element.id) !==
                         -1
@@ -71,20 +86,12 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length + checkboxNeeded}>
-              <Pagination
-                totalPages={this.state.maxPageParticipant}
-                activePage={this.state.pageNumber}
-                onPageChange={this.handlePageChangeParticipants}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: this.state.maxPageParticipant,
+          activePage: this.state.pageNumber,
+          onPageChange: this.handlePageChangeParticipants,
+          width: headerElements.length + checkboxNeeded
+        })}
       </Table>
     );
   }
