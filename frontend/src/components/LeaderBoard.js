@@ -6,6 +6,7 @@ import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 import APIHandler from '../handlers/APIHandler';
 import getLoadingScreen from './getLoadingScreen';
 import defaultNumbers from '../config/defaultNumbers';
+import defaultColors from '../config/defaultColors';
 
 export default class LeaderBoard extends React.Component {
   constructor(props) {
@@ -63,14 +64,13 @@ export default class LeaderBoard extends React.Component {
   };
 
   calculateLeaderBoard = scoreData => {
-    let rankingStartPosition = 0;
-    let rankingCurrentScore = -1;
+    let ranking = {startPosition: 0, currentScore: -1};
     const scoreList = this.sortLeaderBoard(scoreData).map(element => {
-      if (element[1].userScore !== rankingCurrentScore) {
-        rankingCurrentScore = element[1].userScore;
-        rankingStartPosition += 1;
+      if (element[1].userScore !== ranking.currentScore) {
+        ranking.currentScore = element[1].userScore;
+        ranking.startPosition += 1;
       }
-      element.ranking = rankingStartPosition;
+      element.ranking = ranking.startPosition;
       return element;
     });
     let leaderBoard = scoreList.splice(0, defaultNumbers.maxTrophyValue);
@@ -115,7 +115,11 @@ export default class LeaderBoard extends React.Component {
               {this.state.leaderBoard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
-                  color={element[1].me && !this.state.teacher ? 'green' : null}
+                  color={
+                    element[1].me && !this.state.teacher
+                      ? defaultColors.mainColor
+                      : null
+                  }
                   fluid={index >= defaultNumbers.maxTrophyValue}
                 >
                   <Card.Content>
