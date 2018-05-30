@@ -51,7 +51,7 @@ export default {
 
   getExecutions() {
     let requestURL =
-      pathConfig.apiURL + 'execution?limit=' + defaultColors.executionLimit;
+      pathConfig.apiURL + 'execution?limit=' + defaultNumbers.executionLimit;
     return axios
       .get(requestURL, {
         headers: getAxiosHeader('application/json')

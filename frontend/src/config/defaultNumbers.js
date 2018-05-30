@@ -1,10 +1,10 @@
 let defaultNumbers = {
   pageNumber: 1,
   exerciseLimitPerPage: 5,
-  defaultZoomSize: 19,
+  zoomSize: 19,
   scanDelayValue: 500,
-  defaultExecutionLimit: 200,
-  defaultTimeoutTime: 2000,
+  executionLimit: 200,
+  timeoutTime: 2000,
   maxTrophyValue: 3
 };
 
