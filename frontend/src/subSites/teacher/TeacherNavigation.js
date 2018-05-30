@@ -4,17 +4,18 @@ import {Message} from 'semantic-ui-react';
 
 import QrReader from 'react-qr-reader';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultNumbers from '../../config/defaultNumbers';
+import defaultMessages from '../../config/defaultMessages';
 
 export default class TeacherNavigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      delay: 500,
+      delay: defaultNumbers.scanDelayValue,
       result: '',
       displayText: 'Scanne QR-Code für die Navigation ein.',
       scanError: false,
-      showAgreement: defaultUIConfig.showAgreement,
+      hideAgreement: defaultMessages.hideAgreement(),
       showSuccess: false,
       fireRedirect: false,
       locationPermission: undefined,
@@ -28,9 +29,15 @@ export default class TeacherNavigation extends React.Component {
     this.getAgreement = ModalHandler.getAgreement.bind(this);
   }
 
+  componentDidMount() {
+    if (this.state.hideAgreement) {
+      this.locate();
+    }
+  }
+
   handleScan = data => {
     const jsonData = JSON.parse(data);
-    if (Boolean(jsonData.coordinates) || this.state.fireRedirect) {
+    if (data && Boolean(jsonData.coordinates)) {
       this.setState({
         coordinates: {
           lat: jsonData.coordinates.lat,
@@ -42,7 +49,7 @@ export default class TeacherNavigation extends React.Component {
       });
       setTimeout(
         () => this.setState({fireRedirect: true, showSuccess: false}),
-        defaultUIConfig.defaultTimeoutTime
+        defaultNumbers.timeoutTime
       );
     } else {
       this.setState({
@@ -72,7 +79,7 @@ export default class TeacherNavigation extends React.Component {
     return (
       <div>
         {this.state.showSuccess && ModalHandler.getScanSuccess()}
-        {this.state.showAgreement ? (
+        {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (
           <div>

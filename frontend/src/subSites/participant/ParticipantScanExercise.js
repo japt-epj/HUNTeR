@@ -5,20 +5,21 @@ import {Message} from 'semantic-ui-react';
 
 import QrReader from 'react-qr-reader';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultNumbers from '../../config/defaultNumbers';
+import defaultMessages from '../../config/defaultMessages';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
-    const defaultDelayValue = 500;
     this.state = {
-      delay: defaultDelayValue,
+      delay: defaultNumbers.scanDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exerciseId: '',
       scanError: false,
-      showAgreement: defaultUIConfig.showAgreement,
-      successMessage: defaultUIConfig.defaultSuccessMessages.scan,
+      hideAgreement: defaultMessages.hideAgreement(),
+      successMessage: defaultSuccessMessages.scan,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
@@ -29,9 +30,15 @@ export default class ParticipantScanExercise extends React.Component {
     this.getAgreement = ModalHandler.getAgreement.bind(this);
   }
 
+  componentDidMount() {
+    if (this.state.hideAgreement) {
+      this.locate();
+    }
+  }
+
   handleScan = data => {
     const jsonData = JSON.parse(data);
-    if (Boolean(jsonData)) {
+    if (data && Boolean(jsonData)) {
       let successMessage = {...this.state.successMessage};
       successMessage.showModal = true;
       this.setState({
@@ -41,7 +48,7 @@ export default class ParticipantScanExercise extends React.Component {
       });
       setTimeout(
         () => this.setState({fireRedirect: true}),
-        defaultUIConfig.defaultTimeoutTime
+        defaultNumbers.timeoutTime
       );
     } else {
       this.setState({scanError: true});
@@ -72,7 +79,7 @@ export default class ParticipantScanExercise extends React.Component {
       <div>
         {this.state.successMessage.showModal &&
           ModalHandler.getCreationSuccess(this.state.successMessage)}
-        {this.state.showAgreement ? (
+        {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (
           <QrReader

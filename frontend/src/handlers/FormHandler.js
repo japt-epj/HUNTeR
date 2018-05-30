@@ -1,6 +1,6 @@
 import {OK} from 'http-status-codes';
 import DataHandler from './DataHandler';
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultNumbers from '../config/defaultNumbers';
 
 export default {
   handleChange(event) {
@@ -113,7 +113,7 @@ export default {
             );
             this.setState({fireRedirect: true});
           });
-        }, defaultUIConfig.defaultTimeoutTime);
+        }, defaultNumbers.timeoutTime);
       } else {
         this.setState({showLoginError: true});
       }

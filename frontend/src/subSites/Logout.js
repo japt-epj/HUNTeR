@@ -2,7 +2,7 @@ import React from 'react';
 
 import ModalHandler from '../handlers/ModalHandler';
 import pathConfig from '../config/pathConfig';
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultNumbers from '../config/defaultNumbers';
 
 export default {
   logout() {
@@ -15,7 +15,7 @@ export default {
           : ModalHandler.getLogoutSuccess()}
         {setTimeout(() => {
           window.location.replace(pathConfig.mainURL);
-        }, defaultUIConfig.defaultTimeoutTime)}
+        }, defaultNumbers.timeoutTime)}
       </div>
     );
   },
