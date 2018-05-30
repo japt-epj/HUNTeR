@@ -2,7 +2,7 @@ package ch.japt.epj.model;
 
 import ch.japt.epj.library.ListConverter;
 import ch.japt.epj.model.dto.PersonDto;
-import ch.japt.epj.model.dto.RegPersonDto;
+import ch.japt.epj.model.dto.UpdatePersonDto;
 import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.PersonRepository;
 import java.lang.reflect.Type;
@@ -37,12 +37,11 @@ public class PersonModel {
         .map(person -> mapper.map(person, PersonDto.class));
   }
 
-  public void updatePeople(RegPersonDto body) {
+  public void updatePeople(UpdatePersonDto body, Long personId) {
     persons
-        .findByPersonId(body.getId())
+        .findByPersonId(personId)
         .ifPresent(
             person -> {
-              person.setEmail(body.getEmail());
               person.setFirstName(body.getFirstName());
               person.setLastName(body.getLastName());
               persons.save(person);

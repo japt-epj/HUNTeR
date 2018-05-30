@@ -15,14 +15,12 @@ export default class ParticipantExercise extends React.Component {
     super(props);
     this.state = {
       successMessage: defaultUIConfig.defaultSuccessMessages.response,
-      executionId:
-        this.props.location.state !== undefined
-          ? this.props.location.state.executionId
-          : '',
-      exerciseId:
-        this.props.location.state !== undefined
-          ? this.props.location.state.exerciseId
-          : '',
+      executionId: Boolean(this.props.location.state)
+        ? this.props.location.state.executionId
+        : '',
+      exerciseId: Boolean(this.props.location.state)
+        ? this.props.location.state.exerciseId
+        : '',
       name: '',
       exercise: {},
       question: '',
@@ -55,7 +53,7 @@ export default class ParticipantExercise extends React.Component {
           <div>
             {this.state.successMessage.showModal &&
               ModalHandler.getCreationSuccess(this.state.successMessage)}
-            {this.state.exercise.answers === undefined ? (
+            {!Boolean(this.state.exercise.answers) ? (
               getLoadingScreen()
             ) : (
               <Grid padded>

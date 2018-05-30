@@ -31,11 +31,7 @@ export default class ParticipantScanExercise extends React.Component {
 
   handleScan = data => {
     const jsonData = JSON.parse(data);
-    if (
-      jsonData !== null &&
-      jsonData !== undefined &&
-      jsonData.coordinates !== undefined
-    ) {
+    if (Boolean(jsonData)) {
       let successMessage = {...this.state.successMessage};
       successMessage.showModal = true;
       this.setState({

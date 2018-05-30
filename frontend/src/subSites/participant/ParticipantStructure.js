@@ -7,7 +7,7 @@ import '../../style/index.css';
 import getHome from '../../components/getHome';
 import UserSettings from '../../components/UserSettings';
 import ParticipantScanExercise from './ParticipantScanExercise';
-import Leaderboard from '../../components/Leaderboard';
+import LeaderBoard from '../../components/LeaderBoard';
 import ParticipantExercise from './ParticipantExercise';
 
 import Logout from '../Logout';
@@ -44,7 +44,7 @@ export default class ParticipantStructure extends React.Component {
                     <Route
                       exact
                       path="/"
-                      render={props =>
+                      render={() =>
                         getHome(DefaultUIPaths.getPathsParticipant())
                       }
                     />
@@ -54,12 +54,12 @@ export default class ParticipantStructure extends React.Component {
                       path="/nextLocation"
                       component={ParticipantNextLocation}
                     />
-                    <Route path="/score" component={Leaderboard} />
+                    <Route path="/score" component={LeaderBoard} />
                     <Route path="/exercise" component={ParticipantExercise} />
                     <Route
                       path="/logout"
                       render={() => {
-                        return Logout();
+                        return Logout.logout();
                       }}
                     />
                     <Route component={NotFound} />

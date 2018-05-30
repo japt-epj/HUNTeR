@@ -1,15 +1,15 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 
-import {Button, Pagination, Table} from 'semantic-ui-react';
+import {Button, Table} from 'semantic-ui-react';
 
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
 import defaultUIConfig from '../config/defaultUIConfig';
+import PaginationHandler from './PaginationHandler';
 
 export default {
   getExecutionTable() {
-    let headerElements = ['Name', 'ID', 'Bearbeiten', 'QR-Codes herunterladen'];
+    let headerElements = ['Name', 'ID', 'QR-Codes herunterladen'];
     return (
       <Table>
         <Table.Header>
@@ -21,14 +21,9 @@ export default {
               <Table.Row key={'TableRow' + element.id}>
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
-                <Table.Cell collapsing>
-                  <NavLink to={'/execution'}>
-                    <Button color="green" icon="edit" basic />
-                  </NavLink>
-                </Table.Cell>
-                <Table.Cell collapsing>
+                <Table.Cell collapsing textAlign="center">
                   <Button
-                    color="orange"
+                    color={defaultUIConfig.buttonColors.download}
                     icon="download"
                     basic
                     onClick={() =>
@@ -39,20 +34,12 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length}>
-              <Pagination
-                totalPages={this.state.maxPage}
-                activePage={this.state.pageNumber}
-                onPageChange={this.handlePageChangeExecutions}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: this.state.maxPage,
+          activePage: this.state.pageNumber,
+          onPageChange: this.handlePageChangeExecutions,
+          width: headerElements.length
+        })}
       </Table>
     );
   }

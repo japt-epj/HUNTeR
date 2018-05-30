@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, Checkbox, Icon, Pagination, Table} from 'semantic-ui-react';
+import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import defaultUIConfig from '../config/defaultUIConfig';
@@ -8,66 +8,78 @@ import ShowExerciseModal from '../components/ShowExerciseModal';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
 import ShowExerciseEditModal from '../components/ShowExerciseEditModal';
+import PaginationHandler from './PaginationHandler';
 
 export default {
-  handleSelection(event, checkbox) {
+  handleSingleSelection(event, checkbox) {
     let selectedCheckboxes = [...this.state.selectedCheckboxes];
     let bulkCheckboxes = [...this.state.bulkCheckboxes];
-    let pageNumber = this.state.pageNumber;
-    let pageNumberSelectedExercises = this.state.pageNumberSelectedExercises;
     let selectedPositions = new Map(this.state.selectedPositions);
-    const startNameBulkCheckbox = 'BulkCheckbox';
+    const currentBulkCheckboxId = 'BulkCheckbox' + this.state.pageNumber;
     if (checkbox.checked) {
-      if (checkbox.name.startsWith(startNameBulkCheckbox)) {
-        bulkCheckboxes.push(checkbox.id);
-        this.state.exercises.forEach(element => {
-          if (selectedCheckboxes.indexOf(element.id) === -1) {
-            selectedCheckboxes.push(element.id);
-            selectedPositions.set(element.id, undefined);
-          }
-        });
-      } else {
-        selectedPositions.set(checkbox.id, undefined);
-        selectedCheckboxes.push(checkbox.id);
-      }
+      selectedPositions.set(checkbox.id, undefined);
+      selectedCheckboxes.push(checkbox.id);
     } else {
-      if (checkbox.name.startsWith(startNameBulkCheckbox)) {
-        bulkCheckboxes.splice(selectedCheckboxes.lastIndexOf(checkbox.id), 1);
-        this.state.exercises.forEach(element => {
-          if (selectedCheckboxes.indexOf(element.id) !== -1) {
-            selectedCheckboxes.splice(
-              selectedCheckboxes.indexOf(element.id),
-              1
-            );
-            selectedPositions.delete(element.id);
-          }
-        });
-      } else {
-        bulkCheckboxes.splice(
-          selectedCheckboxes.lastIndexOf(startNameBulkCheckbox + pageNumber),
-          1
-        );
-        selectedPositions.delete(checkbox.id);
-        selectedCheckboxes.splice(
-          selectedCheckboxes.lastIndexOf(checkbox.id),
-          1
-        );
-      }
+      selectedPositions.delete(checkbox.id);
+      selectedCheckboxes.splice(selectedCheckboxes.lastIndexOf(checkbox.id), 1);
+      bulkCheckboxes.splice(
+        selectedCheckboxes.lastIndexOf(currentBulkCheckboxId),
+        1
+      );
     }
-    this.setState({
+
+    this.updateSelection({
       bulkCheckboxes,
-      selectedCheckboxes: selectedCheckboxes.sort((a, b) => a > b),
+      selectedCheckboxes,
       selectedPositions
     });
+  },
+
+  handleBulkSelection(event, checkbox) {
+    let selectedCheckboxes = [...this.state.selectedCheckboxes];
+    let bulkCheckboxes = [...this.state.bulkCheckboxes];
+    let selectedPositions = new Map(this.state.selectedPositions);
+    if (checkbox.checked) {
+      this.state.exercises.forEach(element => {
+        if (selectedCheckboxes.indexOf(element.id) === -1) {
+          selectedCheckboxes.push(element.id);
+          selectedPositions.set(element.id, undefined);
+        }
+      });
+      bulkCheckboxes.push(checkbox.id);
+    } else {
+      this.state.exercises.forEach(element => {
+        if (selectedCheckboxes.indexOf(element.id) !== -1) {
+          selectedCheckboxes.splice(selectedCheckboxes.indexOf(element.id), 1);
+          selectedPositions.delete(element.id);
+        }
+      });
+      bulkCheckboxes.splice(selectedCheckboxes.lastIndexOf(checkbox.id), 1);
+    }
+    this.updateSelection({
+      bulkCheckboxes,
+      selectedCheckboxes,
+      selectedPositions
+    });
+  },
+
+  updateSelection(values) {
+    this.setState({
+      bulkCheckboxes: values.bulkCheckboxes,
+      selectedCheckboxes: values.selectedCheckboxes.sort((a, b) => b - a),
+      selectedPositions: values.selectedPositions
+    });
     APIHandler.getExerciseArray(
-      selectedCheckboxes.slice(
-        (pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage,
-        pageNumberSelectedExercises * this.exerciseLimitPerPage
+      values.selectedCheckboxes.slice(
+        (this.state.pageNumberSelectedExercises - 1) *
+          this.exerciseLimitPerPage,
+        this.state.pageNumberSelectedExercises * this.exerciseLimitPerPage
       )
     ).then(resData => {
       if (resData.status === OK) {
         this.setState({
-          selectedExercises: selectedCheckboxes.length !== 0 ? resData.data : []
+          selectedExercises:
+            values.selectedCheckboxes.length !== 0 ? resData.data : []
         });
       } else {
         console.error('Error:' + resData);
@@ -88,7 +100,7 @@ export default {
             <Table.Row key={'TableRow' + element.id}>
               <Table.Cell content={element.name} />
               <Table.Cell collapsing>
-                {this.state.selectedPositions.get(element.id) !== undefined && (
+                {Boolean(this.state.selectedPositions.get(element.id)) && (
                   <Icon color="green" name="check" />
                 )}
               </Table.Cell>
@@ -99,56 +111,22 @@ export default {
                   icon="point"
                   onClick={event => {
                     event.preventDefault();
-                    if (this.state.map.currentExercise !== undefined) {
-                      let newPositions = this.state.selectedPositions;
-                      newPositions.set(
-                        this.state.map.currentExercise,
-                        this.state.map.location
-                      );
-                      this.setState({selectedPositions: newPositions});
-                    }
-                    let map = {...this.state.map};
-                    map.currentExercise = element.id;
-                    map.popupText = element.name;
-                    if (
-                      this.state.selectedPositions.get(element.id) === undefined
-                    ) {
-                      map.location = this.state.map.location;
-                    } else {
-                      map.location = this.state.selectedPositions.get(
-                        element.id
-                      );
-                    }
-                    this.setState({map: map});
+                    this.addPosition(element);
                   }}
                 />
               </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length}>
-              <Pagination
-                totalPages={
-                  this.state.selectedCheckboxes.length % maxElementsPerPage ===
-                  0
-                    ? this.state.selectedCheckboxes.length / maxElementsPerPage
-                    : parseInt(
-                        this.state.selectedCheckboxes.length /
-                          maxElementsPerPage,
-                        10
-                      ) + 1
-                }
-                activePage={this.state.pageNumberSelectedExercises}
-                onPageChange={this.handlePageChangeSelected}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: PaginationHandler.calculateTotalPages(
+            this.state.selectedCheckboxes.length,
+            maxElementsPerPage
+          ),
+          activePage: this.state.pageNumberSelectedExercises,
+          onPageChange: this.handlePageChangeSelectedExercises,
+          width: headerElements.length
+        })}
       </Table>
     );
   },
@@ -163,7 +141,7 @@ export default {
               TableHandler.getBulkCheckbox(
                 this.state.pageNumber,
                 this.state.bulkCheckboxes,
-                this.handleSelection
+                this.handleBulkSelection
               )}
             {TableHandler.getTableHeader(headerElements)}
           </Table.Row>
@@ -177,7 +155,7 @@ export default {
                     <Checkbox
                       id={element.id}
                       name={element.name}
-                      onChange={this.handleSelection}
+                      onChange={this.handleSingleSelection}
                       checked={
                         this.state.selectedCheckboxes.indexOf(element.id) !== -1
                       }
@@ -195,20 +173,12 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan={headerElements.length + checkboxNeeded}>
-              <Pagination
-                totalPages={this.state.maxPage}
-                activePage={this.state.pageNumber}
-                onPageChange={this.handlePageChangeExercises}
-                pointing
-                secondary
-                color={defaultUIConfig.paginationColor}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
+        {PaginationHandler.getPagination({
+          totalPages: this.state.maxPage,
+          activePage: this.state.pageNumber,
+          onPageChange: this.handlePageChangeExercises,
+          width: headerElements.length + checkboxNeeded
+        })}
       </Table>
     );
   }

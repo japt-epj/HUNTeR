@@ -17,7 +17,7 @@ export default {
 
   downloadExecutionQRCodePDF(executionID) {
     return axios
-      .get(pathConfig.apiURL + 'quiz/' + executionID + '/print', {
+      .get(pathConfig.apiURL + 'execution/' + executionID + '/print', {
         headers: getAxiosHeader('application/pdf'),
         responseType: 'arraybuffer'
       })
@@ -39,7 +39,7 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  getLeaderboard(executionId) {
+  getLeaderBoard(executionId) {
     let requestURL = pathConfig.apiURL + 'score/' + executionId;
     return axios
       .get(requestURL, {
@@ -48,7 +48,7 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  getExecutions(executionId) {
+  getExecutions() {
     let requestURL =
       pathConfig.apiURL +
       'execution?limit=' +
