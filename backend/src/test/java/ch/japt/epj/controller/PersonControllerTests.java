@@ -26,7 +26,7 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
   public void getExistingPersonById() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/person/1")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .contentType(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
