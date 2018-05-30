@@ -3,6 +3,7 @@ import React from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import defaultColors from '../config/defaultColors';
 import TeacherExercise from '../subSites/teacher/TeacherExercise';
+import defaultModalOptions from '../config/defaultModalOptions';
 
 export default class ShowExerciseEditModal extends React.Component {
   constructor(props) {

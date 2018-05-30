@@ -4,6 +4,7 @@ import {Button, Modal} from 'semantic-ui-react';
 import defaultColors from '../config/defaultColors';
 import APIHandler from '../handlers/APIHandler';
 import {OK} from 'http-status-codes/index';
+import defaultModalOptions from '../config/defaultModalOptions';
 
 export default class ShowExerciseModal extends React.Component {
   constructor(props) {
