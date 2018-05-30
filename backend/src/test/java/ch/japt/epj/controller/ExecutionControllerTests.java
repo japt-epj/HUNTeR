@@ -32,7 +32,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
 
     mvc.perform(request)
         .andExpect(status().isOk())
-        //        .andExpect(isPaginated())
+        .andExpect(isPaginated())
         .andExpect(
             content()
                 .string(

@@ -1,6 +1,7 @@
 package ch.japt.epj.Helper;
 
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
 import java.util.stream.Stream;
 import org.springframework.test.util.AssertionErrors;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -11,14 +12,27 @@ public class PaginationChecker {
         "first", "last", "number", "numberOfElements", "size", "sort", "totalElements", "totalPages"
       };
 
+  private static boolean assertExists(String content, String element) {
+    try {
+      JsonPath.read(content, element);
+      return true;
+    } catch (PathNotFoundException e) {
+      return false;
+    }
+  }
+
   public static ResultMatcher isPaginated() {
 
     return mvcResult -> {
       String content = mvcResult.getResponse().getContentAsString();
-      AssertionErrors.assertTrue("Root element exists", JsonPath.read(content, "$") != null);
+      AssertionErrors.assertTrue("Root object does not exist", assertExists(content, "$"));
+
       Stream.of(paginationElements)
           .forEach(
-              e -> AssertionErrors.assertTrue(e + "exists", JsonPath.read(content, e) != null));
+              e ->
+                  AssertionErrors.assertTrue(
+                      String.format("Improper pagination entity, '%s' missing", e),
+                      assertExists(content, "$." + e)));
     };
   }
 }
