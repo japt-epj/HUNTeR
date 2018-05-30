@@ -19,7 +19,7 @@ export default class TeacherQuizOverview extends React.Component {
       loadingQuiz: true,
       pageNumber: defaultNumbers.pageNumber,
       minPage: 1,
-      maxPageQuiz: ''
+      maxPageQuizzes: ''
     };
 
     this.getQuizTable = QuizHandler.getQuizTable.bind(this);
@@ -41,7 +41,7 @@ export default class TeacherQuizOverview extends React.Component {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
-          maxPageQuiz: resData.data.totalPages,
+          maxPageQuizzes: resData.data.totalPages,
           loadingQuiz: false
         });
       }

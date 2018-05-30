@@ -54,7 +54,7 @@ export default {
 
   getParticipantMap() {
     const pointer = defaultMap.icons.pointer.icon;
-    const protagonist = defaultMap.map.icons.protagonist.icon;
+    const protagonist = defaultMap.icons.protagonist.icon;
 
     return (
       <LeafletMap
