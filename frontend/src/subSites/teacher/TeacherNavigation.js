@@ -10,7 +10,6 @@ import defaultMessages from '../../config/defaultMessages';
 export default class TeacherNavigation extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       delay: defaultNumbers.scanDelayValue,
       result: '',
