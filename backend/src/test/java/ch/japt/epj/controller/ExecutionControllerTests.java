@@ -1,5 +1,6 @@
 package ch.japt.epj.controller;
 
+import static ch.japt.epj.Helper.PaginationChecker.paginated;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
 
   @Autowired private MockMvc mvc;
 
-  //  @Test
+  @Test
   public void getExecutionById() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution/1")
@@ -60,8 +61,8 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
     mvc.perform(request).andExpect(status().isCreated());
   }
 
-  //  @Test
-  public void getAllExecutions() throws Exception {
+  @Test
+  public void checkPaginationPayload() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution")
             .header("Authorization", completeToken)
@@ -70,6 +71,6 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
     mvc.perform(request)
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$[0]").exists());
+        .andExpect(paginated());
   }
 }
