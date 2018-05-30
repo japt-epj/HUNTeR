@@ -118,11 +118,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
             .content(
                 "{ \"name\": \"This is a test question\", \"question\": \"What is 42?\", \"answers\": [ { \"text\": \"A number\", \"checked\": \"false\" }, { \"text\": \"The answer to everything\", \"checked\": \"true\" } ] }");
 
-    mvc.perform(request)
-        // this should be set and needs to be fixed on the api level
-        //
-        // .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(status().isCreated());
+    mvc.perform(request).andExpect(status().isCreated());
   }
 
   @Test
