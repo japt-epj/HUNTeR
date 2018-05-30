@@ -18,9 +18,10 @@ import defaultMessages from '../../config/defaultMessages';
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       successMessage: defaultSuccessMessages.quiz,
-      showAgreement: defaultMessages.showAgreement,
+      hideAgreement: defaultMessages.hideAgreement(),
       formOK: true,
       name: '',
       exercises: [],
@@ -71,6 +72,9 @@ export default class TeacherQuiz extends React.Component {
   }
 
   componentDidMount() {
+    if (this.state.hideAgreement) {
+      this.locate();
+    }
     this.getExercises(this.state.pageNumber);
   }
 
@@ -159,7 +163,7 @@ export default class TeacherQuiz extends React.Component {
           )}
         <Form onSubmit={this.handleSubmit}>
           <Grid>
-            {this.state.showAgreement && this.getAgreement()}
+            {!this.state.hideAgreement && this.getAgreement()}
             <Grid.Row>
               <Grid.Column>
                 <Form.Input

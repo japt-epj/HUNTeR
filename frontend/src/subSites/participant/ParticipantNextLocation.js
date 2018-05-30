@@ -8,13 +8,14 @@ import ModalHandler from '../../handlers/ModalHandler';
 import defaultColors from '../../config/defaultColors';
 import MapHandler from '../../handlers/MapHandler';
 import defaultMessages from '../../config/defaultMessages';
+import defaultNumbers from '../../config/defaultNumbers';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
-    const defaultZoomSize = 19;
+
     this.state = {
-      showAgreement: defaultMessages.showAgreement,
+      hideAgreement: defaultMessages.hideAgreement(),
       executionId: Boolean(this.props.location.state)
         ? this.props.location.state.executionId
         : '',
@@ -25,7 +26,7 @@ export default class ParticipantNextLocation extends React.Component {
       loading: true,
       map: {
         location: undefined,
-        zoom: defaultZoomSize
+        zoom: defaultNumbers.defaultZoomSize
       }
     };
 
@@ -37,6 +38,9 @@ export default class ParticipantNextLocation extends React.Component {
   }
 
   componentDidMount() {
+    if (this.state.hideAgreement) {
+      this.locate();
+    }
     this.promiceToLocation(APIHandler.getNextLocations(this.state.executionId));
   }
 
@@ -98,7 +102,7 @@ export default class ParticipantNextLocation extends React.Component {
   render() {
     return (
       <Grid padded>
-        {this.state.showAgreement && this.getAgreement()}
+        {!this.state.hideAgreement && this.getAgreement()}
         <Grid.Row id="mapContainer">{this.getParticipantMap()}</Grid.Row>
         <Grid.Row centered>
           <Button

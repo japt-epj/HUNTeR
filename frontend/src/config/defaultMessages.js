@@ -1,12 +1,18 @@
 import {isMobile} from 'react-device-detect';
 
 let defaultMessages = {
-  showAgreement: Boolean(window.sessionStorage.getItem('showAgreement'))
-    ? JSON.parse(window.sessionStorage.getItem('showAgreement'))
-    : true,
-  showMobileError: Boolean(window.sessionStorage.getItem('showMobileError'))
-    ? JSON.parse(window.sessionStorage.getItem('showMobileError'))
-    : isMobile
+  hideAgreement: () => {
+    let hideAgreement = window.sessionStorage.getItem('HUNTeR-hideAgreement');
+    console.log(Boolean(JSON.parse(hideAgreement)));
+    return Boolean(JSON.parse(hideAgreement));
+  },
+
+  hideMobileError: () => {
+    let hideMobileError = window.sessionStorage.getItem(
+      'HUNTeR-hideMobileError'
+    );
+    return !isMobile || Boolean(JSON.parse(hideMobileError));
+  }
 };
 
 export default Object.freeze(Object.assign({}, defaultMessages));

@@ -10,12 +10,13 @@ import defaultMessages from '../../config/defaultMessages';
 export default class TeacherNavigation extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      delay: 500,
+      delay: defaultNumbers.scanDelayValue,
       result: '',
       displayText: 'Scanne QR-Code für die Navigation ein.',
       scanError: false,
-      showAgreement: defaultMessages.showAgreement,
+      hideAgreement: defaultMessages.hideAgreement(),
       showSuccess: false,
       fireRedirect: false,
       locationPermission: undefined,
@@ -27,6 +28,12 @@ export default class TeacherNavigation extends React.Component {
 
     this.defaultDisplayText = this.state.displayText;
     this.getAgreement = ModalHandler.getAgreement.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.state.hideAgreement) {
+      this.locate();
+    }
   }
 
   handleScan = data => {
@@ -73,7 +80,7 @@ export default class TeacherNavigation extends React.Component {
     return (
       <div>
         {this.state.showSuccess && ModalHandler.getScanSuccess()}
-        {this.state.showAgreement ? (
+        {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (
           <div>
