@@ -8,7 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class AuthenticatedControllerTest {
+public abstract class AuthenticatedControllerTest {
 
   protected String completeToken;
   @Autowired private JwtTokenProvider tokenProvider;
