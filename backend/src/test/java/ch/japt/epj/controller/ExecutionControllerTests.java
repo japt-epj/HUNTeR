@@ -1,8 +1,11 @@
 package ch.japt.epj.controller;
 
 import static ch.japt.epj.helper.PaginationChecker.isPaginated;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.hamcrest.core.IsNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +34,8 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
             .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON);
 
-    mvc.perform(request).andExpect(status().isOk());
+    ResultActions actions = mvc.perform(request).andExpect(status().isOk());
+    assertExecutionPayload(actions);
   }
 
   @Test
@@ -67,5 +72,29 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(isPaginated());
+  }
+
+  private static String[] participants = {
+    "Andi Hörler",
+    "Jonas Kugler",
+    "Dolores Abernathy",
+    "Maeve Millay",
+    "John Reese",
+    "Sameen Shaw",
+    "Ernest Thornhill"
+  };
+
+  private static void assertExecutionPayload(ResultActions mvc) throws Exception {
+    mvc.andExpect(jsonPath("$.id").value(1))
+        .andExpect(jsonPath("$.name").value("Geometrie"))
+        .andExpect(jsonPath("$.startDate").value(IsNull.nullValue()))
+        .andExpect(jsonPath("$.endDate").value(IsNull.nullValue()))
+        .andExpect(jsonPath("$.participants").isArray())
+        .andExpect(jsonPath("$.participants").isNotEmpty())
+        .andExpect(jsonPath("$.participants", hasSize(7)));
+
+    for (String participant : participants) {
+      mvc.andExpect(jsonPath("$.participants", hasItem(participant)));
+    }
   }
 }

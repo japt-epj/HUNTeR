@@ -22,7 +22,6 @@ public class PaginationChecker {
   }
 
   public static ResultMatcher isPaginated() {
-
     return mvcResult -> {
       String content = mvcResult.getResponse().getContentAsString();
       AssertionErrors.assertTrue("Root object does not exist", assertExists(content, "$"));
