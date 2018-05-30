@@ -298,7 +298,7 @@ paths:
         description: "Execution object that will be added to the store"
         required: true
         schema:
-          $ref: "#/definitions/NewQuiz"
+          $ref: "#/definitions/Quiz"
       responses:
         405:
           description: "Invalid input"
@@ -319,7 +319,7 @@ paths:
         description: "Execution object that needs to be added to the store"
         required: true
         schema:
-          $ref: "#/definitions/NewQuiz"
+          $ref: "#/definitions/Quiz"
       responses:
         400:
           description: "Invalid ID supplied"
@@ -350,7 +350,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/NewQuiz"
+              $ref: "#/definitions/Quiz"
     post:
       tags:
       - "quiz"
@@ -749,7 +749,7 @@ definitions:
         type: "integer"
         format: "int64"
 
-  NewQuiz:
+  Quiz:
     type: "object"
     required:
     - "name"
