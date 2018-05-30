@@ -1,13 +1,11 @@
 package ch.japt.epj.model;
 
-import ch.japt.epj.model.data.Execution;
-import ch.japt.epj.model.data.Person;
-import ch.japt.epj.model.data.Response;
 import ch.japt.epj.model.dto.ScoreDto;
 import ch.japt.epj.repository.ExecutionRepository;
-import java.util.HashMap;
+import ch.japt.epj.repository.data.ExecutionScore;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,55 +21,21 @@ public class ScoreModel {
   }
 
   public ScoreDto getScore(Long executionId, Long personId) {
-    Map<String, ScoreValue> scoreMap = new HashMap<>();
-    Execution execution =
+    Double questions =
         executions
             .findByExecutionId(executionId)
-            .orElseThrow(() -> new IllegalArgumentException("Illegal executionId"));
-    Integer numberOfTasks = execution.getQuiz().getTasks().size();
-    for (Person participant : execution.getParticipants()) {
-      String participantName = participant.getFirstName() + " " + participant.getLastName();
-      Stream<Response> responsesStream = execution.getResponses().stream().distinct();
-      Double rightAnswers =
-          Long.valueOf(
-                  responsesStream
-                      .filter(response -> correctResponse(response, participant))
-                      .count())
-              .doubleValue();
-      Boolean isEqualPerson = personId.equals(participant.getPersonId());
-      scoreMap.put(
-          Long.toString(participant.getPersonId()),
-          new ScoreValue(participantName, rightAnswers / numberOfTasks, isEqualPerson));
-    }
-    return mapper.map(scoreMap, ScoreDto.class);
+            .map(e -> (double) e.getQuiz().getTasks().size())
+            .orElse(1D);
+
+    Map<String, ExecutionScore> scores = makeMap(executions.allScores(executionId, personId));
+    Map<String, ExecutionScore> aggregated =
+        makeMap(executions.aggregateScores(executionId, personId, questions));
+
+    scores.putAll(aggregated);
+    return mapper.map(scores, ScoreDto.class);
   }
 
-  private boolean correctResponse(Response response, Person participant) {
-    return response.getPerson().getPersonId() == participant.getPersonId()
-        && response.getAnswerFromPerson().isChecked();
-  }
-
-  private class ScoreValue {
-    private final String participantName;
-    private final Double participantScore;
-    private final Boolean isParticipantMe;
-
-    private ScoreValue(String participantName, Double participantScore, Boolean isParticipantMe) {
-      this.participantName = participantName;
-      this.participantScore = participantScore;
-      this.isParticipantMe = isParticipantMe;
-    }
-
-    public String getUserName() {
-      return participantName;
-    }
-
-    public Double getUserScore() {
-      return participantScore;
-    }
-
-    public Boolean getMe() {
-      return isParticipantMe;
-    }
+  private static Map<String, ExecutionScore> makeMap(List<ExecutionScore> scores) {
+    return scores.stream().collect(Collectors.toMap(ExecutionScore::getId, p -> p));
   }
 }
