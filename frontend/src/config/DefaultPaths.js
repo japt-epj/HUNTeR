@@ -1,4 +1,4 @@
-export default class defaultUiPath {
+export default class DefaultPaths {
   static infoIcon = 'info';
 
   static getPersonalPaths() {
