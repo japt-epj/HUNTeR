@@ -1,6 +1,6 @@
 package ch.japt.epj.controller;
 
-import static ch.japt.epj.Helper.PaginationChecker.paginated;
+import static ch.japt.epj.Helper.PaginationChecker.isPaginated;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Test;
@@ -32,6 +32,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
 
     mvc.perform(request)
         .andExpect(status().isOk())
+        //        .andExpect(isPaginated())
         .andExpect(
             content()
                 .string(
@@ -71,6 +72,6 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
     mvc.perform(request)
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(paginated());
+        .andExpect(isPaginated());
   }
 }
