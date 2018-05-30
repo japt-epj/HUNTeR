@@ -28,7 +28,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   public void getExerciseSuccess() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise/2")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -48,7 +48,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   public void checkPageInformationDefaultQuery() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -69,7 +69,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   public void checkPageInformationEmptyPage() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise?page=100&limit=2")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -90,7 +90,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   public void checkInvalidPagination() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise/?sort=blabla")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request).andExpect(status().isOk()).andExpect(content().string(""));
@@ -100,7 +100,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   public void getExerciseNotFound() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/exercise/100000")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -113,7 +113,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   public void makeExerciseSuccess() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/exercise")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
                 "{ \"name\": \"This is a test question\", \"question\": \"What is 42?\", \"answers\": [ { \"text\": \"A number\", \"checked\": \"false\" }, { \"text\": \"The answer to everything\", \"checked\": \"true\" } ] }");
@@ -125,7 +125,7 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   public void makeExerciseFailure() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/exercise")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .contentType(MediaType.APPLICATION_JSON)
             .content("{}");
 

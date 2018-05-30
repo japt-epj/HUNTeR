@@ -26,14 +26,14 @@ public class LocationControllerTests extends AuthenticatedControllerTest {
 
   @Before
   public void authenticateAsStudent() {
-    getToken("andi.hoerler@hsr.ch", "andi");
+    setCurrentToken("andi.hoerler@hsr.ch", "andi");
   }
 
   @Test
   public void getNextLocationInExecution() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/location/6")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
@@ -48,7 +48,7 @@ public class LocationControllerTests extends AuthenticatedControllerTest {
   public void getAllNextLocations() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/location")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)

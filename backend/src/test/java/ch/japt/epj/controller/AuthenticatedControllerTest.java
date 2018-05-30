@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AuthenticatedControllerTest {
 
-  protected String completeToken;
+  protected String token;
   protected @Autowired TestUserAuthenticator authenticator;
 
   @Before
-  public void getToken() {
-    completeToken = authenticator.authenticate("tobias.saladin@hsr.ch", "tobias");
+  public void setCurrentToken() {
+    token = authenticator.authenticate("tobias.saladin@hsr.ch", "tobias");
   }
 
-  public void getToken(String email, String password) {
-    completeToken = authenticator.authenticate(email, password);
+  public void setCurrentToken(String email, String password) {
+    token = authenticator.authenticate(email, password);
   }
 }

@@ -31,7 +31,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   public void getExecutionById() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution/1")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     ResultActions actions = mvc.perform(request).andExpect(status().isOk());
@@ -42,10 +42,10 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   public void getExecutionByPage() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution")
+            .header("Authorization", token)
             .param("page", "0")
             .param("limit", "1")
             .param("sort", "executionId,asc")
-            .header("Authorization", completeToken)
             .accept(MediaType.APPLICATION_JSON);
 
     ResultActions actions =
@@ -60,7 +60,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   public void createExecutionInvalidPayload() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/execution")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .contentType(MediaType.APPLICATION_JSON)
             .content("{}");
 
@@ -71,7 +71,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   public void createExecution() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/execution")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
                 "{\"name\":\"test\",\"quizId\":4,\"participants\":[5,12,9,14,10],\"startDate\":\"2018-05-04T10:21:10.356Z\",\"endDate\":\"2018-05-04T11:21:10.356Z\"}");
@@ -83,7 +83,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   public void checkPaginationPayload() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
