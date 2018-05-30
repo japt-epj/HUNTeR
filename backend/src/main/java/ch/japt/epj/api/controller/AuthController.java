@@ -12,8 +12,10 @@ import io.swagger.annotations.Api;
 import java.util.Comparator;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,6 +34,9 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
   private final AuthenticationManager authenticationManager;
   private final PersonRepository personRepository;
   private final JwtTokenProvider tokenProvider;
+
+  @Value("${app.jwtExpirationInMs}")
+  private int jwtExpirationInMs;
 
   public AuthController(
       @Autowired RegPersonModel regPersonModel,
@@ -55,10 +60,12 @@ public class AuthController implements ch.japt.epj.api.AuthApi {
     JWTDto dto = new JWTDto();
     dto.setToken(jwt);
     dto.setTokenType("Bearer");
+    dto.setTokenLifetime(jwtExpirationInMs);
     return new ResponseEntity<>(dto, HttpStatus.OK);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> registerPerson(@Valid @RequestBody RegPersonDto body) {
     if (personRepository.existsByEmail(body.getEmail())) {
       return new ResponseEntity<>(HttpStatus.CONFLICT);

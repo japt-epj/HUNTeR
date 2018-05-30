@@ -7,6 +7,7 @@ import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import defaultUIConfig from '../../config/defaultUIConfig';
+import TableHandler from '../../handlers/TableHandler';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
@@ -18,6 +19,8 @@ export default class TeacherNewParticipant extends React.Component {
       lastName: '',
       email: ''
     };
+
+    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleNewParticipantSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.postData = APIHandler.postData.bind(this);
@@ -57,19 +60,7 @@ export default class TeacherNewParticipant extends React.Component {
             placeholder="Bitte geben Sie den Nachnamen des Teilnehmers ein"
             required
           />
-          <Grid>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Button content="Submit" />
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Button
-                  content="Abbrechen"
-                  onClick={() => this.setState({fireRedirect: true})}
-                />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <Grid>{this.getSubmitCancelButton()}</Grid>
           {this.state.fireRedirect && (
             <Redirect to={{pathname: '/', state: {person: this.state}}} />
           )}

@@ -7,6 +7,7 @@ import ch.japt.epj.model.dto.RegPersonDto;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.RoleRepository;
 import java.util.Collections;
+import java.util.Locale;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,12 +33,12 @@ public class RegPersonModel {
 
   public void addPerson(RegPersonDto regPersonDto) {
     Person person = mapper.map(regPersonDto, Person.class);
-    person.setPassword(passwordEncoder.encode(person.getPassword()));
+    person.setPassword(passwordEncoder.encode(person.getFirstName().toLowerCase(Locale.GERMAN)));
     Role personRole =
         roles
-            .findByName(RoleName.ROLE_TEACHER)
+            .findByName(RoleName.ROLE_STUDENT)
             .orElseThrow(
-                () -> new IllegalArgumentException("Unable to assign teacher role to person."));
+                () -> new IllegalArgumentException("Unable to assign student role to person."));
     person.setRoles(Collections.singleton(personRole));
     persons.save(person);
   }

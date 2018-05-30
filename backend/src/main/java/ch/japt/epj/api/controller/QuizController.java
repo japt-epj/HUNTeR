@@ -2,18 +2,19 @@ package ch.japt.epj.api.controller;
 
 import ch.japt.epj.api.PaginatedQuiz;
 import ch.japt.epj.library.SortParameterHandler;
-import ch.japt.epj.model.QrModel;
 import ch.japt.epj.model.QuizModel;
 import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.security.CustomUserDetails;
 import io.swagger.annotations.Api;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,33 +26,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api")
 public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   private final QuizModel quizModel;
-  private final QrModel qrModel;
 
-  public QuizController(@Autowired QuizModel quizModel, @Autowired QrModel qrModel) {
+  public QuizController(@Autowired QuizModel quizModel) {
     this.quizModel = quizModel;
-    this.qrModel = qrModel;
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> addQuiz(@Valid @RequestBody NewQuizDto body) {
-    quizModel.addQuiz(body);
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    long creatorId = ((CustomUserDetails) authentication.getPrincipal()).getPersonId();
+    quizModel.addQuiz(body, creatorId);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<List<NewQuizDto>> quizIdGet(@Valid @PathVariable("id") List<Integer> id) {
     return new ResponseEntity<>(quizModel.getQuizzes(id), HttpStatus.OK);
   }
 
   @Override
-  public ResponseEntity<Resource> quizIdPrintGet(@Valid @PathVariable("id") Integer id) {
-    return qrModel
-        .generatePdf(id)
-        .map(b -> new ResponseEntity<Resource>(new ByteArrayResource(b), HttpStatus.OK))
-        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-  }
-
-  @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Page<NewQuizDto>> quizGet(
       @Valid @RequestParam(value = "page", defaultValue = "0") int page,
       @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
@@ -61,11 +57,13 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> updateQuiz(NewQuizDto body) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   @Override
+  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Void> updateQuizWithForm(Long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }

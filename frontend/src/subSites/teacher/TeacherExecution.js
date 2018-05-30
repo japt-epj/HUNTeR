@@ -15,6 +15,7 @@ import QuizHandler from '../../handlers/QuizHandler';
 import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
+import TableHandler from '../../handlers/TableHandler';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
@@ -25,11 +26,11 @@ export default class TeacherExecution extends React.Component {
       name: '',
       participants: [],
       quizzes: [],
-      bulkCheckbox: '',
+      bulkCheckboxes: [],
       selectedQuizId: undefined,
       selectedParticipants: [],
-      loadingUser: true,
-      loadingQuiz: true,
+      loadingParticipants: true,
+      loadingQuizzes: true,
       pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
       minPage: 1,
       maxPageQuiz: '',
@@ -46,9 +47,15 @@ export default class TeacherExecution extends React.Component {
     this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(
       this
     );
-    this.handleSelection = ParticipantHandler.handleSelection.bind(this);
+    this.handleSingleSelection = ParticipantHandler.handleSingleSelection.bind(
+      this
+    );
+    this.handleBulkSelection = ParticipantHandler.handleBulkSelection.bind(
+      this
+    );
     this.getQuizTable = QuizHandler.getQuizTable.bind(this);
 
+    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.handleQuizSelectChange = FormHandler.handleQuizSelectChange.bind(this);
@@ -102,7 +109,10 @@ export default class TeacherExecution extends React.Component {
 
   resetPageNumber = event => {
     event.preventDefault();
-    this.setState({pageNumber: 1});
+    const defaultPageNumber = 1;
+    this.getParticipants(defaultPageNumber);
+    this.getQuizzes(defaultPageNumber);
+    this.setState({pageNumber: defaultPageNumber});
   };
 
   handleStartMomentChange = event => {
@@ -156,7 +166,6 @@ export default class TeacherExecution extends React.Component {
                     <Button
                       color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
-                      positive
                       labelPosition="right"
                       label="Quiz für die Durchführung auswählen"
                       onClick={this.resetPageNumber}
@@ -179,7 +188,6 @@ export default class TeacherExecution extends React.Component {
                     <Button
                       color={defaultUIConfig.buttonColors.normal}
                       icon="add square"
-                      positive
                       labelPosition="right"
                       label="Benutzer zur Durchführung hinzufügen"
                       onClick={this.resetPageNumber}
@@ -218,17 +226,7 @@ export default class TeacherExecution extends React.Component {
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row columns="equal">
-              <Grid.Column>
-                <Form.Button content="Submit" />
-              </Grid.Column>
-              <Grid.Column textAlign="right">
-                <Form.Button
-                  content="Abbrechen"
-                  onClick={() => this.setState({fireRedirect: true})}
-                />
-              </Grid.Column>
-            </Grid.Row>
+            {this.getSubmitCancelButton()}
           </Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>

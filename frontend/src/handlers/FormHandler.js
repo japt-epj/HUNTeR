@@ -46,8 +46,8 @@ export default {
   handleQuizSumbit() {
     if (
       this.state.selectedPositions.size !== 0 &&
-      Array.from(this.state.selectedPositions.keys()).every(
-        key => this.state.selectedPositions.get(key) !== undefined
+      Array.from(this.state.selectedPositions.keys()).every(key =>
+        Boolean(this.state.selectedPositions.get(key))
       )
     ) {
       this.postData(
@@ -61,9 +61,7 @@ export default {
                 lng: this.state.selectedPositions.get(key).lng
               };
             }
-          ),
-          //TODO: Get currentPersonId and post
-          creator: Math.floor(Math.random() * 15) + 1
+          )
         },
         'quiz'
       );
@@ -75,7 +73,7 @@ export default {
   handleExecutionSumbit() {
     if (
       this.state.selectedParticipants.length !== 0 &&
-      this.state.selectedQuizId !== undefined
+      Boolean(this.state.selectedQuizId)
     ) {
       this.postData(
         {
@@ -99,6 +97,13 @@ export default {
           'HUNTeR-Token',
           resData.data.tokenType + ' ' + resData.data.token
         );
+        let now = new Date();
+        window.localStorage.setItem(
+          'HUNTeR-Token-Expiration',
+          now
+            .setMilliseconds(now.getMilliseconds() + resData.data.tokenLifetime)
+            .toString()
+        );
         this.setState({showSuccess: true});
         setTimeout(() => {
           this.redirectAfterLogin().then(redirectData => {
@@ -116,13 +121,19 @@ export default {
   },
 
   handleNewParticipantSubmit() {
-    this.postData(this.state, 'person');
+    this.postData(
+      {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email
+      },
+      'auth/register'
+    );
   },
 
   handleEditParticipant() {
     this.putData(
       {
-        id: this.state.id,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email

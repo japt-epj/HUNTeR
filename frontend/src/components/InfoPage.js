@@ -17,48 +17,55 @@ export default class InfoPage extends React.Component {
         title: 'Aufgaben',
         icon: 'question',
         description:
-          'Aufgaben sind einzelne Quizelemente, welche eine Frage mit ' +
-          'einer richtigen Antwort beinhalten. Der Fragetyp ist als ' +
+          'Der Leherer erstellt Aufgaben. Aufgaben sind einzelne Quizelemente, welche ' +
+          'eine Frage mit einer richtigen Antwort beinhalten. Der Fragetyp ist als ' +
           'single choise definiert.'
       },
       {
         title: 'Quizzes',
         icon: 'point',
         description:
-          'Quizzes beinhalten eine oder mehrere Aufgaben. Jeder Aufgabe ' +
-          'muss zudem ein Standort zugewiesen werden.'
+          'Der Lehrer erstellt Quizzes, welche eine oder mehrere Aufgaben beinhalten. ' +
+          'Jeder Aufgabe muss zudem ein Standort zugewiesen werden.'
       },
       {
         title: 'Durchführung',
         icon: 'add user',
         description:
-          'Durchführungen werden Teilnehmern zugewiesen. Durchführungen ' +
-          'sind zudem mit einem zeitlichen Faktor limitiert.'
+          'Der Lehrer erstellt Durchführungen, welche danach Teilnehmern zugewiesen werden. ' +
+          'Durchführungen sind zudem mit einem zeitlichen Faktor limitiert.'
       },
       {
         title: 'Verteilen',
         icon: 'map',
         description:
-          'Bei den Durchführungen können QR-Code-Listen ausgedruckt ' +
-          'werden. Als Lehrer können diese eingescannt werden um ' +
-          'die Position zu bestimmen und den QR-Code am richtigen ' +
-          'Ort zu deponieren.'
+          'Der Lehrer besitzt die Möglichkeit eine QR-Code-Listen von einer Durchführung ' +
+          'herunterzuladen und auszudrucken werden. Als Lehrer können diese eingescannt ' +
+          'werden, um die Standorte der jeweiligen Quiz-Aufgaben zu bestimmen. Somit wird ' +
+          'es dem Lehrer ermöglicht, den QR-Code, per Navigation, am richtigen Ort zu hinterlegen.'
+      },
+      {
+        title: 'Suchen',
+        icon: 'search',
+        description:
+          'Teilnehmer suchen mithilfe der Webseite die nächsten Quizzes. Hierbei wird auf ' +
+          'Geolocations zurückgegriffen, um den Standort des Studenten zu orten. Der Student ' +
+          'erhält nicht wie der Lehrer eine Möglickeit den QR-Code via Navigation zu finden.'
       },
       {
         title: 'Lösen',
         icon: 'retro camera',
         description:
-          'Teilnehmer können nun die verteilten QR-Codes per Smartphone ' +
-          'einscannen und danach die Aufgabe lösen.'
+          'Teilnehmer können nun die verteilten QR-Codes per Smartphone einscannen. Die ' +
+          'anschliessend erhaltene Aufgabe kann gelöst werden.'
       },
       {
         title: 'Leaderboard',
         icon: 'trophy',
         description:
-          'Nachdem ein jeweiliger Teilnehmer ein QR-Code gefunden hat kann ' +
-          'er diesen einscannen und die Aufgabe lösen. Das aktuelle ' +
-          'Ergebnis der Teilnehmer, welche einer Durchführung zugewiesen' +
-          'sind, werden in einem Leaderboard widergespiegelt.'
+          'Das aktuelle Ergebnis der Teilnehmer, welche einer Durchführung zugewiesen sind ' +
+          'können über das Leaderboard abgefragt werden. Teilnehmer erhalten nur die Top-3, ' +
+          'Lehrer können auf den Score aller Teilnehmer einsicht nehmen.'
       }
     ];
 
@@ -76,7 +83,7 @@ export default class InfoPage extends React.Component {
             ))}
           </Step.Group>
         </Container>
-        {steps.map((element, index) => (
+        {steps.map(element => (
           <div key={element.title}>
             <Divider />
             <Container>

@@ -18,7 +18,7 @@ export default class Login extends React.Component {
       password: '',
       showSuccess: false,
       showLoginError: false,
-      fireRedirect: window.localStorage.getItem('HUNTeR-Redirect') !== null
+      fireRedirect: Boolean(window.localStorage.getItem('HUNTeR-Redirect'))
     };
 
     this.handleLoginSubmit = FormHandler.handleLoginSubmit.bind(this);
@@ -36,7 +36,7 @@ export default class Login extends React.Component {
           {StructureHandler.getLoginHeader()}
           <Grid.Row className="gridContent" columns="equal">
             <Grid.Column />
-            <Grid.Column width={isMobile ? 12 : 8}>
+            <Grid.Column width={isMobile ? 13 : 8}>
               {this.state.showLoginError && (
                 <Message
                   icon="sign in"
