@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/japt-epj/HUNTeR.svg?branch=master)](https://travis-ci.org/japt-epj/HUNTeR)
 [![Code Metrics](https://sonarcloud.io/api/project_badges/measure?project=HUNTeR&metric=alert_status)](https://sonarcloud.io/dashboard?id=HUNTeR)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=UUF0U1lVS01rblZDNzdHbitOcEJsR3FPUkVHaDN3bXkwMmtZeDdvMlBnOD0tLUpDZVdkNElkKzM5Z2lRSXcveW9Janc9PQ==--83410c5385bde9f17e7d93855fc37e1d951a7dda)](https://www.browserstack.com/automate/public-build/UUF0U1lVS01rblZDNzdHbitOcEJsR3FPUkVHaDN3bXkwMmtZeDdvMlBnOD0tLUpDZVdkNElkKzM5Z2lRSXcveW9Janc9PQ==--83410c5385bde9f17e7d93855fc37e1d951a7dda)
 
 # <img width="200" src="documentation/HUNTeR.png">
 App for creating and playing a scavenger hunt.
