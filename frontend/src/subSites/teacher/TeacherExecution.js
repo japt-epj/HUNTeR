@@ -164,7 +164,7 @@ export default class TeacherExecution extends React.Component {
               <Grid.Column>
                 <Modal
                   dimmer={defaultModalOptions.dimmer}
-                  size="fullscreen"
+                  size={defaultModalOptions.size}
                   trigger={
                     <Button
                       color={defaultColors.buttonColors.normal}

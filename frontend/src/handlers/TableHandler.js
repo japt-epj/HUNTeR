@@ -32,7 +32,7 @@ export default {
           <Form.Button
             color={defaultColors.buttonColors.normal}
             basic
-            content="Submit"
+            content="Übermitteln"
           />
         </Grid.Column>
         <Grid.Column textAlign="right">
