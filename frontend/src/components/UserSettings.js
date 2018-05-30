@@ -5,14 +5,14 @@ import {Form, Grid} from 'semantic-ui-react';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
 import ModalHandler from '../handlers/ModalHandler';
-import defaultUIConfig from '../config/defaultUIConfig';
 import TableHandler from '../handlers/TableHandler';
+import defaultSuccessMessages from '../config/defaultSuccessMessages';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultUIConfig.defaultSuccessMessages.settings,
+      successMessage: defaultSuccessMessages.settings,
       showModal: false,
       loading: true,
       fireRedirect: false,

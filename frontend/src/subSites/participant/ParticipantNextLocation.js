@@ -5,15 +5,17 @@ import L from 'leaflet';
 
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultColors from '../../config/defaultColors';
 import MapHandler from '../../handlers/MapHandler';
+import defaultMessages from '../../config/defaultMessages';
+import defaultNumbers from '../../config/defaultNumbers';
+import defaultMap from '../../config/defaultMap';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
-    const defaultZoomSize = 19;
     this.state = {
-      showAgreement: defaultUIConfig.showAgreement,
+      hideAgreement: defaultMessages.hideAgreement(),
       executionId: Boolean(this.props.location.state)
         ? this.props.location.state.executionId
         : '',
@@ -24,7 +26,7 @@ export default class ParticipantNextLocation extends React.Component {
       loading: true,
       map: {
         location: undefined,
-        zoom: defaultZoomSize
+        zoom: defaultNumbers.zoomSize
       }
     };
 
@@ -36,6 +38,9 @@ export default class ParticipantNextLocation extends React.Component {
   }
 
   componentDidMount() {
+    if (this.state.hideAgreement) {
+      this.locate();
+    }
     this.promiceToLocation(APIHandler.getNextLocations(this.state.executionId));
   }
 
@@ -89,7 +94,7 @@ export default class ParticipantNextLocation extends React.Component {
     const boundLocations =
       Array.from(this.state.selectedPositions.values()).length !== 0
         ? Array.from(this.state.selectedPositions.values())
-        : [[0, 0]];
+        : [defaultMap.baseLocation];
 
     return L.latLngBounds(boundLocations);
   };
@@ -97,11 +102,11 @@ export default class ParticipantNextLocation extends React.Component {
   render() {
     return (
       <Grid padded>
-        {this.state.showAgreement && this.getAgreement()}
+        {!this.state.hideAgreement && this.getAgreement()}
         <Grid.Row id="mapContainer">{this.getParticipantMap()}</Grid.Row>
         <Grid.Row centered>
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             content={'Standort aktualisieren'}
             icon="marker"
             onClick={this.locate}

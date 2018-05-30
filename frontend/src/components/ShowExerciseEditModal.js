@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultColors from '../config/defaultColors';
 import TeacherExercise from '../subSites/teacher/TeacherExercise';
 
 export default class ShowExerciseEditModal extends React.Component {
@@ -27,7 +27,7 @@ export default class ShowExerciseEditModal extends React.Component {
         size="small"
         trigger={
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             icon="pencil"
             basic
           />

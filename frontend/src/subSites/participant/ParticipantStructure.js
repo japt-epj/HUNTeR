@@ -11,7 +11,7 @@ import LeaderBoard from '../../components/LeaderBoard';
 import ParticipantExercise from './ParticipantExercise';
 
 import Logout from '../Logout';
-import DefaultUIPaths from '../../config/DefaultUIPaths';
+import DefaultPaths from '../../config/DefaultPaths';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ParticipantNextLocation from './ParticipantNextLocation';
@@ -38,15 +38,13 @@ export default class ParticipantStructure extends React.Component {
           <Grid.Row className="gridContent">
             <Grid.Column>
               <Sidebar.Pushable as={Segment}>
-                {this.getSideBar(DefaultUIPaths.getPathsParticipant())}
+                {this.getSideBar(DefaultPaths.getPathsParticipant())}
                 <Sidebar.Pusher onClick={this.hideSidebar}>
                   <Switch>
                     <Route
                       exact
                       path="/"
-                      render={() =>
-                        getHome(DefaultUIPaths.getPathsParticipant())
-                      }
+                      render={() => getHome(DefaultPaths.getPathsParticipant())}
                     />
                     <Route path="/settings" component={UserSettings} />
                     <Route path="/scan" component={ParticipantScanExercise} />
