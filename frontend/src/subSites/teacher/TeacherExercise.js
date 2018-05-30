@@ -99,7 +99,7 @@ export default class TeacherExercise extends React.Component {
             </Table.Header>
             <Table.Body>
               {new Array(this.state.answersAllowed)
-                .fill()
+                .fill(undefined)
                 .map((item, index) => (
                   <Table.Row key={'TableRow' + index}>
                     <Table.Cell collapsing>{index + 1}</Table.Cell>
