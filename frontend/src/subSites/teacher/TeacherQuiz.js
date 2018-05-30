@@ -37,7 +37,7 @@ export default class TeacherQuiz extends React.Component {
       selectedPositions: new Map(),
       map: {
         location: undefined,
-        zoom: defaultNumbers.defaultZoomSize,
+        zoom: defaultNumbers.zoomSize,
         clicked: false,
         currentExercise: undefined,
         popupText: undefined

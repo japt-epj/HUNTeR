@@ -26,7 +26,7 @@ export default class ParticipantNextLocation extends React.Component {
       loading: true,
       map: {
         location: undefined,
-        zoom: defaultNumbers.defaultZoomSize
+        zoom: defaultNumbers.zoomSize
       }
     };
 
