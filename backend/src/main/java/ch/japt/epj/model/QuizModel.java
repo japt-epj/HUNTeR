@@ -49,11 +49,6 @@ public class QuizModel {
         .map(quiz -> mapper.map(quiz, NewQuizDto.class));
   }
 
-  public NewQuizDto getQuiz(long id) {
-    Quiz quiz = quizzes.findOne(id);
-    return mapper.map(quiz, NewQuizDto.class);
-  }
-
   public void addQuiz(NewQuizDto quizDto, Long creatorId) {
     Quiz quiz = mapper.map(quizDto, Quiz.class);
     quiz.setName(quizDto.getName());
