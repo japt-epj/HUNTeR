@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Pagination, Table} from 'semantic-ui-react';
 
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultColors from '../config/defaultColors';
 
 export default {
   calculateTotalPages(length, maxPerPage) {
@@ -22,7 +22,7 @@ export default {
               onPageChange={values.onPageChange}
               pointing
               secondary
-              color={defaultUIConfig.paginationColor}
+              color={defaultColors.paginationColor}
             />
           </Table.HeaderCell>
         </Table.Row>

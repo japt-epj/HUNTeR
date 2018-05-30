@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultColors from '../config/defaultColors';
 import APIHandler from '../handlers/APIHandler';
 import {OK} from 'http-status-codes/index';
 
@@ -42,7 +42,7 @@ export default class ShowExerciseModal extends React.Component {
         onClose={this.close}
         size="small"
         trigger={
-          <Button color={defaultUIConfig.buttonColors.show} icon="eye" basic />
+          <Button color={defaultColors.buttonColors.show} icon="eye" basic />
         }
       >
         <Modal.Header content={this.state.title} />
