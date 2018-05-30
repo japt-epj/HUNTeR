@@ -58,7 +58,6 @@ export default {
 
     return (
       <LeafletMap
-        center={this.state.map.location || defaultMap.baseLocation}
         bounds={this.bounds()}
         onLocationFound={this.handleLocation}
         onClick={this.handleSelection}
