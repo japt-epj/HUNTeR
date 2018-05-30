@@ -47,7 +47,6 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
   }
 
   @Override
-  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Page<NewQuizDto>> quizGet(
       @Valid @RequestParam(value = "page", defaultValue = "0") int page,
       @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
