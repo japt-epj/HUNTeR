@@ -5,7 +5,7 @@ import {Message} from 'semantic-ui-react';
 
 import QrReader from 'react-qr-reader';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultModalOptions from '../../config/defaultModalOptions';
 import defaultNumbers from '../../config/defaultNumbers';
 import defaultMessages from '../../config/defaultMessages';
 
@@ -19,7 +19,7 @@ export default class ParticipantScanExercise extends React.Component {
       exerciseId: '',
       scanError: false,
       hideAgreement: defaultMessages.hideAgreement(),
-      successMessage: defaultSuccessMessages.scan,
+      successMessage: defaultModalOptions.scan,
       fireRedirect: false,
       locationPermission: undefined,
       position: {

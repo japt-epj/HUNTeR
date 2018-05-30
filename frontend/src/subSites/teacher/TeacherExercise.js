@@ -8,13 +8,13 @@ import TableHandler from '../../handlers/TableHandler';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import {OK} from 'http-status-codes/index';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultModalOptions from '../../config/defaultModalOptions';
 
 export default class TeacherExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.exercise,
+      successMessage: defaultModalOptions.exercise,
       formOK: true,
       fireRedirect: false,
       editExercise: Boolean(this.props.editExercise)

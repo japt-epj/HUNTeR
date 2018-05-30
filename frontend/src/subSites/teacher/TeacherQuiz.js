@@ -10,7 +10,7 @@ import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
 import MapHandler from '../../handlers/MapHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultModalOptions from '../../config/defaultModalOptions';
 import defaultNumbers from '../../config/defaultNumbers';
 import defaultMap from '../../config/defaultMap';
 import defaultMessages from '../../config/defaultMessages';
@@ -19,7 +19,7 @@ export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.quiz,
+      successMessage: defaultModalOptions.quiz,
       hideAgreement: defaultMessages.hideAgreement(),
       formOK: true,
       name: '',

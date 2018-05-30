@@ -7,13 +7,13 @@ import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultModalOptions from '../../config/defaultModalOptions';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.participant,
+      successMessage: defaultModalOptions.participant,
       fireRedirect: false,
       firstName: '',
       lastName: '',

@@ -3,6 +3,7 @@ import React from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 
 import defaultColors from '../config/defaultColors';
+import defaultModalOptions from '../config/defaultModalOptions';
 import InfoPage from './InfoPage';
 
 export default class ShowInformationModal extends React.Component {
@@ -20,7 +21,7 @@ export default class ShowInformationModal extends React.Component {
   render() {
     return (
       <Modal
-        dimmer="blurring"
+        dimmer={defaultModalOptions.dimmer}
         open={this.state.open}
         onOpen={this.open}
         onClose={this.close}
