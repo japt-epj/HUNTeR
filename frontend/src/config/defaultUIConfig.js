@@ -20,7 +20,7 @@ let defaultUIConfig = {
       },
       protagonist: {
         icon: L.icon({
-          iconPath: require('../images/icons/protagonist.png'),
+          iconUrl: require('../images/icons/protagonist.png'),
           iconSize: [33, 92],
           iconAnchor: [16, 46]
         }),

@@ -22,7 +22,7 @@ export default {
   },
 
   getQuizMap() {
-    const pointer = defaultUIConfig.map.icons.pointer;
+    const pointer = defaultUIConfig.map.icons.pointer.icon;
 
     return (
       <LeafletMap
@@ -55,8 +55,8 @@ export default {
   },
 
   getParticipantMap() {
-    const pointer = defaultUIConfig.map.icons.pointer;
-    const protagonist = defaultUIConfig.map.icons.protagonist;
+    const pointer = defaultUIConfig.map.icons.pointer.icon;
+    const protagonist = defaultUIConfig.map.icons.protagonist.icon;
 
     return (
       <LeafletMap
