@@ -1,6 +1,7 @@
 package ch.japt.epj.controller;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +46,17 @@ public class LocationControllerTests extends AuthenticatedControllerTest {
         .andExpect(jsonPath("$.lng").value(8.816099));
   }
 
+  private static String[] executions = {
+    "Boxen",
+    "Lebensmittel",
+    "Bauernleben",
+    "Natur und Umwelt",
+    "Strassenverkehr",
+    "Sexualkunde",
+    "Hygiene",
+    "Geschichte"
+  };
+
   @Test
   public void getAllNextLocations() throws Exception {
     MockHttpServletRequestBuilder request =
@@ -51,10 +64,15 @@ public class LocationControllerTests extends AuthenticatedControllerTest {
             .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
-    mvc.perform(request)
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$").exists())
-        .andExpect(jsonPath("$").isArray())
-        .andExpect(jsonPath("$", hasSize(8)));
+    ResultActions actions =
+        mvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").exists())
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$", hasSize(8)));
+
+    for (String execution : executions) {
+      actions.andExpect(jsonPath("$[*].exerciseTitle", hasItem(execution)));
+    }
   }
 }
