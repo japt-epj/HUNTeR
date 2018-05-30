@@ -16,14 +16,14 @@ import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
 import TableHandler from '../../handlers/TableHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultModalOptions from '../../config/defaultModalOptions';
 import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.execution,
+      successMessage: defaultModalOptions.execution,
       formOK: true,
       name: '',
       participants: [],
@@ -163,6 +163,7 @@ export default class TeacherExecution extends React.Component {
             <Grid.Row columns="equal">
               <Grid.Column>
                 <Modal
+                  dimmer={defaultModalOptions.dimmer}
                   size="fullscreen"
                   trigger={
                     <Button
@@ -185,6 +186,7 @@ export default class TeacherExecution extends React.Component {
               </Grid.Column>
               <Grid.Column>
                 <Modal
+                  dimmer={defaultModalOptions.dimmer}
                   size="fullscreen"
                   trigger={
                     <Button

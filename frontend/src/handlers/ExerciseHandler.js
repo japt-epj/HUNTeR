@@ -101,7 +101,7 @@ export default {
               <Table.Cell content={element.name} />
               <Table.Cell collapsing>
                 {Boolean(this.state.selectedPositions.get(element.id)) && (
-                  <Icon color="green" name="check" />
+                  <Icon color={defaultColors.mainColor} name="check" />
                 )}
               </Table.Cell>
               <Table.Cell collapsing>

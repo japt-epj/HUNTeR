@@ -20,7 +20,7 @@ export default class ShowExerciseEditModal extends React.Component {
   render() {
     return (
       <Modal
-        dimmer="blurring"
+        dimmer={defaultModalOptions.dimmer}
         open={this.state.open}
         onOpen={this.open}
         onClose={this.close}

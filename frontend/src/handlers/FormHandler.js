@@ -3,8 +3,7 @@ import DataHandler from './DataHandler';
 import defaultNumbers from '../config/defaultNumbers';
 
 export default {
-  handleChange(event) {
-    const target = event.target;
+  handleChange(event, target) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [target.name]: value
@@ -20,9 +19,7 @@ export default {
   },
 
   handleExerciseSubmit() {
-    const minAnswerId = 1;
-    let isACheckboxSet = this.state.answerId >= minAnswerId;
-    if (isACheckboxSet) {
+    if (this.state.answerId >= defaultNumbers.minAnswerId) {
       if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
         this.postData(DataHandler.prepareTeacherData(this.state), 'exercise');
       } else if (
