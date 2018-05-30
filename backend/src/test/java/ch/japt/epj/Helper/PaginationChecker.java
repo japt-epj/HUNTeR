@@ -11,14 +11,14 @@ public class PaginationChecker {
         "first", "last", "number", "numberOfElements", "size", "sort", "totalElements", "totalPages"
       };
 
-  public static ResultMatcher paginated() {
+  public static ResultMatcher isPaginated() {
 
     return mvcResult -> {
       String content = mvcResult.getResponse().getContentAsString();
       AssertionErrors.assertTrue("Root element exists", JsonPath.read(content, "$") != null);
       Stream.of(paginationElements)
           .forEach(
-              e -> AssertionErrors.assertTrue(e + "existss", JsonPath.read(content, e) != null));
+              e -> AssertionErrors.assertTrue(e + "exists", JsonPath.read(content, e) != null));
     };
   }
 }
