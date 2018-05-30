@@ -68,7 +68,6 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi, Pagina
   }
 
   @Override
-  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Page<ExecutionDto>> executionGet(
       @Valid @RequestParam(value = "page", defaultValue = "0") int page,
       @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
