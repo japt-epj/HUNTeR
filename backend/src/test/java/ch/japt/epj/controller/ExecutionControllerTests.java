@@ -32,10 +32,28 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution/1")
             .header("Authorization", completeToken)
-            .contentType(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
     ResultActions actions = mvc.perform(request).andExpect(status().isOk());
-    assertExecutionPayload(actions);
+    assertExecutionPayload(actions, "$");
+  }
+
+  @Test
+  public void getExecutionByPage() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/execution")
+            .param("page", "0")
+            .param("limit", "1")
+            .param("sort", "executionId,asc")
+            .header("Authorization", completeToken)
+            .accept(MediaType.APPLICATION_JSON);
+
+    ResultActions actions =
+        mvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(isPaginated())
+            .andExpect(jsonPath("$.content", hasSize(1)));
+    assertExecutionPayload(actions, "$.content[0]");
   }
 
   @Test
@@ -66,7 +84,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution")
             .header("Authorization", completeToken)
-            .contentType(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())
@@ -84,17 +102,17 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
     "Ernest Thornhill"
   };
 
-  private static void assertExecutionPayload(ResultActions mvc) throws Exception {
-    mvc.andExpect(jsonPath("$.id").value(1))
-        .andExpect(jsonPath("$.name").value("Geometrie"))
-        .andExpect(jsonPath("$.startDate").value(IsNull.nullValue()))
-        .andExpect(jsonPath("$.endDate").value(IsNull.nullValue()))
-        .andExpect(jsonPath("$.participants").isArray())
-        .andExpect(jsonPath("$.participants").isNotEmpty())
-        .andExpect(jsonPath("$.participants", hasSize(7)));
+  private static void assertExecutionPayload(ResultActions mvc, String object) throws Exception {
+    mvc.andExpect(jsonPath(object + ".id").value(1))
+        .andExpect(jsonPath(object + ".name").value("Geometrie"))
+        .andExpect(jsonPath(object + ".startDate").value(IsNull.nullValue()))
+        .andExpect(jsonPath(object + ".endDate").value(IsNull.nullValue()))
+        .andExpect(jsonPath(object + ".participants").isArray())
+        .andExpect(jsonPath(object + ".participants").isNotEmpty())
+        .andExpect(jsonPath(object + ".participants", hasSize(7)));
 
     for (String participant : participants) {
-      mvc.andExpect(jsonPath("$.participants", hasItem(participant)));
+      mvc.andExpect(jsonPath(object + ".participants", hasItem(participant)));
     }
   }
 }
