@@ -8,7 +8,7 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 import {OK} from 'http-status-codes';
 
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultColors from '../../config/defaultColors';
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';
@@ -16,12 +16,14 @@ import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
 import TableHandler from '../../handlers/TableHandler';
+import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultUIConfig.defaultSuccessMessages.execution,
+      successMessage: defaultSuccessMessages.execution,
       formOK: true,
       name: '',
       participants: [],
@@ -31,10 +33,10 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingParticipants: true,
       loadingQuizzes: true,
-      pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
+      pageNumber: defaultNumbers.pageNumber,
       minPage: 1,
-      maxPageQuiz: '',
-      maxPageParticipant: '',
+      maxPageQuizzes: '',
+      maxPageParticipants: '',
       modifiers: {
         highlighted: new Date(),
         after: new Date().getDate() + 1
@@ -74,8 +76,8 @@ export default class TeacherExecution extends React.Component {
       if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
-          maxPageParticipant: resData.data.totalPages,
-          loadingUser: false
+          maxPageParticipants: resData.data.totalPages,
+          loadingParticipants: false
         });
       }
     });
@@ -86,8 +88,8 @@ export default class TeacherExecution extends React.Component {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
-          maxPageQuiz: resData.data.totalPages,
-          loadingQuiz: false
+          maxPageQuizzes: resData.data.totalPages,
+          loadingQuizzes: false
         });
       }
     });
@@ -164,7 +166,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={defaultUIConfig.buttonColors.normal}
+                      color={defaultColors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Quiz für die Durchführung auswählen"
@@ -175,7 +177,7 @@ export default class TeacherExecution extends React.Component {
                 >
                   <Modal.Header content="Quiz auswählen" />
                   <Modal.Content scrolling>
-                    {this.state.loadingQuiz
+                    {this.state.loadingQuizzes
                       ? getLoadingScreen()
                       : this.getQuizTable(true)}
                   </Modal.Content>
@@ -186,7 +188,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={defaultUIConfig.buttonColors.normal}
+                      color={defaultColors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Benutzer zur Durchführung hinzufügen"

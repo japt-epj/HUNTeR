@@ -3,9 +3,9 @@ import {OK} from 'http-status-codes';
 
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
-import defaultUIConfig from '../config/defaultUIConfig';
 import APIHandler from '../handlers/APIHandler';
 import getLoadingScreen from './getLoadingScreen';
+import defaultNumbers from '../config/defaultNumbers';
 
 export default class LeaderBoard extends React.Component {
   constructor(props) {
@@ -73,7 +73,7 @@ export default class LeaderBoard extends React.Component {
       element.ranking = rankingStartPosition;
       return element;
     });
-    let leaderBoard = scoreList.splice(0, defaultUIConfig.maxTrophyValue);
+    let leaderBoard = scoreList.splice(0, defaultNumbers.maxTrophyValue);
     return {leaderBoard, scoreList};
   };
 
@@ -116,13 +116,13 @@ export default class LeaderBoard extends React.Component {
                 <Card
                   key={'scoreCard' + element[1].userName}
                   color={element[1].me && !this.state.teacher ? 'green' : null}
-                  fluid={index >= defaultUIConfig.maxTrophyValue}
+                  fluid={index >= defaultNumbers.maxTrophyValue}
                 >
                   <Card.Content>
                     <Card.Header>
                       <Menu text>
                         <Menu.Item content={'Rang: ' + element.ranking} />
-                        {element.ranking <= defaultUIConfig.maxTrophyValue && (
+                        {element.ranking <= defaultNumbers.maxTrophyValue && (
                           <Menu.Item>
                             <Icon
                               name="trophy"

@@ -16,18 +16,18 @@ import TeacherExecutionOverview from './TeacherExecutionOverview';
 import TeacherNavigation from './TeacherNavigation';
 
 import Logout from '../Logout';
-import DefaultUIPaths from '../../config/DefaultUIPaths';
+import DefaultPaths from '../../config/DefaultPaths';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultMessages from '../../config/defaultMessages';
 import LeaderBoard from '../../components/LeaderBoard';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMobileError: defaultUIConfig.showMobileError,
+      hideMobileError: defaultMessages.hideMobileError(),
       visible: false,
       iconName: 'bars'
     };
@@ -42,20 +42,20 @@ export default class TeacherStructure extends React.Component {
   render() {
     return (
       <div>
-        {this.state.showMobileError && this.getMobileError()}
+        {!this.state.hideMobileError && this.getMobileError()}
         <BrowserRouter basename="/teacher">
           <Grid className="siteGrid" padded>
             {this.getHeader(true)}
             <Grid.Row className="gridContent">
               <Grid.Column>
                 <Sidebar.Pushable as={Segment}>
-                  {this.getSideBar(DefaultUIPaths.getPathsTeacher())}
+                  {this.getSideBar(DefaultPaths.getPathsTeacher())}
                   <Sidebar.Pusher onClick={this.hideSidebar}>
                     <Switch>
                       <Route
                         exact
                         path="/"
-                        render={() => getHome(DefaultUIPaths.getPathsTeacher())}
+                        render={() => getHome(DefaultPaths.getPathsTeacher())}
                       />
                       <Route path="/settings" component={UserSettings} />
                       <Route path="/exercise" component={TeacherExercise} />

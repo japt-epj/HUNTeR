@@ -4,7 +4,7 @@ import {Button, Table} from 'semantic-ui-react';
 
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultColors from '../config/defaultColors';
 import PaginationHandler from './PaginationHandler';
 
 export default {
@@ -23,7 +23,7 @@ export default {
                 <Table.Cell content={element.id} collapsing />
                 <Table.Cell collapsing textAlign="center">
                   <Button
-                    color={defaultUIConfig.buttonColors.download}
+                    color={defaultColors.buttonColors.download}
                     icon="download"
                     basic
                     onClick={() =>

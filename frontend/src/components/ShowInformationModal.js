@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
 
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultColors from '../config/defaultColors';
 import InfoPage from './InfoPage';
 
 export default class ShowInformationModal extends React.Component {
@@ -27,7 +27,7 @@ export default class ShowInformationModal extends React.Component {
         size="large"
         trigger={
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             icon="info"
             basic
             size="mini"

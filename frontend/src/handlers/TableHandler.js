@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Checkbox, Form, Grid, Table} from 'semantic-ui-react';
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultColors from '../config/defaultColors';
 
 export default {
   getTableHeader(cellValues) {
@@ -30,14 +30,14 @@ export default {
       <Grid.Row columns="equal">
         <Grid.Column>
           <Form.Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             basic
             content="Submit"
           />
         </Grid.Column>
         <Grid.Column textAlign="right">
           <Form.Button
-            color={defaultUIConfig.buttonColors.cancel}
+            color={defaultColors.buttonColors.cancel}
             basic
             content="Abbrechen"
             onClick={() => this.setState({fireRedirect: true})}
