@@ -1,5 +1,6 @@
 package ch.japt.epj.controller;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,8 +44,17 @@ public class LocationControllerTests extends AuthenticatedControllerTest {
         .andExpect(jsonPath("$.lng").value(8.816099));
   }
 
-  //  @Test
-  //  public void getAllNextLocations() {
-  //  }
+  @Test
+  public void getAllNextLocations() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/location")
+            .header("Authorization", completeToken)
+            .accept(MediaType.APPLICATION_JSON);
 
+    mvc.perform(request)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").exists())
+        .andExpect(jsonPath("$").isArray())
+        .andExpect(jsonPath("$", hasSize(8)));
+  }
 }
