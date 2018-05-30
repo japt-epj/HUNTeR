@@ -12,14 +12,14 @@ import defaultMessages from '../../config/defaultMessages';
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
-    const defaultDelayValue = 500;
+
     this.state = {
-      delay: defaultDelayValue,
+      delay: defaultNumbers.scanDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exerciseId: '',
       scanError: false,
-      showAgreement: defaultMessages.showAgreement,
+      hideAgreement: defaultMessages.hideAgreement(),
       successMessage: defaultSuccessMessages.scan,
       fireRedirect: false,
       locationPermission: undefined,
@@ -29,6 +29,12 @@ export default class ParticipantScanExercise extends React.Component {
       }
     };
     this.getAgreement = ModalHandler.getAgreement.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.state.hideAgreement) {
+      this.locate();
+    }
   }
 
   handleScan = data => {
@@ -74,7 +80,7 @@ export default class ParticipantScanExercise extends React.Component {
       <div>
         {this.state.successMessage.showModal &&
           ModalHandler.getCreationSuccess(this.state.successMessage)}
-        {this.state.showAgreement ? (
+        {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (
           <QrReader

@@ -27,7 +27,7 @@ export default class TeacherStructure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMobileError: defaultMessages.showMobileError,
+      hideMobileError: defaultMessages.hideMobileError(),
       visible: false,
       iconName: 'bars'
     };
@@ -42,7 +42,7 @@ export default class TeacherStructure extends React.Component {
   render() {
     return (
       <div>
-        {this.state.showMobileError && this.getMobileError()}
+        {!this.state.hideMobileError && this.getMobileError()}
         <BrowserRouter basename="/teacher">
           <Grid className="siteGrid" padded>
             {this.getHeader(true)}

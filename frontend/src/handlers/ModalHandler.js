@@ -65,8 +65,8 @@ export default {
             icon="point"
             content="OK, ich habe verstanden"
             onClick={() => {
-              this.setState({showAgreement: false});
-              window.sessionStorage.setItem('showAgreement', 'false');
+              this.setState({hideAgreement: true});
+              window.sessionStorage.setItem('HUNTeR-hideAgreement', 'true');
               this.locate();
             }}
           />
@@ -142,8 +142,8 @@ export default {
             color={defaultColors.buttonColors.normal}
             content="OK, ich habe verstanden"
             onClick={() => {
-              this.setState({showMobileError: false});
-              window.sessionStorage.setItem('showMobileError', 'false');
+              this.setState({hideMobileError: true});
+              window.sessionStorage.setItem('HUNTeR-hideMobileError', 'true');
             }}
           />
         </Modal.Actions>
