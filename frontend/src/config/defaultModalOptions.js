@@ -34,7 +34,8 @@ let defaultModalOptions = {
     title: 'Aufgabe wurde gefunden',
     content: 'Der QR-Code hat eine passende Aufgabe gefunden.'
   },
-  dimmer: 'blurring'
+  dimmer: 'blurring',
+  thankYou: 'OK, danke'
 };
 
 export default Object.freeze(Object.assign({}, defaultModalOptions));
