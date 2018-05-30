@@ -14,17 +14,17 @@ public interface ExecutionRepository extends PagingAndSortingRepository<Executio
 
   @Query(
       "SELECT NEW ch.japt.epj.repository.data.ExecutionScore(p.personId, p.firstName, p.lastName, "
-          + "SUM(CASE WHEN r.answerFromPerson.checked = true THEN 1 ELSE 0 END), "
+          + "SUM(CASE WHEN r.answerFromPerson.checked = true THEN 1 ELSE 0 END) * 1.0 / ?3, "
           + "CASE WHEN p.personId = ?2 THEN true ELSE false END) "
           + "FROM Person p "
           + "INNER JOIN Execution e ON p MEMBER OF e.participants AND e.executionId = ?1 "
           + "INNER JOIN Response r ON r MEMBER OF e.responses AND r.person.personId = p.personId "
           + "GROUP BY p.personId")
-  List<ExecutionScore> aggregateScores(Long executionId, Long personId);
+  List<ExecutionScore> aggregateScores(Long executionId, Long personId, Double questions);
 
   @Query(
       "SELECT NEW ch.japt.epj.repository.data.ExecutionScore(p.personId, p.firstName, p.lastName, "
-          + "0,"
+          + "0.0,"
           + "CASE WHEN p.personId = ?2 THEN true ELSE false END) "
           + "FROM Person p "
           + "INNER JOIN Execution e ON p MEMBER OF e.participants AND e.executionId = ?1 "

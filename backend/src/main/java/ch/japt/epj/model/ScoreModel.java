@@ -21,15 +21,21 @@ public class ScoreModel {
   }
 
   public ScoreDto getScore(Long executionId, Long personId) {
+    Double questions =
+        executions
+            .findByExecutionId(executionId)
+            .map(e -> (double) e.getQuiz().getTasks().size())
+            .orElse(1D);
+
     Map<String, ExecutionScore> scores = makeMap(executions.allScores(executionId, personId));
     Map<String, ExecutionScore> aggregated =
-        makeMap(executions.aggregateScores(executionId, personId));
+        makeMap(executions.aggregateScores(executionId, personId, questions));
+
     scores.putAll(aggregated);
-    ScoreDto map = mapper.map(scores, ScoreDto.class);
-    return map;
+    return mapper.map(scores, ScoreDto.class);
   }
 
-  private static final Map<String, ExecutionScore> makeMap(List<ExecutionScore> scores) {
+  private static Map<String, ExecutionScore> makeMap(List<ExecutionScore> scores) {
     return scores.stream().collect(Collectors.toMap(ExecutionScore::getId, p -> p));
   }
 }
