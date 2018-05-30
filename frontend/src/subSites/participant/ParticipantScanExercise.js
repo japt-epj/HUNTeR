@@ -5,7 +5,9 @@ import {Message} from 'semantic-ui-react';
 
 import QrReader from 'react-qr-reader';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultNumbers from '../../config/defaultNumbers';
+import defaultMessages from '../../config/defaultMessages';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
@@ -17,8 +19,8 @@ export default class ParticipantScanExercise extends React.Component {
       displayText: 'Scanne QR-Code ein.',
       exerciseId: '',
       scanError: false,
-      showAgreement: defaultUIConfig.showAgreement,
-      successMessage: defaultUIConfig.defaultSuccessMessages.scan,
+      showAgreement: defaultMessages.showAgreement,
+      successMessage: defaultSuccessMessages.scan,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
@@ -41,7 +43,7 @@ export default class ParticipantScanExercise extends React.Component {
       });
       setTimeout(
         () => this.setState({fireRedirect: true}),
-        defaultUIConfig.defaultTimeoutTime
+        defaultNumbers.timeoutTime
       );
     } else {
       this.setState({scanError: true});

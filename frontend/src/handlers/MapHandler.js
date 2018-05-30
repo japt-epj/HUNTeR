@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultMap from '../config/defaultMap';
 
 export default {
   addPosition(element) {
@@ -22,13 +22,11 @@ export default {
   },
 
   getQuizMap() {
-    const pointer = defaultUIConfig.map.icons.pointer.icon;
+    const pointer = defaultMap.icons.pointer.icon;
 
     return (
       <LeafletMap
-        center={
-          this.state.map.location || defaultUIConfig.map.defaultMapLocation
-        }
+        center={this.state.map.location || defaultMap.baseLocation}
         onClick={this.handleClick}
         onLocationFound={this.handleLocation}
         zoom={this.state.map.zoom}
@@ -41,8 +39,8 @@ export default {
             {Boolean(this.state.map.popupText) && (
               <Tooltip
                 direction="left"
-                offset={defaultUIConfig.map.icons.pointer.offset}
-                opacity={defaultUIConfig.map.icons.opacity}
+                offset={defaultMap.icons.pointer.offset}
+                opacity={defaultMap.icons.opacity}
                 permanent
               >
                 <span>{this.state.map.popupText}</span>
@@ -55,14 +53,12 @@ export default {
   },
 
   getParticipantMap() {
-    const pointer = defaultUIConfig.map.icons.pointer.icon;
-    const protagonist = defaultUIConfig.map.icons.protagonist.icon;
+    const pointer = defaultMap.icons.pointer.icon;
+    const protagonist = defaultMap.map.icons.protagonist.icon;
 
     return (
       <LeafletMap
-        center={
-          this.state.map.location || defaultUIConfig.map.defaultMapLocation
-        }
+        center={this.state.map.location || defaultMap.baseLocation}
         bounds={this.bounds()}
         onLocationFound={this.handleLocation}
         onClick={this.handleSelection}
@@ -83,10 +79,10 @@ export default {
               direction="left"
               offset={
                 element === 'currentPosition'
-                  ? defaultUIConfig.map.icons.pointer.offset
-                  : defaultUIConfig.map.icons.protagonist.offset
+                  ? defaultMap.icons.pointer.offset
+                  : defaultMap.icons.protagonist.offset
               }
-              opacity={defaultUIConfig.map.icons.opacity}
+              opacity={defaultMap.icons.opacity}
               permanent
             >
               <span>{element}</span>

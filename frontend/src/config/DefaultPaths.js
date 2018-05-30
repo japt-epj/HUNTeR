@@ -1,5 +1,5 @@
-export default class defaultUIPaths {
-  static defaultInfoIcon = 'info';
+export default class defaultUiPath {
+  static infoIcon = 'info';
 
   static getPersonalPaths() {
     return [
@@ -16,7 +16,7 @@ export default class defaultUIPaths {
     return [
       {
         name: 'Verwaltung von Aufgaben',
-        icon: this.defaultInfoIcon,
+        icon: this.infoIcon,
         subPaths: [
           {path: 'exercise', name: 'Aufgabe erstellen', icon: 'tasks'},
           {
@@ -28,7 +28,7 @@ export default class defaultUIPaths {
       },
       {
         name: 'Verwaltung von Quizzes',
-        icon: this.defaultInfoIcon,
+        icon: this.infoIcon,
         subPaths: [
           {path: 'quiz', name: 'Quiz erstellen', icon: 'tasks'},
           {
@@ -40,7 +40,7 @@ export default class defaultUIPaths {
       },
       {
         name: 'Verwaltung von Durchführungen',
-        icon: this.defaultInfoIcon,
+        icon: this.infoIcon,
         subPaths: [
           {path: 'execution', name: 'Durchführung erstellen', icon: 'calendar'},
           {
@@ -57,7 +57,7 @@ export default class defaultUIPaths {
       },
       {
         name: 'Verwaltung von Teilnehmern',
-        icon: this.defaultInfoIcon,
+        icon: this.infoIcon,
         subPaths: [
           {
             path: 'participantLeaderboard',
@@ -78,7 +78,7 @@ export default class defaultUIPaths {
     return [
       {
         name: 'Aufgabe lösen',
-        icon: this.defaultInfoIcon,
+        icon: this.infoIcon,
         subPaths: [
           {
             path: 'nextLocation',
@@ -94,7 +94,7 @@ export default class defaultUIPaths {
       },
       {
         name: 'Leaderboard',
-        icon: this.defaultInfoIcon,
+        icon: this.infoIcon,
         subPaths: [
           {
             path: 'score',

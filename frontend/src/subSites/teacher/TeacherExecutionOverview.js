@@ -6,7 +6,7 @@ import {Button} from 'semantic-ui-react';
 import ExecutionHandler from '../../handlers/ExecutionHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultColors from '../../config/defaultColors';
 
 export default class TeacherExecutionOverview extends React.Component {
   constructor(props) {
@@ -16,26 +16,25 @@ export default class TeacherExecutionOverview extends React.Component {
       loading: true,
       pageNumber: 1,
       minPage: 1,
-      maxPage: '',
-      limit: 5
+      maxPage: ''
     };
 
     this.getExecutionTable = ExecutionHandler.getExecutionTable.bind(this);
   }
 
   componentDidMount() {
-    this.getExecutions(this.state.pageNumber, this.state.limit);
+    this.getExecutions(this.state.pageNumber);
   }
 
   handlePageChangeExecutions = (event, element) => {
     this.setState({
       pageNumber: element.activePage
     });
-    this.getExecutions(element.activePage, this.state.limit);
+    this.getExecutions(element.activePage);
   };
 
-  getExecutions = (page, limit) => {
-    APIHandler.getPaginatedElements('execution', page, limit).then(resData => {
+  getExecutions = page => {
+    APIHandler.getPaginatedElements('execution', page).then(resData => {
       if (resData.status === 200) {
         this.setState({
           executions: resData.data.content,
@@ -52,7 +51,7 @@ export default class TeacherExecutionOverview extends React.Component {
         {this.state.loading ? getLoadingScreen() : this.getExecutionTable()}
         <NavLink to="/execution">
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Neue Durchführung erstellen"
