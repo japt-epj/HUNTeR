@@ -34,7 +34,7 @@ export default class ShowExerciseEditModal extends React.Component {
           />
         }
       >
-        <Modal.Header content="" />
+        <Modal.Header />
         <Modal.Content>
           <TeacherExercise
             editExercise={true}
@@ -42,7 +42,11 @@ export default class ShowExerciseEditModal extends React.Component {
           />
         </Modal.Content>
         <Modal.Actions>
-          <Button icon="check" content="OK, danke" onClick={this.close} />
+          <Button
+            icon="check"
+            content={defaultModalOptions.thankYou}
+            onClick={this.close}
+          />
         </Modal.Actions>
       </Modal>
     );

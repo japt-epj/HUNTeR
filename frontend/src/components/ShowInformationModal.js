@@ -41,7 +41,11 @@ export default class ShowInformationModal extends React.Component {
           <InfoPage />
         </Modal.Content>
         <Modal.Actions>
-          <Button icon="check" content="OK, danke" onClick={this.close} />
+          <Button
+            icon="check"
+            content={defaultModalOptions.thankYou}
+            onClick={this.close}
+          />
         </Modal.Actions>
       </Modal>
     );
