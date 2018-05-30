@@ -79,10 +79,7 @@ export default class Leaderboard extends React.Component {
 
   sortLeaderboard = scoreData => {
     return Object.entries(scoreData).sort(
-      (a, b) =>
-        a[1].userScore - b[1].userScore ||
-        a[1].userScore - b[1].userScore ||
-        a[1].me
+      (a, b) => a[1].userScore - b[1].userScore || a[1].me
     );
   };
 
