@@ -3,18 +3,18 @@ import {Redirect} from 'react-router';
 
 import {Form, Grid, Table} from 'semantic-ui-react';
 
-import defaultUIConfig from '../../config/defaultUIConfig';
 import FormHandler from '../../handlers/FormHandler';
 import TableHandler from '../../handlers/TableHandler';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import {OK} from 'http-status-codes/index';
+import defaultSuccessMessages from '../../config/defaultSuccessMessages';
 
 export default class TeacherExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultUIConfig.defaultSuccessMessages.exercise,
+      successMessage: defaultSuccessMessages.exercise,
       formOK: true,
       fireRedirect: false,
       editExercise: Boolean(this.props.editExercise)

@@ -5,15 +5,16 @@ import L from 'leaflet';
 
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultColors from '../../config/defaultColors';
 import MapHandler from '../../handlers/MapHandler';
+import defaultMessages from '../../config/defaultMessages';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
     const defaultZoomSize = 19;
     this.state = {
-      showAgreement: defaultUIConfig.showAgreement,
+      showAgreement: defaultMessages.showAgreement,
       executionId: Boolean(this.props.location.state)
         ? this.props.location.state.executionId
         : '',
@@ -101,7 +102,7 @@ export default class ParticipantNextLocation extends React.Component {
         <Grid.Row id="mapContainer">{this.getParticipantMap()}</Grid.Row>
         <Grid.Row centered>
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             content={'Standort aktualisieren'}
             icon="marker"
             onClick={this.locate}

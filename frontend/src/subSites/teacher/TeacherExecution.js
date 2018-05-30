@@ -8,7 +8,7 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 import {OK} from 'http-status-codes';
 
-import defaultUIConfig from '../../config/defaultUIConfig';
+import defaultColors from '../../config/defaultColors';
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';
@@ -16,12 +16,14 @@ import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
 import TableHandler from '../../handlers/TableHandler';
+import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultUIConfig.defaultSuccessMessages.execution,
+      successMessage: defaultSuccessMessages.execution,
       formOK: true,
       name: '',
       participants: [],
@@ -31,7 +33,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingParticipants: true,
       loadingQuizzes: true,
-      pageNumber: defaultUIConfig.defaultNumbers.pageNumber,
+      pageNumber: defaultNumbers.pageNumber,
       minPage: 1,
       maxPageQuiz: '',
       maxPageParticipant: '',
@@ -164,7 +166,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={defaultUIConfig.buttonColors.normal}
+                      color={defaultColors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Quiz für die Durchführung auswählen"
@@ -186,7 +188,7 @@ export default class TeacherExecution extends React.Component {
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={defaultUIConfig.buttonColors.normal}
+                      color={defaultColors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Benutzer zur Durchführung hinzufügen"

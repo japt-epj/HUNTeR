@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import defaultUIConfig from '../config/defaultUIConfig';
+import defaultColors from '../config/defaultColors';
 import ShowExerciseModal from '../components/ShowExerciseModal';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
@@ -106,7 +106,7 @@ export default {
               </Table.Cell>
               <Table.Cell collapsing>
                 <Button
-                  color={defaultUIConfig.buttonColors.normal}
+                  color={defaultColors.buttonColors.normal}
                   basic
                   icon="point"
                   onClick={event => {

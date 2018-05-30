@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {Button, Header, Modal} from 'semantic-ui-react';
-import defaultUIConfig from '../config/defaultUIConfig';
 import getLoadingScreen from '../components/getLoadingScreen';
+import defaultColors from '../config/defaultColors';
 
 export default {
   getLoginSuccess() {
@@ -60,7 +60,7 @@ export default {
         <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben" />
         <Modal.Actions>
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             labelPosition="right"
             icon="point"
             content="OK, ich habe verstanden"
@@ -82,7 +82,7 @@ export default {
         <Modal.Content>Daten wirklich ändern</Modal.Content>
         <Modal.Actions>
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             labelPosition="left"
             label="Ja"
             icon="checkmark"
@@ -95,7 +95,7 @@ export default {
             }}
           />
           <Button
-            color={defaultUIConfig.buttonColors.cancel}
+            color={defaultColors.buttonColors.cancel}
             labelPosition="left"
             label="Nein"
             icon="cancel"
@@ -118,7 +118,7 @@ export default {
         <Modal.Content content={errorText} />
         <Modal.Actions>
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             labelPosition="right"
             icon="pencil"
             content="OK, ich habe verstanden"
@@ -139,7 +139,7 @@ export default {
         <Modal.Content content={message} />
         <Modal.Actions>
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({showMobileError: false});
@@ -157,7 +157,7 @@ export default {
         size="fullscreen"
         trigger={
           <Button
-            color={defaultUIConfig.buttonColors.normal}
+            color={defaultColors.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Aufgabe hinzufügen"

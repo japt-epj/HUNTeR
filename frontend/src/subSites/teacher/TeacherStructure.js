@@ -16,18 +16,18 @@ import TeacherExecutionOverview from './TeacherExecutionOverview';
 import TeacherNavigation from './TeacherNavigation';
 
 import Logout from '../Logout';
-import DefaultUIPaths from '../../config/DefaultUIPaths';
+import DefaultPaths from '../../config/DefaultPaths';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultUIConfig from '../../config/defaultUIConfig';
 import Leaderboard from '../../components/Leaderboard';
+import defaultMessages from '../../config/defaultMessages';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMobileError: defaultUIConfig.showMobileError,
+      showMobileError: defaultMessages.showMobileError,
       visible: false,
       iconName: 'bars'
     };
@@ -49,13 +49,13 @@ export default class TeacherStructure extends React.Component {
             <Grid.Row className="gridContent">
               <Grid.Column>
                 <Sidebar.Pushable as={Segment}>
-                  {this.getSideBar(DefaultUIPaths.getPathsTeacher())}
+                  {this.getSideBar(DefaultPaths.getPathsTeacher())}
                   <Sidebar.Pusher onClick={this.hideSidebar}>
                     <Switch>
                       <Route
                         exact
                         path="/"
-                        render={() => getHome(DefaultUIPaths.getPathsTeacher())}
+                        render={() => getHome(DefaultPaths.getPathsTeacher())}
                       />
                       <Route path="/settings" component={UserSettings} />
                       <Route path="/exercise" component={TeacherExercise} />
