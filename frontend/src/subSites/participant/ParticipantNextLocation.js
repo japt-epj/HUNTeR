@@ -54,11 +54,11 @@ export default class ParticipantNextLocation extends React.Component {
       resDataArray.forEach(element => {
         locations.set(element.exerciseTitle, [element.lat, element.lng]);
       });
-    });
-    this.setState({
-      locations,
-      selectedPositions: new Map(locations),
-      loading: false
+      this.setState({
+        locations,
+        selectedPositions: new Map(locations),
+        loading: false
+      });
     });
   };
 
