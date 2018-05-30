@@ -17,10 +17,10 @@ export default class TeacherExercise extends React.Component {
       successMessage: defaultUIConfig.defaultSuccessMessages.exercise,
       formOK: true,
       fireRedirect: false,
-      editExercise:
-        this.props.editExercise !== undefined ? this.props.editExercise : false,
-      exerciseId:
-        this.props.exerciseId !== undefined ? this.props.exerciseId : '',
+      editExercise: Boolean(this.props.editExercise)
+        ? this.props.editExercise
+        : false,
+      exerciseId: Boolean(this.props.exerciseId) ? this.props.exerciseId : '',
       name: '',
       question: '',
       answer0: '',
@@ -31,6 +31,7 @@ export default class TeacherExercise extends React.Component {
       answersAllowed: 4
     };
 
+    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
     this.handleChange = FormHandler.handleChange.bind(this);
     this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
@@ -52,7 +53,6 @@ export default class TeacherExercise extends React.Component {
         const answerId = exerciseData.answers
           .map(element => element.checked)
           .indexOf(true);
-        console.log(answerId);
         this.setState({
           answer0: exerciseData.answers[0].text,
           answer1: exerciseData.answers[1].text,
@@ -124,19 +124,7 @@ export default class TeacherExercise extends React.Component {
                 ))}
             </Table.Body>
           </Table>
-          <Grid>
-            <Grid.Row columns="equal">
-              <Grid.Column>
-                <Form.Button content="Submit" />
-              </Grid.Column>
-              <Grid.Column textAlign="right">
-                <Form.Button
-                  content="Abbrechen"
-                  onClick={() => this.setState({fireRedirect: true})}
-                />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <Grid>{this.getSubmitCancelButton()}</Grid>
           {this.state.fireRedirect && <Redirect to="/" />}
         </Form>
       </div>

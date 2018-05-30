@@ -28,7 +28,7 @@ public class AuthControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/auth/login")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"email\": \"jonas.kugler@hsr.ch\",\"password\": \"jonas\"}");
+            .content("{\"email\": \"tobias.saladin@hsr.ch\",\"password\": \"tobias\"}");
 
     mvc.perform(request).andExpect(status().isOk());
   }
@@ -37,20 +37,22 @@ public class AuthControllerTests extends AuthenticatedControllerTest {
   public void shouldRegisterPerson() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/auth/register")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
-                "{\"id\":1,\"firstname\":\"Donald\",\"lastname\":\"Duck\",\"email\":\"donald.duck@disney.ch\",\"password\":\"donald\"}");
+                "{\"id\":1,\"firstname\":\"Donald\",\"lastname\":\"Duck\",\"email\":\"donald.duck@disney.ch\"}");
 
-    mvc.perform(request).andExpect(status().isCreated());
+    mvc.perform(request).andExpect(status().is2xxSuccessful());
   }
 
   @Test
   public void shouldReturnConflictOnRegisterPerson() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/auth/register")
+            .header("Authorization", completeToken)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
-                "{\"id\":1,\"firstname\":\"Jonas\",\"lastname\":\"Kugler\",\"email\":\"jonas.kugler@hsr.ch\",\"password\":\"jonas\"}");
+                "{\"id\":1,\"firstname\":\"Tobias\",\"lastname\":\"Saladin\",\"email\":\"tobias.saladin@hsr.ch\",\"password\":\"tobias\"}");
 
     mvc.perform(request).andExpect(status().isConflict());
   }
@@ -65,6 +67,6 @@ public class AuthControllerTests extends AuthenticatedControllerTest {
 
     mvc.perform(request)
         .andExpect(status().isOk())
-        .andExpect(header().stringValues("X-HUNTeR-Redirect", "/participant"));
+        .andExpect(header().stringValues("X-HUNTeR-Redirect", "/teacher"));
   }
 }
