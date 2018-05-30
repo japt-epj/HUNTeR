@@ -79,7 +79,7 @@ export default class ParticipantExercise extends React.Component {
                         );
                       })}
                       <Grid.Row>
-                        <Form.Button content="Submit" />
+                        <Form.Button content="Übermitteln" />
                       </Grid.Row>
                     </Grid>
                   </Grid.Row>

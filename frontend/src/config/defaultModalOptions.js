@@ -35,6 +35,7 @@ let defaultModalOptions = {
     content: 'Der QR-Code hat eine passende Aufgabe gefunden.'
   },
   dimmer: 'blurring',
+  size: 'large',
   thankYou: 'OK, danke'
 };
 

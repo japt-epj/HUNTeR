@@ -8,7 +8,11 @@ import defaultModalOptions from '../config/defaultModalOptions';
 export default {
   getLoginSuccess() {
     return (
-      <Modal dimmer={defaultModalOptions.dimmer} open>
+      <Modal
+        dimmer={defaultModalOptions.dimmer}
+        open
+        size={defaultModalOptions.size}
+      >
         <Header icon="sign in" content="Login erfolgt" />
         <Modal.Content content="Sie haben sich erfolgreich eingeloggt." />
       </Modal>
@@ -17,7 +21,11 @@ export default {
 
   getLogoutSuccess() {
     return (
-      <Modal dimmer={defaultModalOptions.dimmer} open>
+      <Modal
+        dimmer={defaultModalOptions.dimmer}
+        open
+        size={defaultModalOptions.size}
+      >
         <Header icon="log out" content="Erfolgreich ausgeloggt" />
         <Modal.Content content="Sie haben sich erfolgreich ausgeloggt." />
       </Modal>
@@ -26,7 +34,11 @@ export default {
 
   getTokenExpiration() {
     return (
-      <Modal dimmer={defaultModalOptions.dimmer} open>
+      <Modal
+        dimmer={defaultModalOptions.dimmer}
+        open
+        size={defaultModalOptions.size}
+      >
         <Header icon="sign out" content="Login ausgelaufen" />
         <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein" />
       </Modal>
@@ -38,6 +50,7 @@ export default {
       <Modal
         dimmer={defaultModalOptions.dimmer}
         open={successMessage.showModal}
+        size={defaultModalOptions.size}
       >
         <Header icon="check" content={successMessage.title} />
         <Modal.Content content={successMessage.content} />
@@ -50,7 +63,11 @@ export default {
       'Der QR-Code wurde erfolgreich eingescannt. ' +
       'Sie werden nun auf eine andere Seite weitergeleitet';
     return (
-      <Modal dimmer={defaultModalOptions.dimmer} open>
+      <Modal
+        dimmer={defaultModalOptions.dimmer}
+        open
+        size={defaultModalOptions.size}
+      >
         <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt" />
         <Modal.Content content={message} />
       </Modal>
@@ -62,6 +79,7 @@ export default {
       <Modal
         dimmer={defaultModalOptions.dimmer}
         open
+        size={defaultModalOptions.size}
         closeOnEscape
         closeOnRootNodeClick={false}
       >
@@ -86,7 +104,12 @@ export default {
 
   getSettingChanging() {
     return (
-      <Modal dimmer={defaultModalOptions.dimmer} open closeIcon>
+      <Modal
+        dimmer={defaultModalOptions.dimmer}
+        open
+        size={defaultModalOptions.size}
+        closeIcon
+      >
         <Header icon="key" content="Daten ändern?" />
         <Modal.Content>Daten wirklich ändern</Modal.Content>
         <Modal.Actions>
@@ -122,7 +145,11 @@ export default {
 
   getFormError(errorText) {
     return (
-      <Modal dimmer={defaultModalOptions.dimmer} open>
+      <Modal
+        dimmer={defaultModalOptions.dimmer}
+        open
+        size={defaultModalOptions.size}
+      >
         <Modal.Header content="Formular wurde noch nicht richtig ausgefüllt" />
         <Modal.Content content={errorText} />
         <Modal.Actions>
@@ -141,9 +168,13 @@ export default {
   getMobileError() {
     const message =
       'Nutzen Sie das Smartphone nur für das Scannen für QR-Code Standorten. Anderenfalls nutzen Sie ' +
-      'bitte ein Gerät mit besserer Auflösung für das Arbeiten mit der Teacher-Seite.';
+      'bitte ein Gerät mit besserer Auflösung für das Arbeiten mit der Lehrer-Seite.';
     return (
-      <Modal dimmer={defaultModalOptions.dimmer} open>
+      <Modal
+        dimmer={defaultModalOptions.dimmer}
+        open
+        size={defaultModalOptions.size}
+      >
         <Header icon="mobile" content="Mobiles Gerät erkannt" />
         <Modal.Content content={message} />
         <Modal.Actions>
@@ -163,7 +194,8 @@ export default {
   getAddExerciseModal() {
     return (
       <Modal
-        size="fullscreen"
+        dimmer={defaultModalOptions.dimmer}
+        size={defaultModalOptions.size}
         trigger={
           <Button
             color={defaultColors.buttonColors.normal}
