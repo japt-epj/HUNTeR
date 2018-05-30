@@ -35,8 +35,8 @@ export default class TeacherExecution extends React.Component {
       loadingQuizzes: true,
       pageNumber: defaultNumbers.pageNumber,
       minPage: 1,
-      maxPageQuiz: '',
-      maxPageParticipant: '',
+      maxPageQuizzes: '',
+      maxPageParticipants: '',
       modifiers: {
         highlighted: new Date(),
         after: new Date().getDate() + 1
@@ -76,8 +76,8 @@ export default class TeacherExecution extends React.Component {
       if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
-          maxPageParticipant: resData.data.totalPages,
-          loadingUser: false
+          maxPageParticipants: resData.data.totalPages,
+          loadingParticipants: false
         });
       }
     });
@@ -88,8 +88,8 @@ export default class TeacherExecution extends React.Component {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
-          maxPageQuiz: resData.data.totalPages,
-          loadingQuiz: false
+          maxPageQuizzes: resData.data.totalPages,
+          loadingQuizzes: false
         });
       }
     });
@@ -177,7 +177,7 @@ export default class TeacherExecution extends React.Component {
                 >
                   <Modal.Header content="Quiz auswählen" />
                   <Modal.Content scrolling>
-                    {this.state.loadingQuiz
+                    {this.state.loadingQuizzes
                       ? getLoadingScreen()
                       : this.getQuizTable(true)}
                   </Modal.Content>
