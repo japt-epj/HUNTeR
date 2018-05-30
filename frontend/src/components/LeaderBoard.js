@@ -7,13 +7,13 @@ import defaultUIConfig from '../config/defaultUIConfig';
 import APIHandler from '../handlers/APIHandler';
 import getLoadingScreen from './getLoadingScreen';
 
-export default class Leaderboard extends React.Component {
+export default class LeaderBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
       trophyColors: new Map([[1, 'golden'], [2, 'silver'], [3, 'bronze']]),
-      leaderboard: [],
+      leaderBoard: [],
       executionId: 1,
       executions: [],
       execution: 'execution1',
@@ -23,7 +23,7 @@ export default class Leaderboard extends React.Component {
 
   componentDidMount() {
     this.getExecutions();
-    this.getLeaderboard(this.state.executionId);
+    this.getLeaderBoard(this.state.executionId);
   }
 
   getExecutions = () => {
@@ -41,31 +41,31 @@ export default class Leaderboard extends React.Component {
     });
   };
 
-  getLeaderboard = executionId => {
-    APIHandler.getLeaderboard(executionId).then(resData => {
+  getLeaderBoard = executionId => {
+    APIHandler.getLeaderBoard(executionId).then(resData => {
       if (resData.status === OK) {
-        let {leaderboard, scoreList} = this.calculateLeaderboard(resData.data);
-        leaderboard = this.checkMoreParticipants(leaderboard, scoreList);
-        this.setState({leaderboard, loading: false});
+        let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
+        leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
+        this.setState({leaderBoard, loading: false});
       }
     });
   };
 
-  checkMoreParticipants = (leaderboard, scoreList) => {
+  checkMoreParticipants = (leaderBoard, scoreList) => {
     if (this.state.teacher) {
-      leaderboard = leaderboard.concat(scoreList);
-    } else if (!leaderboard.some(element => element[1].me)) {
-      leaderboard = leaderboard.concat(
+      leaderBoard = leaderBoard.concat(scoreList);
+    } else if (!leaderBoard.some(element => element[1].me)) {
+      leaderBoard = leaderBoard.concat(
         scoreList.filter(element => element[1].me)
       );
     }
-    return leaderboard;
+    return leaderBoard;
   };
 
-  calculateLeaderboard = scoreData => {
+  calculateLeaderBoard = scoreData => {
     let rankingStartPosition = 0;
     let rankingCurrentScore = -1;
-    const scoreList = this.sortLeaderboard(scoreData).map(element => {
+    const scoreList = this.sortLeaderBoard(scoreData).map(element => {
       if (element[1].userScore !== rankingCurrentScore) {
         rankingCurrentScore = element[1].userScore;
         rankingStartPosition += 1;
@@ -73,16 +73,13 @@ export default class Leaderboard extends React.Component {
       element.ranking = rankingStartPosition;
       return element;
     });
-    let leaderboard = scoreList.splice(0, defaultUIConfig.maxTrophyValue);
-    return {leaderboard, scoreList};
+    let leaderBoard = scoreList.splice(0, defaultUIConfig.maxTrophyValue);
+    return {leaderBoard, scoreList};
   };
 
-  sortLeaderboard = scoreData => {
+  sortLeaderBoard = scoreData => {
     return Object.entries(scoreData).sort(
-      (a, b) =>
-        a[1].userScore - b[1].userScore ||
-        a[1].userScore - b[1].userScore ||
-        a[1].me
+      (a, b) => a[1].userScore - b[1].userScore || a[1].me
     );
   };
 
@@ -92,7 +89,7 @@ export default class Leaderboard extends React.Component {
 
   changeExecutionState = (event, data) => {
     this.setState({loading: true, executionId: data.value});
-    this.getLeaderboard(data.value);
+    this.getLeaderBoard(data.value);
   };
 
   render() {
@@ -115,7 +112,7 @@ export default class Leaderboard extends React.Component {
             getLoadingScreen()
           ) : (
             <Card.Group centered>
-              {this.state.leaderboard.map((element, index) => (
+              {this.state.leaderBoard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
                   color={element[1].me && !this.state.teacher ? 'green' : null}
