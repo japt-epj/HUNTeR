@@ -41,12 +41,12 @@ export default class ParticipantNextLocation extends React.Component {
     if (this.state.hideAgreement) {
       this.locate();
     }
-    this.promiceToLocation(APIHandler.getNextLocations(this.state.executionId));
+    this.promiseToLocation(APIHandler.getNextLocations(this.state.executionId));
   }
 
   locate = () => this.mapref.current.leafletElement.locate();
 
-  promiceToLocation = promise => {
+  promiseToLocation = promise => {
     let locations = new Map(this.state.locations);
     promise.then(resData => {
       const resDataArray =
