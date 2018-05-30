@@ -60,7 +60,7 @@ export default class defaultUIPaths {
         icon: this.defaultInfoIcon,
         subPaths: [
           {
-            path: 'participantLeaderboard',
+            path: 'participantLeaderBoard',
             name: 'Aktuelles Leaderboard',
             icon: 'browser'
           },
@@ -93,7 +93,7 @@ export default class defaultUIPaths {
         ]
       },
       {
-        name: 'Leaderboard',
+        name: 'LeaderBoard',
         icon: this.defaultInfoIcon,
         subPaths: [
           {
