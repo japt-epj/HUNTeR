@@ -13,7 +13,6 @@ import defaultNumbers from '../../config/defaultNumbers';
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       hideAgreement: defaultMessages.hideAgreement(),
       executionId: Boolean(this.props.location.state)

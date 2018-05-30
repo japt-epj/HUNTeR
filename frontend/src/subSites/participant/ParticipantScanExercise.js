@@ -12,7 +12,6 @@ import defaultMessages from '../../config/defaultMessages';
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       delay: defaultNumbers.scanDelayValue,
       result: '',

@@ -18,7 +18,6 @@ import defaultMessages from '../../config/defaultMessages';
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       successMessage: defaultSuccessMessages.quiz,
       hideAgreement: defaultMessages.hideAgreement(),

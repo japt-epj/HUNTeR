@@ -4,7 +4,6 @@ import {OK, UNAUTHORIZED} from 'http-status-codes';
 
 import pathConfig from '../config/pathConfig';
 import getAxiosHeader from './getAxiosHeader';
-import defaultColors from '../config/defaultColors';
 import defaultNumbers from '../config/defaultNumbers';
 
 export default {
