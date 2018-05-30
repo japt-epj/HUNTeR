@@ -9,6 +9,7 @@ import defaultColors from '../../config/defaultColors';
 import MapHandler from '../../handlers/MapHandler';
 import defaultMessages from '../../config/defaultMessages';
 import defaultNumbers from '../../config/defaultNumbers';
+import defaultMap from '../../config/defaultMap';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
@@ -93,7 +94,7 @@ export default class ParticipantNextLocation extends React.Component {
     const boundLocations =
       Array.from(this.state.selectedPositions.values()).length !== 0
         ? Array.from(this.state.selectedPositions.values())
-        : [[0, 0]];
+        : [defaultMap.baseLocation];
 
     return L.latLngBounds(boundLocations);
   };
