@@ -35,9 +35,7 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
         .andExpect(jsonPath("$[0]").exists())
         .andExpect(jsonPath("$[0].firstName").value("Tobias"))
         .andExpect(jsonPath("$[0].lastName").value("Saladin"))
-        .andExpect(jsonPath("$[0].email").value("tobias.saladin@hsr.ch"));
-    // this needs to be uncommented, we really shouldn't be sending passwords!
-    //                .andExpect(jsonPath("$[0].password").doesNotExist());
-
+        .andExpect(jsonPath("$[0].email").value("tobias.saladin@hsr.ch"))
+        .andExpect(jsonPath("$[0].password").doesNotExist());
   }
 }
