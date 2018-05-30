@@ -30,7 +30,7 @@ export default class TeacherNavigation extends React.Component {
 
   handleScan = data => {
     const jsonData = JSON.parse(data);
-    if (Boolean(jsonData.coordinates) || this.state.fireRedirect) {
+    if (data && Boolean(jsonData.coordinates)) {
       this.setState({
         coordinates: {
           lat: jsonData.coordinates.lat,
