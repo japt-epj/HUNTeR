@@ -16,7 +16,7 @@ let defaultUIConfig = {
           iconSize: [50, 94],
           iconAnchor: [50, 0]
         }),
-        offset: [-50, 75]
+        offset: [-16, 0]
       },
       protagonist: {
         icon: L.icon({
@@ -24,7 +24,7 @@ let defaultUIConfig = {
           iconSize: [33, 92],
           iconAnchor: [16, 46]
         }),
-        offset: [-16, 0]
+        offset: [-50, 75]
       },
       opacity: 0.9
     },
