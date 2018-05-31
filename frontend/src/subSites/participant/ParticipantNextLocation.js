@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Grid} from 'semantic-ui-react';
 import L from 'leaflet';
 
-import {colors, map, messages, numbers} from '../../config/uiDefaults';
+import {colors, map, messages, numbers} from '../../config/hunterUiDefaults';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import MapHandler from '../../handlers/MapHandler';

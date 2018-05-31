@@ -2,7 +2,7 @@ import axios from 'axios';
 import fileDownload from 'js-file-download';
 import {OK, UNAUTHORIZED} from 'http-status-codes';
 
-import {numbers} from '../config/uiDefaults';
+import {numbers} from '../config/hunterUiDefaults';
 import pathConfig from '../config/pathConfig';
 import getAxiosHeader from './getAxiosHeader';
 

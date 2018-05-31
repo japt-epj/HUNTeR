@@ -4,7 +4,7 @@ import {Redirect} from 'react-router';
 import {Message} from 'semantic-ui-react';
 import QrReader from 'react-qr-reader';
 
-import {numbers, messages, modalOptions} from '../../config/uiDefaults';
+import {numbers, messages, modalOptions} from '../../config/hunterUiDefaults';
 import ModalHandler from '../../handlers/ModalHandler';
 
 export default class ParticipantScanExercise extends React.Component {

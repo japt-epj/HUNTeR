@@ -1,6 +1,6 @@
 import {OK} from 'http-status-codes';
 
-import {numbers} from '../config/uiDefaults';
+import {numbers} from '../config/hunterUiDefaults';
 import DataHandler from './DataHandler';
 
 export default {

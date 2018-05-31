@@ -4,7 +4,12 @@ import {Redirect} from 'react-router';
 import {Form, Grid} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import {map, messages, modalOptions, numbers} from '../../config/uiDefaults';
+import {
+  map,
+  messages,
+  modalOptions,
+  numbers
+} from '../../config/hunterUiDefaults';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from '../../handlers/FormHandler';

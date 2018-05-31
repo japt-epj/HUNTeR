@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button, Table} from 'semantic-ui-react';
 
-import {colors} from '../config/uiDefaults';
+import {colors} from '../config/hunterUiDefaults';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
 import PaginationHandler from './PaginationHandler';

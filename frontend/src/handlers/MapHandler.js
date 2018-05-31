@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
-import {map} from '../config/uiDefaults';
+import {map} from '../config/hunterUiDefaults';
 
 export default {
   addPosition(element) {

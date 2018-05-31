@@ -3,7 +3,7 @@ import {Redirect} from 'react-router';
 
 import {Form, Grid, Table} from 'semantic-ui-react';
 
-import {modalOptions} from '../../config/uiDefaults';
+import {modalOptions} from '../../config/hunterUiDefaults';
 import FormHandler from '../../handlers/FormHandler';
 import TableHandler from '../../handlers/TableHandler';
 import APIHandler from '../../handlers/APIHandler';
