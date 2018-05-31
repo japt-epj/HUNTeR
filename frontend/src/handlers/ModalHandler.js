@@ -28,7 +28,7 @@ export default {
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="sign out" content="Login ausgelaufen" />
-        <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein" />
+        <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein." />
       </Modal>
     );
   },
@@ -46,7 +46,7 @@ export default {
     const message = 'Der QR-Code wurde erfolgreich eingescannt. Sie werden nun auf eine andere Seite weitergeleitet';
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
-        <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt" />
+        <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt." />
         <Modal.Content content={message} />
       </Modal>
     );
@@ -56,7 +56,7 @@ export default {
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size} closeOnEscape closeOnRootNodeClick={false}>
         <Modal.Header content="Berechtigungen einfordern" />
-        <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben" />
+        <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben." />
         <Modal.Actions>
           <Button
             color={colors.buttonColors.normal}
@@ -113,7 +113,7 @@ export default {
   getFormError(errorText) {
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
-        <Modal.Header content="Formular wurde noch nicht richtig ausgefüllt" />
+        <Modal.Header content="Formular wurde noch nicht richtig ausgefüllt." />
         <Modal.Content content={errorText} />
         <Modal.Actions>
           <Button

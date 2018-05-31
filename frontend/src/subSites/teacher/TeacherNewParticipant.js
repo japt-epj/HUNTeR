@@ -35,7 +35,7 @@ export default class TeacherNewParticipant extends React.Component {
             name="email"
             value={this.state.email}
             onChange={this.handleChange}
-            placeholder="Bitte geben Sie die E-Mail des Teilnehmers ein"
+            placeholder="Bitte geben Sie die E-Mail des Teilnehmers ein."
             required
           />
           <Form.Input
@@ -44,7 +44,7 @@ export default class TeacherNewParticipant extends React.Component {
             name="firstName"
             value={this.state.firstName}
             onChange={this.handleChange}
-            placeholder="Bitte geben Sie den Vornamen des Teilnehmers ein"
+            placeholder="Bitte geben Sie den Vornamen des Teilnehmers ein."
             required
           />
           <Form.Input
@@ -53,7 +53,7 @@ export default class TeacherNewParticipant extends React.Component {
             name="lastName"
             value={this.state.lastName}
             onChange={this.handleChange}
-            placeholder="Bitte geben Sie den Nachnamen des Teilnehmers ein"
+            placeholder="Bitte geben Sie den Nachnamen des Teilnehmers ein."
             required
           />
           <Grid>{this.getSubmitCancelButton()}</Grid>
