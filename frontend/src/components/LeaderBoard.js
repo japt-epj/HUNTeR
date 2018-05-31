@@ -1,11 +1,11 @@
 import React from 'react';
-import {OK} from 'http-status-codes';
 
+import {OK} from 'http-status-codes';
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
-import APIHandler from '../handlers/APIHandler';
+import {colors, numbers} from '../config/hunterUiDefaults';
+import {apiHandler} from '../handlers/hunterHandlers';
 import getLoadingScreen from './getLoadingScreen';
-import defaultNumbers from '../config/defaultNumbers';
 
 export default class LeaderBoard extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class LeaderBoard extends React.Component {
   }
 
   getExecutions = () => {
-    APIHandler.getExecutions().then(resData => {
+    apiHandler.getExecutions().then(resData => {
       const executions = resData.data.content
         .map(element => {
           let returnValue = {};
@@ -42,7 +42,7 @@ export default class LeaderBoard extends React.Component {
   };
 
   getLeaderBoard = executionId => {
-    APIHandler.getLeaderBoard(executionId).then(resData => {
+    apiHandler.getLeaderBoard(executionId).then(resData => {
       if (resData.status === OK) {
         let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
         leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
@@ -55,32 +55,27 @@ export default class LeaderBoard extends React.Component {
     if (this.state.teacher) {
       leaderBoard = leaderBoard.concat(scoreList);
     } else if (!leaderBoard.some(element => element[1].me)) {
-      leaderBoard = leaderBoard.concat(
-        scoreList.filter(element => element[1].me)
-      );
+      leaderBoard = leaderBoard.concat(scoreList.filter(element => element[1].me));
     }
     return leaderBoard;
   };
 
   calculateLeaderBoard = scoreData => {
-    let rankingStartPosition = 0;
-    let rankingCurrentScore = -1;
+    let ranking = {startPosition: 0, currentScore: -1};
     const scoreList = this.sortLeaderBoard(scoreData).map(element => {
-      if (element[1].userScore !== rankingCurrentScore) {
-        rankingCurrentScore = element[1].userScore;
-        rankingStartPosition += 1;
+      if (element[1].userScore !== ranking.currentScore) {
+        ranking.currentScore = element[1].userScore;
+        ranking.startPosition += 1;
       }
-      element.ranking = rankingStartPosition;
+      element.ranking = ranking.startPosition;
       return element;
     });
-    let leaderBoard = scoreList.splice(0, defaultNumbers.maxTrophyValue);
+    let leaderBoard = scoreList.splice(0, numbers.maxTrophyValue);
     return {leaderBoard, scoreList};
   };
 
   sortLeaderBoard = scoreData => {
-    return Object.entries(scoreData).sort(
-      (a, b) => a[1].userScore - b[1].userScore || a[1].me
-    );
+    return Object.entries(scoreData).sort((a, b) => a[1].userScore - b[1].userScore || a[1].me);
   };
 
   getScore = rankingValue => {
@@ -115,34 +110,22 @@ export default class LeaderBoard extends React.Component {
               {this.state.leaderBoard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
-                  color={element[1].me && !this.state.teacher ? 'green' : null}
-                  fluid={index >= defaultNumbers.maxTrophyValue}
+                  color={element[1].me && !this.state.teacher ? colors.mainColor : null}
+                  fluid={index >= numbers.maxTrophyValue}
                 >
                   <Card.Content>
                     <Card.Header>
                       <Menu text>
                         <Menu.Item content={'Rang: ' + element.ranking} />
-                        {element.ranking <= defaultNumbers.maxTrophyValue && (
+                        {element.ranking <= numbers.maxTrophyValue && (
                           <Menu.Item>
-                            <Icon
-                              name="trophy"
-                              className={
-                                this.state.trophyColors.get(element.ranking) +
-                                'Trophy'
-                              }
-                            />
+                            <Icon name="trophy" className={this.state.trophyColors.get(element.ranking) + 'Trophy'} />
                           </Menu.Item>
                         )}
-                        <Menu.Item
-                          position="right"
-                          content={this.getScore(element[1].userScore)}
-                        />
+                        <Menu.Item position="right" content={this.getScore(element[1].userScore)} />
                       </Menu>
                     </Card.Header>
-                    <Card.Description
-                      className="userScoreName"
-                      content={element[1].userName}
-                    />
+                    <Card.Description className="userScoreName" content={element[1].userName} />
                   </Card.Content>
                 </Card>
               ))}

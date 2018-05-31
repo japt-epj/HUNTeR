@@ -2,9 +2,9 @@ import axios from 'axios';
 import fileDownload from 'js-file-download';
 import {OK, UNAUTHORIZED} from 'http-status-codes';
 
+import {numbers} from '../config/hunterUiDefaults';
 import pathConfig from '../config/pathConfig';
 import getAxiosHeader from './getAxiosHeader';
-import defaultNumbers from '../config/defaultNumbers';
 
 export default {
   getExerciseArray(exerciseIDs) {
@@ -50,7 +50,7 @@ export default {
 
   getExecutions() {
     let requestURL =
-      pathConfig.apiURL + 'execution?limit=' + defaultNumbers.executionLimit;
+      pathConfig.apiURL + 'execution?limit=' + numbers.executionLimit;
     return axios
       .get(requestURL, {
         headers: getAxiosHeader('application/json')
@@ -78,7 +78,7 @@ export default {
         this.setState({successMessage});
         setTimeout(
           () => this.setState({fireRedirect: true}),
-          defaultNumbers.timeoutTime
+          numbers.timeoutTime
         );
       });
   },
@@ -129,7 +129,7 @@ export default {
         this.setState({successMessage});
         setTimeout(
           () => this.setState({fireRedirect: true}),
-          defaultNumbers.timeoutTime
+          numbers.timeoutTime
         );
       });
   }

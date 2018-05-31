@@ -1,7 +1,8 @@
 import React from 'react';
-import TableHandler from './TableHandler';
+
 import {Form, Table} from 'semantic-ui-react';
-import PaginationHandler from './PaginationHandler';
+
+import {paginationHandler, tableHandler} from './hunterHandlers';
 
 export default {
   getQuizTable(checkboxNeeded) {
@@ -12,7 +13,7 @@ export default {
     return (
       <Table>
         <Table.Header>
-          <Table.Row>{TableHandler.getTableHeader(headerElements)}</Table.Row>
+          <Table.Row>{tableHandler.getTableHeader(headerElements)}</Table.Row>
         </Table.Header>
         <Table.Body>
           {!this.state.loadingQuizzes &&
@@ -32,7 +33,7 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        {PaginationHandler.getPagination({
+        {paginationHandler.getPagination({
           totalPages: this.state.maxPageQuizzes,
           activePage: this.state.pageNumber,
           onPageChange: this.handlePageChangeQuizzes,

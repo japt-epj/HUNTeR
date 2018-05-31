@@ -1,26 +1,19 @@
 import React from 'react';
-import {Redirect} from 'react-router';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 
 import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
-import FormHandler from '../../handlers/FormHandler';
-import APIHandler from '../../handlers/APIHandler';
+import {modalOptions} from '../../config/hunterUiDefaults';
+import {apiHandler, formHandler, modalHandler} from '../../handlers/hunterHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import ModalHandler from '../../handlers/ModalHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.response,
-      executionId: Boolean(this.props.location.state)
-        ? this.props.location.state.executionId
-        : '',
-      exerciseId: Boolean(this.props.location.state)
-        ? this.props.location.state.exerciseId
-        : '',
+      successMessage: modalOptions.response,
+      executionId: Boolean(this.props.location.state) ? this.props.location.state.executionId : '',
+      exerciseId: Boolean(this.props.location.state) ? this.props.location.state.exerciseId : '',
       name: '',
       exercise: {},
       question: '',
@@ -28,15 +21,15 @@ export default class ParticipantExercise extends React.Component {
       answerId: -1,
       fireRedirect: false
     };
-    this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
-    this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
+    this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
+    this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
   }
 
   componentDidMount() {
     if (this.state.exerciseId !== '') {
-      APIHandler.getExerciseArray(this.state.exerciseId).then(resData => {
+      apiHandler.getExerciseArray(this.state.exerciseId).then(resData => {
         if (resData.status === 200) {
           this.setState({
             exercise: resData.data[0]
@@ -51,8 +44,7 @@ export default class ParticipantExercise extends React.Component {
       <div>
         {this.state.executionId !== '' ? (
           <div>
-            {this.state.successMessage.showModal &&
-              ModalHandler.getCreationSuccess(this.state.successMessage)}
+            {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
             {!Boolean(this.state.exercise.answers) ? (
               getLoadingScreen()
             ) : (
@@ -69,9 +61,7 @@ export default class ParticipantExercise extends React.Component {
                           <Grid.Row key={element.text}>
                             <Form.Radio
                               value={element.answerId}
-                              label={
-                                'Antwort ' + (index + 1) + ' : ' + element.text
-                              }
+                              label={'Antwort ' + (index + 1) + ' : ' + element.text}
                               onChange={this.handleSelectChange}
                               checked={this.state.answerId === element.answerId}
                             />
@@ -79,7 +69,7 @@ export default class ParticipantExercise extends React.Component {
                         );
                       })}
                       <Grid.Row>
-                        <Form.Button content="Submit" />
+                        <Form.Button content="Übermitteln" />
                       </Grid.Row>
                     </Grid>
                   </Grid.Row>

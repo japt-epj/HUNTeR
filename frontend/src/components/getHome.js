@@ -29,15 +29,8 @@ export default function getHome(paths) {
               </Menu.Header>
               <Menu.Menu>
                 {mainElement.subPaths.map(subElement => (
-                  <NavLink
-                    key={'NavLink' + subElement.path}
-                    to={'/' + subElement.path}
-                  >
-                    <Menu.Item
-                      className="menuItem"
-                      content={subElement.name}
-                      icon={subElement.icon}
-                    />
+                  <NavLink key={'NavLink' + subElement.path} to={'/' + subElement.path}>
+                    <Menu.Item className="menuItem" content={subElement.name} icon={subElement.icon} />
                   </NavLink>
                 ))}
               </Menu.Menu>
