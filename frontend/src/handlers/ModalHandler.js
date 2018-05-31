@@ -43,8 +43,7 @@ export default {
   },
 
   getScanSuccess() {
-    const message =
-      'Der QR-Code wurde erfolgreich eingescannt. ' + 'Sie werden nun auf eine andere Seite weitergeleitet';
+    const message = 'Der QR-Code wurde erfolgreich eingescannt. Sie werden nun auf eine andere Seite weitergeleitet';
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt" />
