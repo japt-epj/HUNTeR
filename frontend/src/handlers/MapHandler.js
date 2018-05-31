@@ -78,8 +78,8 @@ export default {
               direction="left"
               offset={
                 element === 'currentPosition'
-                  ? defaultMap.icons.pointer.offset
-                  : defaultMap.icons.protagonist.offset
+                  ? defaultMap.icons.protagonist.offset
+                  : defaultMap.icons.pointer.offset
               }
               opacity={defaultMap.icons.opacity}
               permanent
