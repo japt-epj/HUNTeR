@@ -11,7 +11,7 @@ public abstract class AuthenticatedControllerTest {
 
   @Before
   public void setCurrentToken() {
-    token = authenticator.authenticate("tobias.saladin@hsr.ch", "tobias");
+    setCurrentToken("tobias.saladin@hsr.ch", "tobias");
   }
 
   public void setCurrentToken(String email, String password) {

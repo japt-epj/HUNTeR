@@ -93,7 +93,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   }
 
   private static String[] participants = {
-    "Andi H\u00f6rler",
+    "Andi Hörler",
     "Jonas Kugler",
     "Dolores Abernathy",
     "Maeve Millay",
