@@ -1,4 +1,3 @@
-export {default as apiHandler} from './APIHandler';
 export {default as dataHandler} from './DataHandler';
 export {default as executionHandler} from './ExecutionHandler';
 export {default as exerciseHandler} from './ExerciseHandler';

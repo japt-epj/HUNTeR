@@ -4,7 +4,8 @@ import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import {colors} from '../config/hunterUiDefaults';
-import {apiHandler, paginationHandler, tableHandler} from './hunterHandlers';
+import {apiGetHandler} from '../handlers/apiHandler';
+import {paginationHandler, tableHandler} from './hunterHandlers';
 import ShowExerciseModal from '../components/ShowExerciseModal';
 import ShowExerciseEditModal from '../components/ShowExerciseEditModal';
 
@@ -64,7 +65,7 @@ export default {
       selectedCheckboxes: values.selectedCheckboxes.sort((a, b) => b - a),
       selectedPositions: values.selectedPositions
     });
-    apiHandler
+    apiGetHandler
       .getExerciseArray(
         values.selectedCheckboxes.slice(
           (this.state.pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage,
