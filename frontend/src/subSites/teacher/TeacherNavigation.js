@@ -3,7 +3,7 @@ import React from 'react';
 import {Message} from 'semantic-ui-react';
 import QrReader from 'react-qr-reader';
 
-import {messages, numbers} from '../../config/uiDefaults';
+import {messages, numbers} from '../../config/hunterUiDefaults';
 import ModalHandler from '../../handlers/ModalHandler';
 
 export default class TeacherNavigation extends React.Component {

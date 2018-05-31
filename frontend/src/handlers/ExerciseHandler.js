@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import {colors} from '../config/uiDefaults';
+import {colors} from '../config/hunterUiDefaults';
 import ShowExerciseModal from '../components/ShowExerciseModal';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';

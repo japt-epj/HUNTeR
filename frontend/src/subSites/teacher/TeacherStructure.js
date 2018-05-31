@@ -15,7 +15,7 @@ import TeacherExecution from './TeacherExecution';
 import TeacherExecutionOverview from './TeacherExecutionOverview';
 import TeacherNavigation from './TeacherNavigation';
 
-import {messages} from '../../config/uiDefaults';
+import {messages} from '../../config/hunterUiDefaults';
 import Logout from '../Logout';
 import DefaultPaths from '../../config/DefaultPaths';
 import StructureHandler from '../../handlers/StructureHandler';

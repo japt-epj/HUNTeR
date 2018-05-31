@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {numbers} from '../config/uiDefaults';
+import {numbers} from '../config/hunterUiDefaults';
 import ModalHandler from '../handlers/ModalHandler';
 import pathConfig from '../config/pathConfig';
 

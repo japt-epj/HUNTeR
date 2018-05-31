@@ -8,7 +8,7 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 import {OK} from 'http-status-codes';
 
-import {colors, modalOptions, numbers} from '../../config/uiDefaults';
+import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';

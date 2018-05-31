@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
 
-import {colors} from '../../config/uiDefaults';
+import {colors} from '../../config/hunterUiDefaults';
 import ExecutionHandler from '../../handlers/ExecutionHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button, Header, Modal} from 'semantic-ui-react';
 
-import {colors, modalOptions} from '../config/uiDefaults';
+import {colors, modalOptions} from '../config/hunterUiDefaults';
 import getLoadingScreen from '../components/getLoadingScreen';
 
 export default {

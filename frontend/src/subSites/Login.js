@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
-import {colors} from '../config/uiDefaults';
+import {colors} from '../config/hunterUiDefaults';
 import StructureHandler from '../handlers/StructureHandler';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';

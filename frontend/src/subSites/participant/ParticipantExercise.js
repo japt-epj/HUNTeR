@@ -8,7 +8,7 @@ import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
 import ModalHandler from '../../handlers/ModalHandler';
-import {modalOptions} from '../../config/uiDefaults';
+import {modalOptions} from '../../config/hunterUiDefaults';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {

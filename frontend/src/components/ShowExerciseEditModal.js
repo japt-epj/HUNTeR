@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
 
-import {colors, modalOptions} from '../config/uiDefaults';
+import {colors, modalOptions} from '../config/hunterUiDefaults';
 import TeacherExercise from '../subSites/teacher/TeacherExercise';
 
 export default class ShowExerciseEditModal extends React.Component {

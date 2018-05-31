@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Checkbox, Form, Grid, Table} from 'semantic-ui-react';
 
-import {colors} from '../config/uiDefaults';
+import {colors} from '../config/hunterUiDefaults';
 
 export default {
   getTableHeader(cellValues) {

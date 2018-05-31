@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
-import {colors, modalOptions} from '../config/uiDefaults';
+import {colors, modalOptions} from '../config/hunterUiDefaults';
 import APIHandler from '../handlers/APIHandler';
 import {OK} from 'http-status-codes/index';
 

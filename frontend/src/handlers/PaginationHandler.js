@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Pagination, Table} from 'semantic-ui-react';
 
-import {colors} from '../config/uiDefaults';
+import {colors} from '../config/hunterUiDefaults';
 
 export default {
   calculateTotalPages(length, maxPerPage) {

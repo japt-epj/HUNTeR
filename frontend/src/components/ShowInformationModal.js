@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
 
-import {colors, modalOptions} from '../config/uiDefaults';
+import {colors, modalOptions} from '../config/hunterUiDefaults';
 import InfoPage from './InfoPage';
 
 export default class ShowInformationModal extends React.Component {

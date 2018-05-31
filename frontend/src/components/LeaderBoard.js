@@ -5,7 +5,7 @@ import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
 import APIHandler from '../handlers/APIHandler';
 import getLoadingScreen from './getLoadingScreen';
-import {colors, numbers} from '../config/uiDefaults';
+import {colors, numbers} from '../config/hunterUiDefaults';
 
 export default class LeaderBoard extends React.Component {
   constructor(props) {

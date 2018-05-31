@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import {colors, numbers} from '../../config/uiDefaults';
+import {colors, numbers} from '../../config/hunterUiDefaults';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
