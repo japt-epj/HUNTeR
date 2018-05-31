@@ -5,7 +5,6 @@ import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExerciseDto;
-import ch.japt.epj.model.dto.ExerciseLocationDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.dto.PersonDto;
@@ -67,15 +66,9 @@ public final class Mappings {
   public static ModelMapper quizMapper() {
     ModelMapper mapper = new ModelMapper();
 
-    mapper
-        .createTypeMap(Exercise.class, ExerciseLocationDto.class)
-        .addMappings(m -> m.skip(ExerciseLocationDto::setId))
-        .addMappings(m -> m.skip(ExerciseLocationDto::setLat))
-        .addMappings(m -> m.skip(ExerciseLocationDto::setLng));
-
     Converter<Collection<Exercise>, List<Long>> exerciseToDto =
         context ->
-            context.getSource().stream().map(e -> e.getExerciseId()).collect(Collectors.toList());
+            context.getSource().stream().map(Exercise::getExerciseId).collect(Collectors.toList());
 
     mapper
         .createTypeMap(Quiz.class, QuizDto.class)
