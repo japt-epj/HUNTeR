@@ -1,6 +1,5 @@
 import React from 'react';
-import {Redirect} from 'react-router';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 
 import {Form, Grid, Header, Message} from 'semantic-ui-react';
 

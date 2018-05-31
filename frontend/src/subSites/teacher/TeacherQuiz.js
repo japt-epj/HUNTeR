@@ -1,8 +1,8 @@
 import React from 'react';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
-import {Form, Grid} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
+import {Form, Grid} from 'semantic-ui-react';
 
 import {
   map,

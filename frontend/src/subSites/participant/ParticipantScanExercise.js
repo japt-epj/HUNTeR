@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
 import {Message} from 'semantic-ui-react';
 import QrReader from 'react-qr-reader';
