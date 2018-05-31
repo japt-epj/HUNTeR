@@ -5,11 +5,12 @@ import {apiGetHandler} from '../hunterApiHandler';
 export default {
   getLeaderBoard(executionId) {
     apiGetHandler.getLeaderBoard(executionId).then(resData => {
-      if (resData.status === OK) {
-        let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
-        leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
-        this.setState({leaderBoard, loading: false});
+      if (resData.status !== OK) {
+        return;
       }
+      let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
+      leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
+      this.setState({leaderBoard, loading: false});
     });
   },
 

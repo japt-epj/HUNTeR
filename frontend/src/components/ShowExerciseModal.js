@@ -19,14 +19,15 @@ export default class ShowExerciseModal extends React.Component {
 
   componentDidMount() {
     apiGetHandler.getExerciseArray(this.state.id).then(resData => {
-      if (resData.status === OK) {
-        let exercise = resData.data[0];
-        this.setState({
-          title: exercise.name,
-          question: exercise.question,
-          loading: false
-        });
+      if (resData.status !== OK) {
+        return;
       }
+      let exercise = resData.data[0];
+      this.setState({
+        title: exercise.name,
+        question: exercise.question,
+        loading: false
+      });
     });
   }
 

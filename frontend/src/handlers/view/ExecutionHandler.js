@@ -3,6 +3,7 @@ import React from 'react';
 import {Button, Table} from 'semantic-ui-react';
 
 import {colors} from '../../config/hunterUiDefaults';
+import {apiGetHandler} from '../hunterApiHandler';
 import {paginationHandler, tableHandler} from '../hunterViewHandlers';
 
 export default {
@@ -24,7 +25,7 @@ export default {
                     color={colors.buttonColors.download}
                     icon="download"
                     basic
-                    onClick={() => this.downloadExecutionQRCodePDF(element.id)}
+                    onClick={() => apiGetHandler.downloadExecutionQRCodePDF(element.id)}
                   />
                 </Table.Cell>
               </Table.Row>

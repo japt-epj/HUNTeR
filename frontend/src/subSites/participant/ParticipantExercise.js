@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink, Redirect} from 'react-router-dom';
 
 import {Form, Grid, Header, Message} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
 import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
@@ -29,15 +30,17 @@ export default class ParticipantExercise extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.exerciseId !== '') {
-      apiGetHandler.getExerciseArray(this.state.exerciseId).then(resData => {
-        if (resData.status === 200) {
-          this.setState({
-            exercise: resData.data[0]
-          });
-        }
-      });
+    if (this.state.exerciseId === '') {
+      return;
     }
+    apiGetHandler.getExerciseArray(this.state.exerciseId).then(resData => {
+      if (resData.status !== OK) {
+        return;
+      }
+      this.setState({
+        exercise: resData.data[0]
+      });
+    });
   }
 
   render() {
