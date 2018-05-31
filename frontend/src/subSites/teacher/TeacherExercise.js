@@ -5,7 +5,9 @@ import {OK} from 'http-status-codes/index';
 import {Form, Grid, Table} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {apiHandler, formHandler, modalHandler, tableHandler} from '../../handlers/hunterHandlers';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {formHandler} from '../../handlers/hunterDataHandlers';
+import {modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherExercise extends React.Component {
   constructor(props) {
@@ -30,8 +32,7 @@ export default class TeacherExercise extends React.Component {
     this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
     this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
-    this.postData = apiHandler.postData.bind(this);
-    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.postData = apiPostHandler.postData.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
   }
 
@@ -42,7 +43,7 @@ export default class TeacherExercise extends React.Component {
   }
 
   getExercise = exerciseId => {
-    apiHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
+    apiGetHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
       if (resData.status === OK) {
         const exerciseData = resData.data[0];
         const answerId = exerciseData.answers.map(element => element.checked).indexOf(true);

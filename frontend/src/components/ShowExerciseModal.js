@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 
 import {colors, modalOptions} from '../config/hunterUiDefaults';
-import {apiHandler} from '../handlers/hunterHandlers';
+import {apiGetHandler} from '../handlers/hunterApiHandler';
 import {OK} from 'http-status-codes/index';
 
 export default class ShowExerciseModal extends React.Component {
@@ -18,7 +18,7 @@ export default class ShowExerciseModal extends React.Component {
   }
 
   componentDidMount() {
-    apiHandler.getExerciseArray(this.state.id).then(resData => {
+    apiGetHandler.getExerciseArray(this.state.id).then(resData => {
       if (resData.status === OK) {
         let exercise = resData.data[0];
         this.setState({
