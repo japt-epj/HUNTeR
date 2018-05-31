@@ -68,13 +68,14 @@ export default class TeacherQuiz extends React.Component {
 
   getExercises = page => {
     apiGetHandler.getPaginatedElements('exercise', page).then(resData => {
-      if (resData.status === OK) {
-        this.setState({
-          exercises: resData.data.content,
-          maxPage: resData.data.totalPages,
-          loading: false
-        });
+      if (resData.status !== OK) {
+        return;
       }
+      this.setState({
+        exercises: resData.data.content,
+        maxPage: resData.data.totalPages,
+        loading: false
+      });
     });
   };
 
