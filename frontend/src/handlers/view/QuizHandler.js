@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Form, Table} from 'semantic-ui-react';
 
-import {paginationHandler, tableHandler} from './hunterHandlers';
+import {paginationHandler, tableHandler} from '../hunterViewHandlers';
 
 export default {
   getQuizTable(checkboxNeeded) {

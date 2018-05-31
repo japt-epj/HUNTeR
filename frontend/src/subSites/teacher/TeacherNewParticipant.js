@@ -4,7 +4,9 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {apiHandler, formHandler, modalHandler, tableHandler} from '../../handlers/hunterHandlers';
+import {apiPostHandler} from '../../handlers/hunterApiHandler';
+import {formHandler} from '../../handlers/hunterDataHandlers';
+import {modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
@@ -20,8 +22,7 @@ export default class TeacherNewParticipant extends React.Component {
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = formHandler.handleNewParticipantSubmit.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
-    this.postData = apiHandler.postData.bind(this);
-    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.postData = apiPostHandler.postData.bind(this);
   }
 
   render() {
