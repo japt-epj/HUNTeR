@@ -80,10 +80,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .logout()
         .permitAll();
-    //
-    //        // This is key for exposing csrf tokens in apis that are outside
-    //        // of the browser. We will need these headers in react and for
-    //        // testing with postman etc.
+
+    /*
+     * This is key for exposing csrf tokens in apis that are outside
+     * of the browser. We will need these headers in react and for
+     * testing with postman etc.
+     */
     http.addFilterBefore(
         new JwtAuthenticationFilter(tokenProvider, customUserDetailsService),
         UsernamePasswordAuthenticationFilter.class);

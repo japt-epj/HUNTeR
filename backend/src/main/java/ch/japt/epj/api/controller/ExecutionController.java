@@ -48,18 +48,6 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi, Pagina
 
   @Override
   @Secured({"ROLE_TEACHER"})
-  public ResponseEntity<Void> updateExecution(NewExecutionDto body) {
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  @Override
-  @Secured({"ROLE_TEACHER"})
-  public ResponseEntity<Void> updateExecutionWithForm(Long id) {
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  @Override
-  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Resource> executionIdPrintGet(@Valid @PathVariable("id") Integer id) {
     return qrModel
         .generatePdf(id)
