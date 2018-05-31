@@ -27,6 +27,13 @@ public final class Mappings {
   public static ModelMapper exerciseMapper() {
     ModelMapper mapper = new ModelMapper();
 
+    Converter<List<NewAnswerDto>, Collection<Answer>> answerDtoToAnswer =
+        ctx ->
+            ctx.getSource()
+                .stream()
+                .map(dto -> mapper.map(dto, Answer.class))
+                .collect(Collectors.toList());
+
     mapper
         .createTypeMap(Exercise.class, ExerciseDto.class)
         .addMapping(Exercise::getName, ExerciseDto::setName)
@@ -37,7 +44,9 @@ public final class Mappings {
         .addMapping(NewAnswerDto::getText, Answer::setText);
     mapper
         .createTypeMap(NewExerciseDto.class, Exercise.class)
-        .addMapping(NewExerciseDto::getName, Exercise::setName);
+        .addMapping(NewExerciseDto::getName, Exercise::setName)
+        .addMappings(
+            m -> m.using(answerDtoToAnswer).map(NewExerciseDto::getAnswers, Exercise::setAnswers));
     mapper
         .createTypeMap(Exercise.class, NewExerciseDto.class)
         .addMapping(Exercise::getName, NewExerciseDto::setName)
