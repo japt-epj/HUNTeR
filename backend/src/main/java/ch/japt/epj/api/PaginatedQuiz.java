@@ -1,6 +1,6 @@
 package ch.japt.epj.api;
 
-import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.model.dto.QuizDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -14,7 +14,7 @@ public interface PaginatedQuiz {
   @ApiOperation(
     value = "Get all quizzes",
     nickname = "quizGet",
-    response = NewQuizDto.class,
+    response = QuizDto.class,
     responseContainer = "List",
     tags = {
       "quiz",
@@ -25,7 +25,7 @@ public interface PaginatedQuiz {
       @ApiResponse(
         code = 200,
         message = "All quizzes",
-        response = NewQuizDto.class,
+        response = QuizDto.class,
         responseContainer = "List"
       )
     }
@@ -35,7 +35,7 @@ public interface PaginatedQuiz {
     produces = {"application/json"},
     method = RequestMethod.GET
   )
-  ResponseEntity<Page<NewQuizDto>> quizGet(
+  ResponseEntity<Page<QuizDto>> quizGet(
       @ApiParam(value = "Page index from where to start pagination") int page,
       @ApiParam(value = "Number of pages to fetch") int limit,
       @ApiParam(value = "Property and direction by which to sort result set") String sort);

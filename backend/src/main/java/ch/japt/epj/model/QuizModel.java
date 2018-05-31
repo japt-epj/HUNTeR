@@ -5,7 +5,7 @@ import ch.japt.epj.model.data.Location;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExerciseLocationDto;
-import ch.japt.epj.model.dto.NewQuizDto;
+import ch.japt.epj.model.dto.QuizDto;
 import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.ExerciseRepository;
 import ch.japt.epj.repository.LocationRepository;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QuizModel {
-  private static final Type QUIZ_DTO_LIST = new TypeToken<List<NewQuizDto>>() {}.getType();
+  private static final Type QUIZ_DTO_LIST = new TypeToken<List<QuizDto>>() {}.getType();
 
   private final QuizRepository quizzes;
   private final ExerciseRepository exercises;
@@ -43,18 +43,13 @@ public class QuizModel {
     this.locations = locations;
   }
 
-  public Page<NewQuizDto> pageQuiz(int page, int limit, Sort sort) {
+  public Page<QuizDto> pageQuiz(int page, int limit, Sort sort) {
     return quizzes
         .findAll(new PageRequest(page, limit, sort))
-        .map(quiz -> mapper.map(quiz, NewQuizDto.class));
+        .map(quiz -> mapper.map(quiz, QuizDto.class));
   }
 
-  public NewQuizDto getQuiz(long id) {
-    Quiz quiz = quizzes.findOne(id);
-    return mapper.map(quiz, NewQuizDto.class);
-  }
-
-  public void addQuiz(NewQuizDto quizDto, Long creatorId) {
+  public void addQuiz(QuizDto quizDto, Long creatorId) {
     Quiz quiz = mapper.map(quizDto, Quiz.class);
     quiz.setName(quizDto.getName());
     for (ExerciseLocationDto entry : quizDto.getExercises()) {
@@ -76,7 +71,7 @@ public class QuizModel {
     persons.save(creator);
   }
 
-  public List<NewQuizDto> getQuizzes(List<Integer> ids) {
+  public List<QuizDto> getQuizzes(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
     return mapper.map(quizzes.findAll(longs), QUIZ_DTO_LIST);
   }

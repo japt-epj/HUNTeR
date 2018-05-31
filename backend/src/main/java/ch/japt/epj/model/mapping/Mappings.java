@@ -1,14 +1,14 @@
 package ch.japt.epj.model.mapping;
 
 import ch.japt.epj.model.data.Answer;
-import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Person;
+import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
-import ch.japt.epj.model.dto.NewExecutionDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.dto.PersonDto;
+import ch.japt.epj.model.dto.QuizDto;
 import org.modelmapper.ModelMapper;
 
 public final class Mappings {
@@ -61,11 +61,7 @@ public final class Mappings {
 
   public static ModelMapper quizMapper() {
     ModelMapper mapper = new ModelMapper();
-
-    mapper
-        .createTypeMap(Execution.class, NewExecutionDto.class)
-        .addMappings(m -> m.skip(NewExecutionDto::setParticipants));
-
+    mapper.createTypeMap(Quiz.class, QuizDto.class);
     return mapper;
   }
 }

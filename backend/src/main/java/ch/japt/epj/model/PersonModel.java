@@ -42,8 +42,10 @@ public class PersonModel {
         .findByPersonId(personId)
         .ifPresent(
             person -> {
+              // this should check for missing values...
               person.setFirstName(body.getFirstName());
               person.setLastName(body.getLastName());
+              person.setEmail(body.getEmail());
               persons.save(person);
             });
   }
