@@ -86,7 +86,12 @@ a,
 .step {
   color: #20c028 !important;
   padding: 1rem !important;
-  font-size: 0.8rem !important; }
+  font-size: 0.8rem !important;
+  border-width: thin !important;
+  border-style: solid !important;
+  border-color: #20c028 !important; }
+  .step::after {
+    border-color: #20c028 !important; }
 
 .userScoreName {
   font-weight: bold; }
