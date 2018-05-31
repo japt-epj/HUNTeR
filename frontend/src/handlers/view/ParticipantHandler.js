@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Checkbox, Table} from 'semantic-ui-react';
-import {paginationHandler, tableHandler} from './hunterHandlers';
+import {paginationHandler, tableHandler} from '../hunterViewHandlers';
 
 export default {
   handleSingleSelection(event, checkbox) {

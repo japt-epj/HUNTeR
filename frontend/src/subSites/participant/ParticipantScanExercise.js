@@ -5,7 +5,7 @@ import {Message} from 'semantic-ui-react';
 import QrReader from 'react-qr-reader';
 
 import {numbers, messages, modalOptions} from '../../config/hunterUiDefaults';
-import {modalHandler} from '../../handlers/hunterHandlers';
+import {modalHandler} from '../../handlers/hunterViewHandlers';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
-import {map} from '../config/hunterUiDefaults';
+import {map} from '../../config/hunterUiDefaults';
 
 export default {
   addPosition(element) {
@@ -38,12 +38,7 @@ export default {
         {Boolean(this.state.map.location) && (
           <Marker position={this.state.map.location} icon={pointer}>
             {Boolean(this.state.map.popupText) && (
-              <Tooltip
-                direction="left"
-                offset={map.icons.pointer.offset}
-                opacity={map.icons.opacity}
-                permanent
-              >
+              <Tooltip direction="left" offset={map.icons.pointer.offset} opacity={map.icons.opacity} permanent>
                 <span>{this.state.map.popupText}</span>
               </Tooltip>
             )}
@@ -77,11 +72,7 @@ export default {
           >
             <Tooltip
               direction="left"
-              offset={
-                element === 'currentPosition'
-                  ? map.icons.protagonist.offset
-                  : map.icons.pointer.offset
-              }
+              offset={element === 'currentPosition' ? map.icons.protagonist.offset : map.icons.pointer.offset}
               opacity={map.icons.opacity}
               permanent
             >

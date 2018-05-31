@@ -9,14 +9,9 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 
 import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import {
-  apiHandler,
-  formHandler,
-  modalHandler,
-  participantHandler,
-  quizHandler,
-  tableHandler
-} from '../../handlers/hunterHandlers';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {formHandler} from '../../handlers/hunterDataHandlers';
+import {modalHandler, participantHandler, quizHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExecution extends React.Component {
@@ -55,8 +50,7 @@ export default class TeacherExecution extends React.Component {
     this.handleSubmit = formHandler.handleExecutionSumbit.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
     this.handleQuizSelectChange = formHandler.handleQuizSelectChange.bind(this);
-    this.postData = apiHandler.postData.bind(this);
-    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.postData = apiPostHandler.postData.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
   }
 
@@ -66,7 +60,7 @@ export default class TeacherExecution extends React.Component {
   }
 
   getParticipants = page => {
-    apiHandler.getPaginatedElements('person', page).then(resData => {
+    apiGetHandler.getPaginatedElements('person', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
@@ -78,7 +72,7 @@ export default class TeacherExecution extends React.Component {
   };
 
   getQuizzes = page => {
-    apiHandler.getPaginatedElements('quiz', page).then(resData => {
+    apiGetHandler.getPaginatedElements('quiz', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
