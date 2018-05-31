@@ -50,7 +50,7 @@ export default class ParticipantStructure extends React.Component {
                     <Route
                       path="/logout"
                       render={() => {
-                        return Logout.logout();
+                        Logout.logout();
                       }}
                     />
                     <Route component={NotFound} />

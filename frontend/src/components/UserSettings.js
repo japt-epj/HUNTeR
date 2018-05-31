@@ -4,7 +4,8 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../config/hunterUiDefaults';
-import {apiHandler, formHandler, modalHandler, tableHandler} from '../handlers/hunterHandlers';
+import {apiGetHandler, apiPutHandler} from '../handlers/apiHandler';
+import {formHandler, modalHandler, tableHandler} from '../handlers/hunterHandlers';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
@@ -23,12 +24,12 @@ export default class UserSettings extends React.Component {
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = formHandler.handleEditParticipant.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
-    this.getSettingChanging = apiHandler.getSettingChanging.bind(this);
-    this.putData = apiHandler.putData.bind(this);
+    this.getSettingChanging = apiGetHandler.getSettingChanging.bind(this);
+    this.putData = apiPutHandler.putData.bind(this);
   }
 
   componentDidMount() {
-    apiHandler.getInformation().then(resData => {
+    apiGetHandler.getInformation().then(resData => {
       const personInformation = resData.data;
       this.setState({
         firstName: personInformation.firstName,
