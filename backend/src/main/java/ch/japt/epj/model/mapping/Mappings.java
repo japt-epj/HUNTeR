@@ -1,14 +1,20 @@
 package ch.japt.epj.model.mapping;
 
 import ch.japt.epj.model.data.Answer;
+import ch.japt.epj.model.data.Execution;
 import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExerciseDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
+import ch.japt.epj.model.dto.NewExecutionDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.model.dto.QuizDto;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,6 +79,26 @@ public final class Mappings {
     mapper
         .createTypeMap(Quiz.class, QuizDto.class)
         .addMappings(m -> m.using(exerciseToDto).map(Quiz::getTasks, QuizDto::setExercises));
+    return mapper;
+  }
+
+  public static ModelMapper executionMapper() {
+    ModelMapper mapper = new ModelMapper();
+    Converter<String, LocalDateTime> dateTimeConverter =
+        context ->
+            LocalDateTime.ofInstant(
+                Instant.parse(context.getSource()), ZoneId.of(ZoneOffset.UTC.getId()));
+
+    mapper
+        .createTypeMap(NewExecutionDto.class, Execution.class)
+        .addMappings(
+            m ->
+                m.using(dateTimeConverter)
+                    .map(NewExecutionDto::getStartDate, Execution::setStartDate))
+        .addMappings(
+            m ->
+                m.using(dateTimeConverter).map(NewExecutionDto::getEndDate, Execution::setEndDate));
+
     return mapper;
   }
 }
