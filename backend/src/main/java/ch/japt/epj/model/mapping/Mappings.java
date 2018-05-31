@@ -46,8 +46,7 @@ public final class Mappings {
     mapper
         .createTypeMap(Answer.class, NewAnswerDto.class)
         .addMapping(Answer::getText, NewAnswerDto::setText)
-        .addMapping(Answer::getAnswerId, NewAnswerDto::setAnswerId)
-        .addMappings(m -> m.with(req -> false).map(Answer::isChecked, NewAnswerDto::setChecked));
+        .addMapping(Answer::getAnswerId, NewAnswerDto::setAnswerId);
 
     return mapper;
   }

@@ -12,7 +12,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +39,10 @@ public class ExerciseModel {
         .map(exercise -> mapper.map(exercise, ExerciseDto.class));
   }
 
+  // I need to make sure again that these don't return for participants
   public List<NewExerciseDto> getExercises(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
     return mapper.map(this.exercises.findAll(longs), dtoList);
-  }
-
-  public Optional<ExerciseDto> getExercise(Long id) {
-    return exercises.findByExerciseId(id).map(t -> mapper.map(t, ExerciseDto.class));
   }
 
   public List<NewExerciseDto> getExercisesForTeacher(List<Integer> ids) {
