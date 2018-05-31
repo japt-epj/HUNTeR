@@ -11,6 +11,7 @@
         <deactivate-dev-tools>true</deactivate-dev-tools>
         <java.version>1.8</java.version>
         <hibernate.version>5.1.13.Final</hibernate.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <parent>
