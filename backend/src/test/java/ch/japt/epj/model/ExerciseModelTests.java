@@ -36,24 +36,6 @@ public class ExerciseModelTests {
   }
 
   @Test
-  public void emptyWhenNotFound() {
-    assertThat(model.getExercise(10_000_000L)).isEmpty();
-  }
-
-  @Test
-  public void shouldAddNewTask() {
-    Page<ExerciseDto> before = model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId"));
-
-    long size = before.getTotalElements();
-    model.addExercise(makeTestDto());
-
-    Page<ExerciseDto> after = model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId"));
-
-    assertThat(model.getExercise(size + 1L)).isNotEmpty();
-    assertThat(after.getTotalElements()).isEqualTo(size + 1);
-  }
-
-  @Test
   public void newTaskReturned() {
     NewExerciseDto testDto = makeTestDto();
     model.addExercise(testDto);
