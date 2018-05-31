@@ -9,7 +9,11 @@ App for creating and playing a scavenger hunt.
 -   [User Guide](#user-guide)
     -   [A Note on Language](#a-note-on-language)
     -   [Teacher](#teacher)
-    -   [Student](#student)
+    -   [Participant](#participant)
+        -   [Next location](#next-location)
+        -   [Scan exercise](#scan-exercise)
+        -   [Current leaderboard](#current-leaderboard)
+        -   [User settings](#user-settings)
 -   [Deployment](#deployment)
     -   [Prerequisites](#prerequisites)
     -   [Quick setup](#quick-setup)
@@ -44,7 +48,20 @@ Internationalization is not one of our prime concerns, due to the nature of the 
 
 ### Teacher
 
-### Student
+### Participant
+A participant has the following options:
+
+#### Next location
+Shows the next location for each quiz the user is a participant of.
+
+#### Scan exercise
+After allowing the application to use the camera of the mobile device it's running on, an exercises qr code can be scanned to display the exercises content.
+
+#### Current leaderboard
+The leaderboard shows the top three participants of each quiz. Additionally, the currently logged in participant will be displayed as well, if he did not rank in the top three himself.   
+
+#### User settings
+A logged in user can change his or her first- and lastname. The option to change ones email address or password is not yet implemented.
 
 # Deployment
 There is currently no completely public deployment of this application, only our internal testing environment on [the HSR server](https://sinv-56053.edu.hsr.ch/). However, you are free to host your own instance of HUNTeR. The easiest way to do so is using Docker. 
