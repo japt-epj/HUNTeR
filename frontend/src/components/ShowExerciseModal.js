@@ -1,10 +1,9 @@
 import React from 'react';
 
-import {Button, Modal} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import {colors, modalOptions} from '../config/hunterUiDefaults';
 import {apiGetHandler} from '../handlers/hunterApiHandler';
+import {modalHandler} from '../handlers/hunterViewHandlers';
 
 export default class ShowExerciseModal extends React.Component {
   constructor(props) {
@@ -13,12 +12,15 @@ export default class ShowExerciseModal extends React.Component {
       id: this.props.id,
       title: '',
       question: '',
+      solution: '',
       open: false
     };
+
+    this.getViewModal = modalHandler.getViewModal.bind(this);
   }
 
   componentDidMount() {
-    apiGetHandler.getExerciseArray(this.state.id).then(resData => {
+    apiGetHandler.getExerciseTeacherArray(this.state.id).then(resData => {
       if (resData.status !== OK) {
         return;
       }
@@ -26,6 +28,7 @@ export default class ShowExerciseModal extends React.Component {
       this.setState({
         title: exercise.name,
         question: exercise.question,
+        solution: new Array(exercise.answers.filter(element => element.checked))[0][0].text,
         loading: false
       });
     });
@@ -36,21 +39,6 @@ export default class ShowExerciseModal extends React.Component {
   close = () => this.setState({open: false});
 
   render() {
-    return (
-      <Modal
-        dimmer={modalOptions.dimmer}
-        open={this.state.open}
-        onOpen={this.open}
-        onClose={this.close}
-        size="small"
-        trigger={<Button color={colors.buttonColors.show} icon="eye" basic />}
-      >
-        <Modal.Header content={this.state.title} />
-        <Modal.Content content={this.state.question} />
-        <Modal.Actions>
-          <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />
-        </Modal.Actions>
-      </Modal>
-    );
+    return this.getViewModal();
   }
 }
