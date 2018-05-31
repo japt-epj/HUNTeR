@@ -64,6 +64,6 @@ public class PersonController implements PersonApi, PaginatedPerson {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     long personId = ((CustomUserDetails) authentication.getPrincipal()).getPersonId();
     personModel.updatePeople(body, personId);
-    return new ResponseEntity<>(HttpStatus.CREATED);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }
