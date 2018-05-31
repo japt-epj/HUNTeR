@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.modelmapper.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +53,7 @@ public class ExerciseModelTests {
   @Test
   public void failWithInvalidPayload() {
     NewExerciseDto fail = new NewExerciseDto().name("This should fail");
-    Assertions.assertThatExceptionOfType(NullPointerException.class)
+    Assertions.assertThatExceptionOfType(MappingException.class)
         .isThrownBy(() -> model.addExercise(fail));
   }
 

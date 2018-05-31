@@ -61,17 +61,6 @@ public class ExerciseModel {
 
   public void addExercise(NewExerciseDto exerciseDto) {
     Exercise exercise = mapper.map(exerciseDto, Exercise.class);
-    // this should be possible to put in a typemapping. I'm pretty sure others
-    // are too, but this doesn't make any new db calls
-    exerciseDto
-        .getAnswers()
-        .forEach(
-            newAnswerDto -> {
-              Answer answer = mapper.map(newAnswerDto, Answer.class);
-              // probably just reomve this and do a deep mapping
-              exercise.addAnswerTemplate(answer);
-            });
-
     ArrayList<Answer> answers = new ArrayList<>(exercise.getAnswerTemplates());
     answers.get(exerciseDto.getCorrectAnswer()).setChecked(true);
     this.answers.save(exercise.getAnswerTemplates());
