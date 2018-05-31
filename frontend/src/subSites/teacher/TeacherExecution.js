@@ -61,25 +61,27 @@ export default class TeacherExecution extends React.Component {
 
   getParticipants = page => {
     apiGetHandler.getPaginatedElements('person', page).then(resData => {
-      if (resData.status === OK) {
-        this.setState({
-          participants: resData.data.content,
-          maxPageParticipants: resData.data.totalPages,
-          loadingParticipants: false
-        });
+      if (resData.status !== OK) {
+        return;
       }
+      this.setState({
+        participants: resData.data.content,
+        maxPageParticipants: resData.data.totalPages,
+        loadingParticipants: false
+      });
     });
   };
 
   getQuizzes = page => {
     apiGetHandler.getPaginatedElements('quiz', page).then(resData => {
-      if (resData.status === OK) {
-        this.setState({
-          quizzes: resData.data.content,
-          maxPageQuizzes: resData.data.totalPages,
-          loadingQuizzes: false
-        });
+      if (resData.status !== OK) {
+        return;
       }
+      this.setState({
+        quizzes: resData.data.content,
+        maxPageQuizzes: resData.data.totalPages,
+        loadingQuizzes: false
+      });
     });
   };
 
