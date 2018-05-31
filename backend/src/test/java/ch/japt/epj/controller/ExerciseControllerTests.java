@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,14 +112,35 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
 
   @Test
   public void makeExerciseSuccess() throws Exception {
-    MockHttpServletRequestBuilder request =
+    MockHttpServletRequestBuilder post =
         MockMvcRequestBuilders.post("/api/exercise")
             .header("Authorization", token)
             .contentType(MediaType.APPLICATION_JSON)
             .content(
-                "{ \"name\": \"This is a test question\", \"question\": \"What is 42?\", \"answers\": [ { \"text\": \"A number\", \"checked\": \"false\" }, { \"text\": \"The answer to everything\", \"checked\": \"true\" } ] }");
+                "{ \"name\": \"This is a test question\", \"question\": \"What is 42?\", \"answers\": [ { \"text\": \"A number\" }, { \"text\": \"The answer to everything\" } ], \"correctAnswer\": \"1\" }");
 
-    mvc.perform(request).andExpect(status().isCreated());
+    mvc.perform(post).andExpect(status().isCreated());
+
+    MockHttpServletRequestBuilder getId =
+        MockMvcRequestBuilders.get("/api/exercise")
+            .header("Authorization", token)
+            .accept(MediaType.APPLICATION_JSON)
+            .param("sort", "exerciseId,desc");
+
+    String content = mvc.perform(getId).andReturn().getResponse().getContentAsString();
+    Integer id = JsonPath.read(content, "$.content[0].id");
+
+    MockHttpServletRequestBuilder get =
+        MockMvcRequestBuilders.get("/api/exercise/teacher/" + id)
+            .header("Authorization", token)
+            .accept(MediaType.APPLICATION_JSON);
+
+    mvc.perform(get)
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$[0].name").value("This is a test question"))
+        .andExpect(jsonPath("$[0].answers[0].checked").value(false))
+        .andExpect(jsonPath("$[0].answers[1].checked").value(true));
   }
 
   @Test
