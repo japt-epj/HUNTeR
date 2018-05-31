@@ -3,35 +3,31 @@ import {Redirect} from 'react-router-dom';
 
 import {Form, Grid} from 'semantic-ui-react';
 
-import FormHandler from '../../handlers/FormHandler';
-import APIHandler from '../../handlers/APIHandler';
-import ModalHandler from '../../handlers/ModalHandler';
-import TableHandler from '../../handlers/TableHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import {modalOptions} from '../../config/hunterUiDefaults';
+import {apiHandler, formHandler, modalHandler, tableHandler} from '../../handlers/hunterHandlers';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.participant,
+      successMessage: modalOptions.participant,
       fireRedirect: false,
       firstName: '',
       lastName: '',
       email: ''
     };
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleNewParticipantSubmit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleNewParticipantSubmit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
   }
 
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             fluid
@@ -39,7 +35,7 @@ export default class TeacherNewParticipant extends React.Component {
             name="email"
             value={this.state.email}
             onChange={this.handleChange}
-            placeholder="Bitte geben Sie die E-Mail des Teilnehmers ein"
+            placeholder="Bitte geben Sie die E-Mail des Teilnehmers ein."
             required
           />
           <Form.Input
@@ -48,7 +44,7 @@ export default class TeacherNewParticipant extends React.Component {
             name="firstName"
             value={this.state.firstName}
             onChange={this.handleChange}
-            placeholder="Bitte geben Sie den Vornamen des Teilnehmers ein"
+            placeholder="Bitte geben Sie den Vornamen des Teilnehmers ein."
             required
           />
           <Form.Input
@@ -57,13 +53,11 @@ export default class TeacherNewParticipant extends React.Component {
             name="lastName"
             value={this.state.lastName}
             onChange={this.handleChange}
-            placeholder="Bitte geben Sie den Nachnamen des Teilnehmers ein"
+            placeholder="Bitte geben Sie den Nachnamen des Teilnehmers ein."
             required
           />
           <Grid>{this.getSubmitCancelButton()}</Grid>
-          {this.state.fireRedirect && (
-            <Redirect to={{pathname: '/', state: {person: this.state}}} />
-          )}
+          {this.state.fireRedirect && <Redirect to={{pathname: '/', state: {person: this.state}}} />}
         </Form>
       </div>
     );

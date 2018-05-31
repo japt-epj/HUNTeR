@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Pagination, Table} from 'semantic-ui-react';
 
-import defaultColors from '../config/defaultColors';
+import {colors} from '../config/hunterUiDefaults';
 
 export default {
   calculateTotalPages(length, maxPerPage) {
@@ -22,7 +22,7 @@ export default {
               onPageChange={values.onPageChange}
               pointing
               secondary
-              color={defaultColors.paginationColor}
+              color={colors.paginationColor}
             />
           </Table.HeaderCell>
         </Table.Row>

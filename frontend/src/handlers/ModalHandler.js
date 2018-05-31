@@ -1,13 +1,14 @@
 import React from 'react';
 
 import {Button, Header, Modal} from 'semantic-ui-react';
+
+import {colors, modalOptions} from '../config/hunterUiDefaults';
 import getLoadingScreen from '../components/getLoadingScreen';
-import defaultColors from '../config/defaultColors';
 
 export default {
   getLoginSuccess() {
     return (
-      <Modal dimmer="blurring" open>
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="sign in" content="Login erfolgt" />
         <Modal.Content content="Sie haben sich erfolgreich eingeloggt." />
       </Modal>
@@ -16,7 +17,7 @@ export default {
 
   getLogoutSuccess() {
     return (
-      <Modal dimmer="blurring" open>
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="log out" content="Erfolgreich ausgeloggt" />
         <Modal.Content content="Sie haben sich erfolgreich ausgeloggt." />
       </Modal>
@@ -25,16 +26,16 @@ export default {
 
   getTokenExpiration() {
     return (
-      <Modal dimmer="blurring" open>
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="sign out" content="Login ausgelaufen" />
-        <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein" />
+        <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein." />
       </Modal>
     );
   },
 
   getCreationSuccess(successMessage) {
     return (
-      <Modal dimmer="blurring" open={successMessage.showModal}>
+      <Modal dimmer={modalOptions.dimmer} open={successMessage.showModal} size={modalOptions.size}>
         <Header icon="check" content={successMessage.title} />
         <Modal.Content content={successMessage.content} />
       </Modal>
@@ -42,12 +43,10 @@ export default {
   },
 
   getScanSuccess() {
-    const message =
-      'Der QR-Code wurde erfolgreich eingescannt. ' +
-      'Sie werden nun auf eine andere Seite weitergeleitet';
+    const message = 'Der QR-Code wurde erfolgreich eingescannt. Sie werden nun auf eine andere Seite weitergeleitet';
     return (
-      <Modal dimmer="blurring" open>
-        <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt" />
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
+        <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt." />
         <Modal.Content content={message} />
       </Modal>
     );
@@ -55,12 +54,12 @@ export default {
 
   getAgreement() {
     return (
-      <Modal open closeOnEscape closeOnRootNodeClick={false}>
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size} closeOnEscape closeOnRootNodeClick={false}>
         <Modal.Header content="Berechtigungen einfordern" />
-        <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben" />
+        <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben." />
         <Modal.Actions>
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             labelPosition="right"
             icon="point"
             content="OK, ich habe verstanden"
@@ -77,12 +76,12 @@ export default {
 
   getSettingChanging() {
     return (
-      <Modal open closeIcon>
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size} closeIcon>
         <Header icon="key" content="Daten ändern?" />
         <Modal.Content>Daten wirklich ändern</Modal.Content>
         <Modal.Actions>
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             labelPosition="left"
             label="Ja"
             icon="checkmark"
@@ -95,7 +94,7 @@ export default {
             }}
           />
           <Button
-            color={defaultColors.buttonColors.cancel}
+            color={colors.buttonColors.cancel}
             labelPosition="left"
             label="Nein"
             icon="cancel"
@@ -113,12 +112,12 @@ export default {
 
   getFormError(errorText) {
     return (
-      <Modal open>
-        <Modal.Header content="Formular wurde noch nicht richtig ausgefüllt" />
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
+        <Modal.Header content="Formular wurde noch nicht richtig ausgefüllt." />
         <Modal.Content content={errorText} />
         <Modal.Actions>
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             labelPosition="right"
             icon="pencil"
             content="OK, ich habe verstanden"
@@ -132,14 +131,14 @@ export default {
   getMobileError() {
     const message =
       'Nutzen Sie das Smartphone nur für das Scannen für QR-Code Standorten. Anderenfalls nutzen Sie ' +
-      'bitte ein Gerät mit besserer Auflösung für das Arbeiten mit der Teacher-Seite.';
+      'bitte ein Gerät mit besserer Auflösung für das Arbeiten mit der Lehrer-Seite.';
     return (
-      <Modal dimmer="blurring" open>
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="mobile" content="Mobiles Gerät erkannt" />
         <Modal.Content content={message} />
         <Modal.Actions>
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             content="OK, ich habe verstanden"
             onClick={() => {
               this.setState({hideMobileError: true});
@@ -154,10 +153,11 @@ export default {
   getAddExerciseModal() {
     return (
       <Modal
-        size="fullscreen"
+        dimmer={modalOptions.dimmer}
+        size={modalOptions.size}
         trigger={
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Aufgabe hinzufügen"
@@ -167,11 +167,7 @@ export default {
         closeIcon
       >
         <Modal.Header content="Aufgaben hinzufügen" />
-        <Modal.Content scrolling>
-          {this.state.loading
-            ? getLoadingScreen()
-            : this.getExerciseTable(true)}
-        </Modal.Content>
+        <Modal.Content scrolling>{this.state.loading ? getLoadingScreen() : this.getExerciseTable(true)}</Modal.Content>
       </Modal>
     );
   }

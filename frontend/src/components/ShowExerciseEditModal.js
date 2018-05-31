@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
-import defaultColors from '../config/defaultColors';
+
+import {colors, modalOptions} from '../config/hunterUiDefaults';
 import TeacherExercise from '../subSites/teacher/TeacherExercise';
 
 export default class ShowExerciseEditModal extends React.Component {
@@ -20,28 +21,19 @@ export default class ShowExerciseEditModal extends React.Component {
   render() {
     return (
       <Modal
-        dimmer="blurring"
+        dimmer={modalOptions.dimmer}
         open={this.state.open}
         onOpen={this.open}
         onClose={this.close}
         size="small"
-        trigger={
-          <Button
-            color={defaultColors.buttonColors.normal}
-            icon="pencil"
-            basic
-          />
-        }
+        trigger={<Button color={colors.buttonColors.normal} icon="pencil" basic />}
       >
-        <Modal.Header content="" />
+        <Modal.Header />
         <Modal.Content>
-          <TeacherExercise
-            editExercise={true}
-            exerciseId={this.state.exerciseId}
-          />
+          <TeacherExercise editExercise={true} exerciseId={this.state.exerciseId} />
         </Modal.Content>
         <Modal.Actions>
-          <Button icon="check" content="OK, danke" onClick={this.close} />
+          <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />
         </Modal.Actions>
       </Modal>
     );

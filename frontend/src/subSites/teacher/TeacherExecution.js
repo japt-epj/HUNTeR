@@ -1,29 +1,29 @@
 import React from 'react';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
-import {Button, Form, Grid, Header, Modal} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 import DateTime from 'react-datetime';
+import {Button, Form, Grid, Header, Modal} from 'semantic-ui-react';
 import moment from 'moment';
 import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
-import {OK} from 'http-status-codes';
 
-import defaultColors from '../../config/defaultColors';
-import APIHandler from '../../handlers/APIHandler';
-import ParticipantHandler from '../../handlers/ParticipantHandler';
-import QuizHandler from '../../handlers/QuizHandler';
-import FormHandler from '../../handlers/FormHandler';
-import ModalHandler from '../../handlers/ModalHandler';
+import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
+import {
+  apiHandler,
+  formHandler,
+  modalHandler,
+  participantHandler,
+  quizHandler,
+  tableHandler
+} from '../../handlers/hunterHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import TableHandler from '../../handlers/TableHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
-import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.execution,
+      successMessage: modalOptions.execution,
       formOK: true,
       name: '',
       participants: [],
@@ -33,7 +33,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingParticipants: true,
       loadingQuizzes: true,
-      pageNumber: defaultNumbers.pageNumber,
+      pageNumber: numbers.pageNumber,
       minPage: 1,
       maxPageQuizzes: '',
       maxPageParticipants: '',
@@ -46,24 +46,18 @@ export default class TeacherExecution extends React.Component {
       endDate: moment().add(1, 'hour')
     };
 
-    this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(
-      this
-    );
-    this.handleSingleSelection = ParticipantHandler.handleSingleSelection.bind(
-      this
-    );
-    this.handleBulkSelection = ParticipantHandler.handleBulkSelection.bind(
-      this
-    );
-    this.getQuizTable = QuizHandler.getQuizTable.bind(this);
+    this.getParticipantTable = participantHandler.getParticipantTable.bind(this);
+    this.handleSingleSelection = participantHandler.handleSingleSelection.bind(this);
+    this.handleBulkSelection = participantHandler.handleBulkSelection.bind(this);
+    this.getQuizTable = quizHandler.getQuizTable.bind(this);
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.handleQuizSelectChange = FormHandler.handleQuizSelectChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
-    this.getFormError = ModalHandler.getFormError.bind(this);
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleExecutionSumbit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleQuizSelectChange = formHandler.handleQuizSelectChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.getFormError = modalHandler.getFormError.bind(this);
   }
 
   componentDidMount() {
@@ -72,7 +66,7 @@ export default class TeacherExecution extends React.Component {
   }
 
   getParticipants = page => {
-    APIHandler.getPaginatedElements('person', page).then(resData => {
+    apiHandler.getPaginatedElements('person', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
@@ -84,7 +78,7 @@ export default class TeacherExecution extends React.Component {
   };
 
   getQuizzes = page => {
-    APIHandler.getPaginatedElements('quiz', page).then(resData => {
+    apiHandler.getPaginatedElements('quiz', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
@@ -139,12 +133,9 @@ export default class TeacherExecution extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
-          this.getFormError(
-            'Kein Quiz ausgewählt oder keine Teilnehmer der Durchführung zugeordnet.'
-          )}
+          this.getFormError('Kein Quiz ausgewählt oder keine Teilnehmer der Durchführung zugeordnet.')}
         <Form onSubmit={this.handleSubmit}>
           <Grid>
             <Grid.Row>
@@ -155,7 +146,7 @@ export default class TeacherExecution extends React.Component {
                   name="name"
                   value={this.state.name}
                   onChange={this.handleChange}
-                  placeholder="Bitte geben Sie einen Name für die Durchführung ein"
+                  placeholder="Bitte geben Sie einen Name für die Durchführung ein."
                   required
                 />
               </Grid.Column>
@@ -163,10 +154,11 @@ export default class TeacherExecution extends React.Component {
             <Grid.Row columns="equal">
               <Grid.Column>
                 <Modal
-                  size="fullscreen"
+                  dimmer={modalOptions.dimmer}
+                  size={modalOptions.size}
                   trigger={
                     <Button
-                      color={defaultColors.buttonColors.normal}
+                      color={colors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Quiz für die Durchführung auswählen"
@@ -177,18 +169,17 @@ export default class TeacherExecution extends React.Component {
                 >
                   <Modal.Header content="Quiz auswählen" />
                   <Modal.Content scrolling>
-                    {this.state.loadingQuizzes
-                      ? getLoadingScreen()
-                      : this.getQuizTable(true)}
+                    {this.state.loadingQuizzes ? getLoadingScreen() : this.getQuizTable(true)}
                   </Modal.Content>
                 </Modal>
               </Grid.Column>
               <Grid.Column>
                 <Modal
+                  dimmer={modalOptions.dimmer}
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={defaultColors.buttonColors.normal}
+                      color={colors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Benutzer zur Durchführung hinzufügen"
@@ -199,20 +190,14 @@ export default class TeacherExecution extends React.Component {
                 >
                   <Modal.Header content="Benutzer hinzufügen" />
                   <Modal.Content scrolling>
-                    {this.state.loadingUser
-                      ? getLoadingScreen()
-                      : this.getParticipantTable(true)}
+                    {this.state.loadingUser ? getLoadingScreen() : this.getParticipantTable(true)}
                   </Modal.Content>
                 </Modal>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row
-              columns="equal"
-              textAlign="center"
-              id="dateTimePickerContainer"
-            >
+            <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
               <Grid.Column>
-                <Header content="Start Datum mit Uhrzeit eintragen" />
+                <Header content="Startdatum mit Uhrzeit eintragen" />
                 <DateTime
                   isValidDate={this.isStartDateValid}
                   value={this.state.startDate}
@@ -220,7 +205,7 @@ export default class TeacherExecution extends React.Component {
                 />
               </Grid.Column>
               <Grid.Column>
-                <Header content="End Datum mit Uhrzeit eintragen" />
+                <Header content="Enddatum mit Uhrzeit eintragen" />
                 <DateTime
                   isValidDate={this.isEndDateValid}
                   value={this.state.endDate}

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import {Checkbox, Table} from 'semantic-ui-react';
-import TableHandler from './TableHandler';
-import PaginationHandler from './PaginationHandler';
+import {paginationHandler, tableHandler} from './hunterHandlers';
 
 export default {
   handleSingleSelection(event, checkbox) {
@@ -12,14 +11,8 @@ export default {
     if (checkbox.checked) {
       selectedParticipants.push(checkbox.id);
     } else {
-      selectedParticipants.splice(
-        selectedParticipants.lastIndexOf(checkbox.id),
-        1
-      );
-      bulkCheckboxes.splice(
-        selectedParticipants.lastIndexOf(currentBulkCheckboxId),
-        1
-      );
+      selectedParticipants.splice(selectedParticipants.lastIndexOf(checkbox.id), 1);
+      bulkCheckboxes.splice(selectedParticipants.lastIndexOf(currentBulkCheckboxId), 1);
     }
     this.setState({selectedParticipants, bulkCheckboxes});
   },
@@ -37,10 +30,7 @@ export default {
     } else {
       this.state.participants.forEach(element => {
         if (selectedParticipants.indexOf(element.id) !== -1) {
-          selectedParticipants.splice(
-            selectedParticipants.indexOf(element.id),
-            1
-          );
+          selectedParticipants.splice(selectedParticipants.indexOf(element.id), 1);
         }
       });
       bulkCheckboxes.splice(selectedParticipants.lastIndexOf(checkbox.id), 1);
@@ -55,12 +45,8 @@ export default {
         <Table.Header>
           <Table.Row>
             {checkboxNeeded &&
-              TableHandler.getBulkCheckbox(
-                this.state.pageNumber,
-                this.state.bulkCheckboxes,
-                this.handleBulkSelection
-              )}
-            {TableHandler.getTableHeader(headerElements)}
+              tableHandler.getBulkCheckbox(this.state.pageNumber, this.state.bulkCheckboxes, this.handleBulkSelection)}
+            {tableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -73,10 +59,7 @@ export default {
                       id={element.id}
                       name={element.email}
                       onChange={this.handleSingleSelection}
-                      checked={
-                        this.state.selectedParticipants.indexOf(element.id) !==
-                        -1
-                      }
+                      checked={this.state.selectedParticipants.indexOf(element.id) !== -1}
                     />
                   </Table.Cell>
                 )}
@@ -86,7 +69,7 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        {PaginationHandler.getPagination({
+        {paginationHandler.getPagination({
           totalPages: this.state.maxPageParticipants,
           activePage: this.state.pageNumber,
           onPageChange: this.handlePageChangeParticipants,

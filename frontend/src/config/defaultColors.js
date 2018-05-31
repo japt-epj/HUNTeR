@@ -5,6 +5,7 @@ let defaultColors = {
     download: 'orange',
     show: 'blue'
   },
+  mainColor: 'green',
   paginationColor: 'green'
 };
 
