@@ -1,5 +1,8 @@
 package ch.japt.epj.controller;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -28,6 +31,14 @@ public class ScoreControllerTests extends AuthenticatedControllerTest {
             .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
-    mvc.perform(request).andExpect(status().isOk());
+    mvc.perform(request)
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.*", hasSize(7)))
+        .andExpect(jsonPath("$.3").isNotEmpty())
+        .andExpect(jsonPath("$.3.id").value(3))
+        .andExpect(jsonPath("$.3.userName").value("Andi Hörler"))
+        .andExpect(jsonPath("$.3.me").value(false))
+        .andExpect(jsonPath("$.3.userScore").value(0));
   }
 }
