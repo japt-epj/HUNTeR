@@ -25,7 +25,7 @@ export default class UserSettings extends React.Component {
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = formHandler.handleEditParticipant.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
-    this.getSettingChanging = apiGetHandler.getSettingChanging.bind(this);
+    this.getSettingChanging = modalHandler.getSettingChanging.bind(this);
     this.putData = apiPutHandler.putData.bind(this);
   }
 
