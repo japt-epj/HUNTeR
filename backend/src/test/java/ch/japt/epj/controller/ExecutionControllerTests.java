@@ -30,7 +30,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   @Test
   public void getExecutionById() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/execution/1")
+        MockMvcRequestBuilders.get("/api/execution/9")
             .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
@@ -43,7 +43,7 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution")
             .header("Authorization", token)
-            .param("page", "0")
+            .param("page", "8")
             .param("limit", "1")
             .param("sort", "executionId,asc")
             .accept(MediaType.APPLICATION_JSON);
@@ -93,23 +93,17 @@ public class ExecutionControllerTests extends AuthenticatedControllerTest {
   }
 
   private static String[] participants = {
-    "Andi Hörler",
-    "Jonas Kugler",
-    "Dolores Abernathy",
-    "Maeve Millay",
-    "John Reese",
-    "Sameen Shaw",
-    "Ernest Thornhill"
+    "John Reese", "Sameen Shaw", "Lionel Fusco", "Ernest Thornhill"
   };
 
   private static void assertExecutionPayload(ResultActions mvc, String object) throws Exception {
     mvc.andExpect(jsonPath(object + ".id").value(1))
-        .andExpect(jsonPath(object + ".name").value("Geometrie"))
+        .andExpect(jsonPath(object + ".name").value("Ausland"))
         .andExpect(jsonPath(object + ".startDate").value(IsNull.nullValue()))
         .andExpect(jsonPath(object + ".endDate").value(IsNull.nullValue()))
         .andExpect(jsonPath(object + ".participants").isArray())
         .andExpect(jsonPath(object + ".participants").isNotEmpty())
-        .andExpect(jsonPath(object + ".participants", hasSize(7)));
+        .andExpect(jsonPath(object + ".participants", hasSize(4)));
 
     for (String participant : participants) {
       mvc.andExpect(jsonPath(object + ".participants", hasItem(participant)));
