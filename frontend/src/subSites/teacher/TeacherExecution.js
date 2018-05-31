@@ -146,7 +146,7 @@ export default class TeacherExecution extends React.Component {
                   name="name"
                   value={this.state.name}
                   onChange={this.handleChange}
-                  placeholder="Bitte geben Sie einen Name für die Durchführung ein"
+                  placeholder="Bitte geben Sie einen Name für die Durchführung ein."
                   required
                 />
               </Grid.Column>
@@ -197,7 +197,7 @@ export default class TeacherExecution extends React.Component {
             </Grid.Row>
             <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
               <Grid.Column>
-                <Header content="Start Datum mit Uhrzeit eintragen" />
+                <Header content="Startdatum mit Uhrzeit eintragen" />
                 <DateTime
                   isValidDate={this.isStartDateValid}
                   value={this.state.startDate}
@@ -205,7 +205,7 @@ export default class TeacherExecution extends React.Component {
                 />
               </Grid.Column>
               <Grid.Column>
-                <Header content="End Datum mit Uhrzeit eintragen" />
+                <Header content="Enddatum mit Uhrzeit eintragen" />
                 <DateTime
                   isValidDate={this.isEndDateValid}
                   value={this.state.endDate}
