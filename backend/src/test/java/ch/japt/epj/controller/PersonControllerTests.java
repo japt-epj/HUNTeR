@@ -1,6 +1,7 @@
 package ch.japt.epj.controller;
 
 import static ch.japt.epj.helper.PaginationChecker.isPaginated;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.hamcrest.core.IsNull;
@@ -68,6 +69,23 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(isPaginated());
+  }
+
+  @Test
+  public void getCommaSeparatedPeople() throws Exception {
+    MockHttpServletRequestBuilder request =
+        MockMvcRequestBuilders.get("/api/person/5,3")
+            .header("Authorization", token)
+            .contentType(MediaType.APPLICATION_JSON);
+
+    ResultActions actions =
+        mvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$", hasSize(2)));
+
+    assertPersonPayload(actions, "$[1]");
   }
 
   private static void assertPersonPayload(ResultActions mvc, String object) throws Exception {
