@@ -5,14 +5,8 @@ import {OK} from 'http-status-codes';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {map, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import {
-  apiHandler,
-  exerciseHandler,
-  formHandler,
-  mapHandler,
-  modalHandler,
-  tableHandler
-} from '../../handlers/hunterHandlers';
+import {apiGetHandler, apiPostHandler} from '../../handlers/apiHandler';
+import {exerciseHandler, formHandler, mapHandler, modalHandler, tableHandler} from '../../handlers/hunterHandlers';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
@@ -57,8 +51,8 @@ export default class TeacherQuiz extends React.Component {
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = formHandler.handleQuizSumbit.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
-    this.postData = apiHandler.postData.bind(this);
-    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.postData = apiPostHandler.postData.bind(this);
+    this.getJSONHeader = apiGetHandler.getJSONHeader;
     this.getAgreement = modalHandler.getAgreement.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
 
@@ -73,7 +67,7 @@ export default class TeacherQuiz extends React.Component {
   }
 
   getExercises = page => {
-    apiHandler.getPaginatedElements('exercise', page).then(resData => {
+    apiGetHandler.getPaginatedElements('exercise', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,
@@ -132,7 +126,7 @@ export default class TeacherQuiz extends React.Component {
   handlePageChangeSelectedExercises = (event, element) => {
     let currentPage = element.activePage;
     this.setState({pageNumberSelectedExercises: element.activePage});
-    apiHandler
+    apiGetHandler
       .getExerciseArray(
         this.state.selectedCheckboxes.slice(
           (currentPage - 1) * this.exerciseLimitPerPage,

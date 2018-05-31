@@ -1,10 +1,9 @@
 import axios from 'axios';
 import fileDownload from 'js-file-download';
-import {OK, UNAUTHORIZED} from 'http-status-codes';
 
-import {numbers} from '../config/hunterUiDefaults';
-import pathConfig from '../config/pathConfig';
-import getAxiosHeader from './getAxiosHeader';
+import {numbers} from '../../config/hunterUiDefaults';
+import pathConfig from '../../config/pathConfig';
+import getAxiosHeader from '../getAxiosHeader';
 
 export default {
   getExerciseArray(exerciseIDs) {
@@ -21,9 +20,7 @@ export default {
         headers: getAxiosHeader('application/pdf'),
         responseType: 'arraybuffer'
       })
-      .then(res =>
-        fileDownload(res.data, 'qrCodes-execution' + executionID + '.pdf')
-      )
+      .then(res => fileDownload(res.data, 'qrCodes-execution' + executionID + '.pdf'))
       .catch(err => console.warn(err));
   },
 
@@ -49,8 +46,7 @@ export default {
   },
 
   getExecutions() {
-    let requestURL =
-      pathConfig.apiURL + 'execution?limit=' + numbers.executionLimit;
+    let requestURL = pathConfig.apiURL + 'execution?limit=' + numbers.executionLimit;
     return axios
       .get(requestURL, {
         headers: getAxiosHeader('application/json')
@@ -67,40 +63,6 @@ export default {
       .catch(err => console.warn(err));
   },
 
-  postData(data, path) {
-    axios
-      .post(pathConfig.apiURL + path + '/', data, {
-        headers: getAxiosHeader('application/json')
-      })
-      .then(() => {
-        let successMessage = {...this.state.successMessage};
-        successMessage.showModal = true;
-        this.setState({successMessage});
-        setTimeout(
-          () => this.setState({fireRedirect: true}),
-          numbers.timeoutTime
-        );
-      });
-  },
-
-  postLoginData(data) {
-    return axios
-      .post(
-        pathConfig.apiURL + 'auth/login/',
-        {
-          email: data.email,
-          password: data.password
-        },
-        {
-          headers: getAxiosHeader('application/json'),
-          validateStatus: function(status) {
-            return status === UNAUTHORIZED || status === OK;
-          }
-        }
-      )
-      .catch(err => console.error('Error:', err));
-  },
-
   redirectAfterLogin() {
     return axios
       .get(pathConfig.apiURL + 'auth/entryPoint', {
@@ -115,22 +77,5 @@ export default {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));
-  },
-
-  putData(data, path) {
-    axios
-      .put(pathConfig.apiURL + path + '/', data, {
-        headers: getAxiosHeader('application/json')
-      })
-      .catch(err => console.error('Error:', err))
-      .then(() => {
-        let successMessage = {...this.state.successMessage};
-        successMessage.showModal = true;
-        this.setState({successMessage});
-        setTimeout(
-          () => this.setState({fireRedirect: true}),
-          numbers.timeoutTime
-        );
-      });
   }
 };
