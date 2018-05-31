@@ -1,25 +1,23 @@
 import React from 'react';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
 import {Message} from 'semantic-ui-react';
-
 import QrReader from 'react-qr-reader';
-import ModalHandler from '../../handlers/ModalHandler';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
-import defaultNumbers from '../../config/defaultNumbers';
-import defaultMessages from '../../config/defaultMessages';
+
+import {numbers, messages, modalOptions} from '../../config/hunterUiDefaults';
+import {modalHandler} from '../../handlers/hunterHandlers';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      delay: defaultNumbers.scanDelayValue,
+      delay: numbers.scanDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exerciseId: '',
       scanError: false,
-      hideAgreement: defaultMessages.hideAgreement(),
-      successMessage: defaultSuccessMessages.scan,
+      hideAgreement: messages.hideAgreement(),
+      successMessage: modalOptions.scan,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
@@ -27,7 +25,7 @@ export default class ParticipantScanExercise extends React.Component {
         longitude: ''
       }
     };
-    this.getAgreement = ModalHandler.getAgreement.bind(this);
+    this.getAgreement = modalHandler.getAgreement.bind(this);
   }
 
   componentDidMount() {
@@ -46,15 +44,11 @@ export default class ParticipantScanExercise extends React.Component {
         executionId: jsonData.executionId,
         exerciseId: jsonData.exerciseId
       });
-      setTimeout(
-        () => this.setState({fireRedirect: true}),
-        defaultNumbers.timeoutTime
-      );
+      setTimeout(() => this.setState({fireRedirect: true}), numbers.timeoutTime);
     } else {
       this.setState({scanError: true});
       this.setState({
-        displayText:
-          'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+        displayText: 'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
       });
     }
   };
@@ -77,24 +71,14 @@ export default class ParticipantScanExercise extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (
-          <QrReader
-            delay={this.state.delay}
-            onError={this.handleError}
-            onScan={this.handleScan}
-          />
+          <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan} />
         )}
 
-        <Message
-          icon="camera retro"
-          size="mini"
-          header={this.state.displayText}
-          error={this.state.scanError}
-        />
+        <Message icon="camera retro" size="mini" header={this.state.displayText} error={this.state.scanError} />
 
         {this.state.fireRedirect && (
           <Redirect

@@ -3,12 +3,10 @@ import React from 'react';
 import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import defaultColors from '../config/defaultColors';
+import {colors} from '../config/hunterUiDefaults';
+import {apiHandler, paginationHandler, tableHandler} from './hunterHandlers';
 import ShowExerciseModal from '../components/ShowExerciseModal';
-import TableHandler from './TableHandler';
-import APIHandler from './APIHandler';
 import ShowExerciseEditModal from '../components/ShowExerciseEditModal';
-import PaginationHandler from './PaginationHandler';
 
 export default {
   handleSingleSelection(event, checkbox) {
@@ -22,10 +20,7 @@ export default {
     } else {
       selectedPositions.delete(checkbox.id);
       selectedCheckboxes.splice(selectedCheckboxes.lastIndexOf(checkbox.id), 1);
-      bulkCheckboxes.splice(
-        selectedCheckboxes.lastIndexOf(currentBulkCheckboxId),
-        1
-      );
+      bulkCheckboxes.splice(selectedCheckboxes.lastIndexOf(currentBulkCheckboxId), 1);
     }
 
     this.updateSelection({
@@ -69,22 +64,22 @@ export default {
       selectedCheckboxes: values.selectedCheckboxes.sort((a, b) => b - a),
       selectedPositions: values.selectedPositions
     });
-    APIHandler.getExerciseArray(
-      values.selectedCheckboxes.slice(
-        (this.state.pageNumberSelectedExercises - 1) *
-          this.exerciseLimitPerPage,
-        this.state.pageNumberSelectedExercises * this.exerciseLimitPerPage
+    apiHandler
+      .getExerciseArray(
+        values.selectedCheckboxes.slice(
+          (this.state.pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage,
+          this.state.pageNumberSelectedExercises * this.exerciseLimitPerPage
+        )
       )
-    ).then(resData => {
-      if (resData.status === OK) {
-        this.setState({
-          selectedExercises:
-            values.selectedCheckboxes.length !== 0 ? resData.data : []
-        });
-      } else {
-        console.error('Error:' + resData);
-      }
-    });
+      .then(resData => {
+        if (resData.status === OK) {
+          this.setState({
+            selectedExercises: values.selectedCheckboxes.length !== 0 ? resData.data : []
+          });
+        } else {
+          console.error('Error:' + resData);
+        }
+      });
   },
 
   getSelectedExerciseTable() {
@@ -93,7 +88,7 @@ export default {
     return (
       <Table>
         <Table.Header>
-          <Table.Row>{TableHandler.getTableHeader(headerElements)}</Table.Row>
+          <Table.Row>{tableHandler.getTableHeader(headerElements)}</Table.Row>
         </Table.Header>
         <Table.Body>
           {this.state.selectedExercises.map(element => (
@@ -101,12 +96,12 @@ export default {
               <Table.Cell content={element.name} />
               <Table.Cell collapsing>
                 {Boolean(this.state.selectedPositions.get(element.id)) && (
-                  <Icon color="green" name="check" />
+                  <Icon color={colors.mainColor} name="check" />
                 )}
               </Table.Cell>
               <Table.Cell collapsing>
                 <Button
-                  color={defaultColors.buttonColors.normal}
+                  color={colors.buttonColors.normal}
                   basic
                   icon="point"
                   onClick={event => {
@@ -118,11 +113,8 @@ export default {
             </Table.Row>
           ))}
         </Table.Body>
-        {PaginationHandler.getPagination({
-          totalPages: PaginationHandler.calculateTotalPages(
-            this.state.selectedCheckboxes.length,
-            maxElementsPerPage
-          ),
+        {paginationHandler.getPagination({
+          totalPages: paginationHandler.calculateTotalPages(this.state.selectedCheckboxes.length, maxElementsPerPage),
           activePage: this.state.pageNumberSelectedExercises,
           onPageChange: this.handlePageChangeSelectedExercises,
           width: headerElements.length
@@ -138,12 +130,8 @@ export default {
         <Table.Header>
           <Table.Row>
             {checkboxNeeded &&
-              TableHandler.getBulkCheckbox(
-                this.state.pageNumber,
-                this.state.bulkCheckboxes,
-                this.handleBulkSelection
-              )}
-            {TableHandler.getTableHeader(headerElements)}
+              tableHandler.getBulkCheckbox(this.state.pageNumber, this.state.bulkCheckboxes, this.handleBulkSelection)}
+            {tableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -156,9 +144,7 @@ export default {
                       id={element.id}
                       name={element.name}
                       onChange={this.handleSingleSelection}
-                      checked={
-                        this.state.selectedCheckboxes.indexOf(element.id) !== -1
-                      }
+                      checked={this.state.selectedCheckboxes.indexOf(element.id) !== -1}
                     />
                   </Table.Cell>
                 )}
@@ -173,7 +159,7 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        {PaginationHandler.getPagination({
+        {paginationHandler.getPagination({
           totalPages: this.state.maxPage,
           activePage: this.state.pageNumber,
           onPageChange: this.handlePageChangeExercises,

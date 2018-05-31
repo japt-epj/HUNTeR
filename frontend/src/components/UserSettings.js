@@ -1,18 +1,16 @@
 import React from 'react';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
 import {Form, Grid} from 'semantic-ui-react';
-import FormHandler from '../handlers/FormHandler';
-import APIHandler from '../handlers/APIHandler';
-import ModalHandler from '../handlers/ModalHandler';
-import TableHandler from '../handlers/TableHandler';
-import defaultSuccessMessages from '../config/defaultSuccessMessages';
+
+import {modalOptions} from '../config/hunterUiDefaults';
+import {apiHandler, formHandler, modalHandler, tableHandler} from '../handlers/hunterHandlers';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.settings,
+      successMessage: modalOptions.settings,
       showModal: false,
       loading: true,
       fireRedirect: false,
@@ -22,15 +20,15 @@ export default class UserSettings extends React.Component {
       school: ''
     };
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleEditParticipant.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.getSettingChanging = ModalHandler.getSettingChanging.bind(this);
-    this.putData = APIHandler.putData.bind(this);
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleEditParticipant.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.getSettingChanging = apiHandler.getSettingChanging.bind(this);
+    this.putData = apiHandler.putData.bind(this);
   }
 
   componentDidMount() {
-    APIHandler.getInformation().then(resData => {
+    apiHandler.getInformation().then(resData => {
       const personInformation = resData.data;
       this.setState({
         firstName: personInformation.firstName,
@@ -49,8 +47,7 @@ export default class UserSettings extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         {this.state.showModal && this.getSettingChanging()}
         <Form onSubmit={this.onSubmit} loading={this.state.loading}>
           <Form.Input
@@ -69,19 +66,8 @@ export default class UserSettings extends React.Component {
             onChange={this.handleChange}
             required
           />
-          <Form.Input
-            label="E-Mail"
-            type="email"
-            value={this.state.email}
-            name="email"
-            disabled
-          />
-          <Form.Input
-            label="Lehranstalt"
-            type="text"
-            value={this.state.school}
-            disabled
-          />
+          <Form.Input label="E-Mail" type="email" value={this.state.email} name="email" disabled />
+          <Form.Input label="Lehranstalt" type="text" value={this.state.school} disabled />
           <Grid>{this.getSubmitCancelButton()}</Grid>
         </Form>
         {this.state.fireRedirect && <Redirect to={{pathname: '/'}} />}

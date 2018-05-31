@@ -1,25 +1,20 @@
 import React from 'react';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
+import {OK} from 'http-status-codes/index';
 import {Form, Grid, Table} from 'semantic-ui-react';
 
-import FormHandler from '../../handlers/FormHandler';
-import TableHandler from '../../handlers/TableHandler';
-import APIHandler from '../../handlers/APIHandler';
-import ModalHandler from '../../handlers/ModalHandler';
-import {OK} from 'http-status-codes/index';
-import defaultSuccessMessages from '../../config/defaultSuccessMessages';
+import {modalOptions} from '../../config/hunterUiDefaults';
+import {apiHandler, formHandler, modalHandler, tableHandler} from '../../handlers/hunterHandlers';
 
 export default class TeacherExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultSuccessMessages.exercise,
+      successMessage: modalOptions.exercise,
       formOK: true,
       fireRedirect: false,
-      editExercise: Boolean(this.props.editExercise)
-        ? this.props.editExercise
-        : false,
+      editExercise: Boolean(this.props.editExercise) ? this.props.editExercise : false,
       exerciseId: Boolean(this.props.exerciseId) ? this.props.exerciseId : '',
       name: '',
       question: '',
@@ -31,13 +26,13 @@ export default class TeacherExercise extends React.Component {
       answersAllowed: 4
     };
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
-    this.getFormError = ModalHandler.getFormError.bind(this);
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.getFormError = modalHandler.getFormError.bind(this);
   }
 
   componentDidMount() {
@@ -47,12 +42,10 @@ export default class TeacherExercise extends React.Component {
   }
 
   getExercise = exerciseId => {
-    APIHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
+    apiHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
       if (resData.status === OK) {
         const exerciseData = resData.data[0];
-        const answerId = exerciseData.answers
-          .map(element => element.checked)
-          .indexOf(true);
+        const answerId = exerciseData.answers.map(element => element.checked).indexOf(true);
         this.setState({
           answer0: exerciseData.answers[0].text,
           answer1: exerciseData.answers[1].text,
@@ -69,10 +62,8 @@ export default class TeacherExercise extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
-        {!this.state.formOK &&
-          this.getFormError('Keine Antwort wurde als richtig markiert!')}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+        {!this.state.formOK && this.getFormError('Keine Antwort wurde als richtig markiert!')}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             fluid
@@ -93,35 +84,31 @@ export default class TeacherExercise extends React.Component {
           />
           <Table definition>
             <Table.Header>
-              <Table.Row>
-                {TableHandler.getTableHeader(['', 'Antworten', 'Richtig'])}
-              </Table.Row>
+              <Table.Row>{tableHandler.getTableHeader(['', 'Antworten', 'Richtig'])}</Table.Row>
             </Table.Header>
             <Table.Body>
-              {new Array(this.state.answersAllowed)
-                .fill()
-                .map((item, index) => (
-                  <Table.Row key={'TableRow' + index}>
-                    <Table.Cell collapsing>{index + 1}</Table.Cell>
-                    <Table.Cell>
-                      <Form.Input
-                        fluid
-                        name={'answer' + index}
-                        value={this.state['answer' + index]}
-                        onChange={this.handleChange}
-                        placeholder="Bitte Antwort eingeben"
-                        required
-                      />
-                    </Table.Cell>
-                    <Table.Cell collapsing>
-                      <Form.Radio
-                        value={index}
-                        onChange={this.handleSelectChange}
-                        checked={this.state.answerId === index}
-                      />
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
+              {new Array(this.state.answersAllowed).fill(undefined).map((item, index) => (
+                <Table.Row key={'TableRow' + index}>
+                  <Table.Cell collapsing>{index + 1}</Table.Cell>
+                  <Table.Cell>
+                    <Form.Input
+                      fluid
+                      name={'answer' + index}
+                      value={this.state['answer' + index]}
+                      onChange={this.handleChange}
+                      placeholder="Bitte Antwort eingeben"
+                      required
+                    />
+                  </Table.Cell>
+                  <Table.Cell collapsing>
+                    <Form.Radio
+                      value={index}
+                      onChange={this.handleSelectChange}
+                      checked={this.state.answerId === index}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
             </Table.Body>
           </Table>
           <Grid>{this.getSubmitCancelButton()}</Grid>

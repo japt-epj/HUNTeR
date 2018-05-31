@@ -1,14 +1,12 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
+import {Button} from 'semantic-ui-react';
 
-import defaultColors from '../../config/defaultColors';
-import ExerciseHandler from '../../handlers/ExerciseHandler';
-import APIHandler from '../../handlers/APIHandler';
+import {colors, numbers} from '../../config/hunterUiDefaults';
+import {apiHandler, exerciseHandler} from '../../handlers/hunterHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
@@ -16,12 +14,12 @@ export default class TeacherExerciseOverview extends React.Component {
     this.state = {
       exercises: [],
       loading: true,
-      pageNumber: defaultNumbers.pageNumber,
+      pageNumber: numbers.pageNumber,
       minPage: 1,
       maxPage: ''
     };
 
-    this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
+    this.getExerciseTable = exerciseHandler.getExerciseTable.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +34,7 @@ export default class TeacherExerciseOverview extends React.Component {
   };
 
   getExercises = page => {
-    APIHandler.getPaginatedElements('exercise', page).then(resData => {
+    apiHandler.getPaginatedElements('exercise', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,
@@ -53,7 +51,7 @@ export default class TeacherExerciseOverview extends React.Component {
         {this.state.loading ? getLoadingScreen() : this.getExerciseTable(false)}
         <NavLink to="/exercise">
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Neue Aufgabe erstellen"

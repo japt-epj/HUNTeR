@@ -1,4 +1,4 @@
-let defaultSuccessMessages = {
+let defaultModalOptions = {
   settings: {
     showModal: false,
     title: 'Daten wurden aktualisiert',
@@ -33,7 +33,10 @@ let defaultSuccessMessages = {
     showModal: false,
     title: 'Aufgabe wurde gefunden',
     content: 'Der QR-Code hat eine passende Aufgabe gefunden.'
-  }
+  },
+  dimmer: 'blurring',
+  size: 'large',
+  thankYou: 'OK, danke'
 };
 
-export default Object.freeze(Object.assign({}, defaultSuccessMessages));
+export default Object.freeze(Object.assign({}, defaultModalOptions));
