@@ -7,14 +7,11 @@ import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.QuizRepository;
-import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.List;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,12 +39,6 @@ public class ExecutionModel {
     return executions
         .findAll(new PageRequest(page, limit, sort))
         .map(execution -> mapper.map(execution, ExecutionDto.class));
-  }
-
-  public List<ExecutionDto> allExecutions() {
-    Type type = new TypeToken<List<ExecutionDto>>() {}.getType();
-    Iterable<Execution> all = executions.findAll();
-    return mapper.map(all, type);
   }
 
   public ExecutionDto getExecution(Long id) {
