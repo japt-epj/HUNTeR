@@ -36,7 +36,7 @@ export default class UserSettings extends React.Component {
         firstName: personInformation.firstName,
         lastName: personInformation.lastName,
         email: personInformation.email,
-        school: personInformation.schools[0].name,
+        school: Boolean(personInformation.schools[0]) ? personInformation.schools[0].name : '',
         loading: false
       });
     });

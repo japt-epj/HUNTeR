@@ -25,7 +25,7 @@ export default {
       '/teacher': () => this.postData(dataHandler.prepareTeacherData(this.state), 'exercise')
     };
 
-    if (this.state.answerId <= numbers.minAnswerId) {
+    if (this.state.answerId < numbers.minAnswerId) {
       this.setState({formOk: false});
       return;
     }
