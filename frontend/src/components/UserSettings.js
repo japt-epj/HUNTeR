@@ -4,8 +4,9 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../config/hunterUiDefaults';
-import {apiGetHandler, apiPutHandler} from '../handlers/apiHandler';
-import {formHandler, modalHandler, tableHandler} from '../handlers/hunterHandlers';
+import {apiGetHandler, apiPutHandler} from '../handlers/hunterApiHandler';
+import {formHandler} from '../handlers/hunterDataHandlers';
+import {modalHandler, tableHandler} from '../handlers/hunterViewHandlers';
 
 export default class UserSettings extends React.Component {
   constructor(props) {

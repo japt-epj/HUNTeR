@@ -9,8 +9,9 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 
 import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/apiHandler';
-import {formHandler, modalHandler, participantHandler, quizHandler, tableHandler} from '../../handlers/hunterHandlers';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {formHandler} from '../../handlers/hunterDataHandlers';
+import {modalHandler, participantHandler, quizHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExecution extends React.Component {
@@ -50,7 +51,6 @@ export default class TeacherExecution extends React.Component {
     this.handleChange = formHandler.handleChange.bind(this);
     this.handleQuizSelectChange = formHandler.handleQuizSelectChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
-    this.getJSONHeader = apiGetHandler.getJSONHeader;
     this.getFormError = modalHandler.getFormError.bind(this);
   }
 

@@ -4,8 +4,8 @@ import {Button, Grid} from 'semantic-ui-react';
 import L from 'leaflet';
 
 import {colors, map, messages, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../../handlers/apiHandler';
-import {mapHandler, modalHandler} from '../../handlers/hunterHandlers';
+import {apiGetHandler} from '../../handlers/hunterApiHandler';
+import {mapHandler, modalHandler} from '../../handlers/hunterViewHandlers';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
@@ -25,7 +25,6 @@ export default class ParticipantNextLocation extends React.Component {
     };
 
     this.getParticipantMap = mapHandler.getParticipantMap.bind(this);
-    this.getJSONHeader = apiGetHandler.getJSONHeader;
     this.getAgreement = modalHandler.getAgreement.bind(this);
 
     this.mapref = React.createRef();

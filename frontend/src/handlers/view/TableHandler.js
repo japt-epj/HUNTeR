@@ -2,14 +2,12 @@ import React from 'react';
 
 import {Checkbox, Form, Grid, Table} from 'semantic-ui-react';
 
-import {colors} from '../config/hunterUiDefaults';
+import {colors} from '../../config/hunterUiDefaults';
 
 export default {
   getTableHeader(cellValues) {
     return cellValues.map(cellValue => (
-      <Table.HeaderCell key={'TableHeader' + cellValue}>
-        {cellValue}
-      </Table.HeaderCell>
+      <Table.HeaderCell key={'TableHeader' + cellValue}>{cellValue}</Table.HeaderCell>
     ));
   },
 
@@ -30,11 +28,7 @@ export default {
     return (
       <Grid.Row columns="equal">
         <Grid.Column>
-          <Form.Button
-            color={colors.buttonColors.normal}
-            basic
-            content="Übermitteln"
-          />
+          <Form.Button color={colors.buttonColors.normal} basic content="Übermitteln" />
         </Grid.Column>
         <Grid.Column textAlign="right">
           <Form.Button

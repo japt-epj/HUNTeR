@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 
 import {colors, modalOptions} from '../config/hunterUiDefaults';
-import {apiGetHandler} from '../handlers/apiHandler';
+import {apiGetHandler} from '../handlers/hunterApiHandler';
 import {OK} from 'http-status-codes/index';
 
 export default class ShowExerciseModal extends React.Component {
