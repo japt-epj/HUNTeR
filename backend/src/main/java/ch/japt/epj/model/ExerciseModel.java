@@ -25,6 +25,7 @@ public class ExerciseModel {
   private final ExerciseRepository exercises;
   private final AnswerRepository answers;
   private final ModelMapper mapper = Mappings.exerciseMapper();
+  private final Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
 
   public ExerciseModel(
       @Autowired ExerciseRepository exercises, @Autowired AnswerRepository answers) {
@@ -40,10 +41,7 @@ public class ExerciseModel {
 
   public List<NewExerciseDto> getExercises(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
-    Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
-    List<NewExerciseDto> exerciseDtos = mapper.map(this.exercises.findAll(longs), dtoList);
-    exerciseDtos.forEach(exerciseDto -> exerciseDto.getAnswers().forEach(s -> s.setChecked(false)));
-    return exerciseDtos;
+    return mapper.map(this.exercises.findAll(longs), dtoList);
   }
 
   public Optional<ExerciseDto> getExercise(Long id) {
@@ -52,17 +50,19 @@ public class ExerciseModel {
 
   public List<NewExerciseDto> getExercisesForTeacher(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
-    Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
     return mapper.map(exercises.findAll(longs), dtoList);
   }
 
   public void addExercise(NewExerciseDto exerciseDto) {
     Exercise exercise = mapper.map(exerciseDto, Exercise.class);
+    // this should be possible to put in a typemapping. I'm pretty sure others
+    // are too, but this doesn't make any new db calls
     exerciseDto
         .getAnswers()
         .forEach(
             newAnswerDto -> {
               Answer answer = mapper.map(newAnswerDto, Answer.class);
+              // probably just reomve this and do a deep mapping
               exercise.addAnswerTemplate(answer);
             });
     answers.save(exercise.getAnswerTemplates());
