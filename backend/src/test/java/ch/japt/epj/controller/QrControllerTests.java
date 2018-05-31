@@ -29,7 +29,7 @@ public class QrControllerTests extends AuthenticatedControllerTest {
   public void invalidExerciseId() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution/20000/print")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_PDF);
 
     mvc.perform(request).andExpect(status().isNotFound());
@@ -39,7 +39,7 @@ public class QrControllerTests extends AuthenticatedControllerTest {
   public void pdfStringsTest() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/execution/6/print")
-            .header("Authorization", completeToken)
+            .header("Authorization", token)
             .accept(MediaType.APPLICATION_PDF);
 
     byte[] responseData =
