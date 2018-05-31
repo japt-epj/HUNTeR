@@ -55,16 +55,4 @@ public class QuizController implements ch.japt.epj.api.QuizApi, PaginatedQuiz {
     return new ResponseEntity<>(
         quizModel.pageQuiz(page, limit, SortParameterHandler.makeSort(sortOptions)), HttpStatus.OK);
   }
-
-  @Override
-  @Secured({"ROLE_TEACHER"})
-  public ResponseEntity<Void> updateQuiz(QuizDto body) {
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  @Override
-  @Secured({"ROLE_TEACHER"})
-  public ResponseEntity<Void> updateQuizWithForm(Long id) {
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
 }

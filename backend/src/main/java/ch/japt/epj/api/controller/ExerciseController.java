@@ -52,18 +52,6 @@ public class ExerciseController implements ExerciseApi, PaginatedExercise {
 
   @Override
   @Secured({"ROLE_TEACHER"})
-  public ResponseEntity<Void> updateExercise(@Validated @RequestBody ExerciseDto body) {
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  @Override
-  @Secured({"ROLE_TEACHER"})
-  public ResponseEntity<Void> updateExerciseWithForm(@Valid @PathVariable("id") Long id) {
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  @Override
-  @Secured({"ROLE_TEACHER"})
   public ResponseEntity<Page<ExerciseDto>> exerciseGet(
       @Valid @RequestParam(value = "page", defaultValue = "0") int page,
       @Valid @RequestParam(value = "limit", defaultValue = "5") int limit,
