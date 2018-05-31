@@ -9,6 +9,7 @@ import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +66,10 @@ public class ExerciseModel {
               // probably just reomve this and do a deep mapping
               exercise.addAnswerTemplate(answer);
             });
-    answers.save(exercise.getAnswerTemplates());
+
+    ArrayList<Answer> answers = new ArrayList<>(exercise.getAnswerTemplates());
+    answers.get(exerciseDto.getCorrectAnswer()).setChecked(true);
+    this.answers.save(exercise.getAnswerTemplates());
     exercises.save(exercise);
   }
 }

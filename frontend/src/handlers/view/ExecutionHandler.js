@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Table} from 'semantic-ui-react';
 
 import {colors} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from "../hunterApiHandler";
+import {apiGetHandler} from '../hunterApiHandler';
 import {paginationHandler, tableHandler} from '../hunterViewHandlers';
 
 export default {

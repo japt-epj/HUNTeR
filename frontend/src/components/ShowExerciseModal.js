@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
 import {colors, modalOptions} from '../config/hunterUiDefaults';
 import {apiGetHandler} from '../handlers/hunterApiHandler';
-import {OK} from 'http-status-codes/index';
 
 export default class ShowExerciseModal extends React.Component {
   constructor(props) {
@@ -19,14 +19,15 @@ export default class ShowExerciseModal extends React.Component {
 
   componentDidMount() {
     apiGetHandler.getExerciseArray(this.state.id).then(resData => {
-      if (resData.status === OK) {
-        let exercise = resData.data[0];
-        this.setState({
-          title: exercise.name,
-          question: exercise.question,
-          loading: false
-        });
+      if (resData.status !== OK) {
+        return;
       }
+      let exercise = resData.data[0];
+      this.setState({
+        title: exercise.name,
+        question: exercise.question,
+        loading: false
+      });
     });
   }
 
