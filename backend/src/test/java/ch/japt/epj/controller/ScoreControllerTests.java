@@ -37,7 +37,7 @@ public class ScoreControllerTests extends AuthenticatedControllerTest {
         .andExpect(jsonPath("$.*", hasSize(7)))
         .andExpect(jsonPath("$.3").isNotEmpty())
         .andExpect(jsonPath("$.3.id").value(3))
-        .andExpect(jsonPath("$.3.userName").value("Andi Hörler"))
+        .andExpect(jsonPath("$.3.userName").value("Andi H\u00f6rler"))
         .andExpect(jsonPath("$.3.me").value(false))
         .andExpect(jsonPath("$.3.userScore").value(0));
   }
