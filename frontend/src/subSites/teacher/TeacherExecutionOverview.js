@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
-import {OK} from 'http-status-codes/index';
+import {OK} from 'http-status-codes';
 
 import {colors} from '../../config/hunterUiDefaults';
 import {apiGetHandler} from '../../handlers/hunterApiHandler';

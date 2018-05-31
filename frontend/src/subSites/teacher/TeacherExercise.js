@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
-import {OK} from 'http-status-codes/index';
+import {OK} from 'http-status-codes';
 import {Form, Grid, Table} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';

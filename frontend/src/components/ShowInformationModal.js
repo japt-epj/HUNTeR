@@ -25,26 +25,14 @@ export default class ShowInformationModal extends React.Component {
         onOpen={this.open}
         onClose={this.close}
         size="large"
-        trigger={
-          <Button
-            color={colors.buttonColors.normal}
-            icon="info"
-            basic
-            size="mini"
-            circular
-          />
-        }
+        trigger={<Button color={colors.buttonColors.normal} icon="info" basic size="mini" circular />}
       >
         <Modal.Header className="infoHeader" content="Informationsseite" />
         <Modal.Content scrolling>
           <InfoPage />
         </Modal.Content>
         <Modal.Actions>
-          <Button
-            icon="check"
-            content={modalOptions.thankYou}
-            onClick={this.close}
-          />
+          <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />
         </Modal.Actions>
       </Modal>
     );

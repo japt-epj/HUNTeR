@@ -1,5 +1,5 @@
 import {numbers} from '../../config/hunterUiDefaults';
-import {OK} from 'http-status-codes/index';
+import {OK} from 'http-status-codes';
 import {apiGetHandler} from '../hunterApiHandler';
 
 export default {

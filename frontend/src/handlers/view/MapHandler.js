@@ -21,7 +21,6 @@ export default {
     }
     this.setState({map: map});
   },
-
   getQuizMap() {
     const pointer = map.icons.pointer.icon;
 
