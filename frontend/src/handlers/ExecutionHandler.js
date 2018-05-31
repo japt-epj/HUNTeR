@@ -3,9 +3,7 @@ import React from 'react';
 import {Button, Table} from 'semantic-ui-react';
 
 import {colors} from '../config/hunterUiDefaults';
-import TableHandler from './TableHandler';
-import APIHandler from './APIHandler';
-import PaginationHandler from './PaginationHandler';
+import {apiHandler, paginationHandler, tableHandler} from './hunterHandlers';
 
 export default {
   getExecutionTable() {
@@ -13,7 +11,7 @@ export default {
     return (
       <Table>
         <Table.Header>
-          <Table.Row>{TableHandler.getTableHeader(headerElements)}</Table.Row>
+          <Table.Row>{tableHandler.getTableHeader(headerElements)}</Table.Row>
         </Table.Header>
         <Table.Body>
           {!this.state.loading &&
@@ -27,14 +25,14 @@ export default {
                     icon="download"
                     basic
                     onClick={() =>
-                      APIHandler.downloadExecutionQRCodePDF(element.id)
+                      apiHandler.downloadExecutionQRCodePDF(element.id)
                     }
                   />
                 </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
-        {PaginationHandler.getPagination({
+        {paginationHandler.getPagination({
           totalPages: this.state.maxPage,
           activePage: this.state.pageNumber,
           onPageChange: this.handlePageChangeExecutions,

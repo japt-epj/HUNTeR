@@ -3,9 +3,9 @@ import {OK} from 'http-status-codes';
 
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
-import APIHandler from '../handlers/APIHandler';
-import getLoadingScreen from './getLoadingScreen';
 import {colors, numbers} from '../config/hunterUiDefaults';
+import {apiHandler} from '../handlers/hunterHandlers';
+import getLoadingScreen from './getLoadingScreen';
 
 export default class LeaderBoard extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class LeaderBoard extends React.Component {
   }
 
   getExecutions = () => {
-    APIHandler.getExecutions().then(resData => {
+    apiHandler.getExecutions().then(resData => {
       const executions = resData.data.content
         .map(element => {
           let returnValue = {};
@@ -42,7 +42,7 @@ export default class LeaderBoard extends React.Component {
   };
 
   getLeaderBoard = executionId => {
-    APIHandler.getLeaderBoard(executionId).then(resData => {
+    apiHandler.getLeaderBoard(executionId).then(resData => {
       if (resData.status === OK) {
         let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
         leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);

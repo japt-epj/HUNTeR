@@ -16,11 +16,10 @@ import TeacherExecutionOverview from './TeacherExecutionOverview';
 import TeacherNavigation from './TeacherNavigation';
 
 import {messages} from '../../config/hunterUiDefaults';
+import {modalHandler, structureHandler} from '../../handlers/hunterHandlers';
 import Logout from '../Logout';
 import DefaultPaths from '../../config/DefaultPaths';
-import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
-import ModalHandler from '../../handlers/ModalHandler';
 import LeaderBoard from '../../components/LeaderBoard';
 
 export default class TeacherStructure extends React.Component {
@@ -31,12 +30,12 @@ export default class TeacherStructure extends React.Component {
       visible: false,
       iconName: 'bars'
     };
-    this.getHeader = StructureHandler.getHeader.bind(this);
-    this.getSideBar = StructureHandler.getSideBar.bind(this);
-    this.hideSidebar = StructureHandler.hideSidebar.bind(this);
-    this.toggleVisibility = StructureHandler.toggleVisibility.bind(this);
-    this.getStructurePaths = StructureHandler.getStructurePaths.bind(this);
-    this.getMobileError = ModalHandler.getMobileError.bind(this);
+    this.getHeader = structureHandler.getHeader.bind(this);
+    this.getSideBar = structureHandler.getSideBar.bind(this);
+    this.hideSidebar = structureHandler.hideSidebar.bind(this);
+    this.toggleVisibility = structureHandler.toggleVisibility.bind(this);
+    this.getStructurePaths = structureHandler.getStructurePaths.bind(this);
+    this.getMobileError = modalHandler.getMobileError.bind(this);
   }
 
   render() {

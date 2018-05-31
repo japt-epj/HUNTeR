@@ -4,11 +4,13 @@ import {NavLink} from 'react-router-dom';
 
 import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
-import FormHandler from '../../handlers/FormHandler';
-import APIHandler from '../../handlers/APIHandler';
-import getLoadingScreen from '../../components/getLoadingScreen';
-import ModalHandler from '../../handlers/ModalHandler';
 import {modalOptions} from '../../config/hunterUiDefaults';
+import {
+  apiHandler,
+  formHandler,
+  modalHandler
+} from '../../handlers/hunterHandlers';
+import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
@@ -28,15 +30,15 @@ export default class ParticipantExercise extends React.Component {
       answerId: -1,
       fireRedirect: false
     };
-    this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
-    this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
+    this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
+    this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
   }
 
   componentDidMount() {
     if (this.state.exerciseId !== '') {
-      APIHandler.getExerciseArray(this.state.exerciseId).then(resData => {
+      apiHandler.getExerciseArray(this.state.exerciseId).then(resData => {
         if (resData.status === 200) {
           this.setState({
             exercise: resData.data[0]
@@ -52,7 +54,7 @@ export default class ParticipantExercise extends React.Component {
         {this.state.executionId !== '' ? (
           <div>
             {this.state.successMessage.showModal &&
-              ModalHandler.getCreationSuccess(this.state.successMessage)}
+              modalHandler.getCreationSuccess(this.state.successMessage)}
             {!Boolean(this.state.exercise.answers) ? (
               getLoadingScreen()
             ) : (

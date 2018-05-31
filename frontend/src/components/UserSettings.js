@@ -4,10 +4,12 @@ import {Redirect} from 'react-router';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../config/hunterUiDefaults';
-import FormHandler from '../handlers/FormHandler';
-import APIHandler from '../handlers/APIHandler';
-import ModalHandler from '../handlers/ModalHandler';
-import TableHandler from '../handlers/TableHandler';
+import {
+  apiHandler,
+  formHandler,
+  modalHandler,
+  tableHandler
+} from '../handlers/hunterHandlers';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
@@ -23,15 +25,15 @@ export default class UserSettings extends React.Component {
       school: ''
     };
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleEditParticipant.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.getSettingChanging = ModalHandler.getSettingChanging.bind(this);
-    this.putData = APIHandler.putData.bind(this);
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleEditParticipant.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.getSettingChanging = apiHandler.getSettingChanging.bind(this);
+    this.putData = apiHandler.putData.bind(this);
   }
 
   componentDidMount() {
-    APIHandler.getInformation().then(resData => {
+    apiHandler.getInformation().then(resData => {
       const personInformation = resData.data;
       this.setState({
         firstName: personInformation.firstName,
@@ -51,7 +53,7 @@ export default class UserSettings extends React.Component {
     return (
       <div>
         {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+          modalHandler.getCreationSuccess(this.state.successMessage)}
         {this.state.showModal && this.getSettingChanging()}
         <Form onSubmit={this.onSubmit} loading={this.state.loading}>
           <Form.Input

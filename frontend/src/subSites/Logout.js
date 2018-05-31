@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {numbers} from '../config/hunterUiDefaults';
-import ModalHandler from '../handlers/ModalHandler';
+import {modalHandler} from '../handlers/hunterHandlers';
 import pathConfig from '../config/pathConfig';
 
 export default {
@@ -11,8 +11,8 @@ export default {
         {window.localStorage.removeItem('HUNTeR-Redirect')}
         {window.localStorage.removeItem('HUNTeR-Token')}
         {this.isTokenExpired()
-          ? ModalHandler.getTokenExpiration()
-          : ModalHandler.getLogoutSuccess()}
+          ? modalHandler.getTokenExpiration()
+          : modalHandler.getLogoutSuccess()}
         {setTimeout(() => {
           window.location.replace(pathConfig.mainURL);
         }, numbers.timeoutTime)}

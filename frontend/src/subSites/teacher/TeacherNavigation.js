@@ -4,7 +4,7 @@ import {Message} from 'semantic-ui-react';
 import QrReader from 'react-qr-reader';
 
 import {messages, numbers} from '../../config/hunterUiDefaults';
-import ModalHandler from '../../handlers/ModalHandler';
+import {modalHandler} from '../../handlers/hunterHandlers';
 
 export default class TeacherNavigation extends React.Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class TeacherNavigation extends React.Component {
     };
 
     this.defaultDisplayText = this.state.displayText;
-    this.getAgreement = ModalHandler.getAgreement.bind(this);
+    this.getAgreement = modalHandler.getAgreement.bind(this);
   }
 
   componentDidMount() {
@@ -77,7 +77,7 @@ export default class TeacherNavigation extends React.Component {
   render() {
     return (
       <div>
-        {this.state.showSuccess && ModalHandler.getScanSuccess()}
+        {this.state.showSuccess && modalHandler.getScanSuccess()}
         {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (

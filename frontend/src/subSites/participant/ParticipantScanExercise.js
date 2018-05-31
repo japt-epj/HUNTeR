@@ -5,7 +5,7 @@ import {Message} from 'semantic-ui-react';
 import QrReader from 'react-qr-reader';
 
 import {numbers, messages, modalOptions} from '../../config/hunterUiDefaults';
-import ModalHandler from '../../handlers/ModalHandler';
+import {modalHandler} from '../../handlers/hunterHandlers';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class ParticipantScanExercise extends React.Component {
         longitude: ''
       }
     };
-    this.getAgreement = ModalHandler.getAgreement.bind(this);
+    this.getAgreement = modalHandler.getAgreement.bind(this);
   }
 
   componentDidMount() {
@@ -76,7 +76,7 @@ export default class ParticipantScanExercise extends React.Component {
     return (
       <div>
         {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+          modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (

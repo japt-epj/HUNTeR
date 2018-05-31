@@ -5,8 +5,7 @@ import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import {colors, numbers} from '../../config/hunterUiDefaults';
-import QuizHandler from '../../handlers/QuizHandler';
-import APIHandler from '../../handlers/APIHandler';
+import {apiHandler, quizHandler} from '../../handlers/hunterHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherQuizOverview extends React.Component {
@@ -21,7 +20,7 @@ export default class TeacherQuizOverview extends React.Component {
       maxPageQuizzes: ''
     };
 
-    this.getQuizTable = QuizHandler.getQuizTable.bind(this);
+    this.getQuizTable = quizHandler.getQuizTable.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +35,7 @@ export default class TeacherQuizOverview extends React.Component {
   };
 
   getQuizzes = page => {
-    APIHandler.getPaginatedElements('quiz', page).then(resData => {
+    apiHandler.getPaginatedElements('quiz', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,

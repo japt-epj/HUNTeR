@@ -9,13 +9,15 @@ import '../../style/react-datetime.css';
 import {OK} from 'http-status-codes';
 
 import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import APIHandler from '../../handlers/APIHandler';
-import ParticipantHandler from '../../handlers/ParticipantHandler';
-import QuizHandler from '../../handlers/QuizHandler';
-import FormHandler from '../../handlers/FormHandler';
-import ModalHandler from '../../handlers/ModalHandler';
+import {
+  apiHandler,
+  formHandler,
+  modalHandler,
+  participantHandler,
+  quizHandler,
+  tableHandler
+} from '../../handlers/hunterHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import TableHandler from '../../handlers/TableHandler';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
@@ -44,24 +46,24 @@ export default class TeacherExecution extends React.Component {
       endDate: moment().add(1, 'hour')
     };
 
-    this.getParticipantTable = ParticipantHandler.getParticipantTable.bind(
+    this.getParticipantTable = participantHandler.getParticipantTable.bind(
       this
     );
-    this.handleSingleSelection = ParticipantHandler.handleSingleSelection.bind(
+    this.handleSingleSelection = participantHandler.handleSingleSelection.bind(
       this
     );
-    this.handleBulkSelection = ParticipantHandler.handleBulkSelection.bind(
+    this.handleBulkSelection = participantHandler.handleBulkSelection.bind(
       this
     );
-    this.getQuizTable = QuizHandler.getQuizTable.bind(this);
+    this.getQuizTable = quizHandler.getQuizTable.bind(this);
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleExecutionSumbit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.handleQuizSelectChange = FormHandler.handleQuizSelectChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
-    this.getFormError = ModalHandler.getFormError.bind(this);
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleExecutionSumbit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleQuizSelectChange = formHandler.handleQuizSelectChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.getFormError = modalHandler.getFormError.bind(this);
   }
 
   componentDidMount() {
@@ -70,7 +72,7 @@ export default class TeacherExecution extends React.Component {
   }
 
   getParticipants = page => {
-    APIHandler.getPaginatedElements('person', page).then(resData => {
+    apiHandler.getPaginatedElements('person', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           participants: resData.data.content,
@@ -82,7 +84,7 @@ export default class TeacherExecution extends React.Component {
   };
 
   getQuizzes = page => {
-    APIHandler.getPaginatedElements('quiz', page).then(resData => {
+    apiHandler.getPaginatedElements('quiz', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           quizzes: resData.data.content,
@@ -138,7 +140,7 @@ export default class TeacherExecution extends React.Component {
     return (
       <div>
         {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+          modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError(
             'Kein Quiz ausgewählt oder keine Teilnehmer der Durchführung zugeordnet.'
