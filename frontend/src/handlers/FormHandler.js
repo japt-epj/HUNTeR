@@ -1,10 +1,10 @@
 import {OK} from 'http-status-codes';
-import DataHandler from './DataHandler';
-import defaultNumbers from '../config/defaultNumbers';
+
+import {numbers} from '../config/hunterUiDefaults';
+import {dataHandler} from '../handlers/hunterHandlers';
 
 export default {
-  handleChange(event) {
-    const target = event.target;
+  handleChange(event, target) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [target.name]: value
@@ -20,22 +20,14 @@ export default {
   },
 
   handleExerciseSubmit() {
-    const minAnswerId = 1;
-    let isACheckboxSet = this.state.answerId >= minAnswerId;
-    if (isACheckboxSet) {
+    if (this.state.answerId >= numbers.minAnswerId) {
       if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
-        this.postData(DataHandler.prepareTeacherData(this.state), 'exercise');
-      } else if (
-        window.localStorage.getItem('HUNTeR-Redirect') === '/participant'
-      ) {
-        this.postData(
-          DataHandler.prepareParticipantData({...this.state}),
-          'response'
-        );
+        this.postData(dataHandler.prepareTeacherData(this.state), 'exercise');
+      } else if (window.localStorage.getItem('HUNTeR-Redirect') === '/participant') {
+        this.postData(dataHandler.prepareParticipantData({...this.state}), 'response');
       } else {
         console.error(
-          'No correct HUNTeR-Redirect in window.localStorage: ' +
-            window.localStorage.getItem('HUNTeR-Redirect')
+          'No correct HUNTeR-Redirect in window.localStorage: ' + window.localStorage.getItem('HUNTeR-Redirect')
         );
       }
     } else {
@@ -46,22 +38,18 @@ export default {
   handleQuizSumbit() {
     if (
       this.state.selectedPositions.size !== 0 &&
-      Array.from(this.state.selectedPositions.keys()).every(key =>
-        Boolean(this.state.selectedPositions.get(key))
-      )
+      Array.from(this.state.selectedPositions.keys()).every(key => Boolean(this.state.selectedPositions.get(key)))
     ) {
       this.postData(
         {
           name: this.state.name,
-          exercises: Array.from(this.state.selectedPositions.keys()).map(
-            key => {
-              return {
-                exerciseId: key,
-                lat: this.state.selectedPositions.get(key).lat,
-                lng: this.state.selectedPositions.get(key).lng
-              };
-            }
-          )
+          exercises: Array.from(this.state.selectedPositions.keys()).map(key => {
+            return {
+              exerciseId: key,
+              lat: this.state.selectedPositions.get(key).lat,
+              lng: this.state.selectedPositions.get(key).lng
+            };
+          })
         },
         'quiz'
       );
@@ -71,10 +59,7 @@ export default {
   },
 
   handleExecutionSumbit() {
-    if (
-      this.state.selectedParticipants.length !== 0 &&
-      Boolean(this.state.selectedQuizId)
-    ) {
+    if (this.state.selectedParticipants.length !== 0 && Boolean(this.state.selectedQuizId)) {
       this.postData(
         {
           name: this.state.name,
@@ -93,27 +78,19 @@ export default {
   handleLoginSubmit() {
     this.postLoginData(this.state).then(resData => {
       if (resData.status === OK) {
-        window.localStorage.setItem(
-          'HUNTeR-Token',
-          resData.data.tokenType + ' ' + resData.data.token
-        );
+        window.localStorage.setItem('HUNTeR-Token', resData.data.tokenType + ' ' + resData.data.token);
         let now = new Date();
         window.localStorage.setItem(
           'HUNTeR-Token-Expiration',
-          now
-            .setMilliseconds(now.getMilliseconds() + resData.data.tokenLifetime)
-            .toString()
+          now.setMilliseconds(now.getMilliseconds() + resData.data.tokenLifetime).toString()
         );
         this.setState({showSuccess: true});
         setTimeout(() => {
           this.redirectAfterLogin().then(redirectData => {
-            window.localStorage.setItem(
-              'HUNTeR-Redirect',
-              redirectData.headers['x-hunter-redirect']
-            );
+            window.localStorage.setItem('HUNTeR-Redirect', redirectData.headers['x-hunter-redirect']);
             this.setState({fireRedirect: true});
           });
-        }, defaultNumbers.timeoutTime);
+        }, numbers.timeoutTime);
       } else {
         this.setState({showLoginError: true});
       }

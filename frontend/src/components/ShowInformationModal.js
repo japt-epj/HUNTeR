@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
 
-import defaultColors from '../config/defaultColors';
+import {colors, modalOptions} from '../config/hunterUiDefaults';
 import InfoPage from './InfoPage';
 
 export default class ShowInformationModal extends React.Component {
@@ -20,14 +20,14 @@ export default class ShowInformationModal extends React.Component {
   render() {
     return (
       <Modal
-        dimmer="blurring"
+        dimmer={modalOptions.dimmer}
         open={this.state.open}
         onOpen={this.open}
         onClose={this.close}
         size="large"
         trigger={
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             icon="info"
             basic
             size="mini"
@@ -40,7 +40,11 @@ export default class ShowInformationModal extends React.Component {
           <InfoPage />
         </Modal.Content>
         <Modal.Actions>
-          <Button icon="check" content="OK, danke" onClick={this.close} />
+          <Button
+            icon="check"
+            content={modalOptions.thankYou}
+            onClick={this.close}
+          />
         </Modal.Actions>
       </Modal>
     );

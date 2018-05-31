@@ -1,5 +1,6 @@
 let defaultNumbers = {
   pageNumber: 1,
+  minAnswerId: 1,
   exerciseLimitPerPage: 5,
   zoomSize: 19,
   scanDelayValue: 500,
