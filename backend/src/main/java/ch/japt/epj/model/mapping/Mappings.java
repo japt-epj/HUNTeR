@@ -9,6 +9,10 @@ import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.model.dto.QuizDto;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 
 public final class Mappings {
@@ -61,7 +65,14 @@ public final class Mappings {
 
   public static ModelMapper quizMapper() {
     ModelMapper mapper = new ModelMapper();
-    mapper.createTypeMap(Quiz.class, QuizDto.class);
+
+    Converter<Collection<Exercise>, List<Long>> exerciseToDto =
+        context ->
+            context.getSource().stream().map(Exercise::getExerciseId).collect(Collectors.toList());
+
+    mapper
+        .createTypeMap(Quiz.class, QuizDto.class)
+        .addMappings(m -> m.using(exerciseToDto).map(Quiz::getTasks, QuizDto::setExercises));
     return mapper;
   }
 }
