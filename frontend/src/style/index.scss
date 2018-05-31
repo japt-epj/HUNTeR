@@ -26,6 +26,8 @@ $leaflet-Height: 60vh;
 $dateTimePicker-Height: 40vh;
 $siteGrid-Height: 100vh;
 
+$stepBorderWidth: 2px;
+
 html {
   font-size: $defaultFontSize !important;
 }
@@ -143,9 +145,13 @@ a,
   color: $hunterColor !important;
   padding: 1rem !important;
   font-size: 0.8rem !important;
+  border-width: thin !important;
+  border-style: solid !important;
+  border-color: $hunterColor !important;
+  &::after{
+    border-color: $hunterColor !important;
+  }
 }
-
-
 
 .userScoreName {
   font-weight: bold;
