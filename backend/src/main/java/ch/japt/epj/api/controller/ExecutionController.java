@@ -43,7 +43,10 @@ public class ExecutionController implements ch.japt.epj.api.ExecutionApi, Pagina
   @Override
   @Secured({"ROLE_TEACHER"})
   public ResponseEntity<ExecutionDto> executionIdGet(@PathVariable("id") Integer id) {
-    return new ResponseEntity<>(executionModel.getExecution(id.longValue()), HttpStatus.OK);
+    return executionModel
+        .getExecution(id.longValue())
+        .map(e -> new ResponseEntity<>(e, HttpStatus.OK))
+        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
   @Override

@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,9 +42,8 @@ public class ExecutionModel {
         .map(execution -> mapper.map(execution, ExecutionDto.class));
   }
 
-  public ExecutionDto getExecution(Long id) {
-    Execution execution = executions.findOne(id);
-    return mapper.map(execution, ExecutionDto.class);
+  public Optional<ExecutionDto> getExecution(Long id) {
+    return executions.findByExecutionId(id).map(e -> mapper.map(e, ExecutionDto.class));
   }
 
   public void addExecution(NewExecutionDto executionDto) {
