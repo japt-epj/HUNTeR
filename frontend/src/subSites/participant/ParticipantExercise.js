@@ -4,8 +4,9 @@ import {NavLink, Redirect} from 'react-router-dom';
 import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/apiHandler';
-import {formHandler, modalHandler} from '../../handlers/hunterHandlers';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {formHandler} from '../../handlers/hunterDataHandlers';
+import {modalHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class ParticipantExercise extends React.Component {
@@ -25,7 +26,6 @@ export default class ParticipantExercise extends React.Component {
     this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
     this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
-    this.getJSONHeader = apiGetHandler.getJSONHeader;
   }
 
   componentDidMount() {
