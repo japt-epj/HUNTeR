@@ -31,7 +31,7 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/person/5")
             .header("Authorization", token)
-            .contentType(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
     ResultActions actions =
         mvc.perform(request)
@@ -48,7 +48,7 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/person/current")
             .header("Authorization", token)
-            .contentType(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
     ResultActions actions =
         mvc.perform(request)
@@ -63,7 +63,7 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/person")
             .header("Authorization", token)
-            .contentType(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())
@@ -76,7 +76,7 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.get("/api/person/5,3")
             .header("Authorization", token)
-            .contentType(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
     ResultActions actions =
         mvc.perform(request)
@@ -86,6 +86,30 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
             .andExpect(jsonPath("$", hasSize(2)));
 
     assertPersonPayload(actions, "$[1]");
+  }
+
+  @Test
+  public void updateCurrentPerson() throws Exception {
+    MockHttpServletRequestBuilder put =
+        MockMvcRequestBuilders.put("/api/person")
+            .header("Authorization", token)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(
+                "{ \"firstName\": \"Test\", \"lastName\": \"User\", \"email\": \"test.user@this-is-a-test.com\" }");
+
+    mvc.perform(put).andExpect(status().isNoContent());
+
+    MockHttpServletRequestBuilder get =
+        MockMvcRequestBuilders.get("/api/person/current")
+            .header("Authorization", token)
+            .accept(MediaType.APPLICATION_JSON);
+
+    mvc.perform(get)
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.firstName").value("Test"))
+        .andExpect(jsonPath("$.lastName").value("User"))
+        .andExpect(jsonPath("$.email").value("test.user@this-is-a-test.com"));
   }
 
   private static void assertPersonPayload(ResultActions mvc, String object) throws Exception {
