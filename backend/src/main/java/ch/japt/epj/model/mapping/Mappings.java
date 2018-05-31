@@ -5,11 +5,17 @@ import ch.japt.epj.model.data.Exercise;
 import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.data.Quiz;
 import ch.japt.epj.model.dto.ExerciseDto;
+import ch.japt.epj.model.dto.ExerciseLocationDto;
 import ch.japt.epj.model.dto.NewAnswerDto;
 import ch.japt.epj.model.dto.NewExerciseDto;
 import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.model.dto.QuizDto;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.List;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
 public final class Mappings {
   private Mappings() {}
@@ -61,7 +67,20 @@ public final class Mappings {
 
   public static ModelMapper quizMapper() {
     ModelMapper mapper = new ModelMapper();
-    mapper.createTypeMap(Quiz.class, QuizDto.class);
+    Type dtoList = new TypeToken<List<ExerciseLocationDto>>() {}.getType();
+
+    mapper
+        .createTypeMap(Exercise.class, ExerciseLocationDto.class)
+        .addMappings(m -> m.skip(ExerciseLocationDto::setId))
+        .addMappings(m -> m.skip(ExerciseLocationDto::setLat))
+        .addMappings(m -> m.skip(ExerciseLocationDto::setLng));
+
+    Converter<Collection<Exercise>, List<ExerciseLocationDto>> exerciseToDto =
+        context -> mapper.map(context.getSource(), dtoList);
+
+    mapper
+        .createTypeMap(Quiz.class, QuizDto.class)
+        .addMappings(m -> m.using(exerciseToDto).map(Quiz::getTasks, QuizDto::setExercises));
     return mapper;
   }
 }
