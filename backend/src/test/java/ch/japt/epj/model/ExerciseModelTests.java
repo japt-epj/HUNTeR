@@ -116,6 +116,7 @@ public class ExerciseModelTests {
     return new NewExerciseDto()
         .name("Unit Test Question")
         .question("Is this a unit test?")
+        .correctAnswer(0)
         .answers(Arrays.asList(yes, no));
   }
 }
