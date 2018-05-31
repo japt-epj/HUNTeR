@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
 import {colors, modalOptions} from '../config/hunterUiDefaults';
 import {apiGetHandler} from '../handlers/hunterApiHandler';
-import {OK} from 'http-status-codes/index';
 
 export default class ShowExerciseModal extends React.Component {
   constructor(props) {
