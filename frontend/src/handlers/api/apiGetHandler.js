@@ -3,7 +3,7 @@ import fileDownload from 'js-file-download';
 
 import {numbers} from '../../config/hunterUiDefaults';
 import pathConfig from '../../config/pathConfig';
-import getAxiosHeader from '../getAxiosHeader';
+import getAxiosHeader from './getAxiosHeader';
 
 export default {
   getExerciseArray(exerciseIDs) {

@@ -19,7 +19,7 @@ import TeacherQuizOverview from './TeacherQuizOverview';
 import UserSettings from '../../components/UserSettings';
 
 import {messages} from '../../config/hunterUiDefaults';
-import {modalHandler, structureHandler} from '../../handlers/hunterHandlers';
+import {modalHandler, structureHandler} from '../../handlers/hunterViewHandlers';
 import DefaultPaths from '../../config/DefaultPaths';
 
 export default class TeacherStructure extends React.Component {

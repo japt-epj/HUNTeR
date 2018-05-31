@@ -4,8 +4,8 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 
 import {colors} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../../handlers/apiHandler';
-import {executionHandler} from '../../handlers/hunterHandlers';
+import {apiGetHandler} from '../../handlers/hunterApiHandler';
+import {executionHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExecutionOverview extends React.Component {

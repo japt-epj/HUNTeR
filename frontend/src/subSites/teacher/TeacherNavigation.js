@@ -4,7 +4,7 @@ import QrReader from 'react-qr-reader';
 import {Message} from 'semantic-ui-react';
 
 import {messages, numbers} from '../../config/hunterUiDefaults';
-import {modalHandler} from '../../handlers/hunterHandlers';
+import {modalHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherNavigation extends React.Component {
   constructor(props) {

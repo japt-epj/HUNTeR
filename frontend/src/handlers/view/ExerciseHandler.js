@@ -3,11 +3,11 @@ import React from 'react';
 import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import {colors} from '../config/hunterUiDefaults';
-import {apiGetHandler} from '../handlers/apiHandler';
-import {paginationHandler, tableHandler} from './hunterHandlers';
-import ShowExerciseModal from '../components/ShowExerciseModal';
-import ShowExerciseEditModal from '../components/ShowExerciseEditModal';
+import {colors} from '../../config/hunterUiDefaults';
+import {apiGetHandler} from '../hunterApiHandler';
+import {paginationHandler, tableHandler} from '../hunterViewHandlers';
+import ShowExerciseModal from '../../components/ShowExerciseModal';
+import ShowExerciseEditModal from '../../components/ShowExerciseEditModal';
 
 export default {
   handleSingleSelection(event, checkbox) {

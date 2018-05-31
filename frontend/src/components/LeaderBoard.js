@@ -3,8 +3,8 @@ import React from 'react';
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
 import {colors, numbers} from '../config/hunterUiDefaults';
-import {scoreHandler} from '../handlers/hunterHandlers';
-import {apiGetHandler} from '../handlers/apiHandler';
+import {scoreHandler} from '../handlers/hunterDataHandlers';
+import {apiGetHandler} from '../handlers/hunterApiHandler';
 import getLoadingScreen from './getLoadingScreen';
 
 export default class LeaderBoard extends React.Component {

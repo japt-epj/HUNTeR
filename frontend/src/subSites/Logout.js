@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {numbers} from '../config/hunterUiDefaults';
-import {modalHandler} from '../handlers/hunterHandlers';
+import {modalHandler} from '../handlers/hunterViewHandlers';
 import pathConfig from '../config/pathConfig';
 
 export default {
