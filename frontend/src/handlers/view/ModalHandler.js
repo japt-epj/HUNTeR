@@ -27,7 +27,7 @@ export default {
   getTokenExpiration() {
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
-        <Header icon="sign out" content="Login ausgelaufen" />
+        <Header icon="sign out" content="Login abgelaufen" />
         <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein." />
       </Modal>
     );
