@@ -11,14 +11,8 @@ export default {
     if (checkbox.checked) {
       selectedParticipants.push(checkbox.id);
     } else {
-      selectedParticipants.splice(
-        selectedParticipants.lastIndexOf(checkbox.id),
-        1
-      );
-      bulkCheckboxes.splice(
-        selectedParticipants.lastIndexOf(currentBulkCheckboxId),
-        1
-      );
+      selectedParticipants.splice(selectedParticipants.lastIndexOf(checkbox.id), 1);
+      bulkCheckboxes.splice(selectedParticipants.lastIndexOf(currentBulkCheckboxId), 1);
     }
     this.setState({selectedParticipants, bulkCheckboxes});
   },
@@ -36,10 +30,7 @@ export default {
     } else {
       this.state.participants.forEach(element => {
         if (selectedParticipants.indexOf(element.id) !== -1) {
-          selectedParticipants.splice(
-            selectedParticipants.indexOf(element.id),
-            1
-          );
+          selectedParticipants.splice(selectedParticipants.indexOf(element.id), 1);
         }
       });
       bulkCheckboxes.splice(selectedParticipants.lastIndexOf(checkbox.id), 1);
@@ -54,11 +45,7 @@ export default {
         <Table.Header>
           <Table.Row>
             {checkboxNeeded &&
-              tableHandler.getBulkCheckbox(
-                this.state.pageNumber,
-                this.state.bulkCheckboxes,
-                this.handleBulkSelection
-              )}
+              tableHandler.getBulkCheckbox(this.state.pageNumber, this.state.bulkCheckboxes, this.handleBulkSelection)}
             {tableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>
@@ -72,10 +59,7 @@ export default {
                       id={element.id}
                       name={element.email}
                       onChange={this.handleSingleSelection}
-                      checked={
-                        this.state.selectedParticipants.indexOf(element.id) !==
-                        -1
-                      }
+                      checked={this.state.selectedParticipants.indexOf(element.id) !== -1}
                     />
                   </Table.Cell>
                 )}

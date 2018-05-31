@@ -5,12 +5,7 @@ import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
 import {colors} from '../config/hunterUiDefaults';
-import {
-  apiHandler,
-  formHandler,
-  modalHandler,
-  structureHandler
-} from '../handlers/hunterHandlers';
+import {apiHandler, formHandler, modalHandler, structureHandler} from '../handlers/hunterHandlers';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -40,12 +35,7 @@ export default class Login extends React.Component {
             <Grid.Column />
             <Grid.Column width={isMobile ? 13 : 8}>
               {this.state.showLoginError && (
-                <Message
-                  icon="sign in"
-                  size="mini"
-                  header="Username oder Passwort falsch eingegeben"
-                  error
-                />
+                <Message icon="sign in" size="mini" header="Username oder Passwort falsch eingegeben" error />
               )}
               <Form onSubmit={this.handleLoginSubmit}>
                 <Form.Input
@@ -64,20 +54,13 @@ export default class Login extends React.Component {
                   onChange={this.handleChange}
                   required
                 />
-                <Form.Button
-                  color={colors.buttonColors.normal}
-                  icon="sign in"
-                  basic
-                  content="Einloggen"
-                />
+                <Form.Button color={colors.buttonColors.normal} icon="sign in" basic content="Einloggen" />
               </Form>
             </Grid.Column>
             <Grid.Column />
           </Grid.Row>
         </Grid>
-        {this.state.fireRedirect && (
-          <Redirect to={window.localStorage.getItem('HUNTeR-Redirect')} />
-        )}
+        {this.state.fireRedirect && <Redirect to={window.localStorage.getItem('HUNTeR-Redirect')} />}
       </div>
     );
   }

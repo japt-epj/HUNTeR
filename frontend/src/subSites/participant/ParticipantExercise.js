@@ -4,11 +4,7 @@ import {NavLink, Redirect} from 'react-router-dom';
 import {Form, Grid, Header, Message} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {
-  apiHandler,
-  formHandler,
-  modalHandler
-} from '../../handlers/hunterHandlers';
+import {apiHandler, formHandler, modalHandler} from '../../handlers/hunterHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class ParticipantExercise extends React.Component {
@@ -16,12 +12,8 @@ export default class ParticipantExercise extends React.Component {
     super(props);
     this.state = {
       successMessage: modalOptions.response,
-      executionId: Boolean(this.props.location.state)
-        ? this.props.location.state.executionId
-        : '',
-      exerciseId: Boolean(this.props.location.state)
-        ? this.props.location.state.exerciseId
-        : '',
+      executionId: Boolean(this.props.location.state) ? this.props.location.state.executionId : '',
+      exerciseId: Boolean(this.props.location.state) ? this.props.location.state.exerciseId : '',
       name: '',
       exercise: {},
       question: '',
@@ -52,8 +44,7 @@ export default class ParticipantExercise extends React.Component {
       <div>
         {this.state.executionId !== '' ? (
           <div>
-            {this.state.successMessage.showModal &&
-              modalHandler.getCreationSuccess(this.state.successMessage)}
+            {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
             {!Boolean(this.state.exercise.answers) ? (
               getLoadingScreen()
             ) : (
@@ -70,9 +61,7 @@ export default class ParticipantExercise extends React.Component {
                           <Grid.Row key={element.text}>
                             <Form.Radio
                               value={element.answerId}
-                              label={
-                                'Antwort ' + (index + 1) + ' : ' + element.text
-                              }
+                              label={'Antwort ' + (index + 1) + ' : ' + element.text}
                               onChange={this.handleSelectChange}
                               checked={this.state.answerId === element.answerId}
                             />

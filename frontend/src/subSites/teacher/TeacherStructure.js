@@ -51,39 +51,17 @@ export default class TeacherStructure extends React.Component {
                   {this.getSideBar(DefaultPaths.getPathsTeacher())}
                   <Sidebar.Pusher onClick={this.hideSidebar}>
                     <Switch>
-                      <Route
-                        exact
-                        path="/"
-                        render={() => getHome(DefaultPaths.getPathsTeacher())}
-                      />
+                      <Route exact path="/" render={() => getHome(DefaultPaths.getPathsTeacher())} />
                       <Route path="/settings" component={UserSettings} />
                       <Route path="/exercise" component={TeacherExercise} />
-                      <Route
-                        path="/exerciseOverview"
-                        component={TeacherExerciseOverview}
-                      />
+                      <Route path="/exerciseOverview" component={TeacherExerciseOverview} />
                       <Route path="/quiz" component={TeacherQuiz} />
-                      <Route
-                        path="/quizOverview"
-                        component={TeacherQuizOverview}
-                      />
+                      <Route path="/quizOverview" component={TeacherQuizOverview} />
                       <Route path="/execution" component={TeacherExecution} />
-                      <Route
-                        path="/executionOverview"
-                        component={TeacherExecutionOverview}
-                      />
-                      <Route
-                        path="/teacherNavigation"
-                        component={TeacherNavigation}
-                      />
-                      <Route
-                        path="/newUser"
-                        component={TeacherNewParticipant}
-                      />
-                      <Route
-                        path="/participantLeaderBoard"
-                        component={LeaderBoard}
-                      />
+                      <Route path="/executionOverview" component={TeacherExecutionOverview} />
+                      <Route path="/teacherNavigation" component={TeacherNavigation} />
+                      <Route path="/newUser" component={TeacherNewParticipant} />
+                      <Route path="/participantLeaderBoard" component={LeaderBoard} />
                       <Route
                         path="/logout"
                         render={() => {

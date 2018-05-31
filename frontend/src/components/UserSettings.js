@@ -4,12 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../config/hunterUiDefaults';
-import {
-  apiHandler,
-  formHandler,
-  modalHandler,
-  tableHandler
-} from '../handlers/hunterHandlers';
+import {apiHandler, formHandler, modalHandler, tableHandler} from '../handlers/hunterHandlers';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
@@ -52,8 +47,7 @@ export default class UserSettings extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         {this.state.showModal && this.getSettingChanging()}
         <Form onSubmit={this.onSubmit} loading={this.state.loading}>
           <Form.Input
@@ -72,19 +66,8 @@ export default class UserSettings extends React.Component {
             onChange={this.handleChange}
             required
           />
-          <Form.Input
-            label="E-Mail"
-            type="email"
-            value={this.state.email}
-            name="email"
-            disabled
-          />
-          <Form.Input
-            label="Lehranstalt"
-            type="text"
-            value={this.state.school}
-            disabled
-          />
+          <Form.Input label="E-Mail" type="email" value={this.state.email} name="email" disabled />
+          <Form.Input label="Lehranstalt" type="text" value={this.state.school} disabled />
           <Grid>{this.getSubmitCancelButton()}</Grid>
         </Form>
         {this.state.fireRedirect && <Redirect to={{pathname: '/'}} />}

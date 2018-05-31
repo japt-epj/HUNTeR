@@ -46,15 +46,11 @@ export default class TeacherNavigation extends React.Component {
         scanError: false,
         showSuccess: true
       });
-      setTimeout(
-        () => this.setState({fireRedirect: true, showSuccess: false}),
-        numbers.timeoutTime
-      );
+      setTimeout(() => this.setState({fireRedirect: true, showSuccess: false}), numbers.timeoutTime);
     } else {
       this.setState({
         scanError: true,
-        displayText:
-          'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+        displayText: 'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
       });
     }
   };
@@ -85,16 +81,12 @@ export default class TeacherNavigation extends React.Component {
             {this.state.fireRedirect ? (
               <div>
                 <a
-                  href={`https://www.google.com/maps/dir/?api=1&origin&destination=${
-                    this.state.coordinates.lat
-                  },${this.state.coordinates.lng}&travelmode=walking&hl=de`}
+                  href={`https://www.google.com/maps/dir/?api=1&origin&destination=${this.state.coordinates.lat},${
+                    this.state.coordinates.lng
+                  }&travelmode=walking&hl=de`}
                   target="_blank"
                 >
-                  <Message
-                    icon="arrow right"
-                    size="mini"
-                    header={this.state.displayText}
-                  />
+                  <Message icon="arrow right" size="mini" header={this.state.displayText} />
                 </a>
                 <Message
                   icon="undo"
@@ -110,17 +102,8 @@ export default class TeacherNavigation extends React.Component {
               </div>
             ) : (
               <div>
-                <QrReader
-                  delay={this.state.delay}
-                  onError={this.handleError}
-                  onScan={this.handleScan}
-                />
-                <Message
-                  icon="camera retro"
-                  size="mini"
-                  header={this.state.displayText}
-                  error={this.state.scanError}
-                />
+                <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan} />
+                <Message icon="camera retro" size="mini" header={this.state.displayText} error={this.state.scanError} />
               </div>
             )}
           </div>

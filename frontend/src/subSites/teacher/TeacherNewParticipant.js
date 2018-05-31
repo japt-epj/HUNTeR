@@ -4,12 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {
-  apiHandler,
-  formHandler,
-  modalHandler,
-  tableHandler
-} from '../../handlers/hunterHandlers';
+import {apiHandler, formHandler, modalHandler, tableHandler} from '../../handlers/hunterHandlers';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
@@ -32,8 +27,7 @@ export default class TeacherNewParticipant extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             fluid
@@ -63,9 +57,7 @@ export default class TeacherNewParticipant extends React.Component {
             required
           />
           <Grid>{this.getSubmitCancelButton()}</Grid>
-          {this.state.fireRedirect && (
-            <Redirect to={{pathname: '/', state: {person: this.state}}} />
-          )}
+          {this.state.fireRedirect && <Redirect to={{pathname: '/', state: {person: this.state}}} />}
         </Form>
       </div>
     );

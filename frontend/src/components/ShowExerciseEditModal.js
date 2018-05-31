@@ -26,23 +26,14 @@ export default class ShowExerciseEditModal extends React.Component {
         onOpen={this.open}
         onClose={this.close}
         size="small"
-        trigger={
-          <Button color={colors.buttonColors.normal} icon="pencil" basic />
-        }
+        trigger={<Button color={colors.buttonColors.normal} icon="pencil" basic />}
       >
         <Modal.Header />
         <Modal.Content>
-          <TeacherExercise
-            editExercise={true}
-            exerciseId={this.state.exerciseId}
-          />
+          <TeacherExercise editExercise={true} exerciseId={this.state.exerciseId} />
         </Modal.Content>
         <Modal.Actions>
-          <Button
-            icon="check"
-            content={modalOptions.thankYou}
-            onClick={this.close}
-          />
+          <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />
         </Modal.Actions>
       </Modal>
     );

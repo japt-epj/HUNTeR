@@ -4,20 +4,14 @@ import {Button, Grid} from 'semantic-ui-react';
 import L from 'leaflet';
 
 import {colors, map, messages, numbers} from '../../config/hunterUiDefaults';
-import {
-  apiHandler,
-  mapHandler,
-  modalHandler
-} from '../../handlers/hunterHandlers';
+import {apiHandler, mapHandler, modalHandler} from '../../handlers/hunterHandlers';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       hideAgreement: messages.hideAgreement(),
-      executionId: Boolean(this.props.location.state)
-        ? this.props.location.state.executionId
-        : '',
+      executionId: Boolean(this.props.location.state) ? this.props.location.state.executionId : '',
       locations: new Map(),
       selectedPositions: new Map(),
       routing: false,
@@ -48,8 +42,7 @@ export default class ParticipantNextLocation extends React.Component {
   promiseToLocation = promise => {
     let locations = new Map(this.state.locations);
     promise.then(resData => {
-      const resDataArray =
-        this.state.executionId === '' ? resData.data : new Array(resData.data);
+      const resDataArray = this.state.executionId === '' ? resData.data : new Array(resData.data);
       resDataArray.forEach(element => {
         locations.set(element.exerciseTitle, [element.lat, element.lng]);
       });
@@ -78,10 +71,7 @@ export default class ParticipantNextLocation extends React.Component {
     if (!this.state.routing && Boolean(event.target.options.id)) {
       locations = new Map([
         ['currentPosition', this.state.locations.get('currentPosition')],
-        [
-          event.target.options.id,
-          this.state.locations.get(event.target.options.id)
-        ]
+        [event.target.options.id, this.state.locations.get(event.target.options.id)]
       ]);
       this.setState({routing: false});
     }
