@@ -13,7 +13,7 @@ import ParticipantNextLocation from './ParticipantNextLocation';
 import ParticipantScanExercise from './ParticipantScanExercise';
 import UserSettings from '../../components/UserSettings';
 
-import {structureHandler} from '../../handlers/hunterHandlers';
+import {structureHandler} from '../../handlers/hunterViewHandlers';
 import DefaultPaths from '../../config/DefaultPaths';
 
 export default class ParticipantStructure extends React.Component {

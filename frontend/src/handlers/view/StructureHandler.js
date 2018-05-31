@@ -3,8 +3,8 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Grid, Header, Image, Menu, Sidebar} from 'semantic-ui-react';
 
-import {colors} from '../config/hunterUiDefaults';
-import Logo from '../images/icons/e.png';
+import {colors} from '../../config/hunterUiDefaults';
+import Logo from '../../images/icons/e.png';
 
 export default {
   toggleVisibility() {
@@ -33,18 +33,10 @@ export default {
           </NavLink>
         </Grid.Column>
         <Grid.Column textAlign="center" className="headerElement">
-          <Header
-            size="medium"
-            color={colors.buttonColors.normal}
-            content="HUNTeR"
-          />
+          <Header size="medium" color={colors.buttonColors.normal} content="HUNTeR" />
         </Grid.Column>
         <Grid.Column textAlign="right">
-          <Button
-            color={colors.buttonColors.normal}
-            icon={this.state.iconName}
-            onClick={this.toggleVisibility}
-          />
+          <Button color={colors.buttonColors.normal} icon={this.state.iconName} onClick={this.toggleVisibility} />
         </Grid.Column>
       </Grid.Row>
     );
@@ -54,18 +46,10 @@ export default {
     return (
       <Grid.Row columns="equal" verticalAlign="middle" className="gridHeader">
         <Grid.Column textAlign="left">
-          <Image
-            src={Logo}
-            alt="HUNTeR Logo - Link to home site"
-            className="logoImage"
-          />
+          <Image src={Logo} alt="HUNTeR Logo - Link to home site" className="logoImage" />
         </Grid.Column>
         <Grid.Column textAlign="right" className="headerElement">
-          <Header
-            size="medium"
-            color={colors.buttonColors.normal}
-            content="Login Seite"
-          />
+          <Header size="medium" color={colors.buttonColors.normal} content="Login Seite" />
         </Grid.Column>
       </Grid.Row>
     );
@@ -94,15 +78,8 @@ export default {
         <Menu.Header className="sideMenuHeader" content={mainElement.name} />
         <Menu.Menu>
           {mainElement.subPaths.map(subElement => (
-            <NavLink
-              key={'NavLink' + subElement.path}
-              to={'/' + subElement.path}
-            >
-              <Menu.Item
-                className="sideMenuItem"
-                icon={subElement.icon}
-                content={subElement.name}
-              />
+            <NavLink key={'NavLink' + subElement.path} to={'/' + subElement.path}>
+              <Menu.Item className="sideMenuItem" icon={subElement.icon} content={subElement.name} />
             </NavLink>
           ))}
         </Menu.Menu>

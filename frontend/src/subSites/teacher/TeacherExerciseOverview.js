@@ -5,7 +5,8 @@ import {OK} from 'http-status-codes';
 import {Button} from 'semantic-ui-react';
 
 import {colors, numbers} from '../../config/hunterUiDefaults';
-import {apiHandler, exerciseHandler} from '../../handlers/hunterHandlers';
+import {apiGetHandler} from '../../handlers/hunterApiHandler';
+import {exerciseHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExerciseOverview extends React.Component {
@@ -34,7 +35,7 @@ export default class TeacherExerciseOverview extends React.Component {
   };
 
   getExercises = page => {
-    apiHandler.getPaginatedElements('exercise', page).then(resData => {
+    apiGetHandler.getPaginatedElements('exercise', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,

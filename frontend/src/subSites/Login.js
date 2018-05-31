@@ -5,7 +5,9 @@ import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
 import {colors} from '../config/hunterUiDefaults';
-import {apiHandler, formHandler, modalHandler, structureHandler} from '../handlers/hunterHandlers';
+import {apiGetHandler, apiPostHandler} from '../handlers/hunterApiHandler';
+import {formHandler} from '../handlers/hunterDataHandlers';
+import {modalHandler, structureHandler} from '../handlers/hunterViewHandlers';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -20,9 +22,8 @@ export default class Login extends React.Component {
 
     this.handleLoginSubmit = formHandler.handleLoginSubmit.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
-    this.postLoginData = apiHandler.postLoginData.bind(this);
-    this.redirectAfterLogin = apiHandler.redirectAfterLogin.bind(this);
-    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.postLoginData = apiPostHandler.postLoginData.bind(this);
+    this.redirectAfterLogin = apiGetHandler.redirectAfterLogin.bind(this);
   }
 
   render() {
