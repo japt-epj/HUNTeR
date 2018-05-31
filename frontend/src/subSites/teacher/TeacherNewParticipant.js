@@ -4,10 +4,12 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import FormHandler from '../../handlers/FormHandler';
-import APIHandler from '../../handlers/APIHandler';
-import ModalHandler from '../../handlers/ModalHandler';
-import TableHandler from '../../handlers/TableHandler';
+import {
+  apiHandler,
+  formHandler,
+  modalHandler,
+  tableHandler
+} from '../../handlers/hunterHandlers';
 
 export default class TeacherNewParticipant extends React.Component {
   constructor(props) {
@@ -20,18 +22,18 @@ export default class TeacherNewParticipant extends React.Component {
       email: ''
     };
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleNewParticipantSubmit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleNewParticipantSubmit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
   }
 
   render() {
     return (
       <div>
         {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+          modalHandler.getCreationSuccess(this.state.successMessage)}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             fluid

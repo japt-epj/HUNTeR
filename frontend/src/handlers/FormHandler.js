@@ -1,7 +1,7 @@
 import {OK} from 'http-status-codes';
 
 import {numbers} from '../config/hunterUiDefaults';
-import DataHandler from './DataHandler';
+import {dataHandler} from '../handlers/hunterHandlers';
 
 export default {
   handleChange(event, target) {
@@ -22,12 +22,12 @@ export default {
   handleExerciseSubmit() {
     if (this.state.answerId >= numbers.minAnswerId) {
       if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
-        this.postData(DataHandler.prepareTeacherData(this.state), 'exercise');
+        this.postData(dataHandler.prepareTeacherData(this.state), 'exercise');
       } else if (
         window.localStorage.getItem('HUNTeR-Redirect') === '/participant'
       ) {
         this.postData(
-          DataHandler.prepareParticipantData({...this.state}),
+          dataHandler.prepareParticipantData({...this.state}),
           'response'
         );
       } else {

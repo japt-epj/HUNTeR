@@ -10,12 +10,14 @@ import {
   modalOptions,
   numbers
 } from '../../config/hunterUiDefaults';
-import ExerciseHandler from '../../handlers/ExerciseHandler';
-import APIHandler from '../../handlers/APIHandler';
-import FormHandler from '../../handlers/FormHandler';
-import ModalHandler from '../../handlers/ModalHandler';
-import TableHandler from '../../handlers/TableHandler';
-import MapHandler from '../../handlers/MapHandler';
+import {
+  apiHandler,
+  exerciseHandler,
+  formHandler,
+  mapHandler,
+  modalHandler,
+  tableHandler
+} from '../../handlers/hunterHandlers';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
@@ -45,29 +47,29 @@ export default class TeacherQuiz extends React.Component {
       }
     };
 
-    this.addPosition = MapHandler.addPosition.bind(this);
+    this.addPosition = mapHandler.addPosition.bind(this);
     this.defaultPageNumber = numbers.pageNumber;
     this.exerciseLimitPerPage = numbers.exerciseLimitPerPage;
-    this.getAddExerciseModal = ModalHandler.getAddExerciseModal.bind(this);
+    this.getAddExerciseModal = modalHandler.getAddExerciseModal.bind(this);
 
-    this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
-    this.getSelectedExerciseTable = ExerciseHandler.getSelectedExerciseTable.bind(
+    this.getExerciseTable = exerciseHandler.getExerciseTable.bind(this);
+    this.getSelectedExerciseTable = exerciseHandler.getSelectedExerciseTable.bind(
       this
     );
-    this.handleSingleSelection = ExerciseHandler.handleSingleSelection.bind(
+    this.handleSingleSelection = exerciseHandler.handleSingleSelection.bind(
       this
     );
-    this.handleBulkSelection = ExerciseHandler.handleBulkSelection.bind(this);
-    this.updateSelection = ExerciseHandler.updateSelection.bind(this);
-    this.getQuizMap = MapHandler.getQuizMap.bind(this);
+    this.handleBulkSelection = exerciseHandler.handleBulkSelection.bind(this);
+    this.updateSelection = exerciseHandler.updateSelection.bind(this);
+    this.getQuizMap = mapHandler.getQuizMap.bind(this);
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleQuizSumbit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
-    this.getAgreement = ModalHandler.getAgreement.bind(this);
-    this.getFormError = ModalHandler.getFormError.bind(this);
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleQuizSumbit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.getAgreement = modalHandler.getAgreement.bind(this);
+    this.getFormError = modalHandler.getFormError.bind(this);
 
     this.mapref = React.createRef();
   }
@@ -80,7 +82,7 @@ export default class TeacherQuiz extends React.Component {
   }
 
   getExercises = page => {
-    APIHandler.getPaginatedElements('exercise', page).then(resData => {
+    apiHandler.getPaginatedElements('exercise', page).then(resData => {
       if (resData.status === OK) {
         this.setState({
           exercises: resData.data.content,
@@ -139,25 +141,27 @@ export default class TeacherQuiz extends React.Component {
   handlePageChangeSelectedExercises = (event, element) => {
     let currentPage = element.activePage;
     this.setState({pageNumberSelectedExercises: element.activePage});
-    APIHandler.getExerciseArray(
-      this.state.selectedCheckboxes.slice(
-        (currentPage - 1) * this.exerciseLimitPerPage,
-        currentPage * this.exerciseLimitPerPage
+    apiHandler
+      .getExerciseArray(
+        this.state.selectedCheckboxes.slice(
+          (currentPage - 1) * this.exerciseLimitPerPage,
+          currentPage * this.exerciseLimitPerPage
+        )
       )
-    ).then(resData => {
-      if (resData.status === OK) {
-        this.setState({selectedExercises: resData.data});
-      } else {
-        console.error('Error:' + resData);
-      }
-    });
+      .then(resData => {
+        if (resData.status === OK) {
+          this.setState({selectedExercises: resData.data});
+        } else {
+          console.error('Error:' + resData);
+        }
+      });
   };
 
   render() {
     return (
       <div>
         {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+          modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError(
             'Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.'

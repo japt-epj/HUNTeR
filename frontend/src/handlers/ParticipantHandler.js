@@ -1,8 +1,7 @@
 import React from 'react';
 
 import {Checkbox, Table} from 'semantic-ui-react';
-import TableHandler from './TableHandler';
-import PaginationHandler from './PaginationHandler';
+import {paginationHandler, tableHandler} from './hunterHandlers';
 
 export default {
   handleSingleSelection(event, checkbox) {
@@ -55,12 +54,12 @@ export default {
         <Table.Header>
           <Table.Row>
             {checkboxNeeded &&
-              TableHandler.getBulkCheckbox(
+              tableHandler.getBulkCheckbox(
                 this.state.pageNumber,
                 this.state.bulkCheckboxes,
                 this.handleBulkSelection
               )}
-            {TableHandler.getTableHeader(headerElements)}
+            {tableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -86,7 +85,7 @@ export default {
               </Table.Row>
             ))}
         </Table.Body>
-        {PaginationHandler.getPagination({
+        {paginationHandler.getPagination({
           totalPages: this.state.maxPageParticipants,
           activePage: this.state.pageNumber,
           onPageChange: this.handlePageChangeParticipants,

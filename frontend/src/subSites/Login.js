@@ -5,10 +5,12 @@ import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
 import {colors} from '../config/hunterUiDefaults';
-import StructureHandler from '../handlers/StructureHandler';
-import FormHandler from '../handlers/FormHandler';
-import APIHandler from '../handlers/APIHandler';
-import ModalHandler from '../handlers/ModalHandler';
+import {
+  apiHandler,
+  formHandler,
+  modalHandler,
+  structureHandler
+} from '../handlers/hunterHandlers';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -21,19 +23,19 @@ export default class Login extends React.Component {
       fireRedirect: Boolean(window.localStorage.getItem('HUNTeR-Redirect'))
     };
 
-    this.handleLoginSubmit = FormHandler.handleLoginSubmit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.postLoginData = APIHandler.postLoginData.bind(this);
-    this.redirectAfterLogin = APIHandler.redirectAfterLogin.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
+    this.handleLoginSubmit = formHandler.handleLoginSubmit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.postLoginData = apiHandler.postLoginData.bind(this);
+    this.redirectAfterLogin = apiHandler.redirectAfterLogin.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
   }
 
   render() {
     return (
       <div>
-        {this.state.showSuccess && ModalHandler.getLoginSuccess()}
+        {this.state.showSuccess && modalHandler.getLoginSuccess()}
         <Grid className="siteGrid" padded>
-          {StructureHandler.getLoginHeader()}
+          {structureHandler.getLoginHeader()}
           <Grid.Row className="gridContent" columns="equal">
             <Grid.Column />
             <Grid.Column width={isMobile ? 13 : 8}>

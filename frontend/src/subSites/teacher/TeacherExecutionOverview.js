@@ -4,8 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 
 import {colors} from '../../config/hunterUiDefaults';
-import ExecutionHandler from '../../handlers/ExecutionHandler';
-import APIHandler from '../../handlers/APIHandler';
+import {apiHandler, executionHandler} from '../../handlers/hunterHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
 export default class TeacherExecutionOverview extends React.Component {
@@ -19,7 +18,7 @@ export default class TeacherExecutionOverview extends React.Component {
       maxPage: ''
     };
 
-    this.getExecutionTable = ExecutionHandler.getExecutionTable.bind(this);
+    this.getExecutionTable = executionHandler.getExecutionTable.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +33,7 @@ export default class TeacherExecutionOverview extends React.Component {
   };
 
   getExecutions = page => {
-    APIHandler.getPaginatedElements('execution', page).then(resData => {
+    apiHandler.getPaginatedElements('execution', page).then(resData => {
       if (resData.status === 200) {
         this.setState({
           executions: resData.data.content,

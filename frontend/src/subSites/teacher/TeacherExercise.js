@@ -2,13 +2,15 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Form, Grid, Table} from 'semantic-ui-react';
+import {OK} from 'http-status-codes/index';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import FormHandler from '../../handlers/FormHandler';
-import TableHandler from '../../handlers/TableHandler';
-import APIHandler from '../../handlers/APIHandler';
-import ModalHandler from '../../handlers/ModalHandler';
-import {OK} from 'http-status-codes/index';
+import {
+  apiHandler,
+  formHandler,
+  modalHandler,
+  tableHandler
+} from '../../handlers/hunterHandlers';
 
 export default class TeacherExercise extends React.Component {
   constructor(props) {
@@ -31,13 +33,13 @@ export default class TeacherExercise extends React.Component {
       answersAllowed: 4
     };
 
-    this.getSubmitCancelButton = TableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = FormHandler.handleExerciseSubmit.bind(this);
-    this.handleChange = FormHandler.handleChange.bind(this);
-    this.handleSelectChange = FormHandler.handleAnswerSelectChange.bind(this);
-    this.postData = APIHandler.postData.bind(this);
-    this.getJSONHeader = APIHandler.getJSONHeader;
-    this.getFormError = ModalHandler.getFormError.bind(this);
+    this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
+    this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
+    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
+    this.postData = apiHandler.postData.bind(this);
+    this.getJSONHeader = apiHandler.getJSONHeader;
+    this.getFormError = modalHandler.getFormError.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +49,7 @@ export default class TeacherExercise extends React.Component {
   }
 
   getExercise = exerciseId => {
-    APIHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
+    apiHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
       if (resData.status === OK) {
         const exerciseData = resData.data[0];
         const answerId = exerciseData.answers
@@ -70,7 +72,7 @@ export default class TeacherExercise extends React.Component {
     return (
       <div>
         {this.state.successMessage.showModal &&
-          ModalHandler.getCreationSuccess(this.state.successMessage)}
+          modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError('Keine Antwort wurde als richtig markiert!')}
         <Form onSubmit={this.handleSubmit}>
@@ -94,7 +96,7 @@ export default class TeacherExercise extends React.Component {
           <Table definition>
             <Table.Header>
               <Table.Row>
-                {TableHandler.getTableHeader(['', 'Antworten', 'Richtig'])}
+                {tableHandler.getTableHeader(['', 'Antworten', 'Richtig'])}
               </Table.Row>
             </Table.Header>
             <Table.Body>
