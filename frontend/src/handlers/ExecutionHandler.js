@@ -24,9 +24,7 @@ export default {
                     color={colors.buttonColors.download}
                     icon="download"
                     basic
-                    onClick={() =>
-                      apiHandler.downloadExecutionQRCodePDF(element.id)
-                    }
+                    onClick={() => apiHandler.downloadExecutionQRCodePDF(element.id)}
                   />
                 </Table.Cell>
               </Table.Row>

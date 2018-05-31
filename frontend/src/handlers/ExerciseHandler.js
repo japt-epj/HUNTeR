@@ -20,10 +20,7 @@ export default {
     } else {
       selectedPositions.delete(checkbox.id);
       selectedCheckboxes.splice(selectedCheckboxes.lastIndexOf(checkbox.id), 1);
-      bulkCheckboxes.splice(
-        selectedCheckboxes.lastIndexOf(currentBulkCheckboxId),
-        1
-      );
+      bulkCheckboxes.splice(selectedCheckboxes.lastIndexOf(currentBulkCheckboxId), 1);
     }
 
     this.updateSelection({
@@ -70,16 +67,14 @@ export default {
     apiHandler
       .getExerciseArray(
         values.selectedCheckboxes.slice(
-          (this.state.pageNumberSelectedExercises - 1) *
-            this.exerciseLimitPerPage,
+          (this.state.pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage,
           this.state.pageNumberSelectedExercises * this.exerciseLimitPerPage
         )
       )
       .then(resData => {
         if (resData.status === OK) {
           this.setState({
-            selectedExercises:
-              values.selectedCheckboxes.length !== 0 ? resData.data : []
+            selectedExercises: values.selectedCheckboxes.length !== 0 ? resData.data : []
           });
         } else {
           console.error('Error:' + resData);
@@ -119,10 +114,7 @@ export default {
           ))}
         </Table.Body>
         {paginationHandler.getPagination({
-          totalPages: paginationHandler.calculateTotalPages(
-            this.state.selectedCheckboxes.length,
-            maxElementsPerPage
-          ),
+          totalPages: paginationHandler.calculateTotalPages(this.state.selectedCheckboxes.length, maxElementsPerPage),
           activePage: this.state.pageNumberSelectedExercises,
           onPageChange: this.handlePageChangeSelectedExercises,
           width: headerElements.length
@@ -138,11 +130,7 @@ export default {
         <Table.Header>
           <Table.Row>
             {checkboxNeeded &&
-              tableHandler.getBulkCheckbox(
-                this.state.pageNumber,
-                this.state.bulkCheckboxes,
-                this.handleBulkSelection
-              )}
+              tableHandler.getBulkCheckbox(this.state.pageNumber, this.state.bulkCheckboxes, this.handleBulkSelection)}
             {tableHandler.getTableHeader(headerElements)}
           </Table.Row>
         </Table.Header>
@@ -156,9 +144,7 @@ export default {
                       id={element.id}
                       name={element.name}
                       onChange={this.handleSingleSelection}
-                      checked={
-                        this.state.selectedCheckboxes.indexOf(element.id) !== -1
-                      }
+                      checked={this.state.selectedCheckboxes.indexOf(element.id) !== -1}
                     />
                   </Table.Cell>
                 )}

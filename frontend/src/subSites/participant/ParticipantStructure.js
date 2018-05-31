@@ -41,17 +41,10 @@ export default class ParticipantStructure extends React.Component {
                 {this.getSideBar(DefaultPaths.getPathsParticipant())}
                 <Sidebar.Pusher onClick={this.hideSidebar}>
                   <Switch>
-                    <Route
-                      exact
-                      path="/"
-                      render={() => getHome(DefaultPaths.getPathsParticipant())}
-                    />
+                    <Route exact path="/" render={() => getHome(DefaultPaths.getPathsParticipant())} />
                     <Route path="/settings" component={UserSettings} />
                     <Route path="/scan" component={ParticipantScanExercise} />
-                    <Route
-                      path="/nextLocation"
-                      component={ParticipantNextLocation}
-                    />
+                    <Route path="/nextLocation" component={ParticipantNextLocation} />
                     <Route path="/score" component={LeaderBoard} />
                     <Route path="/exercise" component={ParticipantExercise} />
                     <Route

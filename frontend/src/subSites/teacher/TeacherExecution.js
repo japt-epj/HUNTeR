@@ -46,15 +46,9 @@ export default class TeacherExecution extends React.Component {
       endDate: moment().add(1, 'hour')
     };
 
-    this.getParticipantTable = participantHandler.getParticipantTable.bind(
-      this
-    );
-    this.handleSingleSelection = participantHandler.handleSingleSelection.bind(
-      this
-    );
-    this.handleBulkSelection = participantHandler.handleBulkSelection.bind(
-      this
-    );
+    this.getParticipantTable = participantHandler.getParticipantTable.bind(this);
+    this.handleSingleSelection = participantHandler.handleSingleSelection.bind(this);
+    this.handleBulkSelection = participantHandler.handleBulkSelection.bind(this);
     this.getQuizTable = quizHandler.getQuizTable.bind(this);
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
@@ -139,12 +133,9 @@ export default class TeacherExecution extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
-          this.getFormError(
-            'Kein Quiz ausgewählt oder keine Teilnehmer der Durchführung zugeordnet.'
-          )}
+          this.getFormError('Kein Quiz ausgewählt oder keine Teilnehmer der Durchführung zugeordnet.')}
         <Form onSubmit={this.handleSubmit}>
           <Grid>
             <Grid.Row>
@@ -178,9 +169,7 @@ export default class TeacherExecution extends React.Component {
                 >
                   <Modal.Header content="Quiz auswählen" />
                   <Modal.Content scrolling>
-                    {this.state.loadingQuizzes
-                      ? getLoadingScreen()
-                      : this.getQuizTable(true)}
+                    {this.state.loadingQuizzes ? getLoadingScreen() : this.getQuizTable(true)}
                   </Modal.Content>
                 </Modal>
               </Grid.Column>
@@ -201,18 +190,12 @@ export default class TeacherExecution extends React.Component {
                 >
                   <Modal.Header content="Benutzer hinzufügen" />
                   <Modal.Content scrolling>
-                    {this.state.loadingUser
-                      ? getLoadingScreen()
-                      : this.getParticipantTable(true)}
+                    {this.state.loadingUser ? getLoadingScreen() : this.getParticipantTable(true)}
                   </Modal.Content>
                 </Modal>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row
-              columns="equal"
-              textAlign="center"
-              id="dateTimePickerContainer"
-            >
+            <Grid.Row columns="equal" textAlign="center" id="dateTimePickerContainer">
               <Grid.Column>
                 <Header content="Start Datum mit Uhrzeit eintragen" />
                 <DateTime

@@ -4,12 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {OK} from 'http-status-codes';
 import {Form, Grid} from 'semantic-ui-react';
 
-import {
-  map,
-  messages,
-  modalOptions,
-  numbers
-} from '../../config/hunterUiDefaults';
+import {map, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
 import {
   apiHandler,
   exerciseHandler,
@@ -53,12 +48,8 @@ export default class TeacherQuiz extends React.Component {
     this.getAddExerciseModal = modalHandler.getAddExerciseModal.bind(this);
 
     this.getExerciseTable = exerciseHandler.getExerciseTable.bind(this);
-    this.getSelectedExerciseTable = exerciseHandler.getSelectedExerciseTable.bind(
-      this
-    );
-    this.handleSingleSelection = exerciseHandler.handleSingleSelection.bind(
-      this
-    );
+    this.getSelectedExerciseTable = exerciseHandler.getSelectedExerciseTable.bind(this);
+    this.handleSingleSelection = exerciseHandler.handleSingleSelection.bind(this);
     this.handleBulkSelection = exerciseHandler.handleBulkSelection.bind(this);
     this.updateSelection = exerciseHandler.updateSelection.bind(this);
     this.getQuizMap = mapHandler.getQuizMap.bind(this);
@@ -160,12 +151,9 @@ export default class TeacherQuiz extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.formOK &&
-          this.getFormError(
-            'Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.'
-          )}
+          this.getFormError('Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.')}
         <Form onSubmit={this.handleSubmit}>
           <Grid>
             {!this.state.hideAgreement && this.getAgreement()}

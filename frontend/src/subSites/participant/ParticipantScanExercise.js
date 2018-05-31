@@ -44,15 +44,11 @@ export default class ParticipantScanExercise extends React.Component {
         executionId: jsonData.executionId,
         exerciseId: jsonData.exerciseId
       });
-      setTimeout(
-        () => this.setState({fireRedirect: true}),
-        numbers.timeoutTime
-      );
+      setTimeout(() => this.setState({fireRedirect: true}), numbers.timeoutTime);
     } else {
       this.setState({scanError: true});
       this.setState({
-        displayText:
-          'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+        displayText: 'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
       });
     }
   };
@@ -75,24 +71,14 @@ export default class ParticipantScanExercise extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal &&
-          modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
         {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (
-          <QrReader
-            delay={this.state.delay}
-            onError={this.handleError}
-            onScan={this.handleScan}
-          />
+          <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan} />
         )}
 
-        <Message
-          icon="camera retro"
-          size="mini"
-          header={this.state.displayText}
-          error={this.state.scanError}
-        />
+        <Message icon="camera retro" size="mini" header={this.state.displayText} error={this.state.scanError} />
 
         {this.state.fireRedirect && (
           <Redirect

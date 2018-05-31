@@ -10,9 +10,7 @@ export default {
       <div>
         {window.localStorage.removeItem('HUNTeR-Redirect')}
         {window.localStorage.removeItem('HUNTeR-Token')}
-        {this.isTokenExpired()
-          ? modalHandler.getTokenExpiration()
-          : modalHandler.getLogoutSuccess()}
+        {this.isTokenExpired() ? modalHandler.getTokenExpiration() : modalHandler.getLogoutSuccess()}
         {setTimeout(() => {
           window.location.replace(pathConfig.mainURL);
         }, numbers.timeoutTime)}
@@ -21,9 +19,7 @@ export default {
   },
 
   isTokenExpired() {
-    let tokenExpirationDate = window.localStorage.getItem(
-      'HUNTeR-Token-Expiration'
-    );
+    let tokenExpirationDate = window.localStorage.getItem('HUNTeR-Token-Expiration');
     return tokenExpirationDate - new Date().getTime() < 0;
   }
 };

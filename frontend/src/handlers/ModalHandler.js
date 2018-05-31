@@ -35,11 +35,7 @@ export default {
 
   getCreationSuccess(successMessage) {
     return (
-      <Modal
-        dimmer={modalOptions.dimmer}
-        open={successMessage.showModal}
-        size={modalOptions.size}
-      >
+      <Modal dimmer={modalOptions.dimmer} open={successMessage.showModal} size={modalOptions.size}>
         <Header icon="check" content={successMessage.title} />
         <Modal.Content content={successMessage.content} />
       </Modal>
@@ -48,8 +44,7 @@ export default {
 
   getScanSuccess() {
     const message =
-      'Der QR-Code wurde erfolgreich eingescannt. ' +
-      'Sie werden nun auf eine andere Seite weitergeleitet';
+      'Der QR-Code wurde erfolgreich eingescannt. ' + 'Sie werden nun auf eine andere Seite weitergeleitet';
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt" />
@@ -60,13 +55,7 @@ export default {
 
   getAgreement() {
     return (
-      <Modal
-        dimmer={modalOptions.dimmer}
-        open
-        size={modalOptions.size}
-        closeOnEscape
-        closeOnRootNodeClick={false}
-      >
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size} closeOnEscape closeOnRootNodeClick={false}>
         <Modal.Header content="Berechtigungen einfordern" />
         <Modal.Content content="Wir würden gerne deine aktuelle Position bestimmen. Bitte bestätige darum das kommende Popup mit erlauben" />
         <Modal.Actions>
@@ -88,12 +77,7 @@ export default {
 
   getSettingChanging() {
     return (
-      <Modal
-        dimmer={modalOptions.dimmer}
-        open
-        size={modalOptions.size}
-        closeIcon
-      >
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size} closeIcon>
         <Header icon="key" content="Daten ändern?" />
         <Modal.Content>Daten wirklich ändern</Modal.Content>
         <Modal.Actions>
@@ -184,11 +168,7 @@ export default {
         closeIcon
       >
         <Modal.Header content="Aufgaben hinzufügen" />
-        <Modal.Content scrolling>
-          {this.state.loading
-            ? getLoadingScreen()
-            : this.getExerciseTable(true)}
-        </Modal.Content>
+        <Modal.Content scrolling>{this.state.loading ? getLoadingScreen() : this.getExerciseTable(true)}</Modal.Content>
       </Modal>
     );
   }

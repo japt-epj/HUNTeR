@@ -55,9 +55,7 @@ export default class LeaderBoard extends React.Component {
     if (this.state.teacher) {
       leaderBoard = leaderBoard.concat(scoreList);
     } else if (!leaderBoard.some(element => element[1].me)) {
-      leaderBoard = leaderBoard.concat(
-        scoreList.filter(element => element[1].me)
-      );
+      leaderBoard = leaderBoard.concat(scoreList.filter(element => element[1].me));
     }
     return leaderBoard;
   };
@@ -77,9 +75,7 @@ export default class LeaderBoard extends React.Component {
   };
 
   sortLeaderBoard = scoreData => {
-    return Object.entries(scoreData).sort(
-      (a, b) => a[1].userScore - b[1].userScore || a[1].me
-    );
+    return Object.entries(scoreData).sort((a, b) => a[1].userScore - b[1].userScore || a[1].me);
   };
 
   getScore = rankingValue => {
@@ -114,11 +110,7 @@ export default class LeaderBoard extends React.Component {
               {this.state.leaderBoard.map((element, index) => (
                 <Card
                   key={'scoreCard' + element[1].userName}
-                  color={
-                    element[1].me && !this.state.teacher
-                      ? colors.mainColor
-                      : null
-                  }
+                  color={element[1].me && !this.state.teacher ? colors.mainColor : null}
                   fluid={index >= numbers.maxTrophyValue}
                 >
                   <Card.Content>
@@ -127,25 +119,13 @@ export default class LeaderBoard extends React.Component {
                         <Menu.Item content={'Rang: ' + element.ranking} />
                         {element.ranking <= numbers.maxTrophyValue && (
                           <Menu.Item>
-                            <Icon
-                              name="trophy"
-                              className={
-                                this.state.trophyColors.get(element.ranking) +
-                                'Trophy'
-                              }
-                            />
+                            <Icon name="trophy" className={this.state.trophyColors.get(element.ranking) + 'Trophy'} />
                           </Menu.Item>
                         )}
-                        <Menu.Item
-                          position="right"
-                          content={this.getScore(element[1].userScore)}
-                        />
+                        <Menu.Item position="right" content={this.getScore(element[1].userScore)} />
                       </Menu>
                     </Card.Header>
-                    <Card.Description
-                      className="userScoreName"
-                      content={element[1].userName}
-                    />
+                    <Card.Description className="userScoreName" content={element[1].userName} />
                   </Card.Content>
                 </Card>
               ))}

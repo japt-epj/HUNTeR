@@ -47,11 +47,7 @@ export default class ShowExerciseModal extends React.Component {
         <Modal.Header content={this.state.title} />
         <Modal.Content content={this.state.question} />
         <Modal.Actions>
-          <Button
-            icon="check"
-            content={modalOptions.thankYou}
-            onClick={this.close}
-          />
+          <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />
         </Modal.Actions>
       </Modal>
     );
