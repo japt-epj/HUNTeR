@@ -2,17 +2,18 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Form, Grid} from 'semantic-ui-react';
+
+import {modalOptions} from '../config/uiDefaults';
 import FormHandler from '../handlers/FormHandler';
 import APIHandler from '../handlers/APIHandler';
 import ModalHandler from '../handlers/ModalHandler';
 import TableHandler from '../handlers/TableHandler';
-import defaultModalOptions from '../config/defaultModalOptions';
 
 export default class UserSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultModalOptions.settings,
+      successMessage: modalOptions.settings,
       showModal: false,
       loading: true,
       fireRedirect: false,

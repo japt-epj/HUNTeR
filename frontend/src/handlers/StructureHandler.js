@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import {Button, Grid, Header, Image, Menu, Sidebar} from 'semantic-ui-react';
 
-import defaultColors from '../config/defaultColors';
+import {colors} from '../config/uiDefaults';
 import Logo from '../images/icons/e.png';
 
 export default {
@@ -35,13 +35,13 @@ export default {
         <Grid.Column textAlign="center" className="headerElement">
           <Header
             size="medium"
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             content="HUNTeR"
           />
         </Grid.Column>
         <Grid.Column textAlign="right">
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             icon={this.state.iconName}
             onClick={this.toggleVisibility}
           />
@@ -63,7 +63,7 @@ export default {
         <Grid.Column textAlign="right" className="headerElement">
           <Header
             size="medium"
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             content="Login Seite"
           />
         </Grid.Column>

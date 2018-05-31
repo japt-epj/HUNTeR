@@ -8,13 +8,13 @@ import FormHandler from '../../handlers/FormHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultModalOptions from '../../config/defaultModalOptions';
+import {modalOptions} from '../../config/uiDefaults';
 
 export default class ParticipantExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultModalOptions.response,
+      successMessage: modalOptions.response,
       executionId: Boolean(this.props.location.state)
         ? this.props.location.state.executionId
         : '',

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {Button, Modal} from 'semantic-ui-react';
-import defaultColors from '../config/defaultColors';
+
+import {colors, modalOptions} from '../config/uiDefaults';
 import TeacherExercise from '../subSites/teacher/TeacherExercise';
-import defaultModalOptions from '../config/defaultModalOptions';
 
 export default class ShowExerciseEditModal extends React.Component {
   constructor(props) {
@@ -21,17 +21,13 @@ export default class ShowExerciseEditModal extends React.Component {
   render() {
     return (
       <Modal
-        dimmer={defaultModalOptions.dimmer}
+        dimmer={modalOptions.dimmer}
         open={this.state.open}
         onOpen={this.open}
         onClose={this.close}
         size="small"
         trigger={
-          <Button
-            color={defaultColors.buttonColors.normal}
-            icon="pencil"
-            basic
-          />
+          <Button color={colors.buttonColors.normal} icon="pencil" basic />
         }
       >
         <Modal.Header />
@@ -44,7 +40,7 @@ export default class ShowExerciseEditModal extends React.Component {
         <Modal.Actions>
           <Button
             icon="check"
-            content={defaultModalOptions.thankYou}
+            content={modalOptions.thankYou}
             onClick={this.close}
           />
         </Modal.Actions>

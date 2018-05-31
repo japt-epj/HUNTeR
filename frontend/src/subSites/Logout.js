@@ -1,8 +1,8 @@
 import React from 'react';
 
+import {numbers} from '../config/uiDefaults';
 import ModalHandler from '../handlers/ModalHandler';
 import pathConfig from '../config/pathConfig';
-import defaultNumbers from '../config/defaultNumbers';
 
 export default {
   logout() {
@@ -15,7 +15,7 @@ export default {
           : ModalHandler.getLogoutSuccess()}
         {setTimeout(() => {
           window.location.replace(pathConfig.mainURL);
-        }, defaultNumbers.timeoutTime)}
+        }, numbers.timeoutTime)}
       </div>
     );
   },

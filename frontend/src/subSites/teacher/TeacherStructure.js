@@ -15,19 +15,19 @@ import TeacherExecution from './TeacherExecution';
 import TeacherExecutionOverview from './TeacherExecutionOverview';
 import TeacherNavigation from './TeacherNavigation';
 
+import {messages} from '../../config/uiDefaults';
 import Logout from '../Logout';
 import DefaultPaths from '../../config/DefaultPaths';
 import StructureHandler from '../../handlers/StructureHandler';
 import NotFound from '../NotFound';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultMessages from '../../config/defaultMessages';
 import LeaderBoard from '../../components/LeaderBoard';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hideMobileError: defaultMessages.hideMobileError(),
+      hideMobileError: messages.hideMobileError(),
       visible: false,
       iconName: 'bars'
     };

@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
-import defaultMap from '../config/defaultMap';
+
+import {map} from '../config/uiDefaults';
 
 export default {
   addPosition(element) {
@@ -22,11 +23,11 @@ export default {
   },
 
   getQuizMap() {
-    const pointer = defaultMap.icons.pointer.icon;
+    const pointer = map.icons.pointer.icon;
 
     return (
       <LeafletMap
-        center={this.state.map.location || defaultMap.baseLocation}
+        center={this.state.map.location || map.baseLocation}
         onClick={this.handleClick}
         onLocationFound={this.handleLocation}
         zoom={this.state.map.zoom}
@@ -39,8 +40,8 @@ export default {
             {Boolean(this.state.map.popupText) && (
               <Tooltip
                 direction="left"
-                offset={defaultMap.icons.pointer.offset}
-                opacity={defaultMap.icons.opacity}
+                offset={map.icons.pointer.offset}
+                opacity={map.icons.opacity}
                 permanent
               >
                 <span>{this.state.map.popupText}</span>
@@ -53,8 +54,8 @@ export default {
   },
 
   getParticipantMap() {
-    const pointer = defaultMap.icons.pointer.icon;
-    const protagonist = defaultMap.icons.protagonist.icon;
+    const pointer = map.icons.pointer.icon;
+    const protagonist = map.icons.protagonist.icon;
 
     return (
       <LeafletMap
@@ -78,10 +79,10 @@ export default {
               direction="left"
               offset={
                 element === 'currentPosition'
-                  ? defaultMap.icons.protagonist.offset
-                  : defaultMap.icons.pointer.offset
+                  ? map.icons.protagonist.offset
+                  : map.icons.pointer.offset
               }
-              opacity={defaultMap.icons.opacity}
+              opacity={map.icons.opacity}
               permanent
             >
               <span>{element}</span>

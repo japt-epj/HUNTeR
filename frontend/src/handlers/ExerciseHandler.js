@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import defaultColors from '../config/defaultColors';
+import {colors} from '../config/uiDefaults';
 import ShowExerciseModal from '../components/ShowExerciseModal';
 import TableHandler from './TableHandler';
 import APIHandler from './APIHandler';
@@ -101,12 +101,12 @@ export default {
               <Table.Cell content={element.name} />
               <Table.Cell collapsing>
                 {Boolean(this.state.selectedPositions.get(element.id)) && (
-                  <Icon color={defaultColors.mainColor} name="check" />
+                  <Icon color={colors.mainColor} name="check" />
                 )}
               </Table.Cell>
               <Table.Cell collapsing>
                 <Button
-                  color={defaultColors.buttonColors.normal}
+                  color={colors.buttonColors.normal}
                   basic
                   icon="point"
                   onClick={event => {

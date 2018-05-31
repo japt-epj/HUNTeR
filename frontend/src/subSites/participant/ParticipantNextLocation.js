@@ -3,19 +3,16 @@ import React from 'react';
 import {Button, Grid} from 'semantic-ui-react';
 import L from 'leaflet';
 
+import {colors, map, messages, numbers} from '../../config/uiDefaults';
 import APIHandler from '../../handlers/APIHandler';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultColors from '../../config/defaultColors';
 import MapHandler from '../../handlers/MapHandler';
-import defaultMessages from '../../config/defaultMessages';
-import defaultNumbers from '../../config/defaultNumbers';
-import defaultMap from '../../config/defaultMap';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hideAgreement: defaultMessages.hideAgreement(),
+      hideAgreement: messages.hideAgreement(),
       executionId: Boolean(this.props.location.state)
         ? this.props.location.state.executionId
         : '',
@@ -26,7 +23,7 @@ export default class ParticipantNextLocation extends React.Component {
       loading: true,
       map: {
         location: undefined,
-        zoom: defaultNumbers.zoomSize
+        zoom: numbers.zoomSize
       }
     };
 
@@ -94,7 +91,7 @@ export default class ParticipantNextLocation extends React.Component {
     const boundLocations =
       Array.from(this.state.selectedPositions.values()).length !== 0
         ? Array.from(this.state.selectedPositions.values())
-        : [defaultMap.baseLocation];
+        : [map.baseLocation];
 
     return L.latLngBounds(boundLocations);
   };
@@ -106,7 +103,7 @@ export default class ParticipantNextLocation extends React.Component {
         <Grid.Row id="mapContainer">{this.getParticipantMap()}</Grid.Row>
         <Grid.Row centered>
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             content={'Standort aktualisieren'}
             icon="marker"
             onClick={this.locate}
