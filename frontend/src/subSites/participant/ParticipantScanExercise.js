@@ -2,24 +2,22 @@ import React from 'react';
 import {Redirect} from 'react-router';
 
 import {Message} from 'semantic-ui-react';
-
 import QrReader from 'react-qr-reader';
+
+import {numbers, messages, modalOptions} from '../../config/uiDefaults';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultModalOptions from '../../config/defaultModalOptions';
-import defaultNumbers from '../../config/defaultNumbers';
-import defaultMessages from '../../config/defaultMessages';
 
 export default class ParticipantScanExercise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      delay: defaultNumbers.scanDelayValue,
+      delay: numbers.scanDelayValue,
       result: '',
       displayText: 'Scanne QR-Code ein.',
       exerciseId: '',
       scanError: false,
-      hideAgreement: defaultMessages.hideAgreement(),
-      successMessage: defaultModalOptions.scan,
+      hideAgreement: messages.hideAgreement(),
+      successMessage: modalOptions.scan,
       fireRedirect: false,
       locationPermission: undefined,
       position: {
@@ -48,7 +46,7 @@ export default class ParticipantScanExercise extends React.Component {
       });
       setTimeout(
         () => this.setState({fireRedirect: true}),
-        defaultNumbers.timeoutTime
+        numbers.timeoutTime
       );
     } else {
       this.setState({scanError: true});

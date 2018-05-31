@@ -3,10 +3,10 @@ import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
 
+import {colors} from '../../config/uiDefaults';
 import ExecutionHandler from '../../handlers/ExecutionHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import defaultColors from '../../config/defaultColors';
 
 export default class TeacherExecutionOverview extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ export default class TeacherExecutionOverview extends React.Component {
         {this.state.loading ? getLoadingScreen() : this.getExecutionTable()}
         <NavLink to="/execution">
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Neue Durchführung erstellen"

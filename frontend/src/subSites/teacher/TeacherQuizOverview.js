@@ -4,11 +4,10 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import defaultColors from '../../config/defaultColors';
+import {colors, numbers} from '../../config/uiDefaults';
 import QuizHandler from '../../handlers/QuizHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherQuizOverview extends React.Component {
   constructor(props) {
@@ -17,7 +16,7 @@ export default class TeacherQuizOverview extends React.Component {
       checkBox: '',
       quizzes: [],
       loadingQuiz: true,
-      pageNumber: defaultNumbers.pageNumber,
+      pageNumber: numbers.pageNumber,
       minPage: 1,
       maxPageQuizzes: ''
     };
@@ -56,7 +55,7 @@ export default class TeacherQuizOverview extends React.Component {
         {this.state.loadingQuiz ? getLoadingScreen() : this.getQuizTable(false)}
         <NavLink to="/quiz">
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Neues Quiz erstellen"

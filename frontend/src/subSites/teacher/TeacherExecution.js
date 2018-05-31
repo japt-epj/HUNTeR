@@ -8,7 +8,7 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 import {OK} from 'http-status-codes';
 
-import defaultColors from '../../config/defaultColors';
+import {colors, modalOptions, numbers} from '../../config/uiDefaults';
 import APIHandler from '../../handlers/APIHandler';
 import ParticipantHandler from '../../handlers/ParticipantHandler';
 import QuizHandler from '../../handlers/QuizHandler';
@@ -16,14 +16,12 @@ import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
 import TableHandler from '../../handlers/TableHandler';
-import defaultModalOptions from '../../config/defaultModalOptions';
-import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherExecution extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultModalOptions.execution,
+      successMessage: modalOptions.execution,
       formOK: true,
       name: '',
       participants: [],
@@ -33,7 +31,7 @@ export default class TeacherExecution extends React.Component {
       selectedParticipants: [],
       loadingParticipants: true,
       loadingQuizzes: true,
-      pageNumber: defaultNumbers.pageNumber,
+      pageNumber: numbers.pageNumber,
       minPage: 1,
       maxPageQuizzes: '',
       maxPageParticipants: '',
@@ -163,11 +161,11 @@ export default class TeacherExecution extends React.Component {
             <Grid.Row columns="equal">
               <Grid.Column>
                 <Modal
-                  dimmer={defaultModalOptions.dimmer}
-                  size={defaultModalOptions.size}
+                  dimmer={modalOptions.dimmer}
+                  size={modalOptions.size}
                   trigger={
                     <Button
-                      color={defaultColors.buttonColors.normal}
+                      color={colors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Quiz für die Durchführung auswählen"
@@ -186,11 +184,11 @@ export default class TeacherExecution extends React.Component {
               </Grid.Column>
               <Grid.Column>
                 <Modal
-                  dimmer={defaultModalOptions.dimmer}
+                  dimmer={modalOptions.dimmer}
                   size="fullscreen"
                   trigger={
                     <Button
-                      color={defaultColors.buttonColors.normal}
+                      color={colors.buttonColors.normal}
                       icon="add square"
                       labelPosition="right"
                       label="Benutzer zur Durchführung hinzufügen"

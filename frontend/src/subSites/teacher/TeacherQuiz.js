@@ -4,23 +4,20 @@ import {Redirect} from 'react-router';
 import {Form, Grid} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
+import {map, messages, modalOptions, numbers} from '../../config/uiDefaults';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import FormHandler from '../../handlers/FormHandler';
 import ModalHandler from '../../handlers/ModalHandler';
 import TableHandler from '../../handlers/TableHandler';
 import MapHandler from '../../handlers/MapHandler';
-import defaultModalOptions from '../../config/defaultModalOptions';
-import defaultNumbers from '../../config/defaultNumbers';
-import defaultMap from '../../config/defaultMap';
-import defaultMessages from '../../config/defaultMessages';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      successMessage: defaultModalOptions.quiz,
-      hideAgreement: defaultMessages.hideAgreement(),
+      successMessage: modalOptions.quiz,
+      hideAgreement: messages.hideAgreement(),
       formOK: true,
       name: '',
       exercises: [],
@@ -28,15 +25,15 @@ export default class TeacherQuiz extends React.Component {
       bulkCheckboxes: [],
       selectedExercises: [],
       loading: true,
-      pageNumber: defaultNumbers.pageNumber,
-      pageNumberSelectedExercises: defaultNumbers.pageNumber,
+      pageNumber: numbers.pageNumber,
+      pageNumberSelectedExercises: numbers.pageNumber,
       minPage: 1,
       maxPage: '',
       fireRedirect: false,
       selectedPositions: new Map(),
       map: {
         location: undefined,
-        zoom: defaultNumbers.zoomSize,
+        zoom: numbers.zoomSize,
         clicked: false,
         currentExercise: undefined,
         popupText: undefined
@@ -44,8 +41,8 @@ export default class TeacherQuiz extends React.Component {
     };
 
     this.addPosition = MapHandler.addPosition.bind(this);
-    this.defaultPageNumber = defaultNumbers.pageNumber;
-    this.exerciseLimitPerPage = defaultNumbers.exerciseLimitPerPage;
+    this.defaultPageNumber = numbers.pageNumber;
+    this.exerciseLimitPerPage = numbers.exerciseLimitPerPage;
     this.getAddExerciseModal = ModalHandler.getAddExerciseModal.bind(this);
 
     this.getExerciseTable = ExerciseHandler.getExerciseTable.bind(this);
@@ -91,7 +88,7 @@ export default class TeacherQuiz extends React.Component {
 
   resetPageNumber = event => {
     event.preventDefault();
-    const defaultPageNumber = defaultNumbers.pageNumber;
+    const defaultPageNumber = numbers.pageNumber;
     this.getExercises(defaultPageNumber);
     this.setState({pageNumber: defaultPageNumber});
   };
@@ -177,7 +174,7 @@ export default class TeacherQuiz extends React.Component {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row columns="equal" id="mapContainer">
-              <Grid.Column width={defaultMap.quizWidth}>
+              <Grid.Column width={map.quizWidth}>
                 <Grid>
                   <Grid.Row>
                     <Grid.Column>{this.getAddExerciseModal()}</Grid.Column>

@@ -4,11 +4,10 @@ import {NavLink} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
-import defaultColors from '../../config/defaultColors';
+import {colors, numbers} from '../../config/uiDefaults';
 import ExerciseHandler from '../../handlers/ExerciseHandler';
 import APIHandler from '../../handlers/APIHandler';
 import getLoadingScreen from '../../components/getLoadingScreen';
-import defaultNumbers from '../../config/defaultNumbers';
 
 export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ export default class TeacherExerciseOverview extends React.Component {
     this.state = {
       exercises: [],
       loading: true,
-      pageNumber: defaultNumbers.pageNumber,
+      pageNumber: numbers.pageNumber,
       minPage: 1,
       maxPage: ''
     };
@@ -53,7 +52,7 @@ export default class TeacherExerciseOverview extends React.Component {
         {this.state.loading ? getLoadingScreen() : this.getExerciseTable(false)}
         <NavLink to="/exercise">
           <Button
-            color={defaultColors.buttonColors.normal}
+            color={colors.buttonColors.normal}
             icon="add square"
             labelPosition="right"
             label="Neue Aufgabe erstellen"

@@ -1,21 +1,20 @@
 import React from 'react';
 
 import {Message} from 'semantic-ui-react';
-
 import QrReader from 'react-qr-reader';
+
+import {messages, numbers} from '../../config/uiDefaults';
 import ModalHandler from '../../handlers/ModalHandler';
-import defaultNumbers from '../../config/defaultNumbers';
-import defaultMessages from '../../config/defaultMessages';
 
 export default class TeacherNavigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      delay: defaultNumbers.scanDelayValue,
+      delay: numbers.scanDelayValue,
       result: '',
       displayText: 'Scanne QR-Code für die Navigation ein.',
       scanError: false,
-      hideAgreement: defaultMessages.hideAgreement(),
+      hideAgreement: messages.hideAgreement(),
       showSuccess: false,
       fireRedirect: false,
       locationPermission: undefined,
@@ -49,7 +48,7 @@ export default class TeacherNavigation extends React.Component {
       });
       setTimeout(
         () => this.setState({fireRedirect: true, showSuccess: false}),
-        defaultNumbers.timeoutTime
+        numbers.timeoutTime
       );
     } else {
       this.setState({

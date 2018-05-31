@@ -1,6 +1,7 @@
 import {OK} from 'http-status-codes';
+
+import {numbers} from '../config/uiDefaults';
 import DataHandler from './DataHandler';
-import defaultNumbers from '../config/defaultNumbers';
 
 export default {
   handleChange(event, target) {
@@ -19,7 +20,7 @@ export default {
   },
 
   handleExerciseSubmit() {
-    if (this.state.answerId >= defaultNumbers.minAnswerId) {
+    if (this.state.answerId >= numbers.minAnswerId) {
       if (window.localStorage.getItem('HUNTeR-Redirect') === '/teacher') {
         this.postData(DataHandler.prepareTeacherData(this.state), 'exercise');
       } else if (
@@ -110,7 +111,7 @@ export default {
             );
             this.setState({fireRedirect: true});
           });
-        }, defaultNumbers.timeoutTime);
+        }, numbers.timeoutTime);
       } else {
         this.setState({showLoginError: true});
       }
