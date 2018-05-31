@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {numbers} from '../../config/hunterUiDefaults';
 import pathConfig from '../../config/pathConfig';
-import getAxiosHeader from '../getAxiosHeader';
+import getAxiosHeader from './getAxiosHeader';
 
 export default {
   putData(data, path) {

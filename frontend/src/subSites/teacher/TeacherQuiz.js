@@ -5,8 +5,9 @@ import {OK} from 'http-status-codes';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {map, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/apiHandler';
-import {exerciseHandler, formHandler, mapHandler, modalHandler, tableHandler} from '../../handlers/hunterHandlers';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {formHandler} from '../../handlers/hunterDataHandlers';
+import {exerciseHandler, mapHandler, modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
@@ -52,7 +53,6 @@ export default class TeacherQuiz extends React.Component {
     this.handleSubmit = formHandler.handleQuizSumbit.bind(this);
     this.handleChange = formHandler.handleChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
-    this.getJSONHeader = apiGetHandler.getJSONHeader;
     this.getAgreement = modalHandler.getAgreement.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
 

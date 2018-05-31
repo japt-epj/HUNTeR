@@ -1,7 +1,7 @@
 import {OK} from 'http-status-codes';
 
-import {numbers} from '../config/hunterUiDefaults';
-import {dataHandler} from '../handlers/hunterHandlers';
+import {numbers} from '../../config/hunterUiDefaults';
+import {dataHandler} from '../hunterDataHandlers';
 
 export default {
   handleChange(event, target) {
