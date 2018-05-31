@@ -8,4 +8,5 @@ export {default as paginationHandler} from './PaginationHandler';
 export {default as participantHandler} from './ParticipantHandler';
 export {default as quizHandler} from './QuizHandler';
 export {default as structureHandler} from './StructureHandler';
+export {default as scoreHandler} from './ScoreHandler';
 export {default as tableHandler} from './TableHandler';
