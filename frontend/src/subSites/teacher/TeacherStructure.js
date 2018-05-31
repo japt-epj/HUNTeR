@@ -5,22 +5,22 @@ import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
 import getHome from '../../components/getHome';
-import UserSettings from '../../components/UserSettings';
+import NotFound from '../NotFound';
+import LeaderBoard from '../../components/LeaderBoard';
+import Logout from '../Logout';
+import TeacherExecution from './TeacherExecution';
+import TeacherExecutionOverview from './TeacherExecutionOverview';
 import TeacherExercise from './TeacherExercise';
 import TeacherExerciseOverview from './TeacherExerciseOverview';
+import TeacherNavigation from './TeacherNavigation';
 import TeacherNewParticipant from './TeacherNewParticipant';
 import TeacherQuiz from './TeacherQuiz';
 import TeacherQuizOverview from './TeacherQuizOverview';
-import TeacherExecution from './TeacherExecution';
-import TeacherExecutionOverview from './TeacherExecutionOverview';
-import TeacherNavigation from './TeacherNavigation';
+import UserSettings from '../../components/UserSettings';
 
 import {messages} from '../../config/hunterUiDefaults';
 import {modalHandler, structureHandler} from '../../handlers/hunterHandlers';
-import Logout from '../Logout';
 import DefaultPaths from '../../config/DefaultPaths';
-import NotFound from '../NotFound';
-import LeaderBoard from '../../components/LeaderBoard';
 
 export default class TeacherStructure extends React.Component {
   constructor(props) {

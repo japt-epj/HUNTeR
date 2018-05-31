@@ -1,12 +1,12 @@
 import React from 'react';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
-import {Button, Form, Grid, Header, Modal} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 import DateTime from 'react-datetime';
+import {Button, Form, Grid, Header, Modal} from 'semantic-ui-react';
 import moment from 'moment';
 import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
-import {OK} from 'http-status-codes';
 
 import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
 import {

@@ -1,6 +1,6 @@
 import React from 'react';
-import {OK} from 'http-status-codes';
 
+import {OK} from 'http-status-codes';
 import {Card, Dropdown, Grid, Icon, Menu} from 'semantic-ui-react';
 
 import {colors, numbers} from '../config/hunterUiDefaults';

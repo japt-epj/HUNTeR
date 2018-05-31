@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
+import {Button} from 'semantic-ui-react';
 
 import {colors, numbers} from '../../config/hunterUiDefaults';
 import {apiHandler, exerciseHandler} from '../../handlers/hunterHandlers';

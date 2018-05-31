@@ -5,16 +5,16 @@ import {Grid, Segment, Sidebar} from 'semantic-ui-react';
 import '../../style/index.css';
 
 import getHome from '../../components/getHome';
-import UserSettings from '../../components/UserSettings';
-import ParticipantScanExercise from './ParticipantScanExercise';
 import LeaderBoard from '../../components/LeaderBoard';
-import ParticipantExercise from './ParticipantExercise';
-
 import Logout from '../Logout';
+import NotFound from '../NotFound';
+import ParticipantExercise from './ParticipantExercise';
+import ParticipantNextLocation from './ParticipantNextLocation';
+import ParticipantScanExercise from './ParticipantScanExercise';
+import UserSettings from '../../components/UserSettings';
+
 import {structureHandler} from '../../handlers/hunterHandlers';
 import DefaultPaths from '../../config/DefaultPaths';
-import NotFound from '../NotFound';
-import ParticipantNextLocation from './ParticipantNextLocation';
 
 export default class ParticipantStructure extends React.Component {
   constructor(props) {
