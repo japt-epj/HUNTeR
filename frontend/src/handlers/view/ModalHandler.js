@@ -170,5 +170,26 @@ export default {
         <Modal.Content scrolling>{this.state.loading ? getLoadingScreen() : this.getExerciseTable(true)}</Modal.Content>
       </Modal>
     );
+  },
+
+  getViewModal() {
+    return (
+      <Modal
+        dimmer={modalOptions.dimmer}
+        open={this.state.open}
+        onOpen={this.open}
+        onClose={this.close}
+        size="small"
+        trigger={<Button color={colors.buttonColors.show} icon="eye" basic />}
+      >
+        <Modal.Header content={this.state.title} />
+        <Modal.Content>
+          <Header content={this.state.question} subheader={'- ' + this.state.solution} />
+        </Modal.Content>
+        <Modal.Actions>
+          <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />
+        </Modal.Actions>
+      </Modal>
+    );
   }
 };

@@ -14,6 +14,14 @@ export default {
       .catch(err => console.warn(err));
   },
 
+  getExerciseTeacherArray(exerciseIDs) {
+    return axios
+      .get(pathConfig.apiURL + 'exercise/teacher/' + exerciseIDs, {
+        headers: getAxiosHeader('application/json')
+      })
+      .catch(err => console.warn(err));
+  },
+
   downloadExecutionQRCodePDF(executionID) {
     return axios
       .get(pathConfig.apiURL + 'execution/' + executionID + '/print', {
