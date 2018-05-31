@@ -30,14 +30,14 @@ export default {
       return;
     }
 
-    if (Boolean(routes[window.localStorage.getItem('HUNTeR-Redirect')])) {
+    if (!Boolean(routes[window.localStorage.getItem('HUNTeR-Redirect')])) {
       console.error(
         'No correct HUNTeR-Redirect in window.localStorage: ' + window.localStorage.getItem('HUNTeR-Redirect')
       );
       return;
     }
 
-    routes[window.localstorage.getItem('HUNTeR-Redirect')]();
+    routes[window.localStorage.getItem('HUNTeR-Redirect')]();
   },
 
   handleQuizSumbit() {

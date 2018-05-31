@@ -80,11 +80,12 @@ export default class ParticipantNextLocation extends React.Component {
   };
 
   bounds = () => {
+    console.log(JSON.stringify(Array.from(this.state.selectedPositions.values())));
     const boundLocations =
       Array.from(this.state.selectedPositions.values()).length !== 0
         ? Array.from(this.state.selectedPositions.values())
         : [map.baseLocation];
-
+    console.log(JSON.stringify(boundLocations));
     return L.latLngBounds(boundLocations);
   };
 
