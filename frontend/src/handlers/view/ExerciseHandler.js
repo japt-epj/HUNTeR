@@ -151,10 +151,10 @@ export default {
                 )}
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
-                <Table.Cell collapsing>
+                <Table.Cell textAlign="center" collapsing>
                   <ShowExerciseEditModal exerciseId={element.id} />
                 </Table.Cell>
-                <Table.Cell collapsing>
+                <Table.Cell textAlign="center" collapsing>
                   <ShowExerciseModal id={element.id} />
                 </Table.Cell>
               </Table.Row>
