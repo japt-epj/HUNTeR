@@ -39,10 +39,19 @@ public class ExerciseModel {
         .map(exercise -> mapper.map(exercise, ExerciseDto.class));
   }
 
-  // I need to make sure again that these don't return for participants
+  /**
+   * Meant to only be used for serving exercises to participants. This function makes sure that no
+   * answers are ever sent to a client participating in a quiz, to keep them from cheating by using
+   * a debugger.
+   *
+   * @param ids List of exercise ids
+   * @return Details of an exercise, with all answers set to false
+   */
   public List<NewExerciseDto> getExercises(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
-    return mapper.map(this.exercises.findAll(longs), dtoList);
+    List<NewExerciseDto> dtos = mapper.map(this.exercises.findAll(longs), dtoList);
+    dtos.forEach(dto -> dto.getAnswers().forEach(s -> s.setChecked(false)));
+    return dtos;
   }
 
   public List<NewExerciseDto> getExercisesForTeacher(List<Integer> ids) {
