@@ -125,6 +125,8 @@ After allowing the application to use the camera of the mobile device it's runni
 #### Current leaderboard for participants
 The leaderboard shows the top three participants of each quiz. Additionally, the currently logged in participant will be displayed as well, if he did not rank in the top three.
 
+![Participant current leaderboard](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/participant_current_leaderboard.png)
+
 #### User settings
 A logged in user can change his or her first and last name. The option to change ones email address or password is not yet implemented.
 
