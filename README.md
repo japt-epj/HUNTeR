@@ -14,10 +14,14 @@ App for creating and playing a scavenger hunt.
         -   [Create quiz](#create-quiz)
         -   [Quiz overview](#quiz-overview)
         -   [Create execution](#create-execution)
+        -   [Execution overview](#execution-overview)
+        -   [Navigate to next qr code location](#navigate-to-next-qr-code-location)
+        -   [Current leaderboard](#current-leaderboard)
+        -   [Create participant](#create-participant)
     -   [Participant](#participant)
         -   [Next location](#next-location)
         -   [Scan exercise](#scan-exercise)
-        -   [Current leaderboard](#current-leaderboard)
+        -   [Current leaderboard for participants](#current-leaderboard-for-participants)
         -   [User settings](#user-settings)
 -   [Deployment](#deployment)
     -   [Prerequisites](#prerequisites)
@@ -52,7 +56,7 @@ Currently, the entire frontend is in german, and german only. This is due to the
 Internationalization is not one of our prime concerns, due to the nature of the project and the scope we have to keep. However, there is no strict dependency on german as the only language, and we would be more than welcome for pull requests that modularize the UI in terms of the primary display language.
 
 ### Teacher
-The teacher part of the HUNTeR app is designed to be used on e regular computer.
+The teacher part of the HUNTeR app is mostly designed to be used on e regular computer.
 
 A teacher has the following options:
 
@@ -71,6 +75,21 @@ All existing quizzes can be viewed from here.
 There is not currently an option to change to composition of a quiz.
 
 #### Create Execution
+To create an execution, the execution needs to be given a name. Additionally, the teacher has to select a quiz to be used for the execution, add participants and has to provide a start and end time.
+
+The start and end time were intended to restrict participants ability to solve exercises to the provided time frame, but this feature has not yet been implemented.
+
+#### Execution overview
+All existing executions can be viewed from here and the corresponding qr codes can be downloaded.
+
+#### Navigate to next qr code location
+To help place the printed qr codes at their correct location, a teacher can scan the qr code to see the exercises mapped location on a map.
+
+#### Current leaderboard
+Here a teacher can view leaderboards for all executions. All participants names, rank and score (percentage of correctly answered questions) will be shown. 
+
+#### Create participant
+To create a new participant, an email address, a firstname and a lastname have to be provided. The participants password will automatically be set to his firstname.  
 
 ### Participant
 The participant part of the HUNTeR app is designed to be used on a mobile phone with a camera. 
@@ -83,7 +102,7 @@ Shows the next location for each quiz the user is a participant of.
 #### Scan exercise
 After allowing the application to use the camera of the mobile device it's running on, an exercises qr code can be scanned to display the exercises content.
 
-#### Current leaderboard
+#### Current leaderboard for participants
 The leaderboard shows the top three participants of each quiz. Additionally, the currently logged in participant will be displayed as well, if he did not rank in the top three himself.   
 
 #### User settings
