@@ -9,6 +9,9 @@ App for creating and playing a scavenger hunt.
 -   [User Guide](#user-guide)
     -   [A Note on Language](#a-note-on-language)
     -   [Teacher](#teacher)
+        -   [Create exercise](#create-exercise)
+        -   [Exercise overview](#exercise-overview)
+        -   [Create quiz](#create-quiz)
     -   [Participant](#participant)
         -   [Next location](#next-location)
         -   [Scan exercise](#scan-exercise)
@@ -47,8 +50,24 @@ Currently, the entire frontend is in german, and german only. This is due to the
 Internationalization is not one of our prime concerns, due to the nature of the project and the scope we have to keep. However, there is no strict dependency on german as the only language, and we would be more than welcome for pull requests that modularize the UI in terms of the primary display language.
 
 ### Teacher
+The teacher part of the HUNTeR app is designed to be used on e regular computer.
+
+A teacher has the following options:
+
+#### Create exercise
+To create an exercise, a name for the exercise, a question and four possible answers, with one marked as the correct one, need to be provided. At the moment, only multiple choice single answer type questions can be created.
+
+#### Exercise overview
+All existing exercises can be viewed or updated from here.
+
+#### Create quiz
+To create a quiz, the quiz needs to be given a name. Previously created exercise can the be added to the quiz and mapped to a location on the map.
+
+#### Quiz overview
 
 ### Participant
+The participant part of the HUNTeR app is designed to be used on a mobile phone with a camera. 
+
 A participant has the following options:
 
 #### Next location
