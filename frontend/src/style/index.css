@@ -30,6 +30,10 @@ a,
   max-height: calc(100vh - 35px) !important;
   min-height: calc(100vh - 60px) !important; }
 
+.modal > .header {
+  font-size: 1.5rem !important;
+  color: #20c028 !important; }
+
 .ui.card {
   margin: 0.5rem !important; }
   .ui.card > .content {
@@ -39,12 +43,9 @@ a,
     .ui.card > .content > .header > .ui.text.menu {
       margin: -0.5rem 1rem !important; }
 
-.ui.inverted.vertical.labeled.icon.ui.overlay.right.wide.visible.sidebar.menu {
+.ui.inverted.vertical.labeled.icon.overlay.right.thin.visible.sidebar.menu, .ui.inverted.vertical.labeled.icon.overlay.right.thin.animating.sidebar.menu, .ui.inverted.vertical.labeled.icon.overlay.right.wide.visible.sidebar.menu, .ui.inverted.vertical.labeled.icon.overlay.right.wide.animating.sidebar.menu {
   color: white;
-  background: rgba(32, 192, 40, 0.7); }
-.ui.inverted.vertical.labeled.icon.ui.overlay.right.wide.animating.sidebar.menu {
-  color: white;
-  background: rgba(32, 192, 40, 0.7); }
+  background: rgba(32, 192, 40, 0.9); }
 
 .ui.segment {
   border: none !important;

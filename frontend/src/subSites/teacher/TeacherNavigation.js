@@ -50,7 +50,7 @@ export default class TeacherNavigation extends React.Component {
     } else {
       this.setState({
         scanError: true,
-        displayText: 'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+        displayText: 'QR-Code nicht richtig erkannt oder ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
       });
     }
   };

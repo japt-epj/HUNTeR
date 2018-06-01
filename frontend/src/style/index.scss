@@ -9,7 +9,7 @@ $hunterColor: #20c028;
 $hunterErrorColor: #36c22f;
 
 $menuItemHoverTransparency: 0.1;
-$sideMenuTransparency: 0.7;
+$sideMenuTransparency: 0.9;
 $sideMenuItemHoverTransparency: 0.5;
 
 $menuItemHoverPadding: 2rem;
@@ -67,6 +67,11 @@ a,
   min-height: calc(100vh - #{$gridHeader-MaxHeight}) !important;
 }
 
+.modal > .header{
+  font-size: 1.5rem !important;
+  color: $hunterColor !important;
+}
+
 .ui.card {
   margin: 0.5rem !important;
 
@@ -83,14 +88,27 @@ a,
   }
 }
 
-.ui.inverted.vertical.labeled.icon.ui.overlay.right.wide {
-  &.visible.sidebar.menu {
-    color: $sideMenuColor;
-    background: rgba($hunterColor, $sideMenuTransparency);
+%sidebar{
+  color: $sideMenuColor;
+  background: rgba($hunterColor, $sideMenuTransparency);
+}
+
+.ui.inverted.vertical.labeled.icon.ui.overlay.right{
+  &.thin {
+    &.visible.sidebar.menu {
+      @extend %sidebar;
+    }
+    &.animating.sidebar.menu {
+      @extend %sidebar;
+    }
   }
-  &.animating.sidebar.menu {
-    color: $sideMenuColor;
-    background: rgba($hunterColor, $sideMenuTransparency);
+  &.wide {
+    &.visible.sidebar.menu {
+      @extend %sidebar;
+    }
+    &.animating.sidebar.menu {
+      @extend %sidebar;
+    }
   }
 }
 

@@ -12,15 +12,9 @@ describe('Exercise tests', function() {
     const loginCredentials = Credentials.getTeacherCredentials().HSR;
     login(loginCredentials);
 
-    cy
-      .get(
-        '.massive > :nth-child(4) > .menu > [href="/teacher/participantLeaderboard"] > .item'
-      )
-      .click();
+    cy.get('.massive > :nth-child(4) > .menu > [href="/teacher/participantLeaderboard"] > .item').click();
 
-    cy
-      .contains('Andi Hörler')
-      .should('have.class', 'description userScoreName');
+    cy.contains('Andi Hörler').should('have.class', 'description userScoreName');
     cy
       .get(':nth-child(1) > .content')
       .contains('Rang: 1')
@@ -31,9 +25,7 @@ describe('Exercise tests', function() {
       .get('.ui > .search')
       .click()
       .type('2 - {enter}');
-    cy
-      .contains('Jonas Kugler')
-      .should('have.class', 'description userScoreName');
+    cy.contains('Jonas Kugler').should('have.class', 'description userScoreName');
     cy
       .get(':nth-child(1) > .content')
       .contains('Rang: 1')
