@@ -40,7 +40,7 @@ public class LocationModel {
   private static NextExerciseLocationDto createExerciseLocationDto(List<Location> locations) {
     NextExerciseLocationDto dto = new NextExerciseLocationDto();
     if (locations.size() == 0) {
-      return dto;
+      return null;
     }
     Location nextLocationToGo = locations.get(0);
     Exercise nextExerciseToDo = nextLocationToGo.getExercise();
