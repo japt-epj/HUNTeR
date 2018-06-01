@@ -66,7 +66,8 @@ export default {
       selectedPositions: values.selectedPositions
     });
     apiGetHandler
-      .getExerciseArray(
+      .getElementArray(
+        'exercise/',
         values.selectedCheckboxes.slice(
           (this.state.pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage,
           this.state.pageNumberSelectedExercises * this.exerciseLimitPerPage

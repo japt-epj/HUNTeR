@@ -67,6 +67,11 @@ a,
   min-height: calc(100vh - #{$gridHeader-MaxHeight}) !important;
 }
 
+.modal > .header{
+  font-size: 2rem !important;
+  color: $hunterColor !important;
+}
+
 .ui.card {
   margin: 0.5rem !important;
 

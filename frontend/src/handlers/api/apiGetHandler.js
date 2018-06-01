@@ -6,17 +6,9 @@ import pathConfig from '../../config/pathConfig';
 import getAxiosHeader from './getAxiosHeader';
 
 export default {
-  getExerciseArray(exerciseIDs) {
+  getElementArray(path, ids) {
     return axios
-      .get(pathConfig.apiURL + 'exercise/' + exerciseIDs, {
-        headers: getAxiosHeader('application/json')
-      })
-      .catch(err => console.warn(err));
-  },
-
-  getExerciseTeacherArray(exerciseIDs) {
-    return axios
-      .get(pathConfig.apiURL + 'exercise/teacher/' + exerciseIDs, {
+      .get(pathConfig.apiURL + path + ids, {
         headers: getAxiosHeader('application/json')
       })
       .catch(err => console.warn(err));

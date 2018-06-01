@@ -33,7 +33,7 @@ export default class ParticipantExercise extends React.Component {
     if (this.state.exerciseId === '') {
       return;
     }
-    apiGetHandler.getExerciseArray(this.state.exerciseId).then(resData => {
+    apiGetHandler.getElementArray('exercise/', this.state.exerciseId).then(resData => {
       if (resData.status !== OK) {
         return;
       }

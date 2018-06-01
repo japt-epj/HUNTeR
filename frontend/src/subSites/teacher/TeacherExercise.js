@@ -43,7 +43,7 @@ export default class TeacherExercise extends React.Component {
   }
 
   getExercise = exerciseId => {
-    apiGetHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
+    apiGetHandler.getElementArray('exercise/teacher/', exerciseId).then(resData => {
       if (resData.status !== OK) {
         return;
       }
