@@ -62,6 +62,9 @@ public final class LocationPage implements AutoCloseable {
     writeLines(location.getExercise().getQuestion(), TEXT_MARGIN_LINES, TEXT_FONT, TEXT_FONT_SIZE);
   }
 
+  /*
+   * Ignored rule is for magic numbers, but division by two here is obvious.
+   */
   @SuppressWarnings("squid:S109")
   private void writeLines(String text, int marginLines, PDFont font, int fontSize)
       throws IOException {
