@@ -9,7 +9,20 @@ App for creating and playing a scavenger hunt.
 -   [User Guide](#user-guide)
     -   [A Note on Language](#a-note-on-language)
     -   [Teacher](#teacher)
-    -   [Student](#student)
+        -   [Create exercise](#create-exercise)
+        -   [Exercise overview](#exercise-overview)
+        -   [Create quiz](#create-quiz)
+        -   [Quiz overview](#quiz-overview)
+        -   [Create execution](#create-execution)
+        -   [Execution overview](#execution-overview)
+        -   [Navigate to next qr code location](#navigate-to-next-qr-code-location)
+        -   [Current leaderboard](#current-leaderboard)
+        -   [Create participant](#create-participant)
+    -   [Participant](#participant)
+        -   [Next location](#next-location)
+        -   [Scan exercise](#scan-exercise)
+        -   [Current leaderboard for participants](#current-leaderboard-for-participants)
+        -   [User settings](#user-settings)
 -   [Deployment](#deployment)
     -   [Prerequisites](#prerequisites)
     -   [Quick setup](#quick-setup)
@@ -43,8 +56,79 @@ Currently, the entire frontend is in german, and german only. This is due to the
 Internationalization is not one of our prime concerns, due to the nature of the project and the scope we have to keep. However, there is no strict dependency on german as the only language, and we would be more than welcome for pull requests that modularize the UI in terms of the primary display language.
 
 ### Teacher
+The teacher part of the HUNTeR app is mostly designed to be used on e regular computer.
 
-### Student
+The teacher interface is centered around creating exercises, quizzes and executions for planning lessons. An exercise is a question with possible answers. A quiz is a collection of exercises, which are grouped together to be answered in a lesson. Every exercise in a quiz has a location where it needs to be solved, and where a teacher can place a printed out QR code. Quizzes can be solved multiple times by different people, by creating different executions of the same quiz.
+
+#### Create exercise
+To create an exercise, a name for the exercise, a question and four possible answers, with one marked as the correct one, need to be provided. At the moment, only multiple choice, single answer, type questions can be created.
+
+![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_exercise.png)
+
+#### Exercise overview
+All existing exercises can be viewed and updated from here.
+
+![Teacher exercise overview](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_exercise_overview.png)
+
+#### Create quiz
+To create a quiz, the quiz needs to be given a name. Previously created exercise can then be added to the quiz and mapped to a location on the map.
+
+![Teacher create_quiz](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_quiz.png)
+
+#### Quiz overview
+All existing quizzes can be viewed from here. 
+
+There is not currently an option to change the composition of a quiz.
+
+![Teacher quiz overview](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_quiz_overview.png)
+
+#### Create Execution
+To create an execution, the execution needs to be given a name. Additionally, the teacher has to select a quiz to be used for the execution, add participants and has to provide a start and end time.
+
+The start and end time were intended to restrict participants ability to solve exercises to the provided time frame, but this feature has not yet been implemented.
+
+![Teacher create execution](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_execution.png)
+
+#### Execution overview
+All existing executions can be viewed from here and the corresponding qr codes can be downloaded. The available pdfs are intended as printouts, which can be scanned at the location where an exercise is intended to be solved.
+
+![Teacher execution overview](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_execution_overview.png)
+
+#### Navigate to next qr code location
+To help place the printed qr codes at their correct location, a teacher can scan the qr code to navigate to the exercises intended location.
+
+#### Current leaderboard
+Here a teacher can view leaderboards for all executions. All participants names, rank and score (percentage of correctly answered questions) are shown. 
+
+![Teacher current leaderboard](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_current_leaderboard.png)
+
+#### Create participant
+To create a new participant, an email address, a first name and a last name have to be provided. The participants password will automatically be set to his first name.  
+
+![Teacher create participant](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_participant.png)
+
+### Participant
+The participant part of the HUNTeR app is designed to be used on a mobile phone with a camera. 
+
+Participants take part in executions of a quiz. Their goal is to find exercises that they can scan with their phone and then solve. Participants can view a tally of their score for executions that they have participated in.
+
+#### Next location
+Shows the next location for each quiz the user is a participant of. The participant then has to find the location and solve the exercise to receive access to the next open location.
+
+![Participant next location](https://github.com/japt-epj/HUNTeR/raw/master/documentation/participant_next_location.png)
+
+#### Scan exercise
+After allowing the application to use the camera of the mobile device it's running on, an exercises qr code can be scanned to solve the exercise.
+
+![Participant scan exercise](https://github.com/japt-epj/HUNTeR/raw/master/documentation/participant_scan_exercise.png)
+
+#### Current leaderboard for participants
+The leaderboard shows the top three participants of each quiz. Additionally, the currently logged in participant will be displayed as well, if he did not rank in the top three.
+
+![Participant current leaderboard](https://github.com/japt-epj/HUNTeR/raw/master/documentation/participant_current_leaderboard.png)
+
+#### User settings
+A logged in user can change his or her first and last name. The option to change ones email address or password is not yet implemented.
 
 # Deployment
 There is currently no completely public deployment of this application, only our internal testing environment on [the HSR server](https://sinv-56053.edu.hsr.ch/). However, you are free to host your own instance of HUNTeR. The easiest way to do so is using Docker. 
@@ -70,7 +154,7 @@ This is how we host our testing environment of HUNTeR, and can be used as an exa
 
 We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined in the [Jenkinsfile](https://github.com/SBI-/epj-prototype/blob/master/Jenkinsfile). Every push to master triggers a build, unit and integration test cycle. Every successful build is continuously deployed as a completely clean test environment, supplied with test data. This is the deployment we use for integration testing.
 
-![Deployment Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/deployment_diagram.png)
+![Deployment Diagram](https://github.com/japt-epj/HUNTeR/raw/master/documentation/deployment_diagram.png)
 
 ### Example Apache Configuration
 These are the relevant parts of the apache reverse proxy configuration we use on our testing system. It uses [Let's Encrypt](https://letsencrypt.org/) for proper SSL configuration to enable HTTPS for the entire HUNTeR frontend and backend.
@@ -124,8 +208,6 @@ This environment runs the spring backend separately from the react frontend. Bot
 
 Hot reload for react is enabled automatically. To use the spring hot reload feature, you have to configure your IDE accordingly. [This](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html#_running_the_remote_client_application) section of the spring documentation covers how this can be achieved.
 
-TODO: Add explanation for IntelliJ, which is what we use.
-
 ## Technology
 The project is split up into frontend and backend. The frontend is what runs in the browser on a user's client device. The backend is a Java Spring application which runs on the server it is deployed on.
 
@@ -174,7 +256,7 @@ This layer diagram shows the current tiers of the entire application logic. The 
 
 The Presentation and Logic layers communicate using HTTP, using the REST API which is documented [here](https://sinv-56053.edu.hsr.ch/swagger-ui.html). The Data Access Layer and database communicate using JDBC.
 
-![Layer Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/layer_diagram.png)
+![Layer Diagram](https://github.com/japt-epj/HUNTeR/raw/master/documentation/layer_diagram.png)
 
 
 ### Database
@@ -182,7 +264,7 @@ The database design is relational. The complete entity description is written wi
 
 This domain model diagram shows the entire database design.
 
-![Domain Model](https://github.com/SBI-/epj-prototype/raw/master/documentation/domain_model.png)
+![Domain Model](https://github.com/japt-epj/HUNTeR/raw/master/documentation/domain_model.png)
 
 ### Extending functionality
 The technological choices made thus far should make the addition of new features no harder than what has been done so far. Depending on what type of feature is to be added, there are different considerations that have to be made when implementing them. When adding a new feature, you will probably have to consider more than one of the following points.
@@ -231,8 +313,10 @@ A first step towards better distributed scalability is creating a non-monolithic
 
 The frontend consists of static artifacts, which can be hosted on any web server, such as apache or nginx. As the frontend is completely independent of the backend in terms of deployment, it doesn't matter how many servers host the frontend behind an entry reverse proxy. Scaling the frontend is therefor as easy as hosting multiple web servers on multiple machines.
 
-The backend is designed is to be as stateless.
+The backend is designed is to be completely stateless.
 
-POSTGRES presents a certain bottleneck because horizontal scalability is not a speciality of any relational database. However, a powerful database server will be able to scale to very many queries in the current design. Should this ever be a real problem, it will have to be addressed accordingly, and probably require a switch of the database technology, and the database design as such. Should we ever reach this point, we should have enogh resources and money to throw at the problem.
+Postgres presents a certain bottleneck because horizontal scalability is not a speciality of any relational database. However, a powerful database server will be able to scale to very many queries in the current design. Should this ever be a real problem, it will have to be addressed accordingly, and probably require a switch of the database technology, and the database design as such. Should we ever reach this point, we should have enogh resources and money to throw at the problem. However, dependency on Postgres features is kept at an absolute minimum, so switching to another, possibly better performing, relational, database solution is a possibility.
 
-TODO: Add a picture of best scaling out deployment!
+As we already use Docker, it would make sense to scale out also using containerization technologies. A possibility to achieve better horizontal scaling is to use [traefik](https://github.com/containous/traefik) together with [Kubernetes](https://kubernetes.io/) or [Docker Swarm](https://docs.docker.com/engine/swarm/).
+
+![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/hunter_horizontal_scaling.png)
