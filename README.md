@@ -313,8 +313,10 @@ A first step towards better distributed scalability is creating a non-monolithic
 
 The frontend consists of static artifacts, which can be hosted on any web server, such as apache or nginx. As the frontend is completely independent of the backend in terms of deployment, it doesn't matter how many servers host the frontend behind an entry reverse proxy. Scaling the frontend is therefor as easy as hosting multiple web servers on multiple machines.
 
-The backend is designed is to be as stateless.
+The backend is designed is to be completely stateless.
 
-POSTGRES presents a certain bottleneck because horizontal scalability is not a speciality of any relational database. However, a powerful database server will be able to scale to very many queries in the current design. Should this ever be a real problem, it will have to be addressed accordingly, and probably require a switch of the database technology, and the database design as such. Should we ever reach this point, we should have enogh resources and money to throw at the problem.
+Postgres presents a certain bottleneck because horizontal scalability is not a speciality of any relational database. However, a powerful database server will be able to scale to very many queries in the current design. Should this ever be a real problem, it will have to be addressed accordingly, and probably require a switch of the database technology, and the database design as such. Should we ever reach this point, we should have enogh resources and money to throw at the problem. However, dependency on Postgres features is kept at an absolute minimum, so switching to another, possibly better performing, relational, database solution is a possibility.
 
-TODO: Add a picture of best scaling out deployment!
+As we already use Docker, it would make sense to scale out also using containerization technologies. A possibility to achieve better horizontal scaling is to use [traefik](https://github.com/containous/traefik) together with [Kubernetes](https://kubernetes.io/) or [Docker Swarm](https://docs.docker.com/engine/swarm/).
+
+![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/hunter_horizontal_scaling.png)
