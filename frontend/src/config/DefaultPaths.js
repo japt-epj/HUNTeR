@@ -42,7 +42,7 @@ export default class DefaultPaths {
         icon: this.infoIcon,
         subPaths: [
           {
-            path: 'participantLeaderBoard',
+            path: 'leaderBoard',
             name: 'Aktuelles Leaderboard',
             icon: 'browser'
           },
@@ -69,7 +69,7 @@ export default class DefaultPaths {
       {
         name: 'Leaderboard',
         icon: this.infoIcon,
-        subPaths: [{path: 'score', name: 'Aktuelles Leaderboard', icon: 'trophy'}]
+        subPaths: [{path: 'leaderBoard', name: 'Aktuelles Leaderboard', icon: 'trophy'}]
       },
       {
         name: 'Konto-Einstellungen',

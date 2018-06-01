@@ -114,7 +114,7 @@ export default class ParticipantNextLocation extends React.Component {
             onClick={this.locate}
           />
         </Grid.Row>
-        {this.state.fireRedirect && <Redirect to="/participantLeaderBoard" />}
+        {this.state.fireRedirect && <Redirect to="/leaderBoard" />}
       </Grid>
     );
   }
