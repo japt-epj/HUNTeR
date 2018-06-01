@@ -14,7 +14,7 @@ export default class LeaderBoard extends React.Component {
       loading: true,
       trophyColors: new Map([[1, 'golden'], [2, 'silver'], [3, 'bronze']]),
       leaderBoard: [],
-      executionId: 1,
+      executionId: Boolean(this.props.location.state) ? this.props.location.state.executionId : 1,
       executions: [],
       execution: 'execution1',
       teacher: window.location.pathname.includes('teacher')
