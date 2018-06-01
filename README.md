@@ -80,6 +80,8 @@ All existing quizzes can be viewed from here.
 
 There is not currently an option to change the composition of a quiz.
 
+![Teacher quiz overview](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_quiz_overview.png)
+
 #### Create Execution
 To create an execution, the execution needs to be given a name. Additionally, the teacher has to select a quiz to be used for the execution, add participants and has to provide a start and end time.
 
