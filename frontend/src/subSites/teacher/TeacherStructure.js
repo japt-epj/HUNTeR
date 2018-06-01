@@ -61,7 +61,7 @@ export default class TeacherStructure extends React.Component {
                       <Route path="/executionOverview" component={TeacherExecutionOverview} />
                       <Route path="/teacherNavigation" component={TeacherNavigation} />
                       <Route path="/newUser" component={TeacherNewParticipant} />
-                      <Route path="/participantLeaderBoard" component={LeaderBoard} />
+                      <Route path="/leaderBoard" component={LeaderBoard} />
                       <Route
                         path="/logout"
                         render={() => {
