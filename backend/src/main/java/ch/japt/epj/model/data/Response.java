@@ -19,6 +19,18 @@ public class Response {
   @ManyToOne(cascade = CascadeType.ALL)
   private Answer answerFromPerson;
 
+  public Response() {
+    /*
+     * Not allowed to hide this constructor because of reflection
+     */
+  }
+
+  public Response(Person person, Exercise exercise, Answer answerFromPerson) {
+    this.person = person;
+    this.exercise = exercise;
+    this.answerFromPerson = answerFromPerson;
+  }
+
   public Person getPerson() {
     return person;
   }
