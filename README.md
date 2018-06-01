@@ -92,6 +92,8 @@ The start and end time were intended to restrict participants ability to solve e
 #### Execution overview
 All existing executions can be viewed from here and the corresponding qr codes can be downloaded. The available pdfs are intended as printouts, which can be scanned at the location where an exercise is intended to be solved.
 
+![Teacher execution overview](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_execution_overview.png)
+
 #### Navigate to next qr code location
 To help place the printed qr codes at their correct location, a teacher can scan the qr code to navigate to the exercises intended location.
 
