@@ -128,7 +128,8 @@ export default class TeacherQuiz extends React.Component {
     let currentPage = element.activePage;
     this.setState({pageNumberSelectedExercises: element.activePage});
     apiGetHandler
-      .getExerciseArray(
+      .getElementArray(
+        'exercise/',
         this.state.selectedCheckboxes.slice(
           (currentPage - 1) * this.exerciseLimitPerPage,
           currentPage * this.exerciseLimitPerPage

@@ -3,10 +3,11 @@ import React from 'react';
 import {Form, Table} from 'semantic-ui-react';
 
 import {paginationHandler, tableHandler} from '../hunterViewHandlers';
+import ShowQuizModal from '../../components/ShowQuizModal';
 
 export default {
   getQuizTable(checkboxNeeded) {
-    let headerElements = ['Name', 'ID'];
+    let headerElements = ['Name', 'ID', 'Einsehen'];
     if (checkboxNeeded) {
       headerElements.unshift('');
     }
@@ -28,8 +29,11 @@ export default {
                     />
                   </Table.Cell>
                 )}
-                <Table.Cell>{element.name}</Table.Cell>
-                <Table.Cell>{element.id}</Table.Cell>
+                <Table.Cell content={element.name} />
+                <Table.Cell content={element.id} collapsing />
+                <Table.Cell textAlign="center" collapsing>
+                  <ShowQuizModal id={element.id} />
+                </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>

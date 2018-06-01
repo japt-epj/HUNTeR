@@ -20,7 +20,7 @@ export default class ShowExerciseModal extends React.Component {
   }
 
   componentDidMount() {
-    apiGetHandler.getExerciseTeacherArray(this.state.id).then(resData => {
+    apiGetHandler.getElementArray('exercise/teacher/', this.state.id).then(resData => {
       if (resData.status !== OK) {
         return;
       }
@@ -39,6 +39,6 @@ export default class ShowExerciseModal extends React.Component {
   close = () => this.setState({open: false});
 
   render() {
-    return this.getViewModal();
+    return this.getViewModal(this.state.title, this.state.question, 'Lösung: ' + this.state.solution);
   }
 }

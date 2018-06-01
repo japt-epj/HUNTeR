@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, Header, Modal} from 'semantic-ui-react';
+import {Button, Divider, Header, Modal} from 'semantic-ui-react';
 
 import {colors, modalOptions} from '../../config/hunterUiDefaults';
 import getLoadingScreen from '../../components/getLoadingScreen';
@@ -172,7 +172,7 @@ export default {
     );
   },
 
-  getViewModal() {
+  getViewModal(title, header, subHeader) {
     return (
       <Modal
         dimmer={modalOptions.dimmer}
@@ -182,9 +182,11 @@ export default {
         size="small"
         trigger={<Button color={colors.buttonColors.show} icon="eye" basic />}
       >
-        <Modal.Header content={this.state.title} />
+        <Modal.Header content={title} />
         <Modal.Content>
-          <Header content={this.state.question} subheader={'- ' + this.state.solution} />
+          <Header content={header} />
+          <Divider />
+          {subHeader}
         </Modal.Content>
         <Modal.Actions>
           <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />

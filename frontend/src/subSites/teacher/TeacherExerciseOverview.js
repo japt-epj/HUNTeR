@@ -13,6 +13,8 @@ export default class TeacherExerciseOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      modalView: Boolean(this.props.modalView) ? this.props.modalView : false,
+      exerciseIds: Boolean(this.props.exerciseIds) ? this.props.exerciseIds : [],
       exercises: [],
       loading: true,
       pageNumber: numbers.pageNumber,
@@ -24,7 +26,16 @@ export default class TeacherExerciseOverview extends React.Component {
   }
 
   componentDidMount() {
-    this.getExercises(this.state.pageNumber);
+    if (this.state.modalView) {
+      apiGetHandler.getElementArray('exercise/', this.state.exerciseIds.toString()).then(resData =>
+        this.setState({
+          exercises: resData.data,
+          loading: false
+        })
+      );
+    } else {
+      this.getExercises(this.state.pageNumber);
+    }
   }
 
   handlePageChangeExercises = (event, element) => {
