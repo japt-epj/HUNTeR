@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.modelmapper.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,24 +37,6 @@ public class ExerciseModelTests {
   }
 
   @Test
-  public void emptyWhenNotFound() {
-    assertThat(model.getExercise(10_000_000L)).isEmpty();
-  }
-
-  @Test
-  public void shouldAddNewTask() {
-    Page<ExerciseDto> before = model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId"));
-
-    long size = before.getTotalElements();
-    model.addExercise(makeTestDto());
-
-    Page<ExerciseDto> after = model.pageExercise(0, 5, new Sort(Sort.Direction.ASC, "exerciseId"));
-
-    assertThat(model.getExercise(size + 1L)).isNotEmpty();
-    assertThat(after.getTotalElements()).isEqualTo(size + 1);
-  }
-
-  @Test
   public void newTaskReturned() {
     NewExerciseDto testDto = makeTestDto();
     model.addExercise(testDto);
@@ -70,7 +53,7 @@ public class ExerciseModelTests {
   @Test
   public void failWithInvalidPayload() {
     NewExerciseDto fail = new NewExerciseDto().name("This should fail");
-    Assertions.assertThatExceptionOfType(NullPointerException.class)
+    Assertions.assertThatExceptionOfType(MappingException.class)
         .isThrownBy(() -> model.addExercise(fail));
   }
 

@@ -144,6 +144,22 @@ public class ExerciseControllerTests extends AuthenticatedControllerTest {
   }
 
   @Test
+  public void participantNeverSeesAnswer() throws Exception {
+    setCurrentToken("andi.hoerler@hsr.ch", "andi");
+    MockHttpServletRequestBuilder get =
+        MockMvcRequestBuilders.get("/api/exercise/1,2,5")
+            .header("Authorization", token)
+            .accept(MediaType.APPLICATION_JSON);
+
+    mvc.perform(get)
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$").isArray())
+        .andExpect(jsonPath("$").isNotEmpty())
+        .andExpect(jsonPath("$[*].answers[?(@.checked === true)]").isEmpty());
+  }
+
+  @Test
   public void makeExerciseFailure() throws Exception {
     MockHttpServletRequestBuilder request =
         MockMvcRequestBuilders.post("/api/exercise")
