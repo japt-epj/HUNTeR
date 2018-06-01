@@ -63,36 +63,36 @@ The teacher interface is centered around creating exercises, quizzes and executi
 #### Create exercise
 To create an exercise, a name for the exercise, a question and four possible answers, with one marked as the correct one, need to be provided. At the moment, only multiple choice, single answer, type questions can be created.
 
-![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_exercise.png)
+![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_exercise.png)
 
 #### Exercise overview
 All existing exercises can be viewed and updated from here.
 
-![Teacher exercise overview](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_exercise_overview.png)
+![Teacher exercise overview](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_exercise_overview.png)
 
 #### Create quiz
 To create a quiz, the quiz needs to be given a name. Previously created exercise can then be added to the quiz and mapped to a location on the map.
 
-![Teacher create_quiz](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_quiz.png)
+![Teacher create_quiz](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_quiz.png)
 
 #### Quiz overview
 All existing quizzes can be viewed from here. 
 
 There is not currently an option to change the composition of a quiz.
 
-![Teacher quiz overview](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_quiz_overview.png)
+![Teacher quiz overview](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_quiz_overview.png)
 
 #### Create Execution
 To create an execution, the execution needs to be given a name. Additionally, the teacher has to select a quiz to be used for the execution, add participants and has to provide a start and end time.
 
 The start and end time were intended to restrict participants ability to solve exercises to the provided time frame, but this feature has not yet been implemented.
 
-![Teacher create execution](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_execution.png)
+![Teacher create execution](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_execution.png)
 
 #### Execution overview
 All existing executions can be viewed from here and the corresponding qr codes can be downloaded. The available pdfs are intended as printouts, which can be scanned at the location where an exercise is intended to be solved.
 
-![Teacher execution overview](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_execution_overview.png)
+![Teacher execution overview](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_execution_overview.png)
 
 #### Navigate to next qr code location
 To help place the printed qr codes at their correct location, a teacher can scan the qr code to navigate to the exercises intended location.
@@ -100,12 +100,12 @@ To help place the printed qr codes at their correct location, a teacher can scan
 #### Current leaderboard
 Here a teacher can view leaderboards for all executions. All participants names, rank and score (percentage of correctly answered questions) are shown. 
 
-![Teacher current leaderboard](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_current_leaderboard.png)
+![Teacher current leaderboard](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_current_leaderboard.png)
 
 #### Create participant
 To create a new participant, an email address, a first name and a last name have to be provided. The participants password will automatically be set to his first name.  
 
-![Teacher create participant](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_participant.png)
+![Teacher create participant](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_participant.png)
 
 ### Participant
 The participant part of the HUNTeR app is designed to be used on a mobile phone with a camera. 
@@ -115,17 +115,17 @@ Participants take part in executions of a quiz. Their goal is to find exercises 
 #### Next location
 Shows the next location for each quiz the user is a participant of. The participant then has to find the location and solve the exercise to receive access to the next open location.
 
-![Participant next location](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/participant_next_location.png)
+![Participant next location](https://github.com/japt-epj/HUNTeR/raw/master/documentation/participant_next_location.png)
 
 #### Scan exercise
 After allowing the application to use the camera of the mobile device it's running on, an exercises qr code can be scanned to solve the exercise.
 
-![Participant scan exercise](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/participant_scan_exercise.png)
+![Participant scan exercise](https://github.com/japt-epj/HUNTeR/raw/master/documentation/participant_scan_exercise.png)
 
 #### Current leaderboard for participants
 The leaderboard shows the top three participants of each quiz. Additionally, the currently logged in participant will be displayed as well, if he did not rank in the top three.
 
-![Participant current leaderboard](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/participant_current_leaderboard.png)
+![Participant current leaderboard](https://github.com/japt-epj/HUNTeR/raw/master/documentation/participant_current_leaderboard.png)
 
 #### User settings
 A logged in user can change his or her first and last name. The option to change ones email address or password is not yet implemented.
@@ -154,7 +154,7 @@ This is how we host our testing environment of HUNTeR, and can be used as an exa
 
 We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined in the [Jenkinsfile](https://github.com/SBI-/epj-prototype/blob/master/Jenkinsfile). Every push to master triggers a build, unit and integration test cycle. Every successful build is continuously deployed as a completely clean test environment, supplied with test data. This is the deployment we use for integration testing.
 
-![Deployment Diagram](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/deployment_diagram.png)
+![Deployment Diagram](https://github.com/japt-epj/HUNTeR/raw/master/documentation/deployment_diagram.png)
 
 ### Example Apache Configuration
 These are the relevant parts of the apache reverse proxy configuration we use on our testing system. It uses [Let's Encrypt](https://letsencrypt.org/) for proper SSL configuration to enable HTTPS for the entire HUNTeR frontend and backend.
