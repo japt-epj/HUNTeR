@@ -45,7 +45,7 @@ export default class ParticipantStructure extends React.Component {
                     <Route path="/settings" component={UserSettings} />
                     <Route path="/scan" component={ParticipantScanExercise} />
                     <Route path="/nextLocation" component={ParticipantNextLocation} />
-                    <Route path="/score" component={LeaderBoard} />
+                    <Route path="/leaderBoard" component={LeaderBoard} />
                     <Route path="/exercise" component={ParticipantExercise} />
                     <Route
                       path="/logout"

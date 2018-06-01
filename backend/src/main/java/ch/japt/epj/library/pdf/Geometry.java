@@ -16,6 +16,8 @@ public final class Geometry {
   /**
    * Returns the center of the page. <em>Only works for portrait oriented pages.</em>
    *
+   * <p>Ignored sonar warning is for magic numbers, but dividing by two should be obvious.
+   *
    * @param page Portrait oriented page to find center for
    * @return Point in the Center of the page
    */
