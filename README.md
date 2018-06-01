@@ -87,6 +87,8 @@ To create an execution, the execution needs to be given a name. Additionally, th
 
 The start and end time were intended to restrict participants ability to solve exercises to the provided time frame, but this feature has not yet been implemented.
 
+![Teacher create execution](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_execution.png)
+
 #### Execution overview
 All existing executions can be viewed from here and the corresponding qr codes can be downloaded. The available pdfs are intended as printouts, which can be scanned at the location where an exercise is intended to be solved.
 
