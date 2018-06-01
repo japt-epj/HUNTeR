@@ -32,7 +32,7 @@ export default class DefaultPaths {
           {
             path: 'executionOverview',
             name: 'Übersicht der Durchführungen',
-            icon: 'stack exchange'
+            icon: 'download'
           },
           {path: 'teacherNavigation', name: 'Navigation zu einem QR-Code Standort', icon: 'camera retro'}
         ]
