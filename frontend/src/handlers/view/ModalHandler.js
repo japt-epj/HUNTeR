@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, Header, Modal} from 'semantic-ui-react';
+import {Button, Divider, Header, Modal} from 'semantic-ui-react';
 
 import {colors, modalOptions} from '../../config/hunterUiDefaults';
 import getLoadingScreen from '../../components/getLoadingScreen';
@@ -27,13 +27,13 @@ export default {
   getTokenExpiration() {
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
-        <Header icon="sign out" content="Login ausgelaufen" />
+        <Header icon="sign out" content="Login abgelaufen" />
         <Modal.Content content="Ihre Loginsession wurde beendet. Bitte loggen sie sich erneut ein." />
       </Modal>
     );
   },
 
-  getCreationSuccess(successMessage) {
+  getSuccess(successMessage) {
     return (
       <Modal dimmer={modalOptions.dimmer} open={successMessage.showModal} size={modalOptions.size}>
         <Header icon="check" content={successMessage.title} />
@@ -47,6 +47,17 @@ export default {
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt." />
+        <Modal.Content content={message} />
+      </Modal>
+    );
+  },
+
+  getExecutionCompleted() {
+    const message =
+      'Es wurden alle Aufgaben dieser Durchführung gelöst. Rufe doch beim aktuellen Leaderboard deinen Score ab.';
+    return (
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
+        <Header icon="trophy" content="Alle Aufgaben gelöst" />
         <Modal.Content content={message} />
       </Modal>
     );
@@ -168,6 +179,29 @@ export default {
       >
         <Modal.Header content="Aufgaben hinzufügen" />
         <Modal.Content scrolling>{this.state.loading ? getLoadingScreen() : this.getExerciseTable(true)}</Modal.Content>
+      </Modal>
+    );
+  },
+
+  getViewModal(title, header, subHeader) {
+    return (
+      <Modal
+        dimmer={modalOptions.dimmer}
+        open={this.state.open}
+        onOpen={this.open}
+        onClose={this.close}
+        size="small"
+        trigger={<Button color={colors.buttonColors.show} icon="eye" basic />}
+      >
+        <Modal.Header content={title} />
+        <Modal.Content>
+          <Header content={header} />
+          <Divider />
+          {subHeader}
+        </Modal.Content>
+        <Modal.Actions>
+          <Button icon="check" content={modalOptions.thankYou} onClick={this.close} />
+        </Modal.Actions>
       </Modal>
     );
   }

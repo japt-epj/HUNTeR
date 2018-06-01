@@ -1,17 +1,11 @@
 export default class DefaultPaths {
   static infoIcon = 'info';
-
   static getPersonalPaths() {
     return [
-      {
-        path: 'settings',
-        name: 'Persönliches',
-        icon: 'setting'
-      },
+      {path: 'settings', name: 'Persönliches', icon: 'setting'},
       {path: 'logout', name: 'Ausloggen', icon: 'log out'}
     ];
   }
-
   static getPathsTeacher() {
     return [
       {
@@ -19,11 +13,7 @@ export default class DefaultPaths {
         icon: this.infoIcon,
         subPaths: [
           {path: 'exercise', name: 'Aufgabe erstellen', icon: 'tasks'},
-          {
-            path: 'exerciseOverview',
-            name: 'Übersicht der Aufgaben',
-            icon: 'stack exchange'
-          }
+          {path: 'exerciseOverview', name: 'Übersicht der Aufgaben', icon: 'stack exchange'}
         ]
       },
       {
@@ -31,11 +21,7 @@ export default class DefaultPaths {
         icon: this.infoIcon,
         subPaths: [
           {path: 'quiz', name: 'Quiz erstellen', icon: 'tasks'},
-          {
-            path: 'quizOverview',
-            name: 'Übersicht der Quizzes',
-            icon: 'stack exchange'
-          }
+          {path: 'quizOverview', name: 'Übersicht der Quizzes', icon: 'stack exchange'}
         ]
       },
       {
@@ -48,11 +34,7 @@ export default class DefaultPaths {
             name: 'Übersicht der Durchführungen',
             icon: 'stack exchange'
           },
-          {
-            path: 'teacherNavigation',
-            name: 'Navigation zu einem QR-Code Standort',
-            icon: 'camera retro'
-          }
+          {path: 'teacherNavigation', name: 'Navigation zu einem QR-Code Standort', icon: 'camera retro'}
         ]
       },
       {
@@ -67,13 +49,9 @@ export default class DefaultPaths {
           {path: 'newUser', name: 'Teilnehmer erstellen', icon: 'add user'}
         ]
       },
-      {
-        name: 'Konto-Einstellungen',
-        subPaths: this.getPersonalPaths()
-      }
+      {name: 'Konto-Einstellungen', subPaths: this.getPersonalPaths()}
     ];
   }
-
   static getPathsParticipant() {
     return [
       {
@@ -85,23 +63,13 @@ export default class DefaultPaths {
             name: 'Nächste Standorte',
             icon: 'point'
           },
-          {
-            path: 'scan',
-            name: 'Aufgabe scannen',
-            icon: 'camera retro'
-          }
+          {path: 'scan', name: 'Aufgabe scannen', icon: 'camera retro'}
         ]
       },
       {
-        name: 'LeaderBoard',
+        name: 'Leaderboard',
         icon: this.infoIcon,
-        subPaths: [
-          {
-            path: 'score',
-            name: 'Aktuelles Leaderboard',
-            icon: 'trophy'
-          }
-        ]
+        subPaths: [{path: 'score', name: 'Aktuelles Leaderboard', icon: 'trophy'}]
       },
       {
         name: 'Konto-Einstellungen',

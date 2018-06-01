@@ -1,5 +1,3 @@
-import Credentials from './Credentials';
-
 export default {
   getLogout(loginCredentials) {
     this.getTestsBeforeLogout(loginCredentials.role);
@@ -15,9 +13,7 @@ export default {
     }
 
     cy
-      .get(
-        `.pusher > .ui > :nth-child(${logoutPosition}) > .menu > [href="/${role}/logout"] > .item`
-      )
+      .get(`.pusher > .ui > :nth-child(${logoutPosition}) > .menu > [href="/${role}/logout"] > .item`)
       .click()
       .should(() => {
         this.getLogoutTokenClearingTest();

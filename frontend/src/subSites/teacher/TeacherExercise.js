@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
-import {OK} from 'http-status-codes/index';
+import {OK} from 'http-status-codes';
 import {Form, Grid, Table} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
@@ -43,27 +43,29 @@ export default class TeacherExercise extends React.Component {
   }
 
   getExercise = exerciseId => {
-    apiGetHandler.getExerciseArray('teacher/' + exerciseId).then(resData => {
-      if (resData.status === OK) {
-        const exerciseData = resData.data[0];
-        const answerId = exerciseData.answers.map(element => element.checked).indexOf(true);
-        this.setState({
-          answer0: exerciseData.answers[0].text,
-          answer1: exerciseData.answers[1].text,
-          answer2: exerciseData.answers[2].text,
-          answer3: exerciseData.answers[3].text,
-          answerId,
-          question: exerciseData.question,
-          name: exerciseData.name
-        });
+    apiGetHandler.getElementArray('exercise/teacher/', exerciseId).then(resData => {
+      if (resData.status !== OK) {
+        return;
       }
+
+      const exerciseData = resData.data[0];
+      const answerId = exerciseData.answers.map(element => element.checked).indexOf(true);
+      this.setState({
+        answer0: exerciseData.answers[0].text,
+        answer1: exerciseData.answers[1].text,
+        answer2: exerciseData.answers[2].text,
+        answer3: exerciseData.answers[3].text,
+        answerId,
+        question: exerciseData.question,
+        name: exerciseData.name
+      });
     });
   };
 
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
         {!this.state.formOK && this.getFormError('Keine Antwort wurde als richtig markiert!')}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input

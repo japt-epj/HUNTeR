@@ -28,7 +28,7 @@ export default class TeacherNewParticipant extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             fluid

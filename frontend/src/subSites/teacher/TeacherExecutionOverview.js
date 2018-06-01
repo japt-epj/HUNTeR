@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button} from 'semantic-ui-react';
+import {OK} from 'http-status-codes';
 
 import {colors} from '../../config/hunterUiDefaults';
 import {apiGetHandler} from '../../handlers/hunterApiHandler';
@@ -35,13 +36,14 @@ export default class TeacherExecutionOverview extends React.Component {
 
   getExecutions = page => {
     apiGetHandler.getPaginatedElements('execution', page).then(resData => {
-      if (resData.status === 200) {
-        this.setState({
-          executions: resData.data.content,
-          maxPage: resData.data.totalPages,
-          loading: false
-        });
+      if (resData.status !== OK) {
+        return;
       }
+      this.setState({
+        executions: resData.data.content,
+        maxPage: resData.data.totalPages,
+        loading: false
+      });
     });
   };
 

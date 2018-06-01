@@ -20,8 +20,7 @@ describe('Exercise tests', function() {
   });
 
   it('Check user information as Person of Interest teacher', function() {
-    const loginCredentials = Credentials.getTeacherCredentials()
-      .PersonOfInterest;
+    const loginCredentials = Credentials.getTeacherCredentials().PersonOfInterest;
     login(loginCredentials);
 
     cy.get(getTeacherPath()).click();
@@ -122,18 +121,12 @@ function getParticipantPath() {
 function checkNames(names) {
   cy.get(':nth-child(1) > .ui > input').should('have.value', names.firstName);
   cy.get(':nth-child(2) > .ui > input').should('have.value', names.lastName);
-  cy
-    .get(':nth-child(3) > .ui.disabled.input > input')
-    .should('have.value', names.email);
-  cy
-    .get(':nth-child(4) > .ui.disabled.input > input')
-    .should('have.value', names.school);
+  cy.get(':nth-child(3) > .ui.disabled.input > input').should('have.value', names.email);
+  cy.get(':nth-child(4) > .ui.disabled.input > input').should('have.value', names.school);
 }
 
 function changeNames(oldNames, newNames) {
-  cy
-    .get(':nth-child(1) > .ui > input')
-    .should('have.value', oldNames.firstName);
+  cy.get(':nth-child(1) > .ui > input').should('have.value', oldNames.firstName);
   cy
     .get(':nth-child(1) > .ui > input')
     .click()
