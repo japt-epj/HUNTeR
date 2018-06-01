@@ -60,15 +60,6 @@ public final class Mappings {
     return mapper;
   }
 
-  public static ModelMapper responseMapper() {
-    ModelMapper mapper = new ModelMapper();
-    mapper
-        .createTypeMap(NewAnswerDto.class, Answer.class)
-        .addMapping(NewAnswerDto::getText, Answer::setText);
-
-    return mapper;
-  }
-
   public static ModelMapper personMapper() {
     ModelMapper mapper = new ModelMapper();
     mapper
