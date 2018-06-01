@@ -54,7 +54,7 @@ export default class ParticipantNextLocation extends React.Component {
       const resDataArray = Boolean(this.state.executionId) ? new Array(resData.data) : resData.data;
       resDataArray
         .filter(element => {
-          Boolean(element.exerciseTitle);
+          return Boolean(element.exerciseTitle);
         })
         .forEach(element => {
           locations.set(element.exerciseTitle, [element.lat, element.lng]);
