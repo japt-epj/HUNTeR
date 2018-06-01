@@ -31,7 +31,7 @@ a,
   min-height: calc(100vh - 60px) !important; }
 
 .modal > .header {
-  font-size: 2rem !important;
+  font-size: 1.5rem !important;
   color: #20c028 !important; }
 
 .ui.card {
