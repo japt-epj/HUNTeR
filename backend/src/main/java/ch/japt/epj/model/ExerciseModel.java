@@ -61,8 +61,8 @@ public class ExerciseModel {
 
   public void addExercise(NewExerciseDto exerciseDto) {
     Exercise exercise = mapper.map(exerciseDto, Exercise.class);
-    ArrayList<Answer> answers = new ArrayList<>(exercise.getAnswerTemplates());
-    answers.get(exerciseDto.getCorrectAnswer()).setChecked(true);
+    ArrayList<Answer> templates = new ArrayList<>(exercise.getAnswerTemplates());
+    templates.get(exerciseDto.getCorrectAnswer()).setChecked(true);
     this.answers.save(exercise.getAnswerTemplates());
     exercises.save(exercise);
   }
