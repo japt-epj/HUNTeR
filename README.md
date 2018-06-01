@@ -105,6 +105,8 @@ Here a teacher can view leaderboards for all executions. All participants names,
 #### Create participant
 To create a new participant, an email address, a first name and a last name have to be provided. The participants password will automatically be set to his first name.  
 
+![Teacher create participant](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_participant.png)
+
 ### Participant
 The participant part of the HUNTeR app is designed to be used on a mobile phone with a camera. 
 
