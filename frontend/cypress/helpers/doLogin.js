@@ -17,15 +17,11 @@ export default function login(loginCredentials) {
     .should(() => {
       if (loginCredentials.correctCredentials) {
         expect(localStorage.getItem('HUNTeR-Token')).to.include('Bearer ');
-        expect(localStorage.getItem('HUNTeR-Redirect')).to.equal(
-          '/' + loginCredentials.role
-        );
+        expect(localStorage.getItem('HUNTeR-Redirect')).to.equal('/' + loginCredentials.role);
       }
     });
 
-  const urlPath = loginCredentials.correctCredentials
-    ? loginCredentials.role
-    : '';
+  const urlPath = loginCredentials.correctCredentials ? loginCredentials.role : '';
 
   cy.url().should('equal', Cypress.env('baseUrl') + '/' + urlPath);
 }
