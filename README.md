@@ -62,7 +62,7 @@ The teacher interface is centered around creating exercises, quizzes and executi
 
 #### Create exercise
 To create an exercise, a name for the exercise, a question and four possible answers, with one marked as the correct one, need to be provided. At the moment, only multiple choice, single answer, type questions can be created.
-![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_exercise.png)
+![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_exercise.png)
 
 #### Exercise overview
 All existing exercises can be viewed and updated from here.
