@@ -17,7 +17,7 @@ let defaultModalOptions = {
   executionParticipant: {
     showModal: true,
     title: 'Durchführung abgeschlossen',
-    content: 'Die Durchführung wurde erfolgreich abgeschlossen. Schau doch beim Leaderboard vorbei.'
+    content: 'Die Durchführung wurde erfolgreich abgeschlossen. Du wirst nun zum Leaderboard weitergeleitet.'
   },
   executionTeacher: {
     showModal: false,
