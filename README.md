@@ -12,6 +12,8 @@ App for creating and playing a scavenger hunt.
         -   [Create exercise](#create-exercise)
         -   [Exercise overview](#exercise-overview)
         -   [Create quiz](#create-quiz)
+        -   [Quiz overview](#quiz-overview)
+        -   [Create execution](#create-execution)
     -   [Participant](#participant)
         -   [Next location](#next-location)
         -   [Scan exercise](#scan-exercise)
@@ -58,12 +60,17 @@ A teacher has the following options:
 To create an exercise, a name for the exercise, a question and four possible answers, with one marked as the correct one, need to be provided. At the moment, only multiple choice single answer type questions can be created.
 
 #### Exercise overview
-All existing exercises can be viewed or updated from here.
+All existing exercises can be viewed and updated from here.
 
 #### Create quiz
 To create a quiz, the quiz needs to be given a name. Previously created exercise can the be added to the quiz and mapped to a location on the map.
 
 #### Quiz overview
+All existing quizzes can be viewed from here. 
+
+There is not currently an option to change to composition of a quiz.
+
+#### Create Execution
 
 ### Participant
 The participant part of the HUNTeR app is designed to be used on a mobile phone with a camera. 
