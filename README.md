@@ -133,7 +133,7 @@ This is how we host our testing environment of HUNTeR, and can be used as an exa
 
 We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined in the [Jenkinsfile](https://github.com/SBI-/epj-prototype/blob/master/Jenkinsfile). Every push to master triggers a build, unit and integration test cycle. Every successful build is continuously deployed as a completely clean test environment, supplied with test data. This is the deployment we use for integration testing.
 
-![Deployment Diagram](https://github.com/japt-epj/HUNTeR/raw/master/documentation/deployment_diagram.png)
+![Deployment Diagram](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/deployment_diagram.png)
 
 ### Example Apache Configuration
 These are the relevant parts of the apache reverse proxy configuration we use on our testing system. It uses [Let's Encrypt](https://letsencrypt.org/) for proper SSL configuration to enable HTTPS for the entire HUNTeR frontend and backend.
