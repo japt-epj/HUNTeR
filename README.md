@@ -62,6 +62,7 @@ A teacher has the following options:
 
 #### Create exercise
 To create an exercise, a name for the exercise, a question and four possible answers, with one marked as the correct one, need to be provided. At the moment, only multiple choice single answer type questions can be created.
+![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/master/documentation/teacher_create_exercise.png)
 
 #### Exercise overview
 All existing exercises can be viewed and updated from here.
@@ -132,7 +133,7 @@ This is how we host our testing environment of HUNTeR, and can be used as an exa
 
 We use a Jenkins [Pipeline](https://jenkins.io/doc/book/pipeline/) build defined in the [Jenkinsfile](https://github.com/SBI-/epj-prototype/blob/master/Jenkinsfile). Every push to master triggers a build, unit and integration test cycle. Every successful build is continuously deployed as a completely clean test environment, supplied with test data. This is the deployment we use for integration testing.
 
-![Deployment Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/deployment_diagram.png)
+![Deployment Diagram](https://github.com/japt-epj/HUNTeR/raw/master/documentation/deployment_diagram.png)
 
 ### Example Apache Configuration
 These are the relevant parts of the apache reverse proxy configuration we use on our testing system. It uses [Let's Encrypt](https://letsencrypt.org/) for proper SSL configuration to enable HTTPS for the entire HUNTeR frontend and backend.
@@ -236,7 +237,7 @@ This layer diagram shows the current tiers of the entire application logic. The 
 
 The Presentation and Logic layers communicate using HTTP, using the REST API which is documented [here](https://sinv-56053.edu.hsr.ch/swagger-ui.html). The Data Access Layer and database communicate using JDBC.
 
-![Layer Diagram](https://github.com/SBI-/epj-prototype/raw/master/documentation/layer_diagram.png)
+![Layer Diagram](https://github.com/japt-epj/HUNTeR/raw/master/documentation/layer_diagram.png)
 
 
 ### Database
@@ -244,7 +245,7 @@ The database design is relational. The complete entity description is written wi
 
 This domain model diagram shows the entire database design.
 
-![Domain Model](https://github.com/SBI-/epj-prototype/raw/master/documentation/domain_model.png)
+![Domain Model](https://github.com/japt-epj/HUNTeR/raw/master/documentation/domain_model.png)
 
 ### Extending functionality
 The technological choices made thus far should make the addition of new features no harder than what has been done so far. Depending on what type of feature is to be added, there are different considerations that have to be made when implementing them. When adding a new feature, you will probably have to consider more than one of the following points.
