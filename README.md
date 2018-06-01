@@ -198,8 +198,6 @@ This environment runs the spring backend separately from the react frontend. Bot
 
 Hot reload for react is enabled automatically. To use the spring hot reload feature, you have to configure your IDE accordingly. [This](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html#_running_the_remote_client_application) section of the spring documentation covers how this can be achieved.
 
-TODO: Add explanation for IntelliJ, which is what we use.
-
 ## Technology
 The project is split up into frontend and backend. The frontend is what runs in the browser on a user's client device. The backend is a Java Spring application which runs on the server it is deployed on.
 
