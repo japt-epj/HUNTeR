@@ -113,7 +113,7 @@ export default class ParticipantNextLocation extends React.Component {
         {!this.state.hideAgreement && this.getAgreement()}
         {this.state.showExecutionCompleted && modalHandler.getSuccess(this.state.executionCompletedMessage)}
         <Grid.Row id="mapContainer">{this.getParticipantMap()}</Grid.Row>
-        <Grid.Row centered>
+        <Grid.Row className="lessRowPadding" centered>
           <Button
             color={colors.buttonColors.normal}
             content={'Standort aktualisieren'}
@@ -121,7 +121,7 @@ export default class ParticipantNextLocation extends React.Component {
             onClick={this.locate}
           />
         </Grid.Row>
-        <Grid.Row centered>
+        <Grid.Row className="lessRowPadding" centered>
           <Button
             color={colors.buttonColors.normal}
             content={'Nächste Aufgabe einscannen'}
