@@ -67,6 +67,11 @@ a,
   min-height: calc(100vh - #{$gridHeader-MaxHeight}) !important;
 }
 
+.lessRowPadding{
+  padding-bottom: 0.4rem !important;
+  padding-top: 0.4rem !important;
+}
+
 .modal > .header{
   font-size: 1.5rem !important;
   color: $hunterColor !important;
