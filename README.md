@@ -100,6 +100,8 @@ To help place the printed qr codes at their correct location, a teacher can scan
 #### Current leaderboard
 Here a teacher can view leaderboards for all executions. All participants names, rank and score (percentage of correctly answered questions) are shown. 
 
+![Teacher current leaderboard](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_current_leaderboard.png)
+
 #### Create participant
 To create a new participant, an email address, a first name and a last name have to be provided. The participants password will automatically be set to his first name.  
 
