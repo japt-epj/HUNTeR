@@ -52,9 +52,13 @@ export default class ParticipantNextLocation extends React.Component {
         return;
       }
       const resDataArray = Boolean(this.state.executionId) ? new Array(resData.data) : resData.data;
-      resDataArray.forEach(element => {
-        locations.set(element.exerciseTitle, [element.lat, element.lng]);
-      });
+      resDataArray
+        .filter(element => {
+          Boolean(element.exerciseTitle);
+        })
+        .forEach(element => {
+          locations.set(element.exerciseTitle, [element.lat, element.lng]);
+        });
       this.setState({
         locations,
         selectedPositions: new Map(locations),
@@ -134,7 +138,7 @@ export default class ParticipantNextLocation extends React.Component {
             to={{
               pathname: this.state.redirectPath,
               state: {
-                executionId: this.state.executionId
+                executionId: Boolean(this.state.executionId) ? this.state.executionId : 1
               }
             }}
           />
