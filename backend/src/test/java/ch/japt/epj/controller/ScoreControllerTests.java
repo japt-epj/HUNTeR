@@ -27,18 +27,18 @@ public class ScoreControllerTests extends AuthenticatedControllerTest {
   @Test
   public void getScoreForExecution() throws Exception {
     MockHttpServletRequestBuilder request =
-        MockMvcRequestBuilders.get("/api/score/1")
+        MockMvcRequestBuilders.get("/api/score/9")
             .header("Authorization", token)
             .accept(MediaType.APPLICATION_JSON);
 
     mvc.perform(request)
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.*", hasSize(7)))
-        .andExpect(jsonPath("$.3").isNotEmpty())
-        .andExpect(jsonPath("$.3.id").value(3))
-        .andExpect(jsonPath("$.3.userName").value("Andi Hörler"))
-        .andExpect(jsonPath("$.3.me").value(false))
-        .andExpect(jsonPath("$.3.userScore").value(0));
+        .andExpect(jsonPath("$.*", hasSize(4)))
+        .andExpect(jsonPath("$.15").isNotEmpty())
+        .andExpect(jsonPath("$.15.id").value(15))
+        .andExpect(jsonPath("$.15.userName").value("Ernest Thornhill"))
+        .andExpect(jsonPath("$.15.me").value(false))
+        .andExpect(jsonPath("$.15.userScore").value(0));
   }
 }

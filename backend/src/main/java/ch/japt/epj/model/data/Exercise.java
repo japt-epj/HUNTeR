@@ -32,6 +32,10 @@ public class Exercise {
     answerTemplates.add(answerTemplate);
   }
 
+  public void setAnswers(Collection<Answer> answers) {
+    this.answerTemplates = answers;
+  }
+
   public Collection<Answer> getAnswerTemplates() {
     return answerTemplates;
   }

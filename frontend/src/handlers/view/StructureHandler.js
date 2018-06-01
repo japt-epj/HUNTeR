@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Button, Grid, Header, Image, Menu, Sidebar} from 'semantic-ui-react';
+import {isMobile} from 'react-device-detect';
 
 import {colors} from '../../config/hunterUiDefaults';
 import Logo from '../../images/icons/e.png';
@@ -60,7 +61,7 @@ export default {
       <Sidebar
         as={Menu}
         animation="overlay"
-        width="wide"
+        width={isMobile ? 'thin' : 'wide'}
         direction="right"
         visible={this.state.visible}
         icon="labeled"

@@ -46,9 +46,9 @@ export default class ParticipantScanExercise extends React.Component {
       });
       setTimeout(() => this.setState({fireRedirect: true}), numbers.timeoutTime);
     } else {
-      this.setState({scanError: true});
       this.setState({
-        displayText: 'Ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
+        scanError: true,
+        displayText: 'QR-Code nicht richtig erkannt oder ungültige Aufgabe. Bitte scanne einen anderen QR-Code ein.'
       });
     }
   };
@@ -71,7 +71,7 @@ export default class ParticipantScanExercise extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
         {!this.state.hideAgreement ? (
           this.getAgreement()
         ) : (
