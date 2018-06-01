@@ -68,13 +68,14 @@ export default class TeacherQuiz extends React.Component {
 
   getExercises = page => {
     apiGetHandler.getPaginatedElements('exercise', page).then(resData => {
-      if (resData.status === OK) {
-        this.setState({
-          exercises: resData.data.content,
-          maxPage: resData.data.totalPages,
-          loading: false
-        });
+      if (resData.status !== OK) {
+        return;
       }
+      this.setState({
+        exercises: resData.data.content,
+        maxPage: resData.data.totalPages,
+        loading: false
+      });
     });
   };
 
@@ -127,7 +128,8 @@ export default class TeacherQuiz extends React.Component {
     let currentPage = element.activePage;
     this.setState({pageNumberSelectedExercises: element.activePage});
     apiGetHandler
-      .getExerciseArray(
+      .getElementArray(
+        'exercise/',
         this.state.selectedCheckboxes.slice(
           (currentPage - 1) * this.exerciseLimitPerPage,
           currentPage * this.exerciseLimitPerPage
@@ -145,7 +147,7 @@ export default class TeacherQuiz extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
         {!this.state.formOK &&
           this.getFormError('Keine Aufgabe ausgewählt oder eine Location für eine Aufgabe vergessen.')}
         <Form onSubmit={this.handleSubmit}>

@@ -1,15 +1,16 @@
 import {numbers} from '../../config/hunterUiDefaults';
-import {OK} from 'http-status-codes/index';
+import {OK} from 'http-status-codes';
 import {apiGetHandler} from '../hunterApiHandler';
 
 export default {
   getLeaderBoard(executionId) {
     apiGetHandler.getLeaderBoard(executionId).then(resData => {
-      if (resData.status === OK) {
-        let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
-        leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
-        this.setState({leaderBoard, loading: false});
+      if (resData.status !== OK) {
+        return;
       }
+      let {leaderBoard, scoreList} = this.calculateLeaderBoard(resData.data);
+      leaderBoard = this.checkMoreParticipants(leaderBoard, scoreList);
+      this.setState({leaderBoard, loading: false});
     });
   },
 
@@ -37,7 +38,7 @@ export default {
   },
 
   sortLeaderBoard(scoreData) {
-    return Object.entries(scoreData).sort((a, b) => a[1].userScore - b[1].userScore || a[1].me);
+    return Object.entries(scoreData).sort((a, b) => b[1].userScore - a[1].userScore || a[1].me);
   },
   getScore(rankingValue) {
     return (rankingValue * 100).toFixed(2) + '%';

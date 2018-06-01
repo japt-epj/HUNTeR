@@ -66,7 +66,8 @@ export default {
       selectedPositions: values.selectedPositions
     });
     apiGetHandler
-      .getExerciseArray(
+      .getElementArray(
+        'exercise/',
         values.selectedCheckboxes.slice(
           (this.state.pageNumberSelectedExercises - 1) * this.exerciseLimitPerPage,
           this.state.pageNumberSelectedExercises * this.exerciseLimitPerPage
@@ -151,10 +152,10 @@ export default {
                 )}
                 <Table.Cell content={element.name} />
                 <Table.Cell content={element.id} collapsing />
-                <Table.Cell collapsing>
+                <Table.Cell textAlign="center" collapsing>
                   <ShowExerciseEditModal exerciseId={element.id} />
                 </Table.Cell>
-                <Table.Cell collapsing>
+                <Table.Cell textAlign="center" collapsing>
                   <ShowExerciseModal id={element.id} />
                 </Table.Cell>
               </Table.Row>

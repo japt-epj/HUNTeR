@@ -9,9 +9,9 @@ import ch.japt.epj.model.mapping.Mappings;
 import ch.japt.epj.repository.AnswerRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ public class ExerciseModel {
   private final ExerciseRepository exercises;
   private final AnswerRepository answers;
   private final ModelMapper mapper = Mappings.exerciseMapper();
+  private final Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
 
   public ExerciseModel(
       @Autowired ExerciseRepository exercises, @Autowired AnswerRepository answers) {
@@ -38,34 +39,31 @@ public class ExerciseModel {
         .map(exercise -> mapper.map(exercise, ExerciseDto.class));
   }
 
+  /**
+   * Meant to only be used for serving exercises to participants. This function makes sure that no
+   * answers are ever sent to a client participating in a quiz, to keep them from cheating by using
+   * a debugger.
+   *
+   * @param ids List of exercise ids
+   * @return Details of an exercise, with all answers set to false
+   */
   public List<NewExerciseDto> getExercises(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
-    Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
-    List<NewExerciseDto> exerciseDtos = mapper.map(this.exercises.findAll(longs), dtoList);
-    exerciseDtos.forEach(exerciseDto -> exerciseDto.getAnswers().forEach(s -> s.setChecked(false)));
-    return exerciseDtos;
-  }
-
-  public Optional<ExerciseDto> getExercise(Long id) {
-    return exercises.findByExerciseId(id).map(t -> mapper.map(t, ExerciseDto.class));
+    List<NewExerciseDto> dtos = mapper.map(this.exercises.findAll(longs), dtoList);
+    dtos.forEach(dto -> dto.getAnswers().forEach(s -> s.setChecked(false)));
+    return dtos;
   }
 
   public List<NewExerciseDto> getExercisesForTeacher(List<Integer> ids) {
     Collection<Long> longs = ListConverter.toLong(ids);
-    Type dtoList = new TypeToken<List<NewExerciseDto>>() {}.getType();
     return mapper.map(exercises.findAll(longs), dtoList);
   }
 
   public void addExercise(NewExerciseDto exerciseDto) {
     Exercise exercise = mapper.map(exerciseDto, Exercise.class);
-    exerciseDto
-        .getAnswers()
-        .forEach(
-            newAnswerDto -> {
-              Answer answer = mapper.map(newAnswerDto, Answer.class);
-              exercise.addAnswerTemplate(answer);
-            });
-    answers.save(exercise.getAnswerTemplates());
+    ArrayList<Answer> answers = new ArrayList<>(exercise.getAnswerTemplates());
+    answers.get(exerciseDto.getCorrectAnswer()).setChecked(true);
+    this.answers.save(exercise.getAnswerTemplates());
     exercises.save(exercise);
   }
 }
