@@ -115,6 +115,8 @@ Participants take part in executions of a quiz. Their goal is to find exercises 
 #### Next location
 Shows the next location for each quiz the user is a participant of. The participant then has to find the location and solve the exercise to receive access to the next open location.
 
+![Participant next location](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/participant_next_location.png)
+
 #### Scan exercise
 After allowing the application to use the camera of the mobile device it's running on, an exercises qr code can be scanned to solve the exercise.
 
