@@ -87,8 +87,12 @@ To create an execution, the execution needs to be given a name. Additionally, th
 
 The start and end time were intended to restrict participants ability to solve exercises to the provided time frame, but this feature has not yet been implemented.
 
+![Teacher create execution](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_execution.png)
+
 #### Execution overview
 All existing executions can be viewed from here and the corresponding qr codes can be downloaded. The available pdfs are intended as printouts, which can be scanned at the location where an exercise is intended to be solved.
+
+![Teacher execution overview](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_execution_overview.png)
 
 #### Navigate to next qr code location
 To help place the printed qr codes at their correct location, a teacher can scan the qr code to navigate to the exercises intended location.
@@ -96,8 +100,12 @@ To help place the printed qr codes at their correct location, a teacher can scan
 #### Current leaderboard
 Here a teacher can view leaderboards for all executions. All participants names, rank and score (percentage of correctly answered questions) are shown. 
 
+![Teacher current leaderboard](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_current_leaderboard.png)
+
 #### Create participant
 To create a new participant, an email address, a first name and a last name have to be provided. The participants password will automatically be set to his first name.  
+
+![Teacher create participant](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/teacher_create_participant.png)
 
 ### Participant
 The participant part of the HUNTeR app is designed to be used on a mobile phone with a camera. 
@@ -106,6 +114,8 @@ Participants take part in executions of a quiz. Their goal is to find exercises 
 
 #### Next location
 Shows the next location for each quiz the user is a participant of. The participant then has to find the location and solve the exercise to receive access to the next open location.
+
+![Participant next location](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/participant_next_location.png)
 
 #### Scan exercise
 After allowing the application to use the camera of the mobile device it's running on, an exercises qr code can be scanned to solve the exercise.
