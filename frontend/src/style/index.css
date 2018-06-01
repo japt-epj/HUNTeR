@@ -30,6 +30,9 @@ a,
   max-height: calc(100vh - 35px) !important;
   min-height: calc(100vh - 60px) !important; }
 
+.row {
+  padding: 0.5rem 0 0.5rem 0 !important; }
+
 .modal > .header {
   font-size: 1.5rem !important;
   color: #20c028 !important; }
