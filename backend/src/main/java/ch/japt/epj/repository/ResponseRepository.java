@@ -13,4 +13,10 @@ public interface ResponseRepository extends CrudRepository<Response, Long> {
 
   @Query("select r from Response r")
   Stream<Response> getAllResponses();
+
+  @Query(
+      "select r from Response r "
+          + "where r.exercise.exerciseId = ?2 "
+          + "and r.person.personId = ?1")
+  Optional<Response> answerExists(Long person, Long exercise);
 }

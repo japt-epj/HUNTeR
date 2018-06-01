@@ -10,6 +10,7 @@ import ch.japt.epj.repository.ExecutionRepository;
 import ch.japt.epj.repository.ExerciseRepository;
 import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.repository.ResponseRepository;
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -54,14 +55,15 @@ public class ResponseModel {
             });
   }
 
-  private static boolean isFirstAnswer(Execution execution, Response response) {
+  private boolean isFirstAnswer(Execution execution, Response response) {
     Long currentPersonId = PersonHandler.getCurrentPersonId();
     Long exerciseId = response.getExercise().getExerciseId();
-    return (execution
+    Optional<Response> optional = responses.answerExists(currentPersonId, exerciseId);
+    return execution
         .getResponses()
         .stream()
         .filter(response1 -> currentPersonId.equals(response.getPerson().getPersonId()))
         .map(Response::getExercise)
-        .noneMatch(exercise -> exerciseId.equals(exercise.getExerciseId())));
+        .noneMatch(exercise -> exerciseId.equals(exercise.getExerciseId()));
   }
 }
