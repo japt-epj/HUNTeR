@@ -120,6 +120,8 @@ Shows the next location for each quiz the user is a participant of. The particip
 #### Scan exercise
 After allowing the application to use the camera of the mobile device it's running on, an exercises qr code can be scanned to solve the exercise.
 
+![Participant scan exercise](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/participant_scan_exercise.png)
+
 #### Current leaderboard for participants
 The leaderboard shows the top three participants of each quiz. Additionally, the currently logged in participant will be displayed as well, if he did not rank in the top three.
 
