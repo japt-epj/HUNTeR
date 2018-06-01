@@ -23,7 +23,9 @@ export default class ParticipantNextLocation extends React.Component {
       map: {
         location: undefined,
         zoom: numbers.zoomSize
-      }
+      },
+      fireRedirect: false,
+      redirectPath: '/scan'
     };
 
     this.getParticipantMap = mapHandler.getParticipantMap.bind(this);
@@ -49,10 +51,14 @@ export default class ParticipantNextLocation extends React.Component {
         this.redirect();
         return;
       }
-      const resDataArray = this.state.executionId === '' ? resData.data : new Array(resData.data);
-      resDataArray.forEach(element => {
-        locations.set(element.exerciseTitle, [element.lat, element.lng]);
-      });
+      const resDataArray = Boolean(this.state.executionId) ? new Array(resData.data) : resData.data;
+      resDataArray
+        .filter(element => {
+          return Boolean(element.exerciseTitle);
+        })
+        .forEach(element => {
+          locations.set(element.exerciseTitle, [element.lat, element.lng]);
+        });
       this.setState({
         locations,
         selectedPositions: new Map(locations),
@@ -74,15 +80,16 @@ export default class ParticipantNextLocation extends React.Component {
   };
 
   handleSelection = event => {
+    const currentPosition = 'currentPosition';
+    let locationId = event.target.options.id;
     let locations = new Map(this.state.locations);
-    if (!this.state.routing && Boolean(event.target.options.id)) {
+    if (!this.state.routing && Boolean(locationId) && Boolean(this.state.locations.get(currentPosition))) {
       locations = new Map([
-        ['currentPosition', this.state.locations.get('currentPosition')],
-        [event.target.options.id, this.state.locations.get(event.target.options.id)]
+        [currentPosition, this.state.locations.get(currentPosition)],
+        [locationId, this.state.locations.get(locationId)]
       ]);
       this.setState({routing: false});
     }
-
     this.setState({selectedPositions: locations});
   };
 
@@ -96,8 +103,12 @@ export default class ParticipantNextLocation extends React.Component {
 
   redirect = () => {
     setTimeout(() => {
-      this.setState({fireRedirect: true});
+      this.setState({redirectPath: '/leaderBoard', fireRedirect: true});
     }, numbers.timeoutTime * 2);
+  };
+
+  scanRedirect = () => {
+    this.setState({fireRedirect: true});
   };
 
   render() {
@@ -106,7 +117,7 @@ export default class ParticipantNextLocation extends React.Component {
         {!this.state.hideAgreement && this.getAgreement()}
         {this.state.showExecutionCompleted && modalHandler.getSuccess(this.state.executionCompletedMessage)}
         <Grid.Row id="mapContainer">{this.getParticipantMap()}</Grid.Row>
-        <Grid.Row centered>
+        <Grid.Row className="lessRowPadding" centered>
           <Button
             color={colors.buttonColors.normal}
             content={'Standort aktualisieren'}
@@ -114,7 +125,24 @@ export default class ParticipantNextLocation extends React.Component {
             onClick={this.locate}
           />
         </Grid.Row>
-        {this.state.fireRedirect && <Redirect to="/participantLeaderBoard" />}
+        <Grid.Row className="lessRowPadding" centered>
+          <Button
+            color={colors.buttonColors.normal}
+            content={'Nächste Aufgabe einscannen'}
+            icon="retro camera"
+            onClick={this.scanRedirect}
+          />
+        </Grid.Row>
+        {this.state.fireRedirect && (
+          <Redirect
+            to={{
+              pathname: this.state.redirectPath,
+              state: {
+                executionId: Boolean(this.state.executionId) ? this.state.executionId : 1
+              }
+            }}
+          />
+        )}
       </Grid>
     );
   }

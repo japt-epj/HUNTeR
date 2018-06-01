@@ -38,7 +38,7 @@ export default {
   },
 
   sortLeaderBoard(scoreData) {
-    return Object.entries(scoreData).sort((a, b) => b[1].userScore - a[1].userScore || a[1].me);
+    return Object.entries(scoreData).sort((a, b) => b[1].userScore - a[1].userScore || b[1].me);
   },
   getScore(rankingValue) {
     return (rankingValue * 100).toFixed(2) + '%';
