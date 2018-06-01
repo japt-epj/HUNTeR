@@ -33,7 +33,7 @@ export default {
     );
   },
 
-  getCreationSuccess(successMessage) {
+  getSuccess(successMessage) {
     return (
       <Modal dimmer={modalOptions.dimmer} open={successMessage.showModal} size={modalOptions.size}>
         <Header icon="check" content={successMessage.title} />
@@ -47,6 +47,17 @@ export default {
     return (
       <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
         <Header icon="qrcode" content="QR-Code wurde erfolgreich eingescannt." />
+        <Modal.Content content={message} />
+      </Modal>
+    );
+  },
+
+  getExecutionCompleted() {
+    const message =
+      'Es wurden alle Aufgaben dieser Durchführung gelöst. Rufe doch beim aktuellen Leaderboard deinen Score ab.';
+    return (
+      <Modal dimmer={modalOptions.dimmer} open size={modalOptions.size}>
+        <Header icon="trophy" content="Alle Aufgaben gelöst" />
         <Modal.Content content={message} />
       </Modal>
     );

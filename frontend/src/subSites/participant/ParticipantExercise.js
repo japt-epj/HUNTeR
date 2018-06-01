@@ -48,7 +48,7 @@ export default class ParticipantExercise extends React.Component {
       <div>
         {this.state.executionId !== '' ? (
           <div>
-            {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+            {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
             {!Boolean(this.state.exercise.answers) ? (
               getLoadingScreen()
             ) : (

@@ -14,7 +14,12 @@ let defaultModalOptions = {
     title: 'Quiz erstellt',
     content: 'Das Quiz wurde erfolgreich erstellt.'
   },
-  execution: {
+  executionParticipant: {
+    showModal: true,
+    title: 'Durchführung abgeschlossen',
+    content: 'Die Durchführung wurde erfolgreich abgeschlossen. Schau doch beim Leaderboard vorbei.'
+  },
+  executionTeacher: {
     showModal: false,
     title: 'Durchführung erstellt',
     content: 'Die Durchführung wurde erfolgreich erstellt.'
