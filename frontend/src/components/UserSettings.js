@@ -49,7 +49,7 @@ export default class UserSettings extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
         {this.state.showModal && this.getSettingChanging()}
         <Form onSubmit={this.onSubmit} loading={this.state.loading}>
           <Form.Input

@@ -1,9 +1,10 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 
 import {Button, Grid} from 'semantic-ui-react';
 import L from 'leaflet';
 
-import {colors, map, messages, numbers} from '../../config/hunterUiDefaults';
+import {colors, map, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
 import {apiGetHandler} from '../../handlers/hunterApiHandler';
 import {mapHandler, modalHandler} from '../../handlers/hunterViewHandlers';
 
@@ -12,6 +13,7 @@ export default class ParticipantNextLocation extends React.Component {
     super(props);
     this.state = {
       hideAgreement: messages.hideAgreement(),
+      executionCompletedMessage: modalOptions.executionParticipant,
       executionId: Boolean(this.props.location.state) ? this.props.location.state.executionId : '',
       locations: new Map(),
       selectedPositions: new Map(),
@@ -42,6 +44,11 @@ export default class ParticipantNextLocation extends React.Component {
   promiseToLocation = promise => {
     let locations = new Map(this.state.locations);
     promise.then(resData => {
+      if (!Boolean(resData.data)) {
+        this.setState({showExecutionCompleted: true});
+        this.redirect();
+        return;
+      }
       const resDataArray = this.state.executionId === '' ? resData.data : new Array(resData.data);
       resDataArray.forEach(element => {
         locations.set(element.exerciseTitle, [element.lat, element.lng]);
@@ -87,10 +94,17 @@ export default class ParticipantNextLocation extends React.Component {
     return L.latLngBounds(boundLocations);
   };
 
+  redirect = () => {
+    setTimeout(() => {
+      this.setState({fireRedirect: true});
+    }, numbers.timeoutTime * 2);
+  };
+
   render() {
     return (
       <Grid padded>
         {!this.state.hideAgreement && this.getAgreement()}
+        {this.state.showExecutionCompleted && modalHandler.getSuccess(this.state.executionCompletedMessage)}
         <Grid.Row id="mapContainer">{this.getParticipantMap()}</Grid.Row>
         <Grid.Row centered>
           <Button
@@ -100,6 +114,7 @@ export default class ParticipantNextLocation extends React.Component {
             onClick={this.locate}
           />
         </Grid.Row>
+        {this.state.fireRedirect && <Redirect to="/" />}
       </Grid>
     );
   }

@@ -65,7 +65,7 @@ export default class TeacherExercise extends React.Component {
   render() {
     return (
       <div>
-        {this.state.successMessage.showModal && modalHandler.getCreationSuccess(this.state.successMessage)}
+        {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
         {!this.state.formOK && this.getFormError('Keine Antwort wurde als richtig markiert!')}
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
