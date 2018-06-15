@@ -5,7 +5,7 @@ import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../config/hunterUiDefaults';
 import {apiGetHandler, apiPutHandler} from '../handlers/hunterApiHandlers';
-import {formHandler} from '../handlers/hunterDataHandlers';
+import {formChangeHandler, formDataEditHandler} from '../handlers/hunterFormHandlers';
 import {modalHandler, tableHandler} from '../handlers/hunterViewHandlers';
 
 export default class UserSettings extends React.Component {
@@ -23,8 +23,8 @@ export default class UserSettings extends React.Component {
     };
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = formHandler.handleEditParticipant.bind(this);
-    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleSubmit = formDataEditHandler.handleEditParticipant.bind(this);
+    this.handleChange = formChangeHandler.handleChange.bind(this);
     this.getSettingChanging = modalHandler.getSettingChanging.bind(this);
     this.putData = apiPutHandler.putData.bind(this);
   }

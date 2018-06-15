@@ -1,24 +1,9 @@
-import {OK} from 'http-status-codes';
+import {OK} from 'http-status-codes/index';
 
-import {numbers} from '../../config/hunterUiDefaults';
 import {dataHandler} from '../hunterDataHandlers';
+import {numbers} from '../../config/hunterUiDefaults';
 
 export default {
-  handleChange(event, target) {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({
-      [target.name]: value
-    });
-  },
-
-  handleAnswerSelectChange(event, {value}) {
-    this.setState({answerId: value});
-  },
-
-  handleQuizSelectChange(event, {value}) {
-    this.setState({selectedQuizId: value});
-  },
-
   handleExerciseSubmit() {
     const routes = {
       '/participant': () => this.postData(dataHandler.prepareParticipantData({...this.state}), 'response'),
@@ -111,17 +96,6 @@ export default {
         email: this.state.email
       },
       'auth/register'
-    );
-  },
-
-  handleEditParticipant() {
-    this.putData(
-      {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email
-      },
-      'person'
     );
   }
 };
