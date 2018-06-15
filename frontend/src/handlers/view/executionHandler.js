@@ -34,7 +34,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: this.state.maxPage,
           activePage: this.state.pageNumber,
-          onPageChange: this.handlePageChangeExecutions,
+          onPageChange: this.pageChangeExecutions,
           width: headerElements.length
         })}
       </Table>

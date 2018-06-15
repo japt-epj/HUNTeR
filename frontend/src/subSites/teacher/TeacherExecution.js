@@ -11,6 +11,7 @@ import '../../style/react-datetime.css';
 import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
 import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
 import {formChangeHandler, formSubmitHandler} from '../../handlers/hunterFormHandlers';
+import {paginationPageChangeHandler} from '../../handlers/hunterPaginationHandlers';
 import {modalHandler, participantHandler, quizHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
@@ -50,6 +51,8 @@ export default class TeacherExecution extends React.Component {
     this.handleSubmit = formSubmitHandler.handleExecutionSumbit.bind(this);
     this.handleChange = formChangeHandler.handleChange.bind(this);
     this.handleQuizSelectChange = formChangeHandler.handleQuizSelectChange.bind(this);
+    this.pageChangeQuizzes = paginationPageChangeHandler.pageChangeQuizzes.bind(this);
+    this.pageChangeParticipants = paginationPageChangeHandler.pageChangeParticipants.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
   }
@@ -83,20 +86,6 @@ export default class TeacherExecution extends React.Component {
         loadingQuizzes: false
       });
     });
-  };
-
-  handlePageChangeParticipants = (event, element) => {
-    this.setState({
-      pageNumber: element.activePage
-    });
-    this.getParticipants(element.activePage);
-  };
-
-  handlePageChangeQuizzes = (event, element) => {
-    this.setState({
-      pageNumber: element.activePage
-    });
-    this.getQuizzes(element.activePage);
   };
 
   resetPageNumber = event => {
