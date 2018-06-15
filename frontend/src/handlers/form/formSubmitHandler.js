@@ -1,4 +1,4 @@
-import {OK} from 'http-status-codes/index';
+import {OK} from 'http-status-codes';
 
 import {dataHandler} from '../hunterDataHandlers';
 import {numbers} from '../../config/hunterUiDefaults';

@@ -1,4 +1,4 @@
-import {numbers} from '../../config/hunterUiDefaults';
+import {passwordOptions} from '../../config/hunterUiDefaults';
 
 export default {
   checkPassword(password) {
@@ -6,7 +6,7 @@ export default {
     let schema = new passwordValidator();
     schema
       .is()
-      .min(numbers.minPasswordLength)
+      .min(passwordOptions.minPasswordLength)
       .has()
       .uppercase()
       .has()
