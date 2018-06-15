@@ -1,6 +1,5 @@
 export {default as executionHandler} from './view/ExecutionHandler';
 export {default as exerciseHandler} from './view/ExerciseHandler';
-export {default as mapHandler} from './view/MapHandler';
 export {default as modalHandler} from './view/ModalHandler';
 export {default as paginationHandler} from './view/PaginationHandler';
 export {default as participantHandler} from './view/ParticipantHandler';

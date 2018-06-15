@@ -5,7 +5,7 @@ import {Form, Grid, Header, Message} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
 import {formHandler} from '../../handlers/hunterDataHandlers';
 import {modalHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';

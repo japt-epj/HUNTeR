@@ -5,7 +5,7 @@ import {Form, Grid, Message} from 'semantic-ui-react';
 import {isMobile} from 'react-device-detect';
 
 import {colors} from '../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../handlers/hunterApiHandler';
+import {apiGetHandler, apiPostHandler} from '../handlers/hunterApiHandlers';
 import {formHandler} from '../handlers/hunterDataHandlers';
 import {modalHandler, structureHandler} from '../handlers/hunterViewHandlers';
 

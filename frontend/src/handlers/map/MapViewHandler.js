@@ -3,24 +3,9 @@ import React from 'react';
 import {Map as LeafletMap, Marker, Tooltip, TileLayer} from 'react-leaflet';
 
 import {map} from '../../config/hunterUiDefaults';
+import L from 'leaflet';
 
 export default {
-  addPosition(element) {
-    if (Boolean(this.state.map.currentExercise)) {
-      let newPositions = this.state.selectedPositions;
-      newPositions.set(this.state.map.currentExercise, this.state.map.location);
-      this.setState({selectedPositions: newPositions});
-    }
-    let map = {...this.state.map};
-    map.currentExercise = element.id;
-    map.popupText = element.name;
-    if (!Boolean(this.state.selectedPositions.get(element.id))) {
-      map.location = this.state.map.location;
-    } else {
-      map.location = this.state.selectedPositions.get(element.id);
-    }
-    this.setState({map: map});
-  },
   getQuizMap() {
     const pointer = map.icons.pointer.icon;
 
@@ -28,7 +13,7 @@ export default {
       <LeafletMap
         center={this.state.map.location || map.baseLocation}
         onClick={this.handleClick}
-        onLocationFound={this.handleLocation}
+        onLocationFound={this.teacherQuizHandleLocation}
         zoom={this.state.map.zoom}
         onZoomEnd={this.handleZoom}
         ref={this.mapref}
@@ -55,7 +40,7 @@ export default {
       <LeafletMap
         bounds={this.bounds()}
         onLocationFound={this.handleLocation}
-        onClick={this.handleSelection}
+        onClick={this.handleNextLocationSelection}
         zoom={this.state.map.zoom}
         onZoomEnd={this.handleZoom}
         ref={this.mapref}
@@ -67,7 +52,7 @@ export default {
             id={element}
             position={this.state.locations.get(element)}
             icon={element === 'currentPosition' ? protagonist : pointer}
-            onClick={this.handleSelection}
+            onClick={this.handleNextLocationSelection}
           >
             <Tooltip
               direction="left"
@@ -81,5 +66,13 @@ export default {
         ))}
       </LeafletMap>
     );
+  },
+
+  bounds() {
+    const boundLocations =
+      Array.from(this.state.selectedPositions.values()).length !== 0
+        ? Array.from(this.state.selectedPositions.values())
+        : [map.baseLocation];
+    return L.latLngBounds(boundLocations);
   }
 };

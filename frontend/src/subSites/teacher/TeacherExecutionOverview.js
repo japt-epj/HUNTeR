@@ -5,7 +5,7 @@ import {Button} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import {colors} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../../handlers/hunterApiHandler';
+import {apiGetHandler} from '../../handlers/hunterApiHandlers';
 import {executionHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 

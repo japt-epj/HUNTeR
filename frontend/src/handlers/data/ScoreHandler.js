@@ -1,6 +1,6 @@
 import {numbers} from '../../config/hunterUiDefaults';
 import {OK} from 'http-status-codes';
-import {apiGetHandler} from '../hunterApiHandler';
+import {apiGetHandler} from '../hunterApiHandlers';
 
 export default {
   getLeaderBoard(executionId) {
