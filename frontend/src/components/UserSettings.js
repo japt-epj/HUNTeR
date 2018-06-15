@@ -6,6 +6,7 @@ import {Form, Grid} from 'semantic-ui-react';
 import {modalOptions} from '../config/hunterUiDefaults';
 import {apiGetHandler, apiPutHandler} from '../handlers/hunterApiHandlers';
 import {formChangeHandler, formDataEditHandler} from '../handlers/hunterFormHandlers';
+import {passwordInputHandler, passwordValidationHandler} from '../handlers/hunterPasswordHandler';
 import {modalHandler, tableHandler} from '../handlers/hunterViewHandlers';
 
 export default class UserSettings extends React.Component {
@@ -19,12 +20,17 @@ export default class UserSettings extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      school: ''
+      school: '',
+      oldPassword: '',
+      newPassword: '',
+      newPasswordRepeated: '',
+      passwordRating: 0
     };
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = formDataEditHandler.handleEditParticipant.bind(this);
     this.handleChange = formChangeHandler.handleChange.bind(this);
+    this.getPasswordInputs = passwordInputHandler.getPasswordInputs.bind(this);
     this.getSettingChanging = modalHandler.getSettingChanging.bind(this);
     this.putData = apiPutHandler.putData.bind(this);
   }
@@ -70,6 +76,7 @@ export default class UserSettings extends React.Component {
           />
           <Form.Input label="E-Mail" type="email" value={this.state.email} name="email" disabled />
           <Form.Input label="Lehranstalt" type="text" value={this.state.school} disabled />
+          {this.getPasswordInputs()}
           <Grid>{this.getSubmitCancelButton()}</Grid>
         </Form>
         {this.state.fireRedirect && <Redirect to={{pathname: '/'}} />}
