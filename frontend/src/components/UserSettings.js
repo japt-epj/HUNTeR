@@ -14,7 +14,7 @@ export default class UserSettings extends React.Component {
     super(props);
     this.state = {
       successMessage: modalOptions.settings,
-      oldPasswordError: false,
+      currentPasswordError: false,
       newPasswordError: false,
       showModal: false,
       loading: true,
@@ -23,7 +23,7 @@ export default class UserSettings extends React.Component {
       lastName: '',
       email: '',
       school: '',
-      oldPassword: '',
+      currentPassword: '',
       newPassword: '',
       newPasswordRepeated: '',
       passwordRating: 0

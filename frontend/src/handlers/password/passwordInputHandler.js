@@ -20,10 +20,10 @@ export default {
           <Message header="Passwortfehler" content="Das alte Passwort war falsch." error />
         )}
         <Form.Input
-          label="Altes Passwort"
+          label="Aktuelles Passwort"
           type="password"
-          value={this.state.oldPassword}
-          name="oldPassword"
+          value={this.state.currentPassword}
+          name="currentPassword"
           onChange={this.handleChange}
         />
         <Form.Input
