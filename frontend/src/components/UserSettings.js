@@ -6,7 +6,7 @@ import {Form, Grid} from 'semantic-ui-react';
 import {modalOptions} from '../config/hunterUiDefaults';
 import {apiGetHandler, apiPutHandler} from '../handlers/hunterApiHandlers';
 import {formChangeHandler, formDataEditHandler} from '../handlers/hunterFormHandlers';
-import {passwordInputHandler, passwordValidationHandler} from '../handlers/hunterPasswordHandler';
+import {passwordInputHandler} from '../handlers/hunterPasswordHandler';
 import {modalHandler, tableHandler} from '../handlers/hunterViewHandlers';
 
 export default class UserSettings extends React.Component {
