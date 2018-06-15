@@ -4,7 +4,7 @@ import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import {colors} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../hunterApiHandler';
+import {apiGetHandler} from '../hunterApiHandlers';
 import {paginationHandler, tableHandler} from '../hunterViewHandlers';
 import ShowExerciseModal from '../../components/ShowExerciseModal';
 import ShowExerciseEditModal from '../../components/ShowExerciseEditModal';

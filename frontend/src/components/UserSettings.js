@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../config/hunterUiDefaults';
-import {apiGetHandler, apiPutHandler} from '../handlers/hunterApiHandler';
+import {apiGetHandler, apiPutHandler} from '../handlers/hunterApiHandlers';
 import {formHandler} from '../handlers/hunterDataHandlers';
 import {modalHandler, tableHandler} from '../handlers/hunterViewHandlers';
 

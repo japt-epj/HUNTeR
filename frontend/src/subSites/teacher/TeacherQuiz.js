@@ -5,9 +5,15 @@ import {OK} from 'http-status-codes';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {map, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
 import {formHandler} from '../../handlers/hunterDataHandlers';
-import {exerciseHandler, mapHandler, modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
+import {
+  mapInteractionHandler,
+  mapLocationHandler,
+  mapPositionHandler,
+  mapViewHandler
+} from '../../handlers/hunterMapHandlers';
+import {exerciseHandler, modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherQuiz extends React.Component {
   constructor(props) {
@@ -37,7 +43,12 @@ export default class TeacherQuiz extends React.Component {
       }
     };
 
-    this.addPosition = mapHandler.addPosition.bind(this);
+    this.handleZoom = mapInteractionHandler.handleZoom.bind(this);
+    this.locate = mapLocationHandler.locate.bind(this);
+    this.teacherQuizHandleLocation = mapLocationHandler.teacherQuizHandleLocation.bind(this);
+    this.addPosition = mapPositionHandler.addPosition.bind(this);
+    this.getQuizMap = mapViewHandler.getQuizMap.bind(this);
+
     this.defaultPageNumber = numbers.pageNumber;
     this.exerciseLimitPerPage = numbers.exerciseLimitPerPage;
     this.getAddExerciseModal = modalHandler.getAddExerciseModal.bind(this);
@@ -47,7 +58,6 @@ export default class TeacherQuiz extends React.Component {
     this.handleSingleSelection = exerciseHandler.handleSingleSelection.bind(this);
     this.handleBulkSelection = exerciseHandler.handleBulkSelection.bind(this);
     this.updateSelection = exerciseHandler.updateSelection.bind(this);
-    this.getQuizMap = mapHandler.getQuizMap.bind(this);
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = formHandler.handleQuizSumbit.bind(this);
@@ -84,37 +94,6 @@ export default class TeacherQuiz extends React.Component {
     const defaultPageNumber = numbers.pageNumber;
     this.getExercises(defaultPageNumber);
     this.setState({pageNumber: defaultPageNumber});
-  };
-
-  handleClick = event => {
-    let map = {...this.state.map};
-    map.location = event.latlng;
-    map.zoom = this.mapref.current.leafletElement.getZoom();
-    map.clicked = true;
-    let newPositions = new Map(this.state.selectedPositions);
-    if (Boolean(this.state.map.currentExercise)) {
-      newPositions.set(this.state.map.currentExercise, this.state.map.location);
-    }
-    this.setState({
-      selectedPositions: newPositions,
-      map
-    });
-  };
-
-  handleZoom = () => {
-    let map = {...this.state.map};
-    map.zoom = this.mapref.current.leafletElement.getZoom();
-    this.setState({map});
-  };
-
-  locate = () => this.mapref.current.leafletElement.locate();
-
-  handleLocation = event => {
-    let map = {...this.state.map};
-    map.zoom = this.mapref.current.leafletElement.getZoom();
-    map.location = event.latlng;
-    map.clicked = false;
-    this.setState({map});
   };
 
   handlePageChangeExercises = (event, element) => {

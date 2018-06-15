@@ -9,7 +9,7 @@ import 'moment/locale/de-ch';
 import '../../style/react-datetime.css';
 
 import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
 import {formHandler} from '../../handlers/hunterDataHandlers';
 import {modalHandler, participantHandler, quizHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';

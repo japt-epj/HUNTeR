@@ -5,7 +5,7 @@ import {OK} from 'http-status-codes';
 import {Form, Grid, Table} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
 import {formHandler} from '../../handlers/hunterDataHandlers';
 import {modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
