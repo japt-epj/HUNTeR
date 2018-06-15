@@ -6,6 +6,7 @@ import {OK} from 'http-status-codes';
 
 import {colors} from '../../config/hunterUiDefaults';
 import {apiGetHandler} from '../../handlers/hunterApiHandlers';
+import {paginationPageChangeHandler} from '../../handlers/hunterPaginationHandlers';
 import {executionHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
@@ -20,19 +21,13 @@ export default class TeacherExecutionOverview extends React.Component {
       maxPage: ''
     };
 
+    this.pageChangeExecutions = paginationPageChangeHandler.pageChangeExecutions.bind(this);
     this.getExecutionTable = executionHandler.getExecutionTable.bind(this);
   }
 
   componentDidMount() {
     this.getExecutions(this.state.pageNumber);
   }
-
-  handlePageChangeExecutions = (event, element) => {
-    this.setState({
-      pageNumber: element.activePage
-    });
-    this.getExecutions(element.activePage);
-  };
 
   getExecutions = page => {
     apiGetHandler.getPaginatedElements('execution', page).then(resData => {

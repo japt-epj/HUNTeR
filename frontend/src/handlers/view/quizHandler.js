@@ -40,7 +40,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: this.state.maxPageQuizzes,
           activePage: this.state.pageNumber,
-          onPageChange: this.handlePageChangeQuizzes,
+          onPageChange: this.pageChangeQuizzes,
           width: headerElements.length + checkboxNeeded
         })}
       </Table>

@@ -13,6 +13,7 @@ import {
   mapPositionHandler,
   mapViewHandler
 } from '../../handlers/hunterMapHandlers';
+import {paginationPageChangeHandler} from '../../handlers/hunterPaginationHandlers';
 import {exerciseHandler, modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherQuiz extends React.Component {
@@ -62,6 +63,8 @@ export default class TeacherQuiz extends React.Component {
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
     this.handleSubmit = formSubmitHandler.handleQuizSumbit.bind(this);
     this.handleChange = formChangeHandler.handleChange.bind(this);
+    this.pageChangeSelectedExercises = paginationPageChangeHandler.pageChangeSelectedExercises.bind(this);
+    this.pageChangeExercises = paginationPageChangeHandler.pageChangeExercises.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
     this.getAgreement = modalHandler.getAgreement.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
@@ -94,33 +97,6 @@ export default class TeacherQuiz extends React.Component {
     const defaultPageNumber = numbers.pageNumber;
     this.getExercises(defaultPageNumber);
     this.setState({pageNumber: defaultPageNumber});
-  };
-
-  handlePageChangeExercises = (event, element) => {
-    this.setState({
-      pageNumber: element.activePage
-    });
-    this.getExercises(element.activePage);
-  };
-
-  handlePageChangeSelectedExercises = (event, element) => {
-    let currentPage = element.activePage;
-    this.setState({pageNumberSelectedExercises: element.activePage});
-    apiGetHandler
-      .getElementArray(
-        'exercise/',
-        this.state.selectedCheckboxes.slice(
-          (currentPage - 1) * this.exerciseLimitPerPage,
-          currentPage * this.exerciseLimitPerPage
-        )
-      )
-      .then(resData => {
-        if (resData.status === OK) {
-          this.setState({selectedExercises: resData.data});
-        } else {
-          console.error('Error:' + resData);
-        }
-      });
   };
 
   render() {

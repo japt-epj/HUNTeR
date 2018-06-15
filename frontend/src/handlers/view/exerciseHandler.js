@@ -118,7 +118,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: paginationHandler.calculateTotalPages(this.state.selectedCheckboxes.length, maxElementsPerPage),
           activePage: this.state.pageNumberSelectedExercises,
-          onPageChange: this.handlePageChangeSelectedExercises,
+          onPageChange: this.pageChangeSelectedExercises,
           width: headerElements.length
         })}
       </Table>
@@ -164,7 +164,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: this.state.maxPage,
           activePage: this.state.pageNumber,
-          onPageChange: this.handlePageChangeExercises,
+          onPageChange: this.pageChangeExercises,
           width: headerElements.length + checkboxNeeded
         })}
       </Table>
