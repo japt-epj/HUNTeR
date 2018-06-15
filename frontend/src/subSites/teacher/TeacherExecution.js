@@ -10,7 +10,7 @@ import '../../style/react-datetime.css';
 
 import {colors, modalOptions, numbers} from '../../config/hunterUiDefaults';
 import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
-import {formHandler} from '../../handlers/hunterDataHandlers';
+import {formChangeHandler, formSubmitHandler} from '../../handlers/hunterFormHandlers';
 import {modalHandler, participantHandler, quizHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
@@ -47,9 +47,9 @@ export default class TeacherExecution extends React.Component {
     this.getQuizTable = quizHandler.getQuizTable.bind(this);
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = formHandler.handleExecutionSumbit.bind(this);
-    this.handleChange = formHandler.handleChange.bind(this);
-    this.handleQuizSelectChange = formHandler.handleQuizSelectChange.bind(this);
+    this.handleSubmit = formSubmitHandler.handleExecutionSumbit.bind(this);
+    this.handleChange = formChangeHandler.handleChange.bind(this);
+    this.handleQuizSelectChange = formChangeHandler.handleQuizSelectChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
   }

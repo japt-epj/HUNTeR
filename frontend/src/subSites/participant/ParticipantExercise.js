@@ -6,7 +6,7 @@ import {OK} from 'http-status-codes';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
 import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
-import {formHandler} from '../../handlers/hunterDataHandlers';
+import {formChangeHandler, formSubmitHandler} from '../../handlers/hunterFormHandlers';
 import {modalHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
@@ -24,8 +24,8 @@ export default class ParticipantExercise extends React.Component {
       answerId: -1,
       fireRedirect: false
     };
-    this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
-    this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
+    this.handleSubmit = formSubmitHandler.handleExerciseSubmit.bind(this);
+    this.handleSelectChange = formChangeHandler.handleAnswerSelectChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
   }
 

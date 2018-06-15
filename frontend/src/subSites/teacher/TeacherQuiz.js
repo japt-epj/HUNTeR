@@ -6,7 +6,7 @@ import {Form, Grid} from 'semantic-ui-react';
 
 import {map, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
 import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
-import {formHandler} from '../../handlers/hunterDataHandlers';
+import {formSubmitHandler, formChangeHandler} from '../../handlers/hunterFormHandlers';
 import {
   mapInteractionHandler,
   mapLocationHandler,
@@ -60,8 +60,8 @@ export default class TeacherQuiz extends React.Component {
     this.updateSelection = exerciseHandler.updateSelection.bind(this);
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = formHandler.handleQuizSumbit.bind(this);
-    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleSubmit = formSubmitHandler.handleQuizSumbit.bind(this);
+    this.handleChange = formChangeHandler.handleChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
     this.getAgreement = modalHandler.getAgreement.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);

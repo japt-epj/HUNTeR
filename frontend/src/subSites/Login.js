@@ -6,7 +6,7 @@ import {isMobile} from 'react-device-detect';
 
 import {colors} from '../config/hunterUiDefaults';
 import {apiGetHandler, apiPostHandler} from '../handlers/hunterApiHandlers';
-import {formHandler} from '../handlers/hunterDataHandlers';
+import {formSubmitHandler, formChangeHandler} from '../handlers/hunterFormHandlers';
 import {modalHandler, structureHandler} from '../handlers/hunterViewHandlers';
 
 export default class Login extends React.Component {
@@ -20,8 +20,8 @@ export default class Login extends React.Component {
       fireRedirect: Boolean(window.localStorage.getItem('HUNTeR-Redirect'))
     };
 
-    this.handleLoginSubmit = formHandler.handleLoginSubmit.bind(this);
-    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleLoginSubmit = formSubmitHandler.handleLoginSubmit.bind(this);
+    this.handleChange = formChangeHandler.handleChange.bind(this);
     this.postLoginData = apiPostHandler.postLoginData.bind(this);
     this.redirectAfterLogin = apiGetHandler.redirectAfterLogin.bind(this);
   }
