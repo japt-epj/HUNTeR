@@ -14,6 +14,8 @@ export default class UserSettings extends React.Component {
     super(props);
     this.state = {
       successMessage: modalOptions.settings,
+      oldPasswordError: false,
+      newPasswordError: false,
       showModal: false,
       loading: true,
       fireRedirect: false,
@@ -58,26 +60,32 @@ export default class UserSettings extends React.Component {
         {this.state.successMessage.showModal && modalHandler.getSuccess(this.state.successMessage)}
         {this.state.showModal && this.getSettingChanging()}
         <Form onSubmit={this.onSubmit} loading={this.state.loading}>
-          <Form.Input
-            label="Vorname"
-            type="text"
-            value={this.state.firstName}
-            name="firstName"
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Input
-            label="Nachname"
-            type="text"
-            value={this.state.lastName}
-            name="lastName"
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Input label="E-Mail" type="email" value={this.state.email} name="email" disabled />
-          <Form.Input label="Lehranstalt" type="text" value={this.state.school} disabled />
-          {this.getPasswordInputs()}
-          <Grid>{this.getSubmitCancelButton()}</Grid>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.Input
+                  label="Vorname"
+                  type="text"
+                  value={this.state.firstName}
+                  name="firstName"
+                  onChange={this.handleChange}
+                  required
+                />
+                <Form.Input
+                  label="Nachname"
+                  type="text"
+                  value={this.state.lastName}
+                  name="lastName"
+                  onChange={this.handleChange}
+                  required
+                />
+                <Form.Input label="E-Mail" type="email" value={this.state.email} name="email" disabled />
+                <Form.Input label="Lehranstalt" type="text" value={this.state.school} disabled />
+                {this.getPasswordInputs()}
+              </Grid.Column>
+            </Grid.Row>
+            {this.getSubmitCancelButton()}
+          </Grid>
         </Form>
         {this.state.fireRedirect && <Redirect to={{pathname: '/'}} />}
       </div>

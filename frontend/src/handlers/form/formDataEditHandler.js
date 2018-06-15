@@ -1,13 +1,10 @@
 export default {
   handleEditParticipant() {
-    this.putData(
-      {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        password: this.state.password
-      },
-      'person'
-    );
+    const {firstName, lastName, email, oldPassword, newPassword, newPasswordRepeated} = this.state;
+    if (newPassword !== newPasswordRepeated) {
+      this.setState({passwordError: true});
+      return;
+    }
+    this.putData({firstName, lastName, email, oldPassword, newPassword}, 'person');
   }
 };

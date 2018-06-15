@@ -1,5 +1,5 @@
 import {apiGetHandler} from '../hunterApiHandlers';
-import {OK} from 'http-status-codes/index';
+import {OK} from 'http-status-codes';
 
 export default {
   pageChangeQuizzes(event, element) {
