@@ -6,7 +6,8 @@ let defaultNumbers = {
   scanDelayValue: 500,
   executionLimit: 200,
   timeoutTime: 2000,
-  maxTrophyValue: 3
+  maxTrophyValue: 3,
+  minPasswordLength: 8
 };
 
 export default Object.freeze(Object.assign({}, defaultNumbers));

@@ -4,7 +4,8 @@ export default {
       {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
-        email: this.state.email
+        email: this.state.email,
+        password: this.state.password
       },
       'person'
     );
