@@ -4,11 +4,14 @@ import ch.japt.epj.api.PaginatedPerson;
 import ch.japt.epj.api.PersonApi;
 import ch.japt.epj.library.SortParameterHandler;
 import ch.japt.epj.model.PersonModel;
+import ch.japt.epj.model.data.Person;
 import ch.japt.epj.model.dto.PersonDto;
 import ch.japt.epj.model.dto.UpdatePersonDto;
+import ch.japt.epj.repository.PersonRepository;
 import ch.japt.epj.security.CustomUserDetails;
 import io.swagger.annotations.Api;
 import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,10 +32,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api")
 public class PersonController implements PersonApi, PaginatedPerson {
 
+  private final PasswordEncoder passwordEncoder;
   private final PersonModel personModel;
+  private final PersonRepository persons;
 
-  public PersonController(@Autowired PersonModel personModel) {
+  public PersonController(
+      @Autowired PasswordEncoder passwordEncoder,
+      @Autowired PersonModel personModel,
+      @Autowired PersonRepository persons) {
+    this.passwordEncoder = passwordEncoder;
     this.personModel = personModel;
+    this.persons = persons;
   }
 
   @Override
@@ -63,7 +74,16 @@ public class PersonController implements PersonApi, PaginatedPerson {
   public ResponseEntity<Void> updatePerson(@Valid @RequestBody UpdatePersonDto body) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     long personId = ((CustomUserDetails) authentication.getPrincipal()).getPersonId();
-    personModel.updatePeople(body, personId);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    Optional<Person> person = persons.findByPersonId(personId);
+    if (person.isPresent()
+        && passwordEncoder.matches(body.getCurrentPassword(), person.get().getPassword())) {
+      String passwordHash = person.get().getPassword();
+      if (!body.getNewPassword().equals("")) {
+        passwordHash = passwordEncoder.encode(body.getNewPassword());
+      }
+      personModel.updatePeople(body, personId, passwordHash);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
   }
 }

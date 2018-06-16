@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Table} from 'semantic-ui-react';
 
 import {colors} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../hunterApiHandler';
+import {apiGetHandler} from '../hunterApiHandlers';
 import {paginationHandler, tableHandler} from '../hunterViewHandlers';
 
 export default {
@@ -34,7 +34,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: this.state.maxPage,
           activePage: this.state.pageNumber,
-          onPageChange: this.handlePageChangeExecutions,
+          onPageChange: this.pageChangeExecutions,
           width: headerElements.length
         })}
       </Table>

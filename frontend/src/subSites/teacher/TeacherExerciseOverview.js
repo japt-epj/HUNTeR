@@ -5,7 +5,8 @@ import {OK} from 'http-status-codes';
 import {Button} from 'semantic-ui-react';
 
 import {colors, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../../handlers/hunterApiHandler';
+import {apiGetHandler} from '../../handlers/hunterApiHandlers';
+import {paginationPageChangeHandler} from '../../handlers/hunterPaginationHandlers';
 import {exerciseHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
@@ -22,6 +23,7 @@ export default class TeacherExerciseOverview extends React.Component {
       maxPage: ''
     };
 
+    this.pageChangeExercises = paginationPageChangeHandler.pageChangeExercises.bind(this);
     this.getExerciseTable = exerciseHandler.getExerciseTable.bind(this);
   }
 
@@ -37,13 +39,6 @@ export default class TeacherExerciseOverview extends React.Component {
       this.getExercises(this.state.pageNumber);
     }
   }
-
-  handlePageChangeExercises = (event, element) => {
-    this.setState({
-      pageNumber: element.activePage
-    });
-    this.getExercises(element.activePage);
-  };
 
   getExercises = page => {
     apiGetHandler.getPaginatedElements('exercise', page).then(resData => {

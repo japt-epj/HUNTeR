@@ -103,7 +103,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "person object that needs to be editted in the store"
+        description: "person object that needs to be edited in the store"
         required: true
         schema:
           $ref: "#/definitions/UpdatePerson"
@@ -662,6 +662,11 @@ definitions:
 
   UpdatePerson:
     type: "object"
+    required:
+    - "firstName"
+    - "lastName"
+    - "email"
+    - "currentPassword"
     properties:
       id:
         type: "integer"
@@ -671,6 +676,10 @@ definitions:
       lastName:
         type: "string"
       email:
+        type: "string"
+      currentPassword:
+        type: "string"
+      newPassword:
         type: "string"
 
   AuthPerson:
