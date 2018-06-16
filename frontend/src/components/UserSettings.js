@@ -16,6 +16,7 @@ export default class UserSettings extends React.Component {
       successMessage: modalOptions.settings,
       currentPasswordError: false,
       newPasswordError: false,
+      isPasswordWeek: false,
       showModal: false,
       loading: true,
       fireRedirect: false,
