@@ -16,7 +16,7 @@ let defaultPasswordOptions = {
     header: 'Altes Passwort falsch',
     content: 'Die Passwörter sind nicht identisch.'
   },
-  ispasswordWeek: {
+  isPasswordWeek: {
     header: 'Schwaches Passwort',
     content: 'Das Passwort ist zu schwach gewählt, bitte richten Sie sich an die Vorgaben.'
   }
