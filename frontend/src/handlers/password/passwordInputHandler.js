@@ -8,7 +8,6 @@ import {passwordOptions} from '../../config/hunterUiDefaults';
 export default {
   getPasswordInputs() {
     const {validationResult, complexity} = passwordValidationHandler.checkPassword(this.state.newPassword);
-
     const passwordComponents = new Map(passwordOptions.passwordComponents);
 
     return (
@@ -43,21 +42,23 @@ export default {
           onChange={this.handleChange}
           error={this.state.newPasswordError}
         />
-        {this.state.isPasswordWeek && (
+        {this.state.isPasswordWeak && (
           <Message
-            header={passwordOptions.isPasswordWeek.header}
-            content={passwordOptions.isPasswordWeek.content}
+            header={passwordOptions.isPasswordWeak.header}
+            content={passwordOptions.isPasswordWeak.content}
             color="red" //bug when using error it will not be displayed
           />
         )}
         {Boolean(this.state.newPassword) && (
           <div>
-            <List>
-              <List.Header content={passwordComponents.listHeader} />
-              {validationResult.map(element => (
-                <List.Item key={element} content={passwordComponents.get(element)} icon="x" />
-              ))}
-            </List>
+            {complexity < passwordOptions.minComplexity && (
+              <List>
+                <List.Header content={passwordOptions.listHeader} />
+                {validationResult.map(element => (
+                  <List.Item key={element} content={passwordComponents.get(element)} icon="x" />
+                ))}
+              </List>
+            )}
             <Progress percent={complexity} indicating />
           </div>
         )}

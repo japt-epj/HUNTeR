@@ -6,7 +6,7 @@ import {Form, Grid} from 'semantic-ui-react';
 import {modalOptions} from '../config/hunterUiDefaults';
 import {apiGetHandler, apiPutHandler} from '../handlers/hunterApiHandlers';
 import {formChangeHandler, formDataEditHandler} from '../handlers/hunterFormHandlers';
-import {passwordInputHandler} from '../handlers/hunterPasswordHandler';
+import {passwordInputHandler, passwordValidationHandler} from '../handlers/hunterPasswordHandler';
 import {modalHandler, tableHandler} from '../handlers/hunterViewHandlers';
 
 export default class UserSettings extends React.Component {
@@ -16,7 +16,7 @@ export default class UserSettings extends React.Component {
       successMessage: modalOptions.settings,
       currentPasswordError: false,
       newPasswordError: false,
-      isPasswordWeek: false,
+      isPasswordWeak: false,
       showModal: false,
       loading: true,
       fireRedirect: false,
@@ -52,6 +52,7 @@ export default class UserSettings extends React.Component {
   }
 
   onSubmit = () => {
+    this.setState({passwordRating: passwordValidationHandler.checkPassword(this.state.newPassword).complexity});
     this.setState({showModal: true});
   };
 
