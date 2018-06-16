@@ -11,7 +11,7 @@ let defaultPasswordOptions = {
   ]),
   currentPasswordError: {
     header: 'Altes Passwort falsch',
-    content: 'Das alte Passwort war falsch.'
+    content: 'Das aktuelle Passwort wurde falsch eingegeben.'
   },
   newPasswordError: {
     header: 'Altes Passwort falsch',
