@@ -13,11 +13,12 @@ export default {
 
     return (
       <div>
-        {this.state.newPasswordError && (
-          <Message header="Passwortfehler" content="Die Passwörter sind nicht identisch" error />
-        )}
-        {this.state.oldPasswordError && (
-          <Message header="Passwortfehler" content="Das alte Passwort war falsch." error />
+        {this.state.currentPasswordError && (
+          <Message
+            header={passwordComponents.currentPasswordError.header}
+            content={passwordComponents.currentPasswordError.content}
+            error
+          />
         )}
         <Form.Input
           label="Aktuelles Passwort"
@@ -25,19 +26,27 @@ export default {
           value={this.state.currentPassword}
           name="currentPassword"
           onChange={this.handleChange}
+          error={this.state.currentPasswordError}
         />
+        {this.state.newPasswordError && (
+          <Message
+            header={passwordComponents.newPasswordError.header}
+            content={passwordComponents.newPasswordError.content}
+            error
+          />
+        )}
         <Form.Input
           label="Neues Passwort"
           type="password"
           value={this.state.newPassword}
           name="newPassword"
           onChange={this.handleChange}
-          error={this.state.passwordError}
+          error={this.state.newPasswordError}
         />
         {Boolean(this.state.newPassword) && (
           <div>
             <List>
-              <List.Header content={'Dem Passwort fehlt: '} />
+              <List.Header content={passwordComponents.listHeader} />
               {validationResult.map(element => (
                 <List.Item key={element} content={passwordComponents.get(element)} icon="x" />
               ))}
@@ -51,7 +60,7 @@ export default {
           value={this.state.newPasswordRepeated}
           name="newPasswordRepeated"
           onChange={this.handleChange}
-          error={this.state.passwordError}
+          error={this.state.newPasswordError}
         />
       </div>
     );
