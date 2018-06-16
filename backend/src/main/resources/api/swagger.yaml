@@ -665,6 +665,7 @@ definitions:
     required:
     - "firstName"
     - "lastName"
+    - "email"
     - "currentPassword"
     properties:
       id:
@@ -673,6 +674,8 @@ definitions:
       firstName:
         type: "string"
       lastName:
+        type: "string"
+      email:
         type: "string"
       currentPassword:
         type: "string"

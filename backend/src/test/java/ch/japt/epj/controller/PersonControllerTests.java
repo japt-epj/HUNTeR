@@ -90,15 +90,12 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
 
   @Test
   public void updateCurrentPerson() throws Exception {
-    MockHttpServletRequestBuilder put =
-        MockMvcRequestBuilders.put("/api/person")
-            .header("Authorization", token)
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(
-                "{ \"firstName\": \"Test\", \"lastName\": \"User\", \"email\": \"test.user@this-is-a-test.com\" }");
-
-    mvc.perform(put).andExpect(status().isNoContent());
-
+    String firstName = "Test";
+    String lastName = "User";
+    String email = "test.user@this-is-a-test.com";
+    String currentPassword = "tobias";
+    String newPassword = "";
+    this.changePassword(mvc, token, firstName, lastName, email, currentPassword, newPassword);
     MockHttpServletRequestBuilder get =
         MockMvcRequestBuilders.get("/api/person/current")
             .header("Authorization", token)
@@ -107,9 +104,18 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
     mvc.perform(get)
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.firstName").value("Test"))
-        .andExpect(jsonPath("$.lastName").value("User"))
-        .andExpect(jsonPath("$.email").value("test.user@this-is-a-test.com"));
+        .andExpect(jsonPath("$.firstName").value(firstName))
+        .andExpect(jsonPath("$.lastName").value(lastName))
+        .andExpect(jsonPath("$.email").value(email));
+  }
+
+  @Test
+  public void updateCurrentPersonsPassword() throws Exception {
+    String firstName = "Tobias";
+    String lastName = "Saladin";
+    String email = "tobias.saladin@hsr.ch";
+    this.changePassword(mvc, token, firstName, lastName, email, "tobias", "Tobias");
+    this.changePassword(mvc, token, firstName, lastName, email, "Tobias", "tobias");
   }
 
   private static void assertPersonPayload(ResultActions mvc, String object) throws Exception {
@@ -120,4 +126,44 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
         .andExpect(jsonPath(object + ".password").value(IsNull.nullValue()))
         .andExpect(jsonPath(object + ".schools").isArray());
   }
-}
+
+  private void changePassword(
+      MockMvc mvc,
+      String token,
+      String firstName,
+      String lastName,
+      String email,
+      String currentPassword,
+      String newPassword)
+      throws Exception {
+    if (newPassword.equals("")) {
+      newPassword = currentPassword;
+    }
+
+    MockHttpServletRequestBuilder putNewPassword =
+        MockMvcRequestBuilders.put("/api/person")
+            .header("Authorization", token)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(
+                "{\"firstName\": \""
+                    + firstName
+                    + "\", \"lastName\": \""
+                    + lastName
+                    + "\", \"email\": \""
+                    + email
+                    + "\", \"currentPassword\": \""
+                    + currentPassword
+                    + "\" , \"newPassword\": \""
+                    + newPassword
+                    + "\" }");
+
+    mvc.perform(putNewPassword).andExpect(status().isNoContent());
+
+    MockHttpServletRequestBuilder requestWithNewPassword =
+        MockMvcRequestBuilders.post("/api/auth/login")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{\"email\": \"" + email + "\",\"password\": \"" + newPassword + "\"}");
+
+    mvc.perform(requestWithNewPassword).andExpect(status().isOk());
+  }
+};
