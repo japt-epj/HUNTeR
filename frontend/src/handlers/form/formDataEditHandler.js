@@ -6,7 +6,7 @@ export default {
       return;
     }
     if (this.state.passwordRating !== 1) {
-      this.setState({ispasswordWeek: true});
+      this.setState({isPasswordWeek: true});
       return;
     }
     this.putData({firstName, lastName, email, currentPassword, newPassword}, 'person');

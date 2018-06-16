@@ -17,7 +17,7 @@ export default {
           <Message
             header={passwordOptions.currentPasswordError.header}
             content={passwordOptions.currentPasswordError.content}
-            error
+            color="red" //bug when using error it will not be displayed
           />
         )}
         <Form.Input
@@ -32,7 +32,7 @@ export default {
           <Message
             header={passwordOptions.newPasswordError.header}
             content={passwordOptions.newPasswordError.content}
-            error
+            color="red" //bug when using error it will not be displayed
           />
         )}
         <Form.Input
@@ -47,7 +47,7 @@ export default {
           <Message
             header={passwordOptions.isPasswordWeek.header}
             content={passwordOptions.isPasswordWeek.content}
-            error
+            color="red" //bug when using error it will not be displayed
           />
         )}
         {Boolean(this.state.newPassword) && (
