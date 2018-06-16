@@ -79,7 +79,13 @@ export default class UserSettings extends React.Component {
                   onChange={this.handleChange}
                   required
                 />
-                <Form.Input label="E-Mail" type="email" value={this.state.email} name="email" disabled />
+                <Form.Input
+                  label="E-Mail"
+                  type="email"
+                  value={this.state.email}
+                  name="email"
+                  onChange={this.handleChange}
+                />
                 <Form.Input label="Lehranstalt" type="text" value={this.state.school} disabled />
                 {this.getPasswordInputs()}
               </Grid.Column>
