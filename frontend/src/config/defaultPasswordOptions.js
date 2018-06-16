@@ -14,7 +14,11 @@ let defaultPasswordOptions = {
   },
   newPasswordError: {
     header: 'Altes Passwort falsch',
-    content: 'Die Passwörter sind nicht identisch'
+    content: 'Die Passwörter sind nicht identisch.'
+  },
+  ispasswordWeek: {
+    header: 'Schwaches Passwort',
+    content: 'Das Passwort ist zu schwach gewählt, bitte richten Sie sich an die Vorgaben.'
   }
 };
 

@@ -15,8 +15,8 @@ export default {
       <div>
         {this.state.currentPasswordError && (
           <Message
-            header={passwordComponents.currentPasswordError.header}
-            content={passwordComponents.currentPasswordError.content}
+            header={passwordOptions.currentPasswordError.header}
+            content={passwordOptions.currentPasswordError.content}
             error
           />
         )}
@@ -30,8 +30,8 @@ export default {
         />
         {this.state.newPasswordError && (
           <Message
-            header={passwordComponents.newPasswordError.header}
-            content={passwordComponents.newPasswordError.content}
+            header={passwordOptions.newPasswordError.header}
+            content={passwordOptions.newPasswordError.content}
             error
           />
         )}
@@ -43,6 +43,13 @@ export default {
           onChange={this.handleChange}
           error={this.state.newPasswordError}
         />
+        {this.state.isPasswordWeek && (
+          <Message
+            header={passwordOptions.isPasswordWeek.header}
+            content={passwordOptions.isPasswordWeek.content}
+            error
+          />
+        )}
         {Boolean(this.state.newPassword) && (
           <div>
             <List>
