@@ -2,11 +2,16 @@ import React from 'react';
 import {Redirect} from 'react-router-dom';
 
 import {Button, Grid} from 'semantic-ui-react';
-import L from 'leaflet';
 
-import {colors, map, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../../handlers/hunterApiHandler';
-import {mapHandler, modalHandler} from '../../handlers/hunterViewHandlers';
+import {colors, messages, modalOptions, numbers} from '../../config/hunterUiDefaults';
+import {apiGetHandler} from '../../handlers/hunterApiHandlers';
+import {
+  mapInteractionHandler,
+  mapLocationHandler,
+  mapSelectionHandler,
+  mapViewHandler
+} from '../../handlers/hunterMapHandlers';
+import {modalHandler} from '../../handlers/hunterViewHandlers';
 
 export default class ParticipantNextLocation extends React.Component {
   constructor(props) {
@@ -28,7 +33,14 @@ export default class ParticipantNextLocation extends React.Component {
       redirectPath: '/scan'
     };
 
-    this.getParticipantMap = mapHandler.getParticipantMap.bind(this);
+    this.handleZoom = mapInteractionHandler.handleZoom.bind(this);
+    this.locate = mapLocationHandler.locate.bind(this);
+    this.handleNextLocationSelection = mapSelectionHandler.handleNextLocationSelection.bind(this);
+    this.handleLocation = mapLocationHandler.participantHandleLocation.bind(this);
+    this.promiseToLocation = mapLocationHandler.promiseToLocation.bind(this);
+    this.getParticipantMap = mapViewHandler.getParticipantMap.bind(this);
+    this.bounds = mapViewHandler.bounds.bind(this);
+
     this.getAgreement = modalHandler.getAgreement.bind(this);
 
     this.mapref = React.createRef();
@@ -40,66 +52,6 @@ export default class ParticipantNextLocation extends React.Component {
     }
     this.promiseToLocation(apiGetHandler.getNextLocations(this.state.executionId));
   }
-
-  locate = () => this.mapref.current.leafletElement.locate();
-
-  promiseToLocation = promise => {
-    let locations = new Map(this.state.locations);
-    promise.then(resData => {
-      if (!Boolean(resData.data)) {
-        this.setState({showExecutionCompleted: true});
-        this.redirect();
-        return;
-      }
-      const resDataArray = Boolean(this.state.executionId) ? new Array(resData.data) : resData.data;
-      resDataArray
-        .filter(element => {
-          return Boolean(element.exerciseTitle);
-        })
-        .forEach(element => {
-          locations.set(element.exerciseTitle, [element.lat, element.lng]);
-        });
-      this.setState({
-        locations,
-        selectedPositions: new Map(locations),
-        loading: false
-      });
-    });
-  };
-
-  handleZoom = () => {
-    let map = {...this.state.map};
-    map.zoom = this.mapref.current.leafletElement.getZoom();
-    this.setState({map});
-  };
-
-  handleLocation = event => {
-    let locations = new Map(this.state.locations);
-    locations.set('currentPosition', [event.latlng.lat, event.latlng.lng]);
-    this.setState({locations, selectedPositions: new Map(locations)});
-  };
-
-  handleSelection = event => {
-    const currentPosition = 'currentPosition';
-    let locationId = event.target.options.id;
-    let locations = new Map(this.state.locations);
-    if (!this.state.routing && Boolean(locationId) && Boolean(this.state.locations.get(currentPosition))) {
-      locations = new Map([
-        [currentPosition, this.state.locations.get(currentPosition)],
-        [locationId, this.state.locations.get(locationId)]
-      ]);
-      this.setState({routing: false});
-    }
-    this.setState({selectedPositions: locations});
-  };
-
-  bounds = () => {
-    const boundLocations =
-      Array.from(this.state.selectedPositions.values()).length !== 0
-        ? Array.from(this.state.selectedPositions.values())
-        : [map.baseLocation];
-    return L.latLngBounds(boundLocations);
-  };
 
   redirect = () => {
     setTimeout(() => {

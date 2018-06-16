@@ -72,7 +72,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: this.state.maxPageParticipants,
           activePage: this.state.pageNumber,
-          onPageChange: this.handlePageChangeParticipants,
+          onPageChange: this.pageChangeParticipants,
           width: headerElements.length + checkboxNeeded
         })}
       </Table>

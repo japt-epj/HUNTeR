@@ -1,9 +1,8 @@
-export {default as executionHandler} from './view/ExecutionHandler';
-export {default as exerciseHandler} from './view/ExerciseHandler';
-export {default as mapHandler} from './view/MapHandler';
-export {default as modalHandler} from './view/ModalHandler';
-export {default as paginationHandler} from './view/PaginationHandler';
-export {default as participantHandler} from './view/ParticipantHandler';
-export {default as quizHandler} from './view/QuizHandler';
-export {default as structureHandler} from './view/StructureHandler';
-export {default as tableHandler} from './view/TableHandler';
+export {default as executionHandler} from './view/executionHandler';
+export {default as exerciseHandler} from './view/exerciseHandler';
+export {default as modalHandler} from './view/modalHandler';
+export {default as paginationHandler} from './view/paginationHandler';
+export {default as participantHandler} from './view/participantHandler';
+export {default as quizHandler} from './view/quizHandler';
+export {default as structureHandler} from './view/structureHandler';
+export {default as tableHandler} from './view/tableHandler';

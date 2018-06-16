@@ -4,7 +4,7 @@ import {Button, Checkbox, Icon, Table} from 'semantic-ui-react';
 import {OK} from 'http-status-codes';
 
 import {colors} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../hunterApiHandler';
+import {apiGetHandler} from '../hunterApiHandlers';
 import {paginationHandler, tableHandler} from '../hunterViewHandlers';
 import ShowExerciseModal from '../../components/ShowExerciseModal';
 import ShowExerciseEditModal from '../../components/ShowExerciseEditModal';
@@ -118,7 +118,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: paginationHandler.calculateTotalPages(this.state.selectedCheckboxes.length, maxElementsPerPage),
           activePage: this.state.pageNumberSelectedExercises,
-          onPageChange: this.handlePageChangeSelectedExercises,
+          onPageChange: this.pageChangeSelectedExercises,
           width: headerElements.length
         })}
       </Table>
@@ -164,7 +164,7 @@ export default {
         {paginationHandler.getPagination({
           totalPages: this.state.maxPage,
           activePage: this.state.pageNumber,
-          onPageChange: this.handlePageChangeExercises,
+          onPageChange: this.pageChangeExercises,
           width: headerElements.length + checkboxNeeded
         })}
       </Table>

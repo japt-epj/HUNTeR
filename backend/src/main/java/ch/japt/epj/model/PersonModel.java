@@ -37,7 +37,7 @@ public class PersonModel {
         .map(person -> mapper.map(person, PersonDto.class));
   }
 
-  public void updatePeople(UpdatePersonDto body, Long personId) {
+  public void updatePeople(UpdatePersonDto body, Long personId, String passwordHash) {
     persons
         .findByPersonId(personId)
         .ifPresent(
@@ -46,6 +46,7 @@ public class PersonModel {
               person.setFirstName(body.getFirstName());
               person.setLastName(body.getLastName());
               person.setEmail(body.getEmail());
+              person.setPassword(passwordHash);
               persons.save(person);
             });
   }

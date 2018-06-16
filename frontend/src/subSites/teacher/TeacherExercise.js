@@ -5,8 +5,8 @@ import {OK} from 'http-status-codes';
 import {Form, Grid, Table} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandler';
-import {formHandler} from '../../handlers/hunterDataHandlers';
+import {apiGetHandler, apiPostHandler} from '../../handlers/hunterApiHandlers';
+import {formChangeHandler, formSubmitHandler} from '../../handlers/hunterFormHandlers';
 import {modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherExercise extends React.Component {
@@ -29,9 +29,9 @@ export default class TeacherExercise extends React.Component {
     };
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = formHandler.handleExerciseSubmit.bind(this);
-    this.handleChange = formHandler.handleChange.bind(this);
-    this.handleSelectChange = formHandler.handleAnswerSelectChange.bind(this);
+    this.handleSubmit = formSubmitHandler.handleExerciseSubmit.bind(this);
+    this.handleChange = formChangeHandler.handleChange.bind(this);
+    this.handleSelectChange = formChangeHandler.handleAnswerSelectChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
     this.getFormError = modalHandler.getFormError.bind(this);
   }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {OK} from 'http-status-codes';
 
-import {apiGetHandler} from '../handlers/hunterApiHandler';
+import {apiGetHandler} from '../handlers/hunterApiHandlers';
 import {modalHandler} from '../handlers/hunterViewHandlers';
 import TeacherExerciseOverview from '../subSites/teacher/TeacherExerciseOverview';
 

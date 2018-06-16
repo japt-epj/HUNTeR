@@ -4,8 +4,8 @@ import {Redirect} from 'react-router-dom';
 import {Form, Grid} from 'semantic-ui-react';
 
 import {modalOptions} from '../../config/hunterUiDefaults';
-import {apiPostHandler} from '../../handlers/hunterApiHandler';
-import {formHandler} from '../../handlers/hunterDataHandlers';
+import {apiPostHandler} from '../../handlers/hunterApiHandlers';
+import {formChangeHandler, formSubmitHandler} from '../../handlers/hunterFormHandlers';
 import {modalHandler, tableHandler} from '../../handlers/hunterViewHandlers';
 
 export default class TeacherNewParticipant extends React.Component {
@@ -20,8 +20,8 @@ export default class TeacherNewParticipant extends React.Component {
     };
 
     this.getSubmitCancelButton = tableHandler.getSubmitCancelButton.bind(this);
-    this.handleSubmit = formHandler.handleNewParticipantSubmit.bind(this);
-    this.handleChange = formHandler.handleChange.bind(this);
+    this.handleSubmit = formSubmitHandler.handleNewParticipantSubmit.bind(this);
+    this.handleChange = formChangeHandler.handleChange.bind(this);
     this.postData = apiPostHandler.postData.bind(this);
   }
 

@@ -5,7 +5,8 @@ import {OK} from 'http-status-codes';
 import {Button} from 'semantic-ui-react';
 
 import {colors, numbers} from '../../config/hunterUiDefaults';
-import {apiGetHandler} from '../../handlers/hunterApiHandler';
+import {apiGetHandler} from '../../handlers/hunterApiHandlers';
+import {paginationPageChangeHandler} from '../../handlers/hunterPaginationHandlers';
 import {quizHandler} from '../../handlers/hunterViewHandlers';
 import getLoadingScreen from '../../components/getLoadingScreen';
 
@@ -21,19 +22,13 @@ export default class TeacherQuizOverview extends React.Component {
       maxPageQuizzes: ''
     };
 
+    this.pageChangeQuizzes = paginationPageChangeHandler.pageChangeQuizzes.bind(this);
     this.getQuizTable = quizHandler.getQuizTable.bind(this);
   }
 
   componentDidMount() {
     this.getQuizzes(this.state.pageNumber);
   }
-
-  handlePageChangeQuizzes = (event, element) => {
-    this.setState({
-      pageNumber: element.activePage
-    });
-    this.getQuizzes(element.activePage);
-  };
 
   getQuizzes = page => {
     apiGetHandler.getPaginatedElements('quiz', page).then(resData => {
