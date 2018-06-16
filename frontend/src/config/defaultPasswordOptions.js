@@ -3,7 +3,7 @@ let defaultPasswordOptions = {
   minComplexity: 100,
   listHeader: 'Dem Passwort fehlt: ',
   passwordComponents: new Map([
-    ['min', 'die Minimallänge (min. 10 Zeichen)'],
+    ['min', 'die Minimallänge (min. 8 Zeichen)'],
     ['uppercase', 'ein Grossbuchstabe'],
     ['lowercase', 'ein Kleinbuchstabe'],
     ['digits', 'eine Nummer'],

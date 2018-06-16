@@ -12,7 +12,7 @@ export default {
 
     return (
       <div>
-        {this.state.currentPasswordError && (
+        {this.state.showCurrentPasswordError && (
           <Message
             header={passwordOptions.currentPasswordError.header}
             content={passwordOptions.currentPasswordError.content}
@@ -25,9 +25,10 @@ export default {
           value={this.state.currentPassword}
           name="currentPassword"
           onChange={this.handleChange}
-          error={this.state.currentPasswordError}
+          required
+          error={this.state.showCurrentPasswordError}
         />
-        {this.state.newPasswordError && (
+        {this.state.showNewPasswordError && (
           <Message
             header={passwordOptions.newPasswordError.header}
             content={passwordOptions.newPasswordError.content}
@@ -40,7 +41,7 @@ export default {
           value={this.state.newPassword}
           name="newPassword"
           onChange={this.handleChange}
-          error={this.state.newPasswordError}
+          error={this.state.showNewPasswordError}
         />
         {this.state.isPasswordWeak && (
           <Message
@@ -62,14 +63,16 @@ export default {
             <Progress percent={complexity} indicating />
           </div>
         )}
-        <Form.Input
-          label="Neues Passwort wiederholt"
-          type="password"
-          value={this.state.newPasswordRepeated}
-          name="newPasswordRepeated"
-          onChange={this.handleChange}
-          error={this.state.newPasswordError}
-        />
+        {complexity === passwordOptions.minComplexity && (
+          <Form.Input
+            label="Neues Passwort wiederholen"
+            type="password"
+            value={this.state.newPasswordRepeated}
+            name="newPasswordRepeated"
+            onChange={this.handleChange}
+            error={this.state.showNewPasswordError}
+          />
+        )}
       </div>
     );
   }
