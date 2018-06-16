@@ -1,5 +1,6 @@
 let defaultPasswordOptions = {
-  minPasswordLength: 10,
+  minPasswordLength: 8,
+  minComplexity: 100,
   listHeader: 'Dem Passwort fehlt: ',
   passwordComponents: new Map([
     ['min', 'die Minimallänge (min. 10 Zeichen)'],
@@ -16,7 +17,7 @@ let defaultPasswordOptions = {
     header: 'Altes Passwort falsch',
     content: 'Die Passwörter sind nicht identisch.'
   },
-  isPasswordWeek: {
+  isPasswordWeak: {
     header: 'Schwaches Passwort',
     content: 'Das Passwort ist zu schwach gewählt, bitte richten Sie sich an die Vorgaben.'
   }

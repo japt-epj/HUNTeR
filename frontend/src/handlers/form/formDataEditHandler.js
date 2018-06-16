@@ -1,3 +1,5 @@
+import {passwordOptions} from '../../config/hunterUiDefaults';
+
 export default {
   handleEditParticipant() {
     const {firstName, lastName, email, currentPassword, newPassword, newPasswordRepeated} = this.state;
@@ -5,8 +7,9 @@ export default {
       this.setState({newPasswordError: true});
       return;
     }
-    if (this.state.passwordRating !== 1) {
-      this.setState({isPasswordWeek: true});
+    console.log(this.state.passwordRating);
+    if (this.state.passwordRating !== passwordOptions.minComplexity) {
+      this.setState({isPasswordWeak: true});
       return;
     }
     this.putData({firstName, lastName, email, currentPassword, newPassword}, 'person');
