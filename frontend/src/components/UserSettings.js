@@ -14,8 +14,8 @@ export default class UserSettings extends React.Component {
     super(props);
     this.state = {
       successMessage: modalOptions.settings,
-      currentPasswordError: false,
-      newPasswordError: false,
+      showCurrentPasswordError: false,
+      showNewPasswordError: false,
       isPasswordWeak: false,
       showModal: false,
       loading: true,
@@ -87,6 +87,7 @@ export default class UserSettings extends React.Component {
                   value={this.state.email}
                   name="email"
                   onChange={this.handleChange}
+                  required
                 />
                 <Form.Input label="Lehranstalt" type="text" value={this.state.school} disabled />
                 {this.getPasswordInputs()}

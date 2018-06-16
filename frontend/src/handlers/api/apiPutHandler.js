@@ -18,7 +18,7 @@ export default {
       .catch(err => console.error('Error:', err))
       .then(resData => {
         if (resData.status === UNAUTHORIZED) {
-          this.setState({oldPasswordError: true});
+          this.setState({showCurrentPasswordError: true});
           return;
         }
         let successMessage = {...this.state.successMessage};
