@@ -3,6 +3,8 @@
 # safe place to do this.
 git config core.hooksPath .githooks
 
+./mvnw -f frontend/pom.xml clean install
+
 SPRING_PROFILES_ACTIVE=dev; \
     ./mvnw -f backend/pom.xml \
         "-DskipTests=true" \
@@ -31,7 +33,6 @@ if [ $? -ne 0 ]; then
 fi
 
 cd frontend
-npm install
 npm run start
 cd ..
 
