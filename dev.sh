@@ -17,8 +17,7 @@ if [ $? -ne 0 ]; then
 fi
 
 CAN_I_RUN_SUDO=$(sudo -n uptime 2>&1|grep -E "required|load"|wc -l)
-if [ ${CAN_I_RUN_SUDO} -gt 0 ]
-then
+if [ ${CAN_I_RUN_SUDO} -gt 0 ]; then
     sudo docker-compose -f docker/docker-compose.yaml build \
     && sudo docker-compose -f docker/docker-compose.yaml up -d
 else
@@ -37,8 +36,7 @@ npm run start
 cd ..
 
 CAN_I_RUN_SUDO=$(sudo -n uptime 2>&1|grep -E "required|load"|wc -l)
-if [ ${CAN_I_RUN_SUDO} -gt 0 ]
-then
+if [ ${CAN_I_RUN_SUDO} -gt 0 ]; then
     sudo docker-compose -f docker/docker-compose.yaml down
 else
     docker-compose -f docker/docker-compose.yaml down
