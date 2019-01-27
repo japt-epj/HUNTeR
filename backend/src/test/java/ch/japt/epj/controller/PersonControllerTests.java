@@ -136,7 +136,7 @@ public class PersonControllerTests extends AuthenticatedControllerTest {
       String currentPassword,
       String newPassword)
       throws Exception {
-    if (newPassword.equals("")) {
+    if (newPassword.isEmpty()) {
       newPassword = currentPassword;
     }
 
