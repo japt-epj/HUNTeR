@@ -71,44 +71,22 @@ export default class TeacherNavigation extends React.Component {
   };
 
   render() {
-    return (
-      <div>
+    return <div>
         {this.state.showSuccess && modalHandler.getScanSuccess()}
-        {!this.state.hideAgreement ? (
-          this.getAgreement()
-        ) : (
-          <div>
-            {this.state.fireRedirect ? (
-              <div>
-                <a
-                  href={`https://www.google.com/maps/dir/?api=1&origin&destination=${this.state.coordinates.lat},${
-                    this.state.coordinates.lng
-                  }&travelmode=walking&hl=de`}
-                  target="_blank"
-                >
+        {!this.state.hideAgreement ? this.getAgreement() : <div>
+            {this.state.fireRedirect ? <div>
+                <a href={`https://www.google.com/maps/dir/?api=1&origin&destination=${this.state.coordinates.lat},${this.state.coordinates.lng}&travelmode=walking&hl=de`} target="_blank" rel="noopener noreferrer">
                   <Message icon="arrow right" size="mini" header={this.state.displayText} />
                 </a>
-                <Message
-                  icon="undo"
-                  size="mini"
-                  header="Anderen QR-Code einscannen"
-                  onClick={() =>
-                    this.setState({
+                <Message icon="undo" size="mini" header="Anderen QR-Code einscannen" onClick={() => this.setState({
                       displayText: this.defaultDisplayText,
                       fireRedirect: false
-                    })
-                  }
-                />
-              </div>
-            ) : (
-              <div>
+                    })} />
+              </div> : <div>
                 <QrReader delay={this.state.delay} onError={this.handleError} onScan={this.handleScan} />
                 <Message icon="camera retro" size="mini" header={this.state.displayText} error={this.state.scanError} />
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    );
+              </div>}
+          </div>}
+      </div>;
   }
 }

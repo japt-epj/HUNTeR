@@ -78,7 +78,7 @@ public class PersonController implements PersonApi, PaginatedPerson {
     if (person.isPresent()
         && passwordEncoder.matches(body.getCurrentPassword(), person.get().getPassword())) {
       String passwordHash = person.get().getPassword();
-      if (!body.getNewPassword().equals("")) {
+      if (!body.getNewPassword().isEmpty()) {
         passwordHash = passwordEncoder.encode(body.getNewPassword());
       }
       personModel.updatePeople(body, personId, passwordHash);
