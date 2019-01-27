@@ -38,12 +38,13 @@ public class LocationModel {
   }
 
   private static NextExerciseLocationDto createExerciseLocationDto(List<Location> locations) {
-    NextExerciseLocationDto dto = new NextExerciseLocationDto();
-    if (locations.size() == 0) {
+    if (locations.isEmpty()) {
       return null;
     }
     Location nextLocationToGo = locations.get(0);
     Exercise nextExerciseToDo = nextLocationToGo.getExercise();
+
+    NextExerciseLocationDto dto = new NextExerciseLocationDto();
     dto.setExerciseTitle(nextExerciseToDo.getName());
     dto.setLng(nextLocationToGo.getLng());
     dto.setLat(nextLocationToGo.getLat());
