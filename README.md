@@ -319,4 +319,4 @@ Postgres presents a certain bottleneck because horizontal scalability is not a s
 
 As we already use Docker, it would make sense to scale out also using containerization technologies. A possibility to achieve better horizontal scaling is to use [traefik](https://github.com/containous/traefik) together with [Kubernetes](https://kubernetes.io/) or [Docker Swarm](https://docs.docker.com/engine/swarm/).
 
-![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/update-readme/documentation/hunter_horizontal_scaling.png)
+![Teacher create exercise](https://github.com/japt-epj/HUNTeR/raw/master/documentation/hunter_horizontal_scaling.png)
