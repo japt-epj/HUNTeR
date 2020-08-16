@@ -1,7 +1,9 @@
-dist: trusty
 notifications:
     email: false
-sudo: required
+
+os: linux
+dist: trusty
+
 cache:
     directories:
         - $HOME/.m2
